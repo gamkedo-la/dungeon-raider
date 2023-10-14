@@ -8,15 +8,17 @@ class Level2 extends GameLevel {
   }
 
   preload () {
-
+    super.preload() // This may not actually preload anything since we have a Preload scene
   }
 
   create () {
-
+    super.create()
+    // Add any Level 2 specific stuff here, there may or may not be much since all of the levels will share most of the same functionality
   }
 
   update (time, delta) {
-
+    super.update(time, delta)
+    // Add any Level 2 specific stuff here, there may or may not be much since all of the levels will share most of the same functionality
   }
 }
 
