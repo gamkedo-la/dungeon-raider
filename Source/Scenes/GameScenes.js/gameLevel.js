@@ -1,11 +1,11 @@
 import { GameLevelKey, GameOverKey, GameCompleteKey } from "../../Keys/sceneKeys.js"
-import MapManager from "../../Managers/MapManager.js"
+import MapManager from "../../Managers/mapManager.js"
 
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
     super(sceneKey || GameLevelKey)
     this.mapKey = mapKey
-    this.mapManager = new MapManager(this, this.mapKey)
+    this.mapManager = null // can't create this until the scene is initialized => in create()
   }
 
   preload () {
@@ -13,7 +13,7 @@ class GameLevel extends Phaser.Scene {
   }
 
   create () {
-
+    this.mapManager = new MapManager(this, this.mapKey)
   }
 
   update (time, delta) {
