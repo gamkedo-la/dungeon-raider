@@ -1,3 +1,58 @@
+export const Races = {
+  Human: 'Human',
+  Elf: 'Elf',
+  Dwarf: 'Dwarf'
+}
+
+export const CharacterClasses = {
+  Warrior: 'Warrior',
+  Archer: 'Archer',
+  Magi: 'Magi',
+  Cleric: 'Cleric'
+}
+
+export function getCharacterAttributes (race, characterClass) {
+  const attributes = {
+    runSpeed: 0,
+    attackCooldown: 0,
+    health: 0,
+    healthLoss: 0,
+    magic: 0,
+    magicRegen: 0,
+    meleeDamage: 0,
+    rangedDamage: 0
+  }
+
+  switch (race) {
+    case Races.Human:
+      Object.assign(attributes, human)
+      break
+    case Races.Elf:
+      Object.assign(attributes, elf)
+      break
+    case Races.Dwarf:
+      Object.assign(attributes, dwarf)
+      break
+  }
+
+  switch (characterClass) {
+    case CharacterClasses.Warrior:
+      addWarriorModifiers(attributes)
+      break
+    case CharacterClasses.Archer:
+      addArcherModifiers(attributes)
+      break
+    case CharacterClasses.Magi:
+      addMagiModifiers(attributes)
+      break
+    case CharacterClasses.Cleric:
+      addClericModifiers(attributes)
+      break
+  }
+
+  return attributes
+}
+
 const human = {
   runSpeed: 5, // higher is better
   attackCooldown: 5, // lower is better
@@ -73,48 +128,6 @@ const clericModifiers = {
   magicRegen: 2,
   meleeDamage: 1,
   rangedDamage: 0
-}
-
-export function getCharacterAttributes (race, characterClass) {
-  const attributes = {
-    runSpeed: 0,
-    attackCooldown: 0,
-    health: 0,
-    healthLoss: 0,
-    magic: 0,
-    magicRegen: 0,
-    meleeDamage: 0,
-    rangedDamage: 0
-  }
-
-  switch (race) {
-    case 'human':
-      Object.assign(attributes, human)
-      break
-    case 'elf':
-      Object.assign(attributes, elf)
-      break
-    case 'dwarf':
-      Object.assign(attributes, dwarf)
-      break
-  }
-
-  switch (characterClass) {
-    case 'warrior':
-      addWarriorModifiers(attributes)
-      break
-    case 'archer':
-      addArcherModifiers(attributes)
-      break
-    case 'magi':
-      addMagiModifiers(attributes)
-      break
-    case 'cleric':
-      addClericModifiers(attributes)
-      break
-  }
-
-  return attributes
 }
 
 function addWarriorModifiers (attributes) {

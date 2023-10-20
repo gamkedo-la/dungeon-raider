@@ -1,5 +1,7 @@
 import { MasterTileset } from "../Keys/imageKeys.js"
-import { TileLayerKeys, ObjectLayerKeys } from "../Keys/mapLayerKeys.js"
+import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
+import TiledObjectTypes from "../Keys/tiledObjectKeys.js"
+import CollidableGIDs from "../Globals/collisionTiles.js"
 
 export default class MapManager {
   constructor (scene, tilemapKey) {
@@ -13,12 +15,48 @@ export default class MapManager {
       this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset)
     }
 
-    this.objects = {}
+    this.map.setCollision(CollidableGIDs, true, false, TileLayerKeys.Collision, false)
+
+    this.player1Spawn = null
+    this.player2Spawn = null
+    this.player3Spawn = null
+    this.player4Spawn = null
+
     for (const objectLayer of this.map.objects) {
       for (const object of objectLayer.objects) {
-        if (!this.objects[object.type]) this.objects[object.type] = []
-        this.objects[object.type].push(object)
+        // Tiled uses Upper Left as the origin/anchor, Phaser uses Center
+        object.x += object.width / 2
+        object.y += object.height / 2
+        processObject(this, object)
       }
     }
+  }
+}
+
+function processObject (manager, object) {
+  switch (object.type) {
+    case TiledObjectTypes.SpawnPoint:
+      processPlayerSpawnObject(manager, object)
+      break
+    default:
+      console.warn(`Unknown object type: ${object.type}`)
+      break
+  }
+}
+
+function processPlayerSpawnObject (manager, object) {
+  switch (object.name) {
+    case 'Player1Spawn':
+      manager.player1Spawn = object
+      break
+    case 'Player2Spawn':
+      manager.player2Spawn = object
+      break
+    case 'Player3Spawn':
+      manager.player3Spawn = object
+      break
+    case 'Player4Spawn':
+      manager.player4Spawn = object
+      break
   }
 }
