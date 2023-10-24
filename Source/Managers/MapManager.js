@@ -2,6 +2,7 @@ import { MasterTileset } from "../Keys/imageKeys.js"
 import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
 import TiledObjectTypes from "../Keys/tiledObjectKeys.js"
 import CollidableGIDs from "../Globals/collisionTiles.js"
+import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
 export default class MapManager {
   constructor (scene, tilemapKey) {
@@ -30,6 +31,22 @@ export default class MapManager {
         processObject(this, object)
       }
     }
+  }
+
+  getPlayerSpawn (player) {
+    switch (player) {
+      case Player1Keys.Player:
+        return this.player1Spawn
+      case Player2Keys.Player:
+        return this.player2Spawn
+      case Player3Keys.Player:
+        return this.player3Spawn
+      case Player4Keys.Player:
+        return this.player4Spawn
+      default:
+        return null
+    }
+  
   }
 }
 

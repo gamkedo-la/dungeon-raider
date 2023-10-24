@@ -19,6 +19,9 @@ class Level1 extends GameLevel {
   update (time, delta) {
     super.update(time, delta)
     // Add any Level 1 specific stuff here, there may or may not be much since all of the levels will share most of the same functionality
+
+    // TODO: When all Characters have exited the Level 1 Dungeon, transition to the Inter-Level Scene
+    // TODO: If all Characters have died, transition to the Game Over Scene
   }
 }
 

@@ -1,19 +1,146 @@
-import { CharacterClasses, Races } from "../Globals/characterAttributes.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
+import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
+import InputEventKeys from "../Keys/inputEventKeys.js"
 
 export const GameManagerKey = 'game-manager'
+export const PlayerCountKey = 'player-count'
 
 export default class GameManager {
   constructor (game) {
     this.game = game
 
-    // TODO: Remove this when we have a proper menu
-    this.setPlayerRace(Player1Keys.Player, Races.Elf)
-    this.setPlayerClass(Player1Keys.Player, CharacterClasses.Warrior)
-    // END TODO
+    createDebugCharacter(this)
   }
 
-  getPlayerRace (player) {
+  getPlayerCount () {
+    return this.game.registry.get(PlayerCountKey)
+  }
+
+  setPlayerCount (playerCount) {
+    this.game.registry.set(PlayerCountKey, playerCount)
+  }
+
+  getPlayerForInputOption (inputOption) {
+    switch (inputOption) {
+      case Player1Keys.Input:
+        return Player1Keys.Player
+      case Player2Keys.Input:
+        return Player2Keys.Player
+      case Player3Keys.Input:
+        return Player3Keys.Player
+      case Player4Keys.Input:
+        return Player4Keys.Player
+      default:
+        return null
+    }
+  }
+
+  getInputEventForPlayer (player) {
+    switch (this.getInputForPlayer(player)) {
+      case InputOptionsKeys.WASD:
+        return InputEventKeys.onWASD
+      case InputOptionsKeys.Arrows:
+        return InputEventKeys.onArrows
+      case InputOptionsKeys.Gamepad1:
+        return InputEventKeys.onGamepad1
+      case InputOptionsKeys.Gamepad2:
+        return InputEventKeys.onGamepad2
+      case InputOptionsKeys.Gamepad3:
+        return InputEventKeys.onGamepad3
+      case InputOptionsKeys.Gamepad4:
+        return InputEventKeys.onGamepad4
+      default:
+        return null
+    }
+  }
+
+  setInputForNextPlayer (inputOption) {
+    if (!Player1Keys.Active) {
+      this.setActivePlayer(Player1Keys.Player, inputOption, true)
+      return Player1Keys.Player
+    } else if (!Player2Keys.Active) {
+      this.setActivePlayer(Player2Keys.Player, inputOption, true)
+      return Player2Keys.Player
+    } else if (!Player3Keys.Active) {
+      this.setActivePlayer(Player3Keys.Player, inputOption, true)
+      return Player3Keys.Player
+    } else if (!Player4Keys.Active) {
+      this.setActivePlayer(Player4Keys.Player, inputOption, true)
+      return Player4Keys.Player
+    } else {
+      return false
+    }
+  }
+
+  getActivePlayers () {
+    const activePlayers = []
+    if (this.game.registry.get(Player1Keys.Active)) {
+      activePlayers.push(Player1Keys.Player)
+    }
+    if (this.game.registry.get(Player2Keys.Active)) {
+      activePlayers.push(Player2Keys.Player)
+    }
+    if (this.game.registry.get(Player3Keys.Active)) {
+      activePlayers.push(Player3Keys.Player)
+    }
+    if (this.game.registry.get(Player4Keys.Active)) {
+      activePlayers.push(Player4Keys.Player)
+    }
+    return activePlayers
+  }
+
+  setActivePlayer (player, input, isActive = true) {
+    switch (player) {
+      case Player1Keys.Player:
+        this.game.registry.set(Player1Keys.Active, isActive)
+        if(input !== undefined) this.game.registry.set(Player1Keys.Input, input)
+        break
+      case Player2Keys.Player:
+        this.game.registry.set(Player2Keys.Active, isActive)
+        if(input !== undefined) this.game.registry.set(Player2Keys.Input, input)
+        break
+      case Player3Keys.Player:
+        this.game.registry.set(Player3Keys.Active, isActive)
+        if(input !== undefined) this.game.registry.set(Player3Keys.Input, input)
+        break
+      case Player4Keys.Player:
+        this.game.registry.set(Player4Keys.Active, isActive)
+        if(input !== undefined) this.game.registry.set(Player4Keys.Input, input)
+        break
+    }
+  }
+
+  getInputForPlayer (player) {
+    switch (player) {
+      case Player1Keys.Player:
+        return this.game.registry.get(Player1Keys.Input)
+      case Player2Keys.Player:
+        return this.game.registry.get(Player2Keys.Input)
+      case Player3Keys.Player:
+        return this.game.registry.get(Player3Keys.Input)
+      case Player4Keys.Player:
+        return this.game.registry.get(Player4Keys.Input)
+    }
+  }
+
+  setInputForPlayer (player, input) {
+    switch (player) {
+      case Player1Keys.Player:
+        this.game.registry.set(Player1Keys.Input, input)
+        break
+      case Player2Keys.Player:
+        this.game.registry.set(Player2Keys.Input, input)
+        break
+      case Player3Keys.Player:
+        this.game.registry.set(Player3Keys.Input, input)
+        break
+      case Player4Keys.Player:
+        this.game.registry.set(Player4Keys.Input, input)
+        break
+    }
+  }
+
+  getCharacterRaceForPlayer (player) {
     switch (player) {
       case Player1Keys.Player:
         return this.game.registry.get(Player1Keys.Race)
@@ -26,7 +153,7 @@ export default class GameManager {
     }
   }
 
-  setPlayerRace (player, race) {
+  setCharacterRaceForPlayer (player, race) {
     switch (player) {
       case Player1Keys.Player:
         return this.game.registry.set(Player1Keys.Race, race)
@@ -39,7 +166,7 @@ export default class GameManager {
     }
   }
 
-  getPlayerClass (player) {
+  getCharacterClassForPlayer (player) {
     switch (player) {
       case Player1Keys.Player:
         return this.game.registry.get(Player1Keys.Class)
@@ -52,7 +179,7 @@ export default class GameManager {
     }
   }
 
-  setPlayerClass (player, characterClass) {
+  setCharacterClassForPlayer (player, characterClass) {
     switch (player) {
       case Player1Keys.Player:
         return this.game.registry.set(Player1Keys.Class, characterClass)
@@ -65,63 +192,55 @@ export default class GameManager {
     }
   }
 
-  getPlayerLives (player) {
+  getCharacterAttributesForPlayer (player) {
     switch (player) {
       case Player1Keys.Player:
-        return this.game.registry.get(Player1Keys.Lives)
+        return this.game.registry.get(Player1Keys.Attributes)
       case Player2Keys.Player:
-        return this.game.registry.get(Player2Keys.Lives)
+        return this.game.registry.get(Player2Keys.Attributes)
       case Player3Keys.Player:
-        return this.game.registry.get(Player3Keys.Lives)
+        return this.game.registry.get(Player3Keys.Attributes)
       case Player4Keys.Player:
-        return this.game.registry.get(Player4Keys.Lives)
+        return this.game.registry.get(Player4Keys.Attributes)
     }
   }
 
-  setPlayerLives (player, lives) {
+  setCharacterAttributesForPlayer (player, health) {
     switch (player) {
       case Player1Keys.Player:
-        this.game.registry.set(Player1Keys.Lives, lives)
+        this.game.registry.set(Player1Keys.Attributes, health)
         break
       case Player2Keys.Player:
-        this.game.registry.set(Player2Keys.Lives, lives)
+        this.game.registry.set(Player2Keys.Attributes, health)
         break
       case Player3Keys.Player:
-        this.game.registry.set(Player3Keys.Lives, lives)
+        this.game.registry.set(Player3Keys.Attributes, health)
         break
       case Player4Keys.Player:
-        this.game.registry.set(Player4Keys.Lives, lives)
+        this.game.registry.set(Player4Keys.Attributes, health)
         break
     }
   }
 
-  getPlayerHealth (player) {
+  getPlayerKeysForPlayer (player) {
     switch (player) {
       case Player1Keys.Player:
-        return this.game.registry.get(Player1Keys.Health)
+        return Player1Keys
       case Player2Keys.Player:
-        return this.game.registry.get(Player2Keys.Health)
+        return Player2Keys
       case Player3Keys.Player:
-        return this.game.registry.get(Player3Keys.Health)
+        return Player3Keys
       case Player4Keys.Player:
-        return this.game.registry.get(Player4Keys.Health)
+        return Player4Keys
     }
   }
+}
 
-  setPlayerHealth (player, health) {
-    switch (player) {
-      case Player1Keys.Player:
-        this.game.registry.set(Player1Keys.Health, health)
-        break
-      case Player2Keys.Player:
-        this.game.registry.set(Player2Keys.Health, health)
-        break
-      case Player3Keys.Player:
-        this.game.registry.set(Player3Keys.Health, health)
-        break
-      case Player4Keys.Player:
-        this.game.registry.set(Player4Keys.Health, health)
-        break
-    }
-  }
+function createDebugCharacter (gameManager) {
+  // TODO: All of this must be managed on the Title and/or Character Create Screen(s). Remove this and the whole function when we can do it properly
+  gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
+  gameManager.setActivePlayer(Player2Keys.Player, null, false)
+  gameManager.setActivePlayer(Player3Keys.Player, null, false)
+  gameManager.setActivePlayer(Player4Keys.Player, null, false)
+  // END TODO
 }

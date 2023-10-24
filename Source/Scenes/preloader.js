@@ -5,6 +5,10 @@ import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
+import { Player1Keys } from "../Keys/playerPropertyKeys.js"
+import { CharacterClasses, Races } from "../Globals/characterAttributes.js"
+import { getCharacterAttributes } from "../Globals/characterAttributes.js"
+import Character from "../Entities/character.js"
 // import AtlasKeys from '../Keys/atlasKeys.js'
 
 class Preloader extends Phaser.Scene {
@@ -41,12 +45,32 @@ class Preloader extends Phaser.Scene {
   }
 
   create () {
-    this.game.registry.set(GameManagerKey, new GameManager(this.game))
+    const gameManager = new GameManager(this.game)
+    this.game.registry.set(GameManagerKey, gameManager)
+
+    // TODO: Move this into the Character Create Scene
+    createPlayer1Character(this, gameManager)
+
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
     // this.scene.start(TitleKey)
     this.scene.start(Level1Key)
     this.scene.remove(PreloaderKey)
   }
+}
+
+function createPlayer1Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Elf, CharacterClasses.Warrior)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player1Keys.Player,
+    race: Races.Elf,
+    characterClass: CharacterClasses.Warrior,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
+  }))
+
+  newCharacter.serialize()
 }
 
 export default Preloader

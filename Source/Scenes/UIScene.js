@@ -1,5 +1,5 @@
 import { UserInterfaceKey } from "../Keys/sceneKeys.js"
-import GameManager from "../Managers/GameManager.js"
+import GameManager from "../Managers/gameManager.js"
 
 class UserInterface extends Phaser.Scene {
   constructor () {
@@ -7,7 +7,9 @@ class UserInterface extends Phaser.Scene {
   }
 
   preload () {
+    super.preload()
 
+    // May not need to preload anything here since we have a Preloader scene
   }
 
   create () {
@@ -15,7 +17,7 @@ class UserInterface extends Phaser.Scene {
   }
 
   update (time, delta) {
-    // get player health and lives from Game Manager
+    // get player health, weapons, armor, equipment, etc. from Game Manager
   }
 }
 
