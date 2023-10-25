@@ -1,8 +1,6 @@
-import { GameLevelKey, GameOverKey, GameCompleteKey } from "../../Keys/sceneKeys.js"
+import { GameLevelKey, GameOverKey, GameCompleteKey, InterLevelKey } from "../../Keys/sceneKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import Character from "../../Entities/character.js"
-import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../../Keys/playerPropertyKeys.js"
-import { Races, CharacterClasses } from "../../Globals/characterAttributes.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import InputManager from '../../Managers/inputManager.js'
 
@@ -14,6 +12,7 @@ class GameLevel extends Phaser.Scene {
     this.mapManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.players = []
+    this.debugGraphics = null
   }
 
   preload () {
@@ -43,7 +42,14 @@ class GameLevel extends Phaser.Scene {
       this.physics.add.existing(character)
       this.add.existing(character)
       character.setInputManager(this.inputManager)
+
+      this.physics.add.collider(character, this.mapManager.layers.CollisionLayer, this.characterMapCollision, null, this)
+      this.debugGraphics = this.add.graphics()
     }
+  }
+
+  characterMapCollision (character, tile) {
+    console.log(`Collision: ${character.entityType} ${tile}`)
   }
 
   update (time, delta) {
@@ -52,6 +58,16 @@ class GameLevel extends Phaser.Scene {
     // Updating Game Objects can make it hard or impossible to predict what the state
     // of the Game Object is when this method fires.
 
+    this.drawDebug()
+  }
+
+  drawDebug () {
+    this.debugGraphics.clear()
+    this.mapManager.map.renderDebugFull(this.debugGraphics, {
+      tileColor: null,
+      collidingTileColor: new Phaser.Display.Color(255, 0, 0, 100),
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+    })
   }
 }
 

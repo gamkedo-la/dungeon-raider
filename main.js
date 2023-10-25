@@ -32,7 +32,11 @@ const Game = new Phaser.Game({
   height: 450,
   scene: scenes,
   physics: {
-    default: 'arcade'
+    default: 'arcade',
+    arcade: {
+      debug: true,
+      tileBias: 32
+    }
   },
   scale: {
     mode: Phaser.Scale.FIT,

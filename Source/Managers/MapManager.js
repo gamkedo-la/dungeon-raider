@@ -13,10 +13,9 @@ export default class MapManager {
 
     this.layers = {}
     for (const layerKey in TileLayerKeys) {
-      this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset)
+      this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset).layer.tilemapLayer
+      if (TileLayerKeys[layerKey] === TileLayerKeys.CollisionLayer) this.map.setCollision(CollidableGIDs, true)
     }
-
-    this.map.setCollision(CollidableGIDs, true, false, TileLayerKeys.Collision, false)
 
     this.player1Spawn = null
     this.player2Spawn = null

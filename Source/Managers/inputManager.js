@@ -40,13 +40,9 @@ export default class InputManager {
   }
 
   update (time, delta) {
-    // console.log(`InputManager.update: ${this.inputMethods[InputOptionsKeys.Arrows].right.isDown}`)
     if (this.inputMethods[InputOptionsKeys.Arrows]) {
       for (const control in this.inputMethods[InputOptionsKeys.Arrows]) {
-        // console.log(`Control: ${Object.keys(this.inputMethods[InputOptionsKeys.Arrows][control])}`)
-        // console.log(`InputManager.update.Arrows (keys): ${Object.keys(this.inputMethods[InputOptionsKeys.Arrows][key].isDown)}`)
         if (this.inputMethods[InputOptionsKeys.Arrows][control].isDown) {
-          console.log(`InputManager.update - control isDown: ${control}`)
           this.eventEmitter.emit(InputEventKeys.onArrows, this.inputMethods[InputOptionsKeys.Arrows])
           break
         }
@@ -54,10 +50,8 @@ export default class InputManager {
     }
 
     if (this.inputMethods[InputOptionsKeys.WASD]) {
-      for (let key in this.inputMethods[InputOptionsKeys.WASD]) {
-        // console.log(`InputManager.update.WASD (keys): ${Object.keys(this.inputMethods[InputOptionsKeys.WASD][key].isDown)}`)
-        if (this.inputMethods[InputOptionsKeys.WASD][key].isDown) {
-          console.log(`InputManager.update.isDown: ${key}`)
+      for (const control in this.inputMethods[InputOptionsKeys.WASD]) {
+        if (this.inputMethods[InputOptionsKeys.WASD][control].isDown) {
           this.eventEmitter.emit(InputEventKeys.onWASD, this.inputMethods[InputOptionsKeys.WASD])
           break
         }

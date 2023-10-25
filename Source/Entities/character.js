@@ -1,5 +1,6 @@
 import { SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
+import { CharacterType } from '../Keys/entityKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -9,6 +10,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     super(scene, tempPosition.x, tempPosition.y, texture, frame) // actual position will be set by the Level Scene
 
     this.scene = scene
+    this.entityType = CharacterType
     this.player = config.player
     this.race = config.race
     this.characterClass = config.characterClass
@@ -17,30 +19,62 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.inputEvent = config.inputEvent
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
+    this.attributes.runSpeed = 100 // TODO: this should be set by the character's attributes
 
     this.shouldBeDead = false
     this.isDead = false
+
+    this.scene.events.on('update', this.update, this)
   }
 
-  preupdate (time, delta) {
-    super.preupdate(time, delta)
+  preUpdate (time, delta) {
+    super.preUpdate(time, delta)
     
     // TODO: Update the Character's position based on the results of 'processInput' which will not necessarily be called at a convenient time
   }
 
-  processInput (event) {
-    console.log(event)
-  }
-
-  postupdate () {
+  update (time, delta) {
     if (this.isDead) return
 
-    super.postupdate()
-
-    // TODO: May need to do some work here, updating health or other stats, though that may be handled elsewhere when collisions occur
-    // TODO: This is a good place to check if the character has died and take dead character actions if so
     if (this.shouldBeDead) {
       characterDied(this)
+      return
+    }
+
+    this.body.setVelocity(0, 0)
+  }
+
+  processInput (event) {
+    if (event.right.isDown) {
+      if (event.left.isDown) {
+        this.body.velocity.x = 0
+      } else {
+        this.body.velocity.x = this.attributes.runSpeed
+      }
+    } else if (event.left.isDown) {
+      if (event.right.isDown) {
+        this.body.velocity.x = 0
+      } else {
+        this.body.velocity.x = -this.attributes.runSpeed
+      }
+    } else {
+      this.body.velocity.x = 0
+    }
+
+    if (event.up.isDown) {
+      if (event.down.isDown) {
+        this.body.velocity.y = 0
+      } else {
+        this.body.velocity.y = -this.attributes.runSpeed
+      }
+    }
+
+    if (event.down.isDown) {
+      if (event.up.isDown) {
+        this.body.velocity.y = 0
+      } else {
+        this.body.velocity.y = this.attributes.runSpeed
+      }
     }
   }
 
