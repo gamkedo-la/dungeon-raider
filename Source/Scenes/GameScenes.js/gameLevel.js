@@ -3,6 +3,7 @@ import MapManager from "../../Managers/mapManager.js"
 import Character from "../../Entities/character.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import InputManager from '../../Managers/inputManager.js'
+import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
 
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
@@ -20,9 +21,12 @@ class GameLevel extends Phaser.Scene {
   }
 
   create () {
+    this.physics.world.debugGraphic.visible = false
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.mapManager = new MapManager(this, this.mapKey)
     this.inputManager = new InputManager(this, this.gameManager)
+    this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
+    this.inputManager.registerForEvent(onPause, this.togglePause, this)
 
     const activePlayers = this.gameManager.getActivePlayers()
     for (const activePlayer of activePlayers) {
@@ -58,7 +62,15 @@ class GameLevel extends Phaser.Scene {
     // Updating Game Objects can make it hard or impossible to predict what the state
     // of the Game Object is when this method fires.
 
-    this.drawDebug()
+    if (this.physics.world.debugGraphic.visible) {
+      this.drawDebug()
+    } else {
+      this.debugGraphics.clear()
+    }
+  }
+
+  toggleDebug () {
+    this.physics.world.debugGraphic.visible = !this.physics.world.debugGraphic.visible
   }
 
   drawDebug () {
@@ -68,6 +80,10 @@ class GameLevel extends Phaser.Scene {
       collidingTileColor: new Phaser.Display.Color(255, 0, 0, 100),
       faceColor: new Phaser.Display.Color(40, 39, 37, 255)
     })
+  }
+
+  togglePause () {
+    console.log('GameLevel.togglePause')
   }
 }
 

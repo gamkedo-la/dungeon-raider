@@ -6,6 +6,8 @@ export default class InputManager {
   constructor (scene, gameManager) {
     this.scene = scene
     this.gameManager = gameManager
+    this.debugCooldownClear = true
+    this.pauseCooldownClear = true
 
     this.inputMethods = {
       [InputOptionsKeys.WASD]: this.scene.input.keyboard.addKeys({
@@ -15,7 +17,11 @@ export default class InputManager {
       [InputOptionsKeys.Gamepad1]: false,
       [InputOptionsKeys.Gamepad2]: false,
       [InputOptionsKeys.Gamepad3]: false,
-      [InputOptionsKeys.Gamepad4]: false
+      [InputOptionsKeys.Gamepad4]: false,
+
+      // Non-game control inputs
+      [InputOptionsKeys.Pause]: this.scene.input.keyboard.addKey(KeyCodes.ESC),
+      [InputOptionsKeys.Debug]: this.scene.input.keyboard.addKey(KeyCodes.F1),
     }
 
     this.eventEmitter = new Phaser.Events.EventEmitter()
@@ -59,5 +65,22 @@ export default class InputManager {
     }
 
     // TODO: Continue on with gamepad inputs
+
+    // Non-game control inputs
+    if (this.inputMethods[InputOptionsKeys.Pause].isDown) {
+      if (this.pauseCooldownClear) {
+        this.eventEmitter.emit(InputEventKeys.onPause)
+        this.pauseCooldownClear = false
+        this.scene.time.delayedCall(100, () => { this.pauseCooldownClear = true }, [], this)
+      }
+    }
+
+    if (this.inputMethods[InputOptionsKeys.Debug].isDown) {
+      if (this.debugCooldownClear) {
+        this.eventEmitter.emit(InputEventKeys.onDebug)
+        this.debugCooldownClear = false
+        this.scene.time.delayedCall(100, () => { this.debugCooldownClear = true }, [], this)
+      }
+    }
   }
 }
