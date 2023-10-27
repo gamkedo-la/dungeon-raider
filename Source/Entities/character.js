@@ -1,6 +1,7 @@
 import { SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
 import { CharacterType } from '../Keys/entityKeys.js'
+import InputEventKeys from '../Keys/inputEventKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -15,25 +16,33 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.race = config.race
     this.characterClass = config.characterClass
     this.gameManager = config.gameManager
-    this.inputManager = null // input manager will be set by the Level Scene
+
+    // Set Input properties
     this.inputEvent = config.inputEvent
+    if (this.inputEvent === InputEventKeys.onArrows || this.inputEvent === InputEventKeys.onWASD) {
+      this.processInput = this.useKeyboardInput
+    } else {
+      this.processInput = this.useGamepadInput
+    }
+    this.inputManager = null // input manager will be set by the Level Scene
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
-    this.attributes.runSpeed = 100 // TODO: this should be set by the character's attributes
 
     this.shouldBeDead = false
     this.isDead = false
 
+    // Register for the 'update
     this.scene.events.on('update', this.update, this)
   }
 
   preUpdate (time, delta) {
     super.preUpdate(time, delta)
-    
-    // TODO: Update the Character's position based on the results of 'processInput' which will not necessarily be called at a convenient time
+
+    // Do stuff each game step before the physics/collision simulation
   }
 
   update (time, delta) {
+    // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
     if (this.isDead) return
 
     if (this.shouldBeDead) {
@@ -44,7 +53,24 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.body.setVelocity(0, 0)
   }
 
-  processInput (event) {
+  setInputManager (inputManager) {
+    this.inputManager = inputManager
+    this.inputManager.registerForEvent(this.inputEvent, this.processInput, this)
+  }
+
+  didCollideWith (otherEntity) {
+    // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
+    switch (otherEntity.entityType) {
+      // case CharacterType:
+      //   this.shouldBeDead = true
+      //   break
+      default:
+        console.log(`Character.didCollideWith: ${this.player} collided with ${otherEntity.entityType}`)
+        break
+    }
+  }
+
+  useKeyboardInput (event) {
     if (event.right.isDown) {
       if (event.left.isDown) {
         this.body.velocity.x = 0
@@ -60,7 +86,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else {
       this.body.velocity.x = 0
     }
-
+  
     if (event.up.isDown) {
       if (event.down.isDown) {
         this.body.velocity.y = 0
@@ -68,7 +94,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
         this.body.velocity.y = -this.attributes.runSpeed
       }
     }
-
+  
     if (event.down.isDown) {
       if (event.up.isDown) {
         this.body.velocity.y = 0
@@ -77,10 +103,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
       }
     }
   }
-
-  setInputManager (inputManager) {
-    this.inputManager = inputManager
-    this.inputManager.registerForEvent(this.inputEvent, this.processInput, this)
+  
+  useGamepadInput (event) {
+    // TODO: Need to implement this
   }
 
   serialize () {
@@ -88,7 +113,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.gameManager.setCharacterRaceForPlayer(this.player, this.race)
     this.gameManager.setCharacterClassForPlayer(this.player, this.characterClass)
     this.gameManager.setCharacterAttributesForPlayer(this.player, this.attributes)
-    // this.gameManager.setCharacterMagicForPlayer(this.player, this.magic)
   }
 }
 
@@ -132,4 +156,6 @@ function getSpriteSheet (race, characterClass) {
 
 function characterDied (character) {
   console.log(`${character.player} died!`)
+  character.isDead = true
+  character.destroy() // when destroy() returns, this GameObject no longer has a scene (character.scene === null) and many things will be broken if we try to do anything else with this GameObject
 }

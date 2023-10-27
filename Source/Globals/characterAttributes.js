@@ -54,7 +54,7 @@ export function getCharacterAttributes (race, characterClass) {
 }
 
 const human = {
-  runSpeed: 5, // higher is better
+  runSpeed: 85, // higher is better
   attackCooldown: 5, // lower is better
   health: 100,  // higher is better
   healthLoss: 5, // lower is better
@@ -65,7 +65,7 @@ const human = {
 }
 
 const elf = {
-  runSpeed: 7,
+  runSpeed: 100,
   attackCooldown: 3,
   health: 80,
   healthLoss: 7,
@@ -76,7 +76,7 @@ const elf = {
 }
 
 const dwarf = {
-  runSpeed: 3,
+  runSpeed: 70,
   attackCooldown: 7,
   health: 120,
   healthLoss: 3,

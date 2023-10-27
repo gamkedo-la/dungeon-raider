@@ -1,8 +1,9 @@
 import { GameLevelKey, GameOverKey, GameCompleteKey, InterLevelKey } from "../../Keys/sceneKeys.js"
 import MapManager from "../../Managers/mapManager.js"
+import InputManager from '../../Managers/inputManager.js'
+import CollisionManager from "../../Managers/collisionManager.js"
 import Character from "../../Entities/character.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
-import InputManager from '../../Managers/inputManager.js'
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
 
 class GameLevel extends Phaser.Scene {
@@ -24,6 +25,7 @@ class GameLevel extends Phaser.Scene {
     this.physics.world.debugGraphic.visible = false
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.mapManager = new MapManager(this, this.mapKey)
+    this.collisionManager = new CollisionManager(this, this.mapManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
@@ -40,14 +42,14 @@ class GameLevel extends Phaser.Scene {
         inputEvent: this.gameManager.getInputEventForPlayer(activePlayer)
       }))
 
+      character.setInputManager(this.inputManager)
       const playerSpawnPos = this.mapManager.getPlayerSpawn(activePlayer)
       character.setPosition(playerSpawnPos.x, playerSpawnPos.y)
 
-      this.physics.add.existing(character)
-      this.add.existing(character)
-      character.setInputManager(this.inputManager)
+      // this.physics.add.existing(character)
+      this.collisionManager.addEntity(character) // add the character to the physics simulation and enable collisions
+      this.add.existing(character) // add the character to the scene => will be visible and updated
 
-      this.physics.add.collider(character, this.mapManager.layers.CollisionLayer, this.characterMapCollision, null, this)
       this.debugGraphics = this.add.graphics()
     }
   }
