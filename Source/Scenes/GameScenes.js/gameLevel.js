@@ -13,7 +13,7 @@ class GameLevel extends Phaser.Scene {
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.mapManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
-    this.players = []
+    this.characters = []
     this.debugGraphics = null
   }
 
@@ -30,6 +30,13 @@ class GameLevel extends Phaser.Scene {
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
 
+    this.createCharacters()
+    this.cameras.main.setBounds(0, 0, this.mapManager.map.widthInPixels, this.mapManager.map.heightInPixels)
+
+    this.debugGraphics = this.add.graphics()
+  }
+
+  createCharacters () {
     const activePlayers = this.gameManager.getActivePlayers()
     for (const activePlayer of activePlayers) {
       const attributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
@@ -50,7 +57,7 @@ class GameLevel extends Phaser.Scene {
       this.collisionManager.addEntity(character) // add the character to the physics simulation and enable collisions
       this.add.existing(character) // add the character to the scene => will be visible and updated
 
-      this.debugGraphics = this.add.graphics()
+      this.characters.push(character)
     }
   }
 
@@ -69,6 +76,15 @@ class GameLevel extends Phaser.Scene {
     } else {
       this.debugGraphics.clear()
     }
+
+    const cameraPos = { x: 0, y: 0 }
+    for (const character of this.characters) {
+      cameraPos.x += character.x
+      cameraPos.y += character.y
+    }
+    cameraPos.x /= this.characters.length
+    cameraPos.y /= this.characters.length
+    this.cameras.main.centerOn(this.characters[0].x, this.characters[0].y)
   }
 
   toggleDebug () {

@@ -102,6 +102,18 @@ export default class Character extends Phaser.GameObjects.Sprite {
         this.body.velocity.y = this.attributes.runSpeed
       }
     }
+
+    if (this.body.velocity.x > 0 && ((this.x + (this.width / 2)) >= (this.scene.cameras.main.scrollX + this.scene.cameras.main.width))) {
+      this.body.velocity.x = 0
+    } else if (this.body.velocity.x < 0 && ((this.x - (this.width / 2)) <= (this.scene.cameras.main.scrollX - this.scene.cameras.main.width))) {
+      this.body.velocity.x = 0
+    }
+
+    if (this.body.velocity.y > 0 && ((this.y + (this.height / 2)) >= (this.scene.cameras.main.scrollY + this.scene.cameras.main.height))) {
+      this.body.velocity.y = 0
+    } else if (this.body.velocity.y < 0 && ((this.y - (this.height / 2)) <= (this.scene.cameras.main.scrollY - this.scene.cameras.main.height))) {
+      this.body.velocity.y = 0
+    }
   }
   
   useGamepadInput (event) {
