@@ -31,7 +31,7 @@ class GameLevel extends Phaser.Scene {
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
 
     this.createCharacters()
-    this.cameras.main.setBounds(0, 0, this.mapManager.map.widthInPixels, this.mapManager.map.heightInPixels)
+    this.setupCamera()
 
     this.debugGraphics = this.add.graphics()
   }
@@ -49,7 +49,7 @@ class GameLevel extends Phaser.Scene {
         inputEvent: this.gameManager.getInputEventForPlayer(activePlayer)
       }))
 
-      character.setInputManager(this.inputManager)
+      // character.setInputManager(this.inputManager)
       const playerSpawnPos = this.mapManager.getPlayerSpawn(activePlayer)
       character.setPosition(playerSpawnPos.x, playerSpawnPos.y)
 
@@ -61,8 +61,22 @@ class GameLevel extends Phaser.Scene {
     }
   }
 
-  characterMapCollision (character, tile) {
-    console.log(`Collision: ${character.entityType} ${tile}`)
+  setupCamera () {
+    this.cameras.main.setBounds(0, 0, this.mapManager.map.widthInPixels, this.mapManager.map.heightInPixels)
+    this.cameras.main.setZoom(0.25)
+    this.tweens.add({
+      targets: this.cameras.main,
+      zoom: 1,
+      delay: 1000,
+      duration: 2000,
+      ease: Phaser.Math.Easing.Quadratic.InOut,
+      onComplete: () => {
+        for (const character of this.characters) {
+          character.setInputManager(this.inputManager)
+        }
+      },
+      onCompleteScope: this
+    })
   }
 
   update (time, delta) {
