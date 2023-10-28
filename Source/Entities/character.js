@@ -23,8 +23,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.animations = {
       idle: null,
       walk: null,
-      attack1: null,
-      attack2: null,
+      primary: null,
+      secondary: null,
       injured: null,
       death: null,
       dead: null
@@ -32,6 +32,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
     this.buildAnimations()
     this.anims.play(this.animationKeys.idle, this)
+    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
     // Set Input properties
     this.inputEvent = config.inputEvent
@@ -41,6 +42,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.processInput = this.useGamepadInput
     }
     this.inputManager = null // input manager will be set by the Level Scene
+    this.primaryAttackCoolingDown = false
+    this.secondaryAttackCoolingDown = false
+    this.isAttacking = false
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
 
@@ -64,8 +68,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Warrior: return {
         idle: AnimationKeys.ElvenWarriorIdle,
         walk: AnimationKeys.ElvenWarriorWalk,
-        attack1: AnimationKeys.ElvenWarriorAttack1,
-        attack2: AnimationKeys.ElvenWarriorAttack2,
+        primary: AnimationKeys.ElvenWarriorPrimary,
+        secondary: AnimationKeys.ElvenWarriorSecondary,
         injured: AnimationKeys.ElvenWarriorInjured,
         death: AnimationKeys.ElvenWarriorDeath,
         dead: AnimationKeys.ElvenWarriorDead
@@ -73,8 +77,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Archer: return {
         idle: AnimationKeys.ElvenArcherIdle,
         walk: AnimationKeys.ElvenArcherWalk,
-        attack1: AnimationKeys.ElvenArcherAttack1,
-        attack2: AnimationKeys.ElvenArcherAttack2,
+        primary: AnimationKeys.ElvenArcherPrimary,
+        secondary: AnimationKeys.ElvenArcherSecondary,
         injured: AnimationKeys.ElvenArcherInjured,
         death: AnimationKeys.ElvenArcherDeath,
         dead: AnimationKeys.ElvenArcherDead
@@ -82,8 +86,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Cleric: return {
         idle: AnimationKeys.ElvenClericIdle,
         walk: AnimationKeys.ElvenClericWalk,
-        attack1: AnimationKeys.ElvenClericAttack1,
-        attack2: AnimationKeys.ElvenClericAttack2,
+        primary: AnimationKeys.ElvenClericPrimary,
+        secondary: AnimationKeys.ElvenClericSecondary,
         injured: AnimationKeys.ElvenClericInjured,
         death: AnimationKeys.ElvenClericDeath,
         dead: AnimationKeys.ElvenClericDead
@@ -91,8 +95,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Magi: return {
         idle: AnimationKeys.ElvenMagiIdle,
         walk: AnimationKeys.ElvenMagiWalk,
-        attack1: AnimationKeys.ElvenMagiAttack1,
-        attack2: AnimationKeys.ElvenMagiAttack2,
+        primary: AnimationKeys.ElvenMagiPrimary,
+        secondary: AnimationKeys.ElvenMagiSecondary,
         injured: AnimationKeys.ElvenMagiInjured,
         death: AnimationKeys.ElvenMagiDeath,
         dead: AnimationKeys.ElvenMagiDead
@@ -105,8 +109,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Warrior: return {
         idle: AnimationKeys.HumanWarriorIdle,
         walk: AnimationKeys.HumanWarriorWalk,
-        attack1: AnimationKeys.HumanWarriorAttack1,
-        attack2: AnimationKeys.HumanWarriorAttack2,
+        primary: AnimationKeys.HumanWarriorPrimary,
+        secondary: AnimationKeys.HumanWarriorSecondary,
         injured: AnimationKeys.HumanWarriorInjured,
         death: AnimationKeys.HumanWarriorDeath,
         dead: AnimationKeys.HumanWarriorDead
@@ -114,8 +118,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Archer: return {
         idle: AnimationKeys.HumanArcherIdle,
         walk: AnimationKeys.HumanArcherWalk,
-        attack1: AnimationKeys.HumanArcherAttack1,
-        attack2: AnimationKeys.HumanArcherAttack2,
+        primary: AnimationKeys.HumanArcherPrimary,
+        secondary: AnimationKeys.HumanArcherSecondary,
         injured: AnimationKeys.HumanArcherInjured,
         death: AnimationKeys.HumanArcherDeath,
         dead: AnimationKeys.HumanArcherDead
@@ -123,8 +127,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Cleric: return {
         idle: AnimationKeys.HumanClericIdle,
         walk: AnimationKeys.HumanClericWalk,
-        attack1: AnimationKeys.HumanClericAttack1,
-        attack2: AnimationKeys.HumanClericAttack2,
+        primary: AnimationKeys.HumanClericPrimary,
+        secondary: AnimationKeys.HumanClericSecondary,
         injured: AnimationKeys.HumanClericInjured,
         death: AnimationKeys.HumanClericDeath,
         dead: AnimationKeys.HumanClericDead
@@ -132,8 +136,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Magi: return {
         idle: AnimationKeys.HumanMagiIdle,
         walk: AnimationKeys.HumanMagiWalk,
-        attack1: AnimationKeys.HumanMagiAttack1,
-        attack2: AnimationKeys.HumanMagiAttack2,
+        primary: AnimationKeys.HumanMagiPrimary,
+        secondary: AnimationKeys.HumanMagiSecondary,
         injured: AnimationKeys.HumanMagiInjured,
         death: AnimationKeys.HumanMagiDeath,
         dead: AnimationKeys.HumanMagiDead
@@ -146,8 +150,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Warrior: return {
         idle: AnimationKeys.DwarvenWarriorIdle,
         walk: AnimationKeys.DwarvenWarriorWalk,
-        attack1: AnimationKeys.DwarvenWarriorAttack1,
-        attack2: AnimationKeys.DwarvenWarriorAttack2,
+        primary: AnimationKeys.DwarvenWarriorPrimary,
+        secondary: AnimationKeys.DwarvenWarriorSecondary,
         injured: AnimationKeys.DwarvenWarriorInjured,
         death: AnimationKeys.DwarvenWarriorDeath,
         dead: AnimationKeys.DwarvenWarriorDead
@@ -155,8 +159,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Archer: return {
         idle: AnimationKeys.DwarvenArcherIdle,
         walk: AnimationKeys.DwarvenArcherWalk,
-        attack1: AnimationKeys.DwarvenArcherAttack1,
-        attack2: AnimationKeys.DwarvenArcherAttack2,
+        primary: AnimationKeys.DwarvenArcherPrimary,
+        secondary: AnimationKeys.DwarvenArcherSecondary,
         injured: AnimationKeys.DwarvenArcherInjured,
         death: AnimationKeys.DwarvenArcherDeath,
         dead: AnimationKeys.DwarvenArcherDead
@@ -164,8 +168,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Cleric: return {
         idle: AnimationKeys.DwarvenClericIdle,
         walk: AnimationKeys.DwarvenClericWalk,
-        attack1: AnimationKeys.DwarvenClericAttack1,
-        attack2: AnimationKeys.DwarvenClericAttack2,
+        primary: AnimationKeys.DwarvenClericPrimary,
+        secondary: AnimationKeys.DwarvenClericSecondary,
         injured: AnimationKeys.DwarvenClericInjured,
         death: AnimationKeys.DwarvenClericDeath,
         dead: AnimationKeys.DwarvenClericDead
@@ -173,8 +177,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       case CharacterClasses.Magi: return {
         idle: AnimationKeys.DwarvenMagiIdle,
         walk: AnimationKeys.DwarvenMagiWalk,
-        attack1: AnimationKeys.DwarvenMagiAttack1,
-        attack2: AnimationKeys.DwarvenMagiAttack2,
+        primary: AnimationKeys.DwarvenMagiPrimary,
+        secondary: AnimationKeys.DwarvenMagiSecondary,
         injured: AnimationKeys.DwarvenMagiInjured,
         death: AnimationKeys.DwarvenMagiDeath,
         dead: AnimationKeys.DwarvenMagiDead
@@ -203,22 +207,22 @@ export default class Character extends Phaser.GameObjects.Sprite {
       })
     }
 
-    this.animations.attack1 = this.scene.anims.get(this.animationKeys.attack1)
-    if (!this.animations.attack1) {
-      this.animations.attack1 = this.scene.anims.create({
-        key: this.animationKeys.attack1,
-        frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.attack1 }),
+    this.animations.primary = this.scene.anims.get(this.animationKeys.primary)
+    if (!this.animations.primary) {
+      this.animations.primary = this.scene.anims.create({
+        key: this.animationKeys.primary,
+        frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.primary }),
         frameRate: 8,
-        repeat: -1
+        repeat: 0
       })
     }
 
     // TODO: Need to add these frames to the sprite sheets
-    // this.animations.attack2 = this.scene.anims.get(this.animationKeys.attack2)
-    // if (!this.animations.attack2) {
-    //   this.animations.attack2 = this.scene.anims.create({
-    //     key: this.animationKeys.attack2,
-    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.attack2 }),
+    // this.animations.secondary = this.scene.anims.get(this.animationKeys.secondary)
+    // if (!this.animations.secondary) {
+    //   this.animations.secondary = this.scene.anims.create({
+    //     key: this.animationKeys.secondary,
+    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.secondary }),
     //     frameRate: 8,
     //     repeat: -1
     //   })
@@ -277,10 +281,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateAnimationsIfRequired () {
-    if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
-      this.anims.play(this.animationKeys.walk, true)
-    } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
-      this.anims.play(this.animationKeys.idle, true)
+    if (!this.isAttacking) {
+      if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
+        this.anims.play(this.animationKeys.walk, true)
+      } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+        this.anims.play(this.animationKeys.idle, true)
+      }
     }
   }
 
@@ -294,6 +300,16 @@ export default class Character extends Phaser.GameObjects.Sprite {
   setInputManager (inputManager) {
     this.inputManager = inputManager
     this.inputManager.registerForEvent(this.inputEvent, this.processInput, this)
+  }
+
+  animationComplete (animation, frame) {
+    if (animation.key === this.animationKeys.primary) {
+      this.isAttacking = false
+      this.anims.play(this.animationKeys.idle, true)
+    } else if (animation.key === this.animationKeys.secondary) {
+      this.isAttacking = false
+      this.anims.play(this.animationKeys.idle, true)
+    }
   }
 
   didCollideWith (otherEntity) {
@@ -351,6 +367,35 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y = 0
     } else if (this.body.velocity.y < 0 && ((this.y - (this.height / 2)) <= (this.scene.cameras.main.scrollY - this.scene.cameras.main.height))) {
       this.body.velocity.y = 0
+    }
+
+    if (this.body.velocity.x !== 0 && this.body.velocity.y !== 0) {
+      // 0.7071 is the sine/cosine of 45 degrees
+      this.body.velocity.x *= 0.7071
+      this.body.velocity.y *= 0.7071
+    }
+
+    if (event.primary.isDown && !this.primaryAttackCoolingDown) {
+      this.body.velocity.x = 0
+      this.body.velocity.y = 0
+      this.isAttacking = true
+      this.primaryAttackCoolingDown = true
+      this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
+        this.primaryAttackCoolingDown = false
+      })
+      this.anims.play(this.animationKeys.primary, false)
+    }
+
+    if (event.secondary.isDown && !this.secondaryAttackCoolingDown) {
+      this.body.velocity.x = 0
+      this.body.velocity.y = 0
+      this.isAttacking = true
+      this.secondaryAttackCoolingDown = true
+      this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
+        this.secondaryAttackCoolingDown = false
+      })
+      // TODO: Restore this once there actually is a secondary attack animation
+      // this.anims.play(this.animationKeys.secondary, false)
     }
   }
   

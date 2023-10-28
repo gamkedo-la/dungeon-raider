@@ -55,7 +55,7 @@ export function getCharacterAttributes (race, characterClass) {
 
 const human = {
   runSpeed: 85, // higher is better
-  attackCooldown: 5, // lower is better
+  attackCooldown: 500, // lower is better
   health: 100,  // higher is better
   healthLoss: 5, // lower is better
   magic: 0, // higher is better
@@ -66,7 +66,7 @@ const human = {
 
 const elf = {
   runSpeed: 100,
-  attackCooldown: 3,
+  attackCooldown: 300,
   health: 80,
   healthLoss: 7,
   magic: 20,
@@ -77,7 +77,7 @@ const elf = {
 
 const dwarf = {
   runSpeed: 70,
-  attackCooldown: 7,
+  attackCooldown: 700,
   health: 120,
   healthLoss: 3,
   magic: -20,
@@ -88,7 +88,7 @@ const dwarf = {
 
 const warriorModifiers = {
   runSpeed: -2,
-  attackCooldown: 1,
+  attackCooldown: 100,
   health: 20,
   healthLoss: 0,
   magic: 0,
@@ -99,7 +99,7 @@ const warriorModifiers = {
 
 const archerModifiers = {
   runSpeed: 1,
-  attackCooldown: -1,
+  attackCooldown: -100,
   health: -10,
   healthLoss: 1,
   magic: 0,
@@ -110,7 +110,7 @@ const archerModifiers = {
 
 const magiModifiers = {
   runSpeed: 0,
-  attackCooldown: 3,
+  attackCooldown: 300,
   health: -20,
   healthLoss: 2,
   magic: 100,
@@ -121,7 +121,7 @@ const magiModifiers = {
 
 const clericModifiers = {
   runSpeed: -1,
-  attackCooldown: 2,
+  attackCooldown: 200,
   health: 0,
   healthLoss: 1,
   magic: 50,

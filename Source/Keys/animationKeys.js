@@ -1,8 +1,8 @@
 // Exporting animation keys individually allows us to reference them individually in the game
 export const idleFrameKeys = [0, 1]
 export const walkFrameKeys = [2, 3, 4, 5]
-export const attack1FrameKeys = [6, 7, 8, 9]
-export const attack2FrameKeys = [10, 11, 12, 13]
+export const primaryFrameKeys = [6, 7, 8, 9]
+export const secondaryFrameKeys = [10, 11, 12, 13]
 export const injuredFrameKeys = [14, 15]
 export const deathFrameKeys = [16, 17, 18, 19]
 export const deadFrameKeys = [20]
@@ -10,8 +10,8 @@ export const deadFrameKeys = [20]
 export const FrameKeys = {
   idle: idleFrameKeys,
   walk: walkFrameKeys,
-  attack1: attack1FrameKeys,
-  attack2: attack2FrameKeys,
+  primary: primaryFrameKeys,
+  secondary: secondaryFrameKeys,
   injured: injuredFrameKeys,
   death: deathFrameKeys,
   dead: deadFrameKeys
@@ -19,8 +19,8 @@ export const FrameKeys = {
 
 export const ElvenWarriorIdle = 'elven-warrior-idle-animation'
 export const ElvenWarriorWalk = 'elven-warrior-walk-animation'
-export const ElvenWarriorAttack1 = 'elven-warrior-attack1-animation'
-export const ElvenWarriorAttack2 = 'elven-warrior-attack2-animation'
+export const ElvenWarriorPrimary = 'elven-warrior-primary-animation'
+export const ElvenWarriorSecondary = 'elven-warrior-secondary-animation'
 export const ElvenWarriorInjured = 'elven-warrior-injured-animation'
 export const ElvenWarriorDeath = 'elven-warrior-death-animation'
 export const ElvenWarriorDead = 'elven-warrior-dead-animation'
@@ -28,8 +28,8 @@ export const ElvenWarriorDead = 'elven-warrior-dead-animation'
 export const ElvenWarriorAnimations = {
   idle: ElvenWarriorIdle,
   walk: ElvenWarriorWalk,
-  attack1: ElvenWarriorAttack1,
-  attack2: ElvenWarriorAttack2,
+  primary: ElvenWarriorPrimary,
+  secondary: ElvenWarriorSecondary,
   injured: ElvenWarriorInjured,
   death: ElvenWarriorDeath,
   dead: ElvenWarriorDead
@@ -37,8 +37,8 @@ export const ElvenWarriorAnimations = {
 
 export const ElvenArcherIdle = 'elven-archer-idle-animation'
 export const ElvenArcherWalk = 'elven-archer-walk-animation'
-export const ElvenArcherAttack1 = 'elven-archer-attack1-animation'
-export const ElvenArcherAttack2 = 'elven-archer-attack2-animation'
+export const ElvenArcherPrimary = 'elven-archer-primary-animation'
+export const ElvenArcherSecondary = 'elven-archer-secondary-animation'
 export const ElvenArcherInjured = 'elven-archer-injured-animation'
 export const ElvenArcherDeath = 'elven-archer-death-animation'
 export const ElvenArcherDead = 'elven-archer-dead-animation'
@@ -46,8 +46,8 @@ export const ElvenArcherDead = 'elven-archer-dead-animation'
 export const ElvenArcherAnimations = {
   idle: ElvenArcherIdle,
   walk: ElvenArcherWalk,
-  attack1: ElvenArcherAttack1,
-  attack2: ElvenArcherAttack2,
+  primary: ElvenArcherPrimary,
+  secondary: ElvenArcherSecondary,
   injured: ElvenArcherInjured,
   death: ElvenArcherDeath,
   dead: ElvenArcherDead
@@ -55,8 +55,8 @@ export const ElvenArcherAnimations = {
 
 export const ElvenClericIdle = 'elven-cleric-idle-animation'
 export const ElvenClericWalk = 'elven-cleric-walk-animation'
-export const ElvenClericAttack1 = 'elven-cleric-attack1-animation'
-export const ElvenClericAttack2 = 'elven-cleric-attack2-animation'
+export const ElvenClericPrimary = 'elven-cleric-primary-animation'
+export const ElvenClericSecondary = 'elven-cleric-secondary-animation'
 export const ElvenClericInjured = 'elven-cleric-injured-animation'
 export const ElvenClericDeath = 'elven-cleric-death-animation'
 export const ElvenClericDead = 'elven-cleric-dead-animation'
@@ -64,8 +64,8 @@ export const ElvenClericDead = 'elven-cleric-dead-animation'
 export const ElvenClericAnimations = {
   idle: ElvenClericIdle,
   walk: ElvenClericWalk,
-  attack1: ElvenClericAttack1,
-  attack2: ElvenClericAttack2,
+  primary: ElvenClericPrimary,
+  secondary: ElvenClericSecondary,
   injured: ElvenClericInjured,
   death: ElvenClericDeath,
   dead: ElvenClericDead
@@ -73,8 +73,8 @@ export const ElvenClericAnimations = {
 
 export const ElvenMagiIdle = 'elven-magi-idle-animation'
 export const ElvenMagiWalk = 'elven-magi-walk-animation'
-export const ElvenMagiAttack1 = 'elven-magi-attack1-animation'
-export const ElvenMagiAttack2 = 'elven-magi-attack2-animation'
+export const ElvenMagiPrimary = 'elven-magi-primary-animation'
+export const ElvenMagiSecondary = 'elven-magi-secondary-animation'
 export const ElvenMagiInjured = 'elven-magi-injured-animation'
 export const ElvenMagiDeath = 'elven-magi-death-animation'
 export const ElvenMagiDead = 'elven-magi-dead-animation'
@@ -82,8 +82,8 @@ export const ElvenMagiDead = 'elven-magi-dead-animation'
 export const ElvenMagiAnimations = {
   idle: ElvenMagiIdle,
   walk: ElvenMagiWalk,
-  attack1: ElvenMagiAttack1,
-  attack2: ElvenMagiAttack2,
+  primary: ElvenMagiPrimary,
+  secondary: ElvenMagiSecondary,
   injured: ElvenMagiInjured,
   death: ElvenMagiDeath,
   dead: ElvenMagiDead
@@ -91,8 +91,8 @@ export const ElvenMagiAnimations = {
 
 export const HumanWarriorIdle = 'human-warrior-idle-animation'
 export const HumanWarriorWalk = 'human-warrior-walk-animation'
-export const HumanWarriorAttack1 = 'human-warrior-attack1-animation'
-export const HumanWarriorAttack2 = 'human-warrior-attack2-animation'
+export const HumanWarriorPrimary = 'human-warrior-primary-animation'
+export const HumanWarriorSecondary = 'human-warrior-secondary-animation'
 export const HumanWarriorInjured = 'human-warrior-injured-animation'
 export const HumanWarriorDeath = 'human-warrior-death-animation'
 export const HumanWarriorDead = 'human-warrior-dead-animation'
@@ -100,8 +100,8 @@ export const HumanWarriorDead = 'human-warrior-dead-animation'
 export const HumanWarriorAnimations = {
   idle: HumanWarriorIdle,
   walk: HumanWarriorWalk,
-  attack1: HumanWarriorAttack1,
-  attack2: HumanWarriorAttack2,
+  primary: HumanWarriorPrimary,
+  secondary: HumanWarriorSecondary,
   injured: HumanWarriorInjured,
   death: HumanWarriorDeath,
   dead: HumanWarriorDead
@@ -109,8 +109,8 @@ export const HumanWarriorAnimations = {
 
 export const HumanArcherIdle = 'human-archer-idle-animation'
 export const HumanArcherWalk = 'human-archer-walk-animation'
-export const HumanArcherAttack1 = 'human-archer-attack1-animation'
-export const HumanArcherAttack2 = 'human-archer-attack2-animation'
+export const HumanArcherPrimary = 'human-archer-primary-animation'
+export const HumanArcherSecondary = 'human-archer-secondary-animation'
 export const HumanArcherInjured = 'human-archer-injured-animation'
 export const HumanArcherDeath = 'human-archer-death-animation'
 export const HumanArcherDead = 'human-archer-dead-animation'
@@ -118,8 +118,8 @@ export const HumanArcherDead = 'human-archer-dead-animation'
 export const HumanArcherAnimations = {
   idle: HumanArcherIdle,
   walk: HumanArcherWalk,
-  attack1: HumanArcherAttack1,
-  attack2: HumanArcherAttack2,
+  primary: HumanArcherPrimary,
+  secondary: HumanArcherSecondary,
   injured: HumanArcherInjured,
   death: HumanArcherDeath,
   dead: HumanArcherDead
@@ -127,8 +127,8 @@ export const HumanArcherAnimations = {
 
 export const HumanClericIdle = 'human-cleric-idle-animation'
 export const HumanClericWalk = 'human-cleric-walk-animation'
-export const HumanClericAttack1 = 'human-cleric-attack1-animation'
-export const HumanClericAttack2 = 'human-cleric-attack2-animation'
+export const HumanClericPrimary = 'human-cleric-primary-animation'
+export const HumanClericSecondary = 'human-cleric-secondary-animation'
 export const HumanClericInjured = 'human-cleric-injured-animation'
 export const HumanClericDeath = 'human-cleric-death-animation'
 export const HumanClericDead = 'human-cleric-dead-animation'
@@ -136,8 +136,8 @@ export const HumanClericDead = 'human-cleric-dead-animation'
 export const HumanClericAnimations = {
   idle: HumanClericIdle,
   walk: HumanClericWalk,
-  attack1: HumanClericAttack1,
-  attack2: HumanClericAttack2,
+  primary: HumanClericPrimary,
+  secondary: HumanClericSecondary,
   injured: HumanClericInjured,
   death: HumanClericDeath,
   dead: HumanClericDead
@@ -145,8 +145,8 @@ export const HumanClericAnimations = {
 
 export const HumanMagiIdle = 'human-magi-idle-animation'
 export const HumanMagiWalk = 'human-magi-walk-animation'
-export const HumanMagiAttack1 = 'human-magi-attack1-animation'
-export const HumanMagiAttack2 = 'human-magi-attack2-animation'
+export const HumanMagiPrimary = 'human-magi-primary-animation'
+export const HumanMagiSecondary = 'human-magi-secondary-animation'
 export const HumanMagiInjured = 'human-magi-injured-animation'
 export const HumanMagiDeath = 'human-magi-death-animation'
 export const HumanMagiDead = 'human-magi-dead-animation'
@@ -154,8 +154,8 @@ export const HumanMagiDead = 'human-magi-dead-animation'
 export const HumanMagiAnimations = {
   idle: HumanMagiIdle,
   walk: HumanMagiWalk,
-  attack1: HumanMagiAttack1,
-  attack2: HumanMagiAttack2,
+  primary: HumanMagiPrimary,
+  secondary: HumanMagiSecondary,
   injured: HumanMagiInjured,
   death: HumanMagiDeath,
   dead: HumanMagiDead
@@ -163,8 +163,8 @@ export const HumanMagiAnimations = {
 
 export const DwarvenWarriorIdle = 'dwarven-warrior-idle-animation'
 export const DwarvenWarriorWalk = 'dwarven-warrior-walk-animation'
-export const DwarvenWarriorAttack1 = 'dwarven-warrior-attack1-animation'
-export const DwarvenWarriorAttack2 = 'dwarven-warrior-attack2-animation'
+export const DwarvenWarriorPrimary = 'dwarven-warrior-primary-animation'
+export const DwarvenWarriorSecondary = 'dwarven-warrior-secondary-animation'
 export const DwarvenWarriorInjured = 'dwarven-warrior-injured-animation'
 export const DwarvenWarriorDeath = 'dwarven-warrior-death-animation'
 export const DwarvenWarriorDead = 'dwarven-warrior-dead-animation'
@@ -172,8 +172,8 @@ export const DwarvenWarriorDead = 'dwarven-warrior-dead-animation'
 export const DwarvenWarriorAnimations = {
   idle: DwarvenWarriorIdle,
   walk: DwarvenWarriorWalk,
-  attack1: DwarvenWarriorAttack1,
-  attack2: DwarvenWarriorAttack2,
+  primary: DwarvenWarriorPrimary,
+  secondary: DwarvenWarriorSecondary,
   injured: DwarvenWarriorInjured,
   death: DwarvenWarriorDeath,
   dead: DwarvenWarriorDead
@@ -181,8 +181,8 @@ export const DwarvenWarriorAnimations = {
 
 export const DwarvenArcherIdle = 'dwarven-archer-idle-animation'
 export const DwarvenArcherWalk = 'dwarven-archer-walk-animation'
-export const DwarvenArcherAttack1 = 'dwarven-archer-attack1-animation'
-export const DwarvenArcherAttack2 = 'dwarven-archer-attack2-animation'
+export const DwarvenArcherPrimary = 'dwarven-archer-primary-animation'
+export const DwarvenArcherSecondary = 'dwarven-archer-secondary-animation'
 export const DwarvenArcherInjured = 'dwarven-archer-injured-animation'
 export const DwarvenArcherDeath = 'dwarven-archer-death-animation'
 export const DwarvenArcherDead = 'dwarven-archer-dead-animation'
@@ -190,8 +190,8 @@ export const DwarvenArcherDead = 'dwarven-archer-dead-animation'
 export const DwarvenArcherAnimations = {
   idle: DwarvenArcherIdle,
   walk: DwarvenArcherWalk,
-  attack1: DwarvenArcherAttack1,
-  attack2: DwarvenArcherAttack2,
+  primary: DwarvenArcherPrimary,
+  secondary: DwarvenArcherSecondary,
   injured: DwarvenArcherInjured,
   death: DwarvenArcherDeath,
   dead: DwarvenArcherDead
@@ -199,8 +199,8 @@ export const DwarvenArcherAnimations = {
 
 export const DwarvenClericIdle = 'dwarven-cleric-idle-animation'
 export const DwarvenClericWalk = 'dwarven-cleric-walk-animation'
-export const DwarvenClericAttack1 = 'dwarven-cleric-attack1-animation'
-export const DwarvenClericAttack2 = 'dwarven-cleric-attack2-animation'
+export const DwarvenClericPrimary = 'dwarven-cleric-primary-animation'
+export const DwarvenClericSecondary = 'dwarven-cleric-secondary-animation'
 export const DwarvenClericInjured = 'dwarven-cleric-injured-animation'
 export const DwarvenClericDeath = 'dwarven-cleric-death-animation'
 export const DwarvenClericDead = 'dwarven-cleric-dead-animation'
@@ -208,8 +208,8 @@ export const DwarvenClericDead = 'dwarven-cleric-dead-animation'
 export const DwarvenClericAnimations = {
   idle: DwarvenClericIdle,
   walk: DwarvenClericWalk,
-  attack1: DwarvenClericAttack1,
-  attack2: DwarvenClericAttack2,
+  primary: DwarvenClericPrimary,
+  secondary: DwarvenClericSecondary,
   injured: DwarvenClericInjured,
   death: DwarvenClericDeath,
   dead: DwarvenClericDead
@@ -217,8 +217,8 @@ export const DwarvenClericAnimations = {
 
 export const DwarvenMagiIdle = 'dwarven-magi-idle-animation'
 export const DwarvenMagiWalk = 'dwarven-magi-walk-animation'
-export const DwarvenMagiAttack1 = 'dwarven-magi-attack1-animation'
-export const DwarvenMagiAttack2 = 'dwarven-magi-attack2-animation'
+export const DwarvenMagiPrimary = 'dwarven-magi-primary-animation'
+export const DwarvenMagiSecondary = 'dwarven-magi-secondary-animation'
 export const DwarvenMagiInjured = 'dwarven-magi-injured-animation'
 export const DwarvenMagiDeath = 'dwarven-magi-death-animation'
 export const DwarvenMagiDead = 'dwarven-magi-dead-animation'
@@ -226,8 +226,8 @@ export const DwarvenMagiDead = 'dwarven-magi-dead-animation'
 export const DwarvenMagiAnimations = {
   idle: DwarvenMagiIdle,
   walk: DwarvenMagiWalk,
-  attack1: DwarvenMagiAttack1,
-  attack2: DwarvenMagiAttack2,
+  primary: DwarvenMagiPrimary,
+  secondary: DwarvenMagiSecondary,
   injured: DwarvenMagiInjured,
   death: DwarvenMagiDeath,
   dead: DwarvenMagiDead
@@ -238,85 +238,85 @@ const AnimationKeys = {
   FrameKeys,
   ElvenWarriorIdle,
   ElvenWarriorWalk,
-  ElvenWarriorAttack1,
-  ElvenWarriorAttack2,
+  ElvenWarriorPrimary,
+  ElvenWarriorSecondary,
   ElvenWarriorInjured,
   ElvenWarriorDeath,
   ElvenWarriorDead,
   ElvenArcherIdle,
   ElvenArcherWalk,
-  ElvenArcherAttack1,
-  ElvenArcherAttack2,
+  ElvenArcherPrimary,
+  ElvenArcherSecondary,
   ElvenArcherInjured,
   ElvenArcherDeath,
   ElvenArcherDead,
   ElvenClericIdle,
   ElvenClericWalk,
-  ElvenClericAttack1,
-  ElvenClericAttack2,
+  ElvenClericPrimary,
+  ElvenClericSecondary,
   ElvenClericInjured,
   ElvenClericDeath,
   ElvenClericDead,
   ElvenMagiIdle,
   ElvenMagiWalk,
-  ElvenMagiAttack1,
-  ElvenMagiAttack2,
+  ElvenMagiPrimary,
+  ElvenMagiSecondary,
   ElvenMagiInjured,
   ElvenMagiDeath,
   ElvenMagiDead,
   HumanWarriorIdle,
   HumanWarriorWalk,
-  HumanWarriorAttack1,
-  HumanWarriorAttack2,
+  HumanWarriorPrimary,
+  HumanWarriorSecondary,
   HumanWarriorInjured,
   HumanWarriorDeath,
   HumanWarriorDead,
   HumanArcherIdle,
   HumanArcherWalk,
-  HumanArcherAttack1,
-  HumanArcherAttack2,
+  HumanArcherPrimary,
+  HumanArcherSecondary,
   HumanArcherInjured,
   HumanArcherDeath,
   HumanArcherDead,
   HumanClericIdle,
   HumanClericWalk,
-  HumanClericAttack1,
-  HumanClericAttack2,
+  HumanClericPrimary,
+  HumanClericSecondary,
   HumanClericInjured,
   HumanClericDeath,
   HumanClericDead,
   HumanMagiIdle,
   HumanMagiWalk,
-  HumanMagiAttack1,
-  HumanMagiAttack2,
+  HumanMagiPrimary,
+  HumanMagiSecondary,
   HumanMagiInjured,
   HumanMagiDeath,
   HumanMagiDead,
   DwarvenWarriorIdle,
   DwarvenWarriorWalk,
-  DwarvenWarriorAttack1,
-  DwarvenWarriorAttack2,
+  DwarvenWarriorPrimary,
+  DwarvenWarriorSecondary,
   DwarvenWarriorInjured,
   DwarvenWarriorDeath,
   DwarvenWarriorDead,
   DwarvenArcherIdle,
   DwarvenArcherWalk,
-  DwarvenArcherAttack1,
-  DwarvenArcherAttack2,
+  DwarvenArcherPrimary,
+  DwarvenArcherSecondary,
   DwarvenArcherInjured,
   DwarvenArcherDeath,
   DwarvenArcherDead,
   DwarvenClericIdle,
   DwarvenClericWalk,
-  DwarvenClericAttack1,
-  DwarvenClericAttack2,
+  DwarvenClericPrimary,
+  DwarvenClericSecondary,
   DwarvenClericInjured,
   DwarvenClericDeath,
   DwarvenClericDead,
   DwarvenMagiIdle,
   DwarvenMagiWalk,
-  DwarvenMagiAttack1,
-  DwarvenMagiAttack2,
+  DwarvenMagiPrimary,
+  DwarvenMagiSecondary,
   DwarvenMagiInjured,
   DwarvenMagiDeath,
   DwarvenMagiDead
