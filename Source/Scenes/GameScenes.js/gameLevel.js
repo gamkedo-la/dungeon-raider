@@ -64,7 +64,7 @@ class GameLevel extends Phaser.Scene {
 
   setupCamera () {
     this.cameras.main.setBounds(0, 0, this.mapManager.map.widthInPixels, this.mapManager.map.heightInPixels)
-    this.cameras.main.setZoom(0.25)
+    this.cameras.main.setZoom(0.5)
     this.tweens.add({
       targets: this.cameras.main,
       zoom: 2,
