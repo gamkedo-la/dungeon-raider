@@ -10,8 +10,6 @@ class Title extends Phaser.Scene {
   }
 
   preload () {
-    super.preload()
-
     // May not need to preload anything here since we have a Preloader scene
   }
 

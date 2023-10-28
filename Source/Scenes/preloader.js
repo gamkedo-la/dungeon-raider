@@ -1,4 +1,5 @@
 import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
+import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys from '../Keys/imageKeys.js'
 import { SpriteSheetLoaderData } from '../Globals/spriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
@@ -14,6 +15,16 @@ import Character from "../Entities/character.js"
 class Preloader extends Phaser.Scene {
   constructor () {
     super(PreloaderKey)
+  }
+
+  init () {
+    for (const config of StyleConfigs) {
+      const element = document.createElement('style')
+      document.head.appendChild(element)
+      const sheet = element.sheet  
+      const styles = config
+      sheet.insertRule(styles, 0)
+    }
   }
 
   preload () {
@@ -42,6 +53,9 @@ class Preloader extends Phaser.Scene {
     // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
     // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what SpriteSheetLoaderData is
     this.load.spritesheet(SpriteSheetLoaderData)
+
+    // Load the webfont script. This is needed to load custom fonts.
+    this.load.script('webfont', `../../Public/Fonts/webfont_loader.js`)
   }
 
   create () {

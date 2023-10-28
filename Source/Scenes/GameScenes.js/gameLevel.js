@@ -1,4 +1,4 @@
-import { GameLevelKey, GameOverKey, GameCompleteKey, InterLevelKey } from "../../Keys/sceneKeys.js"
+import { GameLevelKey, UserInterfaceKey, GameOverKey, GameCompleteKey, InterLevelKey } from "../../Keys/sceneKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
@@ -34,6 +34,7 @@ class GameLevel extends Phaser.Scene {
     this.setupCamera()
 
     this.debugGraphics = this.add.graphics()
+    this.scene.launch(UserInterfaceKey)
   }
 
   createCharacters () {
@@ -66,13 +67,14 @@ class GameLevel extends Phaser.Scene {
     this.cameras.main.setZoom(0.25)
     this.tweens.add({
       targets: this.cameras.main,
-      zoom: 1,
-      delay: 1000,
+      zoom: 2,
+      delay: 500,
       duration: 2000,
       ease: Phaser.Math.Easing.Quadratic.InOut,
       onComplete: () => {
         for (const character of this.characters) {
           character.setInputManager(this.inputManager)
+          character.levelDidStart()
         }
       },
       onCompleteScope: this

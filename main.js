@@ -9,7 +9,7 @@ import Level2 from './Source/Scenes/GameScenes.js/level2.js'
 import Level3 from './Source/Scenes/GameScenes.js/level3.js'
 import GameOver from './Source/Scenes/gameOver.js'
 import GameComplete from './Source/Scenes/gameComplete.js'
-import UserInterface from './Source/Scenes/UIScene.js'
+import UserInterface from './Source/Scenes/uiScene.js'
 
 const scenes = [
   Preloader,
@@ -28,8 +28,8 @@ const scenes = [
 
 const Game = new Phaser.Game({
   type: Phaser.AUTO,
-  width: 800,
-  height: 450,
+  width: 1600,
+  height: 900,
   scene: scenes,
   physics: {
     default: 'arcade',

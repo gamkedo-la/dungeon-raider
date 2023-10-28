@@ -47,12 +47,42 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.isAttacking = false
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
+    if (this.characterClass !== CharacterClasses.Magi && this.characterClass !== CharacterClasses.Cleric) {
+      this.attributes.magic = 0
+    }
+
+    this.maxHealth = this.attributes.health
+    this.maxMagic = this.attributes.magic
 
     this.shouldBeDead = false
     this.isDead = false
 
     // Register for the 'update
     this.scene.events.on('update', this.update, this)
+  }
+
+  healthLoss () {
+    this.attributes.health--
+    if (this.attributes.health <= 0) {
+      this.shouldBeDead = true
+    } else {
+      this.scene.time.delayedCall(this.attributes.healthLossRate, () => {
+        this.healthLoss()
+      })  
+    }
+  }
+
+  magicRegen () {
+    if (this.characterClass === CharacterClasses.Magi || this.characterClass === CharacterClasses.Cleric) {
+      if (this.attributes.magic < this.maxMagic) {
+        this.attributes.magic++
+      }
+      this.scene.time.delayedCall(this.attributes.magicRegen, () => {
+        this.magicRegen()
+      })
+    } else {
+      this.attributes.magic = 0
+    }
   }
 
   getAnimationKeys () {
@@ -300,6 +330,17 @@ export default class Character extends Phaser.GameObjects.Sprite {
   setInputManager (inputManager) {
     this.inputManager = inputManager
     this.inputManager.registerForEvent(this.inputEvent, this.processInput, this)
+  }
+
+  levelDidStart () {
+    this.scene.time.delayedCall(this.attributes.healthLossRate, () => {
+      this.healthLoss()
+    })
+    if (this.characterClass === CharacterClasses.Magi || this.characterClass === CharacterClasses.Cleric) {
+      this.scene.time.delayedCall(this.attributes.magicRegen, () => {
+        this.magicRegen()
+      })
+    }
   }
 
   animationComplete (animation, frame) {
