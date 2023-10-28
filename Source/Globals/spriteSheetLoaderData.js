@@ -37,8 +37,8 @@ export const SpriteSheetLoaderData = [
       frameHeight: 32,
       startFrame: 0,
       // endFrame: 3, // leave commented out to load all frames
-      margin: 1,
-      spacing: 0
+      margin: 0,
+      spacing: 2
     }
   }
 ]
