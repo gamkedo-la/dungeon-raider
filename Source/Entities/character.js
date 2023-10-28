@@ -270,7 +270,25 @@ export default class Character extends Phaser.GameObjects.Sprite {
       return
     }
 
+    this.updateAnimationsIfRequired()
+    this.updateFacingDirectionIfRequired()
+
     this.body.setVelocity(0, 0)
+  }
+
+  updateAnimationsIfRequired () {
+    if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
+      this.anims.play(this.animationKeys.walk, true)
+    } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+      this.anims.play(this.animationKeys.idle, true)
+    }
+  }
+
+  updateFacingDirectionIfRequired () {
+    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) return
+
+    const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.body.velocity.x, this.body.velocity.y)
+    this.angle = Phaser.Math.RadToDeg(angle)
   }
 
   setInputManager (inputManager) {
@@ -333,12 +351,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y = 0
     } else if (this.body.velocity.y < 0 && ((this.y - (this.height / 2)) <= (this.scene.cameras.main.scrollY - this.scene.cameras.main.height))) {
       this.body.velocity.y = 0
-    }
-
-    if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
-      this.anims.play(this.animationKeys.walk, this)
-    } else {
-      this.anims.play(this.animationKeys.idle, this)
     }
   }
   
