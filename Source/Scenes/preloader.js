@@ -74,11 +74,11 @@ class Preloader extends Phaser.Scene {
 
 function createPlayer1Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Elf, CharacterClasses.Warrior)
+  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player1Keys.Player,
-    race: Races.Elf,
+    race: Races.Elven,
     characterClass: CharacterClasses.Warrior,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)

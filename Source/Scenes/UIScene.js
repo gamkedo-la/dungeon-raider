@@ -1,22 +1,16 @@
 import { UserInterfaceKey } from "../Keys/sceneKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
+import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterUIPane } from "../Keys/imageKeys.js"
 import FontLabel from "../UIElements/FontLabel.js"
-import { FontFamilies, FamilyNames } from "../Keys/fontKeys.js"
+import UIAttributes from "../Globals/uiAttributes.js"
+import { CharacterClasses } from "../Globals/characterAttributes.js"
 
 class UserInterface extends Phaser.Scene {
   constructor () {
     super(UserInterfaceKey)
     this.gameManager = null
-    this.uiColor = '#FFFFFF'
-    this.greenPlayerColor = '#00FF00'
-    this.redPlayerColor = '#FF0000'
-    this.bluePlayerColor = '#0000FF'
-    this.yellowPlayerColor = '#FFFF00'
-    this.uiDangerColor = '#FF0000'
-    this.uiFontSize = '20px'
-    this.uiFontFamily = FontFamilies.MedivalSharpRegular
-    this.activePlayers = null
+    this.activePlayerUIs = {}
   }
 
   preload () {
@@ -25,59 +19,164 @@ class UserInterface extends Phaser.Scene {
 
   create () {
     // this.cameras.main.setBackgroundColor('rgba(0, 255, 0, 0.75)')
-    let originX = 200
-    const verticalOffset = 90
-    this.add.image(originX, verticalOffset, CharacterUIPane)
-    this.add.image((originX += 400), verticalOffset, CharacterUIPane)
-    this.add.image((originX += 400), verticalOffset, CharacterUIPane)
-    this.add.image((originX += 400), verticalOffset, CharacterUIPane)
-    this.gameManager = this.game.registry.get(GameManagerKey)
-    this.activePlayers = this.gameManager.getActivePlayers()
     this.cameras.main.setSize(this.cameras.main.width, 180)
     this.cameras.main.setPosition(0, this.game.canvas.height - 180)
 
-    new FontLabel(this, {
-      x: 24,
-      y: 20,
-      title: 'Green Character',
-      fontFamily: this.uiFontFamily,
-      fontSize: this.uiFontSize,
-      color: this.greenPlayerColor
+    let originX = 200
+    const verticalOffset = 90
+    this.gameManager = this.game.registry.get(GameManagerKey)
+    const activePlayers = this.gameManager.getActivePlayers()
+
+    for (const player of activePlayers) {
+      const labels = this.createCharacterUI(player, originX, verticalOffset)
+      this.activePlayerUIs[player] = labels
+      originX += 400
+    }
+  }
+
+  createCharacterUI (player, frameX, frameY) {
+    this.add.image(frameX, frameY, CharacterUIPane)
+    let playerColor = UIAttributes.RedPlayerColor
+    switch (player) {
+      case Player1Keys.Player:
+        playerColor = UIAttributes.RedPlayerColor
+        break
+      case Player2Keys.Player:
+        playerColor = UIAttributes.GreenPlayerColor
+        break
+      case Player3Keys.Player:
+        playerColor = UIAttributes.BluePlayerColor
+        break
+      case Player4Keys.Player:
+        playerColor = UIAttributes.YellowPlayerColor
+        break
+    }
+
+    const characterRace = this.gameManager.getCharacterRaceForPlayer(player)
+    const characterClass = this.gameManager.getCharacterClassForPlayer(player)
+    const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+    const fontSizeNumber = getFontSizeNumber(UIAttributes.UIFontSize)
+
+    let verticalMultiplier = 1
+    const lineHeight = fontSizeNumber + UIAttributes.TextLineSpacing
+
+    const header = new FontLabel(this, {
+      // 5 for padding, fontSizeNumber for spacing
+      x: 5 + fontSizeNumber,
+      y: verticalMultiplier++ * lineHeight,
+      title: `${characterRace} ${characterClass}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: playerColor
     })
 
-    this.player1Health = new FontLabel(this, {
-      x: 24,
-      y: 45,
-      title: `Health: ${this.gameManager.getCharacterAttributesForPlayer(this.activePlayers[0]).health}`,
-      fontFamily: this.uiFontFamily,
-      fontSize: this.uiFontSize,
-      color: this.uiColor
+    const health = new FontLabel(this, {
+      x: 5 + fontSizeNumber,
+      y: verticalMultiplier++ * lineHeight,
+      title: `Health: ${characterAttributes.health}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
     })
 
-    this.player1Magic = new FontLabel(this, {
-      x: 24,
-      y: 70,
-      title: `Magic: ${this.gameManager.getCharacterAttributesForPlayer(this.activePlayers[0]).magic}`,
-      fontFamily: this.uiFontFamily,
-      fontSize: this.uiFontSize,
-      color: this.uiColor
+    let magic = null
+    if (characterClass === CharacterClasses.Magi || characterClass === CharacterClasses.Cleric) {
+      new FontLabel(this, {
+        x: 5 + fontSizeNumber,
+        y: verticalMultiplier++ * lineHeight,
+        title: `Magic: ${characterAttributes.magic}`,
+        fontFamily: UIAttributes.UIFontFamily,
+        fontSize: UIAttributes.UIFontSize,
+        color: UIAttributes.UIColor
+      })
+    }
+
+    const armor = new FontLabel(this, {
+      x: 5 + fontSizeNumber,
+      y: verticalMultiplier++ * lineHeight,
+      title: `Armor: ${characterAttributes.armor}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
     })
+
+    const primary = new FontLabel(this, {
+      x: 5 + fontSizeNumber,
+      y: verticalMultiplier++ * lineHeight,
+      title: `Primary: ${characterAttributes.weapon}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
+    })
+
+    let arrows = null
+    let secondary = null
+    if (characterClass === CharacterClasses.Archer) {
+      let arrowsText = `${characterAttributes.arrows.primary.name}: ${characterAttributes.arrows.primary.quantity}`
+      if (characterAttributes.arrows.secondary) {
+        arrowsText += `\n${characterAttributes.arrows.secondary.name}: ${characterAttributes.arrows.secondary.quantity}`
+      }
+      new FontLabel(this, {
+        x: 5 + fontSizeNumber,
+        y: verticalMultiplier++ * lineHeight,
+        title: arrowsText,
+        fontFamily: UIAttributes.UIFontFamily,
+        fontSize: UIAttributes.UIFontSize,
+        color: UIAttributes.UIColor
+      })
+    } else {
+      secondary = new FontLabel(this, {
+        x: 5 + fontSizeNumber,
+        y: verticalMultiplier++ * lineHeight,
+        title: `Secondary: ${characterAttributes.secondary}`,
+        fontFamily: UIAttributes.UIFontFamily,
+        fontSize: UIAttributes.UIFontSize,
+        color: UIAttributes.UIColor
+      })
+    }
+
+    return { header, health, magic, armor, primary, secondary, arrows }
   }
 
   update (time, delta) {
     // get player health, weapons, armor, equipment, etc. from Game Manager
-    const player1Attributes = this.gameManager.getCharacterAttributesForPlayer(this.activePlayers[0])
-    if (player1Attributes.health <= 10) {
-      this.player1Health.updateColor(this.uiDangerColor)
+    for (const activePlayer in this.activePlayerUIs) {
+      const playerAttributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
+      const playerUI = this.activePlayerUIs[activePlayer]
+      if (playerAttributes.health <= 10) {
+        playerUI.health.updateColor(UIAttributes.UIDangerColor)
+      }
+      playerUI.health.updateTitle(`Health: ${playerAttributes.health}`)
+
+      if (playerUI.magic) {
+        if (playerAttributes.magic <= 10) {
+          playerUI.magic.updateColor(UIAttributes.UIDangerColor)
+        }
+
+        playerUI.magic.updateTitle(`Magic: ${playerAttributes.magic}`)
+      }
+
+      playerUI.armor.updateTitle(`Armor: ${playerAttributes.armor.name}`)
+      playerUI.primary.updateTitle(`Primary: ${playerAttributes.primary.name}`)
+
+      if (playerUI.arrows) {
+        let arrowsText = `${characterAttributes.arrows.primary.name}: ${characterAttributes.arrows.primary.quantity}`
+        if (characterAttributes.arrows.secondary) {
+          arrowsText += `\n${characterAttributes.arrows.secondary.name}: ${characterAttributes.arrows.secondary.quantity}`
+        }
+
+        playerUI.arrows.updateTitle(arrowsText)
+      }
+
+      if (playerUI.secondary) {
+        playerUI.secondary.updateTitle(`Secondary: ${playerAttributes.secondary.name}`)
+      }
     }
-    this.player1Health.updateTitle(`Health: ${player1Attributes.health}`)
-
-    // if (player1Attributes.magic <= 1000) {
-    //   this.player1Magic.updateColor(this.uiDangerColor)
-    // }
-    this.player1Magic.updateTitle(`Magic: ${player1Attributes.magic}`)
-
   }
+}
+
+function getFontSizeNumber (fontSize) {
+  return parseInt(fontSize.substring(0, fontSize.length - 2))
 }
 
 export default UserInterface

@@ -1,12 +1,12 @@
 const ArmorNames = {
-  PlainClothes: 'plainClothes',
-  LeatherArmor: 'leatherArmor',
-  RingMail: 'ringMail',
-  ChainMail: 'chainMail',
-  HalfPlate: 'halfPlate',
-  PlateMail: 'plateMail',
-  Shield: 'shield',
-  Helmet: 'helmet'
+  PlainClothes: 'Plain Clothes',
+  LeatherArmor: 'Leather Armor',
+  RingMail: 'Ring Mail',
+  ChainMail: 'Chain Mail',
+  HalfPlate: 'Half Plate',
+  PlateMail: 'Plate Mail',
+  Shield: 'Shield',
+  Helmet: 'Helmet'
 }
 
 export const plainClothes = {
@@ -65,13 +65,51 @@ export const helmet = {
   cost: 10
 }
 
-export default Armor = {
-  [ArmorNames.PlainClothes]: plainClothes,
-  [ArmorNames.LeatherArmor]: leatherArmor,
-  [ArmorNames.RingMail]: ringMail,
-  [ArmorNames.ChainMail]: chainMail,
-  [ArmorNames.HalfPlate]: halfPlate,
-  [ArmorNames.PlateMail]: plateMail,
-  [ArmorNames.Shield]: shield,
-  [ArmorNames.Helmet]: helmet
+export function canWarriorUse (armor) {
+  return true
+}
+
+export function canArcherUse (armor) {
+  return armor.name === ArmorNames.PlainClothes ||
+    armor.name === ArmorNames.LeatherArmor
+}
+
+export function canMagiUse (armor) {
+  return armor.name === ArmorNames.PlainClothes
+}
+
+export function canClericUse (armor) {
+  return true
+}
+
+export function canCharacterClassUse (characterClass, armor) {
+  switch (characterClass) {
+    case CharacterClasses.Warrior:
+      return canWarriorUse(armor)
+    case CharacterClasses.Archer:
+      return canArcherUse(armor)
+    case CharacterClasses.Magi:
+      return canMagiUse(armor)
+    case CharacterClasses.Cleric:
+      return canClericUse(armor)
+    default:
+      return false
+  }
+}
+
+export default {
+  PlainClothes: plainClothes,
+  LeatherArmor: leatherArmor,
+  RingMail: ringMail,
+  ChainMail: chainMail,
+  HalfPlate: halfPlate,
+  PlateMail: plateMail,
+  Shield: shield,
+  Helmet: helmet,
+
+  canWarriorUse,
+  canArcherUse,
+  canMagiUse,
+  canClericUse,
+  canCharacterClassUse
 }

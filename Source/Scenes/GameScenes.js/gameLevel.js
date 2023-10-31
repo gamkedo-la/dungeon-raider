@@ -83,10 +83,6 @@ class GameLevel extends Phaser.Scene {
 
   update (time, delta) {
     this.inputManager.update(time, delta)
-    // Do NOT 'update' Sprites or other Game Objects. Sprites have preUpdate() and postUpdate() methods for that.
-    // Updating Game Objects can make it hard or impossible to predict what the state
-    // of the Game Object is when this method fires.
-
     if (this.physics.world.debugGraphic.visible) {
       this.drawDebug()
     } else {

@@ -205,19 +205,19 @@ export default class GameManager {
     }
   }
 
-  setCharacterAttributesForPlayer (player, health) {
+  setCharacterAttributesForPlayer (player, attributes) {
     switch (player) {
       case Player1Keys.Player:
-        this.game.registry.set(Player1Keys.Attributes, health)
+        this.game.registry.set(Player1Keys.Attributes, attributes)
         break
       case Player2Keys.Player:
-        this.game.registry.set(Player2Keys.Attributes, health)
+        this.game.registry.set(Player2Keys.Attributes, attributes)
         break
       case Player3Keys.Player:
-        this.game.registry.set(Player3Keys.Attributes, health)
+        this.game.registry.set(Player3Keys.Attributes, attributes)
         break
       case Player4Keys.Player:
-        this.game.registry.set(Player4Keys.Attributes, health)
+        this.game.registry.set(Player4Keys.Attributes, attributes)
         break
     }
   }

@@ -87,7 +87,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   getAnimationKeys () {
     switch (this.race) {
-      case Races.Elf: return this.getElvenAnimationKeys()
+      case Races.Elven: return this.getElvenAnimationKeys()
       case Races.Human: return this.getHumanAnimationKeys()
       case Races.Dwarf: return this.getDwarfAnimationKeys()
     }
@@ -465,7 +465,7 @@ function getSpriteSheet (race, characterClass) {
         case CharacterClasses.Cleric:
           return SpriteSheets.HumanCleric
       }
-    case Races.Elf:
+    case Races.Elven:
       switch (characterClass) {
         case CharacterClasses.Warrior:
           return SpriteSheets.ElvenWarrior

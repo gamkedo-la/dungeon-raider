@@ -1,6 +1,9 @@
+import Armor from './armorAttributes.js'
+import Weapons from './weaponAttributes.js'
+
 export const Races = {
+  Elven: 'Elven',
   Human: 'Human',
-  Elf: 'Elf',
   Dwarf: 'Dwarf'
 }
 
@@ -20,14 +23,19 @@ export function getCharacterAttributes (race, characterClass) {
     magic: 0,
     magicRegen: 0,
     meleeDamage: 0,
-    rangedDamage: 0
+    rangedDamage: 0,
+    armor: Armor.PlainClothes,
+    availableArmor: [Armor.PlainClothes],
+    primary: Weapons.Fists,
+    secondary: Weapons.Fists,
+    availableEquipment: [Weapons.Fists]
   }
 
   switch (race) {
     case Races.Human:
       Object.assign(attributes, human)
       break
-    case Races.Elf:
+    case Races.Elven:
       Object.assign(attributes, elf)
       break
     case Races.Dwarf:
@@ -62,6 +70,11 @@ const human = {
   magicRegen: 1000, // lower is better
   meleeDamage: 0, // higher is better, final damage = meleeDamage + weaponDamage
   rangedDamage: 0, // higher is better, final damage = rangedDamage + weaponDamage
+  armor: Armor.PlainClothes,
+  availableArmor: [],
+  primary: Weapons.Fists,
+  secondary: Weapons.Fists,
+  availableEquipment: []
 }
 
 const elf = {
@@ -73,6 +86,11 @@ const elf = {
   magicRegen: 800,
   meleeDamage: -3,
   rangedDamage: 3,
+  armor: Armor.PlainClothes,
+  availableArmor: [],
+  primary: Weapons.Fists,
+  secondary: Weapons.Fists,
+  availableEquipment: []
 }
 
 const dwarf = {
@@ -84,6 +102,11 @@ const dwarf = {
   magicRegen: 1200,
   meleeDamage: 3,
   rangedDamage: -3,
+  armor: Armor.PlainClothes,
+  availableArmor: [Armor.HalfPlate],
+  primary: Weapons.Axe,
+  secondary: Weapons.Fists,
+  availableEquipment: [Weapons.Fists, Weapons.Axe]
 }
 
 const warriorModifiers = {
@@ -94,7 +117,12 @@ const warriorModifiers = {
   magic: 0,
   magicRegen: 0,
   meleeDamage: 3,
-  rangedDamage: 0
+  rangedDamage: 0,
+  armor: Armor.RingMail,
+  availableArmor: [Armor.RingMail],
+  primary: Weapons.ShortSword,
+  secondary: Weapons.Fists,
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.ShortSword]
 }
 
 const archerModifiers = {
@@ -105,7 +133,19 @@ const archerModifiers = {
   magic: 0,
   magicRegen: 0,
   meleeDamage: 0,
-  rangedDamage: 3
+  rangedDamage: 3,
+  armor: Armor.LeatherArmor,
+  availableArmor: [Armor.LeatherArmor],
+  primary: Weapons.ShortBow,
+  secondary: Weapons.None,
+  availableEquipment: [Weapons.None, Weapons.ShortBow, Weapons.NormalArrows],
+  arrows: {
+    primary: {
+      name: 'Normal Arrows',
+      quantity: 100
+    },
+    secondary: null
+  }
 }
 
 const magiModifiers = {
@@ -116,7 +156,12 @@ const magiModifiers = {
   magic: 100,
   magicRegen: -200,
   meleeDamage: 0,
-  rangedDamage: 0
+  rangedDamage: 0,
+  armor: Armor.PlainClothes,
+  availableArmor: [Armor.PlainClothes],
+  primary: Weapons.MagicArrow,
+  secondary: Weapons.Staff,
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.MagicArrow, Weapons.Staff]
 }
 
 const clericModifiers = {
@@ -127,7 +172,12 @@ const clericModifiers = {
   magic: 50,
   magicRegen: -100,
   meleeDamage: 1,
-  rangedDamage: 0
+  rangedDamage: 0,
+  armor: Armor.RingMail,
+  availableArmor: [Armor.RingMail],
+  primary: Weapons.Mace,
+  secondary: Weapons.Heal,
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.Mace, Weapons.Heal]
 }
 
 function addWarriorModifiers (attributes) {
@@ -139,6 +189,13 @@ function addWarriorModifiers (attributes) {
   attributes.magicRegen += warriorModifiers.magicRegen
   attributes.meleeDamage += warriorModifiers.meleeDamage
   attributes.rangedDamage += warriorModifiers.rangedDamage
+  attributes.armor = warriorModifiers.armor
+  attributes.availableArmor = Array.from(new Set(attributes.availableArmor.concat(warriorModifiers.availableArmor)))
+  attributes.availableArmor = attributes.availableArmor.filter(armor => Armor.canWarriorUse(armor))
+  attributes.primary = warriorModifiers.primary
+  attributes.secondary = warriorModifiers.secondary
+  attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(warriorModifiers.availableEquipment)))
+  attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canWarriorUse(weapon))
 }
 
 function addArcherModifiers (attributes) {
@@ -150,6 +207,14 @@ function addArcherModifiers (attributes) {
   attributes.magicRegen += archerModifiers.magicRegen
   attributes.meleeDamage += archerModifiers.meleeDamage
   attributes.rangedDamage += archerModifiers.rangedDamage
+  attributes.armor = archerModifiers.armor
+  attributes.availableArmor = Array.from(new Set(attributes.availableArmor.concat(archerModifiers.availableArmor)))
+  attributes.availableArmor = attributes.availableArmor.filter(armor => Armor.canArcherUse(armor))
+  attributes.primary = archerModifiers.primary
+  attributes.secondary = archerModifiers.secondary
+  attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(archerModifiers.availableEquipment)))
+  attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canArcherUse(weapon))
+  attributes.arrows = archerModifiers.arrows
 }
 
 function addMagiModifiers (attributes) {
@@ -161,6 +226,13 @@ function addMagiModifiers (attributes) {
   attributes.magicRegen += magiModifiers.magicRegen
   attributes.meleeDamage += magiModifiers.meleeDamage
   attributes.rangedDamage += magiModifiers.rangedDamage
+  attributes.armor = magiModifiers.armor
+  attributes.availableArmor = Array.from(new Set(attributes.availableArmor.concat(magiModifiers.availableArmor)))
+  attributes.availableArmor = attributes.availableArmor.filter(armor => Armor.canMagiUse(armor))
+  attributes.primary = magiModifiers.primary
+  attributes.secondary = magiModifiers.secondary
+  attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(magiModifiers.availableEquipment)))
+  attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canMagiUse(weapon))
 }
 
 function addClericModifiers (attributes) {
@@ -172,4 +244,11 @@ function addClericModifiers (attributes) {
   attributes.magicRegen += clericModifiers.magicRegen
   attributes.meleeDamage += clericModifiers.meleeDamage
   attributes.rangedDamage += clericModifiers.rangedDamage
+  attributes.armor = clericModifiers.armor
+  attributes.availableArmor = Array.from(new Set(attributes.availableArmor.concat(clericModifiers.availableArmor)))
+  attributes.availableArmor = attributes.availableArmor.filter(armor => Armor.canClericUse(armor))
+  attributes.primary = clericModifiers.primary
+  attributes.secondary = clericModifiers.secondary
+  attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(clericModifiers.availableEquipment)))
+  attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canClericUse(weapon))
 }
