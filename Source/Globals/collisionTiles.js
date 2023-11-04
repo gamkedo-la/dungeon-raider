@@ -8,7 +8,8 @@ const collisionTiles = [
   96, 97, 98, 99, 100, 101, 102, 103, 104,
   128, 129, 130, 131, 132, 133, 134,
   160, 161, 162, 163, 164, 165,
-  192, 193, 194, 195
+  192, 193, 194, 195,
+  // 225, 257, 289, 321, 353, // animated vertical water tiles
 ]
 
 export default collisionTiles

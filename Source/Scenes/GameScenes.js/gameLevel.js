@@ -35,6 +35,7 @@ class GameLevel extends Phaser.Scene {
 
     this.debugGraphics = this.add.graphics()
     this.scene.launch(UserInterfaceKey)
+    this.mapManager.startTileAnimations()
   }
 
   createCharacters () {
