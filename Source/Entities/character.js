@@ -2,7 +2,7 @@ import { SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
 import { CharacterType } from '../Keys/entityKeys.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
-import AnimationKeys from '../Keys/animationKeys.js'
+import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -19,19 +19,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.characterClass = config.characterClass
     this.gameManager = config.gameManager
 
-    this.animationKeys = this.getAnimationKeys()
-    this.animations = {
-      idle: null,
-      walk: null,
-      primary: null,
-      secondary: null,
-      injured: null,
-      death: null,
-      dead: null
-    }
+    this.animations = {}
 
     this.buildAnimations()
-    this.anims.play(this.animationKeys.idle, this)
+    this.anims.play(this.animations.idle, this)
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
     // Set Input properties
@@ -85,208 +76,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
-  getAnimationKeys () {
-    switch (this.race) {
-      case Races.Elven: return this.getElvenAnimationKeys()
-      case Races.Human: return this.getHumanAnimationKeys()
-      case Races.Dwarf: return this.getDwarfAnimationKeys()
-    }
-  }
-
-  getElvenAnimationKeys () {
-    switch (this.characterClass) {
-      case CharacterClasses.Warrior: return {
-        idle: AnimationKeys.ElvenWarriorIdle,
-        walk: AnimationKeys.ElvenWarriorWalk,
-        primary: AnimationKeys.ElvenWarriorPrimary,
-        secondary: AnimationKeys.ElvenWarriorSecondary,
-        injured: AnimationKeys.ElvenWarriorInjured,
-        death: AnimationKeys.ElvenWarriorDeath,
-        dead: AnimationKeys.ElvenWarriorDead
-      }
-      case CharacterClasses.Archer: return {
-        idle: AnimationKeys.ElvenArcherIdle,
-        walk: AnimationKeys.ElvenArcherWalk,
-        primary: AnimationKeys.ElvenArcherPrimary,
-        secondary: AnimationKeys.ElvenArcherSecondary,
-        injured: AnimationKeys.ElvenArcherInjured,
-        death: AnimationKeys.ElvenArcherDeath,
-        dead: AnimationKeys.ElvenArcherDead
-      }
-      case CharacterClasses.Cleric: return {
-        idle: AnimationKeys.ElvenClericIdle,
-        walk: AnimationKeys.ElvenClericWalk,
-        primary: AnimationKeys.ElvenClericPrimary,
-        secondary: AnimationKeys.ElvenClericSecondary,
-        injured: AnimationKeys.ElvenClericInjured,
-        death: AnimationKeys.ElvenClericDeath,
-        dead: AnimationKeys.ElvenClericDead
-      }
-      case CharacterClasses.Magi: return {
-        idle: AnimationKeys.ElvenMagiIdle,
-        walk: AnimationKeys.ElvenMagiWalk,
-        primary: AnimationKeys.ElvenMagiPrimary,
-        secondary: AnimationKeys.ElvenMagiSecondary,
-        injured: AnimationKeys.ElvenMagiInjured,
-        death: AnimationKeys.ElvenMagiDeath,
-        dead: AnimationKeys.ElvenMagiDead
-      }
-    }
-  }
-
-  getHumanAnimationKeys () {
-    switch (this.characterClass) {
-      case CharacterClasses.Warrior: return {
-        idle: AnimationKeys.HumanWarriorIdle,
-        walk: AnimationKeys.HumanWarriorWalk,
-        primary: AnimationKeys.HumanWarriorPrimary,
-        secondary: AnimationKeys.HumanWarriorSecondary,
-        injured: AnimationKeys.HumanWarriorInjured,
-        death: AnimationKeys.HumanWarriorDeath,
-        dead: AnimationKeys.HumanWarriorDead
-      }
-      case CharacterClasses.Archer: return {
-        idle: AnimationKeys.HumanArcherIdle,
-        walk: AnimationKeys.HumanArcherWalk,
-        primary: AnimationKeys.HumanArcherPrimary,
-        secondary: AnimationKeys.HumanArcherSecondary,
-        injured: AnimationKeys.HumanArcherInjured,
-        death: AnimationKeys.HumanArcherDeath,
-        dead: AnimationKeys.HumanArcherDead
-      }
-      case CharacterClasses.Cleric: return {
-        idle: AnimationKeys.HumanClericIdle,
-        walk: AnimationKeys.HumanClericWalk,
-        primary: AnimationKeys.HumanClericPrimary,
-        secondary: AnimationKeys.HumanClericSecondary,
-        injured: AnimationKeys.HumanClericInjured,
-        death: AnimationKeys.HumanClericDeath,
-        dead: AnimationKeys.HumanClericDead
-      }
-      case CharacterClasses.Magi: return {
-        idle: AnimationKeys.HumanMagiIdle,
-        walk: AnimationKeys.HumanMagiWalk,
-        primary: AnimationKeys.HumanMagiPrimary,
-        secondary: AnimationKeys.HumanMagiSecondary,
-        injured: AnimationKeys.HumanMagiInjured,
-        death: AnimationKeys.HumanMagiDeath,
-        dead: AnimationKeys.HumanMagiDead
-      }
-    }
-  }
-
-  getDwarvenAnimationKeys () {
-    switch (this.characterClass) {
-      case CharacterClasses.Warrior: return {
-        idle: AnimationKeys.DwarvenWarriorIdle,
-        walk: AnimationKeys.DwarvenWarriorWalk,
-        primary: AnimationKeys.DwarvenWarriorPrimary,
-        secondary: AnimationKeys.DwarvenWarriorSecondary,
-        injured: AnimationKeys.DwarvenWarriorInjured,
-        death: AnimationKeys.DwarvenWarriorDeath,
-        dead: AnimationKeys.DwarvenWarriorDead
-      }
-      case CharacterClasses.Archer: return {
-        idle: AnimationKeys.DwarvenArcherIdle,
-        walk: AnimationKeys.DwarvenArcherWalk,
-        primary: AnimationKeys.DwarvenArcherPrimary,
-        secondary: AnimationKeys.DwarvenArcherSecondary,
-        injured: AnimationKeys.DwarvenArcherInjured,
-        death: AnimationKeys.DwarvenArcherDeath,
-        dead: AnimationKeys.DwarvenArcherDead
-      }
-      case CharacterClasses.Cleric: return {
-        idle: AnimationKeys.DwarvenClericIdle,
-        walk: AnimationKeys.DwarvenClericWalk,
-        primary: AnimationKeys.DwarvenClericPrimary,
-        secondary: AnimationKeys.DwarvenClericSecondary,
-        injured: AnimationKeys.DwarvenClericInjured,
-        death: AnimationKeys.DwarvenClericDeath,
-        dead: AnimationKeys.DwarvenClericDead
-      }
-      case CharacterClasses.Magi: return {
-        idle: AnimationKeys.DwarvenMagiIdle,
-        walk: AnimationKeys.DwarvenMagiWalk,
-        primary: AnimationKeys.DwarvenMagiPrimary,
-        secondary: AnimationKeys.DwarvenMagiSecondary,
-        injured: AnimationKeys.DwarvenMagiInjured,
-        death: AnimationKeys.DwarvenMagiDeath,
-        dead: AnimationKeys.DwarvenMagiDead
-      }
-    }
-  }
-
   buildAnimations () {
-    this.animations.idle = this.scene.anims.get(this.animationKeys.idle)
-    if (!this.animations.idle) {
-      this.animations.idle = this.scene.anims.create({
-        key: this.animationKeys.idle,
-        frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.idle }),
-        frameRate: 1,
-        repeat: -1
-      })
+    const animationsProps = CharacterAnimations[`${this.race}${this.characterClass}`]
+    for (const animationProps in animationsProps) {
+      this.animations[animationProps] = this.scene.anims.get(animationsProps[animationProps].key)
     }
-
-    this.animations.walk = this.scene.anims.get(this.animationKeys.walk)
-    if (!this.animations.walk) {
-      this.animations.walk = this.scene.anims.create({
-        key: this.animationKeys.walk,
-        frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.walk }),
-        frameRate: 8,
-        repeat: -1
-      })
-    }
-
-    this.animations.primary = this.scene.anims.get(this.animationKeys.primary)
-    if (!this.animations.primary) {
-      this.animations.primary = this.scene.anims.create({
-        key: this.animationKeys.primary,
-        frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.primary }),
-        frameRate: 8,
-        repeat: 0
-      })
-    }
-
-    // TODO: Need to add these frames to the sprite sheets
-    // this.animations.secondary = this.scene.anims.get(this.animationKeys.secondary)
-    // if (!this.animations.secondary) {
-    //   this.animations.secondary = this.scene.anims.create({
-    //     key: this.animationKeys.secondary,
-    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.secondary }),
-    //     frameRate: 8,
-    //     repeat: -1
-    //   })
-    // }
-
-    // this.animations.injured = this.scene.anims.get(this.animationKeys.injured)
-    // if (!this.animations.injured) {
-    //   this.animations.injured = this.scene.anims.create({
-    //     key: this.animationKeys.injured,
-    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.injured }),
-    //     frameRate: 1,
-    //     repeat: -1
-    //   })
-    // }
-
-    // this.animations.death = this.scene.anims.get(this.animationKeys.death)
-    // if (!this.animations.death) {
-    //   this.animations.death = this.scene.anims.create({
-    //     key: this.animationKeys.death,
-    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.death }),
-    //     frameRate: 8,
-    //     repeat: 0
-    //   })
-    // }
-
-    // this.animations.dead = this.scene.anims.get(this.animationKeys.dead)
-    // if (!this.animations.dead) {
-    //   this.animations.dead = this.scene.anims.create({
-    //     key: this.animationKeys.dead,
-    //     frames: this.anims.generateFrameNumbers(this.spriteSheet, { frames: AnimationKeys.FrameKeys.dead }),
-    //     frameRate: 1,
-    //     repeat: -1
-    //   })
-    // }
   }
 
   preUpdate (time, delta) {
@@ -313,9 +107,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
   updateAnimationsIfRequired () {
     if (!this.isAttacking) {
       if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
-        this.anims.play(this.animationKeys.walk, true)
+        this.anims.play(this.animations.walk, true)
       } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
-        this.anims.play(this.animationKeys.idle, true)
+        this.anims.play(this.animations.idle, true)
       }
     }
   }
@@ -344,12 +138,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   animationComplete (animation, frame) {
-    if (animation.key === this.animationKeys.primary) {
+    if (animation.key === this.animations.primary.key) {
       this.isAttacking = false
-      this.anims.play(this.animationKeys.idle, true)
-    } else if (animation.key === this.animationKeys.secondary) {
+      this.anims.play(this.animations.idle, true)
+    } else if (animation.key === this.animations.secondary.key) {
       this.isAttacking = false
-      this.anims.play(this.animationKeys.idle, true)
+      this.anims.play(this.animations.idle, true)
     }
   }
 
@@ -424,7 +218,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
         this.primaryAttackCoolingDown = false
       })
-      this.anims.play(this.animationKeys.primary, false)
+      this.anims.play(this.animations.primary, false)
     }
 
     if (event.secondary.isDown && !this.secondaryAttackCoolingDown) {
@@ -436,7 +230,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
         this.secondaryAttackCoolingDown = false
       })
       // TODO: Restore this once there actually is a secondary attack animation
-      // this.anims.play(this.animationKeys.secondary, false)
+      // this.anims.play(this.animations.secondary, false)
     }
   }
   
@@ -476,7 +270,7 @@ function getSpriteSheet (race, characterClass) {
         case CharacterClasses.Cleric:
           return SpriteSheets.ElvenCleric
       }
-    case Races.Dwarf:
+    case Races.Dwarven:
       switch (characterClass) {
         case CharacterClasses.Warrior:
           return SpriteSheets.DwarvenWarrior

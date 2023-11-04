@@ -1,14 +1,15 @@
 import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys from '../Keys/imageKeys.js'
-import { SpriteSheetLoaderData } from '../Globals/spriteSheetLoaderData.js'
+import { SpriteSheetLoaderData, SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
-import { Player1Keys } from "../Keys/playerPropertyKeys.js"
-import { CharacterClasses, Races } from "../Globals/characterAttributes.js"
-import { getCharacterAttributes } from "../Globals/characterAttributes.js"
+// import CharacterAnimationKeys from '../Keys/characterAnimationKeys.js'
+import CharacterAnimations from '../Keys/characterAnimationKeys.js'
+import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
+import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/character.js"
 // import AtlasKeys from '../Keys/atlasKeys.js'
 
@@ -62,6 +63,9 @@ class Preloader extends Phaser.Scene {
     const gameManager = new GameManager(this.game)
     this.game.registry.set(GameManagerKey, gameManager)
 
+    // Animations are Global for whole Game => load them here and use anywhere
+    buildAllAnimations(this)
+
     // TODO: Move this into the Character Create Scene
     createPlayer1Character(this, gameManager)
 
@@ -69,6 +73,31 @@ class Preloader extends Phaser.Scene {
     // this.scene.start(TitleKey)
     this.scene.start(Level1Key)
     this.scene.remove(PreloaderKey)
+  }
+}
+
+function buildAllAnimations (preloader) {
+  buildAllCharacterAnimations(preloader)
+}
+
+function buildAllCharacterAnimations (preloader) {
+  for (const race of Object.values(Races)) {
+    for (const characterClass of Object.values(CharacterClasses)) {
+      buildCharacterAnimations(preloader, `${race}${characterClass}`)
+    }
+  }
+}
+
+function buildCharacterAnimations (preloader, characterType) {
+  // This function builds all of the animations for a single character type
+  for (const animationKey in CharacterAnimations[characterType]) {
+    const animation = CharacterAnimations[characterType][animationKey]
+    preloader.anims.create({
+      key: animation.key,
+      frames: preloader.anims.generateFrameNumbers(SpriteSheets[`${characterType}`], { frames: animation.frames }),
+      frameRate: animation.props.frameRate,
+      repeat: animation.props.repeat
+    })
   }
 }
 

@@ -4,7 +4,7 @@ import Weapons from './weaponAttributes.js'
 export const Races = {
   Elven: 'Elven',
   Human: 'Human',
-  Dwarf: 'Dwarf'
+  Dwarven: 'Dwarven'
 }
 
 export const CharacterClasses = {
@@ -38,8 +38,8 @@ export function getCharacterAttributes (race, characterClass) {
     case Races.Elven:
       Object.assign(attributes, elf)
       break
-    case Races.Dwarf:
-      Object.assign(attributes, dwarf)
+    case Races.Dwarven:
+      Object.assign(attributes, dwarven)
       break
   }
 
@@ -93,7 +93,7 @@ const elf = {
   availableEquipment: []
 }
 
-const dwarf = {
+const dwarven = {
   runSpeed: 70,
   attackCooldown: 700,
   health: 120,
