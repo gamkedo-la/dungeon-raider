@@ -9,6 +9,7 @@ export default class GameManager {
   constructor (game) {
     this.game = game
 
+    // TODO: Remove this once the Character Create Screen is implemented
     createDebugCharacter(this)
   }
 
@@ -239,7 +240,7 @@ export default class GameManager {
 function createDebugCharacter (gameManager) {
   // TODO: All of this must be managed on the Title and/or Character Create Screen(s). Remove this and the whole function when we can do it properly
   gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
-  gameManager.setActivePlayer(Player2Keys.Player, null, false)
+  gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.WASD, true)
   gameManager.setActivePlayer(Player3Keys.Player, null, false)
   gameManager.setActivePlayer(Player4Keys.Player, null, false)
   // END TODO

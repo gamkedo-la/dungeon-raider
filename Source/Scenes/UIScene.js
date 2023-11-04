@@ -35,7 +35,9 @@ class UserInterface extends Phaser.Scene {
   }
 
   createCharacterUI (player, frameX, frameY) {
-    this.add.image(frameX, frameY, CharacterUIPane)
+    const playerFrame = this.add.image(frameX, frameY, CharacterUIPane)
+    const leftPadding = 10
+    const topPadding = -5
     let playerColor = UIAttributes.RedPlayerColor
     switch (player) {
       case Player1Keys.Player:
@@ -62,8 +64,8 @@ class UserInterface extends Phaser.Scene {
 
     const header = new FontLabel(this, {
       // 5 for padding, fontSizeNumber for spacing
-      x: 5 + fontSizeNumber,
-      y: verticalMultiplier++ * lineHeight,
+      x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier++ * lineHeight,
       title: `${characterRace} ${characterClass}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
@@ -71,8 +73,8 @@ class UserInterface extends Phaser.Scene {
     })
 
     const health = new FontLabel(this, {
-      x: 5 + fontSizeNumber,
-      y: verticalMultiplier++ * lineHeight,
+      x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier++ * lineHeight,
       title: `Health: ${characterAttributes.health}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
@@ -82,8 +84,8 @@ class UserInterface extends Phaser.Scene {
     let magic = null
     if (characterClass === CharacterClasses.Magi || characterClass === CharacterClasses.Cleric) {
       new FontLabel(this, {
-        x: 5 + fontSizeNumber,
-        y: verticalMultiplier++ * lineHeight,
+        x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+        y: topPadding + verticalMultiplier++ * lineHeight,
         title: `Magic: ${characterAttributes.magic}`,
         fontFamily: UIAttributes.UIFontFamily,
         fontSize: UIAttributes.UIFontSize,
@@ -92,8 +94,8 @@ class UserInterface extends Phaser.Scene {
     }
 
     const armor = new FontLabel(this, {
-      x: 5 + fontSizeNumber,
-      y: verticalMultiplier++ * lineHeight,
+      x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier++ * lineHeight,
       title: `Armor: ${characterAttributes.armor}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
@@ -101,8 +103,8 @@ class UserInterface extends Phaser.Scene {
     })
 
     const primary = new FontLabel(this, {
-      x: 5 + fontSizeNumber,
-      y: verticalMultiplier++ * lineHeight,
+      x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier++ * lineHeight,
       title: `Primary: ${characterAttributes.weapon}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
@@ -117,8 +119,8 @@ class UserInterface extends Phaser.Scene {
         arrowsText += `\n${characterAttributes.arrows.secondary.name}: ${characterAttributes.arrows.secondary.quantity}`
       }
       new FontLabel(this, {
-        x: 5 + fontSizeNumber,
-        y: verticalMultiplier++ * lineHeight,
+        x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+        y: topPadding + verticalMultiplier++ * lineHeight,
         title: arrowsText,
         fontFamily: UIAttributes.UIFontFamily,
         fontSize: UIAttributes.UIFontSize,
@@ -126,8 +128,8 @@ class UserInterface extends Phaser.Scene {
       })
     } else {
       secondary = new FontLabel(this, {
-        x: 5 + fontSizeNumber,
-        y: verticalMultiplier++ * lineHeight,
+        x: leftPadding + playerFrame.x - (playerFrame.width / 2),
+        y: topPadding + verticalMultiplier++ * lineHeight,
         title: `Secondary: ${characterAttributes.secondary}`,
         fontFamily: UIAttributes.UIFontFamily,
         fontSize: UIAttributes.UIFontSize,

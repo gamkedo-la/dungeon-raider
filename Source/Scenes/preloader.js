@@ -6,7 +6,6 @@ import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
-// import CharacterAnimationKeys from '../Keys/characterAnimationKeys.js'
 import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
@@ -68,6 +67,7 @@ class Preloader extends Phaser.Scene {
 
     // TODO: Move this into the Character Create Scene
     createPlayer1Character(this, gameManager)
+    createPlayer2Character(this, gameManager)
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
     // this.scene.start(TitleKey)
@@ -90,14 +90,28 @@ function buildAllCharacterAnimations (preloader) {
 
 function buildCharacterAnimations (preloader, characterType) {
   // This function builds all of the animations for a single character type
-  for (const animationKey in CharacterAnimations[characterType]) {
-    const animation = CharacterAnimations[characterType][animationKey]
-    preloader.anims.create({
-      key: animation.key,
-      frames: preloader.anims.generateFrameNumbers(SpriteSheets[`${characterType}`], { frames: animation.frames }),
-      frameRate: animation.props.frameRate,
-      repeat: animation.props.repeat
-    })
+  const playerKeys = [Player1Keys.Player, Player2Keys.Player, Player3Keys.Player, Player4Keys.Player]
+
+  // subtract 1 to account for the "__base" frame, divide by 4 to account for the 4 nearly duplicate rows (1 for each player color)
+  const frameCount = (preloader.textures.get(SpriteSheets[`${characterType}`]).frameTotal - 1) / 4
+
+  let i = 0
+  for (const playerKey of playerKeys) {
+    for (const animationKey in CharacterAnimations[characterType]) {
+      const animation = CharacterAnimations[characterType][animationKey]
+      const frames = []
+      for (const frame of animation.frames) {
+        frames.push(frame + (i * frameCount))
+      }
+
+      preloader.anims.create({
+        key: `${playerKey}-${animation.key}`,
+        frames: preloader.anims.generateFrameNumbers(SpriteSheets[`${characterType}`], { frames }),
+        frameRate: animation.props.frameRate,
+        repeat: animation.props.repeat
+      })
+    }
+    i++
   }
 }
 
@@ -111,6 +125,21 @@ function createPlayer1Character (scene, gameManager) {
     characterClass: CharacterClasses.Warrior,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer2Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player2Keys.Player,
+    race: Races.Human,
+    characterClass: CharacterClasses.Archer,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
   }))
 
   newCharacter.serialize()

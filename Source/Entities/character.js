@@ -79,7 +79,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   buildAnimations () {
     const animationsProps = CharacterAnimations[`${this.race}${this.characterClass}`]
     for (const animationProps in animationsProps) {
-      this.animations[animationProps] = this.scene.anims.get(animationsProps[animationProps].key)
+      this.animations[animationProps] = this.scene.anims.get(`${this.player}-${animationsProps[animationProps].key}`)
     }
   }
 
