@@ -54,7 +54,7 @@ class GameLevel extends Phaser.Scene {
       const playerSpawnPos = this.mapManager.getPlayerSpawn(activePlayer)
       character.setPosition(playerSpawnPos.x, playerSpawnPos.y)
 
-      this.collisionManager.addEntity(character) // add the character to the physics simulation and enable collisions
+      this.collisionManager.addEntity(character, character.attributes.radius) // add the character to the physics simulation and enable collisions
       this.add.existing(character) // add the character to the scene => will be visible and updated
 
       this.characters.push(character)
@@ -88,14 +88,25 @@ class GameLevel extends Phaser.Scene {
       this.debugGraphics.clear()
     }
 
-    const cameraPos = { x: 0, y: 0 }
-    for (const character of this.characters) {
-      cameraPos.x += character.x
-      cameraPos.y += character.y
+    const characterXs = this.characters.map(character => character.x)
+    const characterYs = this.characters.map(character => character.y)
+    const minX = Math.min(...characterXs)
+    const maxX = Math.max(...characterXs)
+    const minY = Math.min(...characterYs)
+    const maxY = Math.max(...characterYs)
+
+    if (Math.abs(maxX - minX) + this.characters[0].width <= this.cameras.main.width / this.cameras.main.zoom) {
+      this.cameras.main.centerOnX((maxX + minX) / 2)
     }
-    cameraPos.x /= this.characters.length
-    cameraPos.y /= this.characters.length
-    this.cameras.main.centerOn(this.characters[0].x, this.characters[0].y)
+
+    if (Math.abs(maxY - minY) + this.characters[0].height <= this.cameras.main.height / this.cameras.main.zoom) {
+      this.cameras.main.centerOnY((maxY + minY) / 2)
+    }
+
+    for (const character of this.characters) {
+      character.x = Phaser.Math.Clamp(character.x, this.cameras.main.worldView.left + character.width / 2, this.cameras.main.worldView.right - character.width / 2)
+      character.y = Phaser.Math.Clamp(character.y, this.cameras.main.worldView.top + character.height / 2, this.cameras.main.worldView.bottom - character.height / 2)
+    }
   }
 
   toggleDebug () {

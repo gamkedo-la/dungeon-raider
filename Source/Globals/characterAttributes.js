@@ -28,7 +28,8 @@ export function getCharacterAttributes (race, characterClass) {
     availableArmor: [Armor.PlainClothes],
     primary: Weapons.Fists,
     secondary: Weapons.Fists,
-    availableEquipment: [Weapons.Fists]
+    availableEquipment: [Weapons.Fists],
+    radius: 12
   }
 
   switch (race) {
@@ -74,7 +75,8 @@ const human = {
   availableArmor: [],
   primary: Weapons.Fists,
   secondary: Weapons.Fists,
-  availableEquipment: []
+  availableEquipment: [],
+  radius: 12
 }
 
 const elf = {
@@ -90,7 +92,8 @@ const elf = {
   availableArmor: [],
   primary: Weapons.Fists,
   secondary: Weapons.Fists,
-  availableEquipment: []
+  availableEquipment: [],
+  radius: 10
 }
 
 const dwarven = {
@@ -106,7 +109,8 @@ const dwarven = {
   availableArmor: [Armor.HalfPlate],
   primary: Weapons.Axe,
   secondary: Weapons.Fists,
-  availableEquipment: [Weapons.Fists, Weapons.Axe]
+  availableEquipment: [Weapons.Fists, Weapons.Axe],
+  radius: 14
 }
 
 const warriorModifiers = {
@@ -122,7 +126,8 @@ const warriorModifiers = {
   availableArmor: [Armor.RingMail],
   primary: Weapons.ShortSword,
   secondary: Weapons.Fists,
-  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.ShortSword]
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.ShortSword],
+  radius: 1
 }
 
 const archerModifiers = {
@@ -145,7 +150,8 @@ const archerModifiers = {
       quantity: 100
     },
     secondary: null
-  }
+  },
+  radius: -1
 }
 
 const magiModifiers = {
@@ -161,7 +167,8 @@ const magiModifiers = {
   availableArmor: [Armor.PlainClothes],
   primary: Weapons.MagicArrow,
   secondary: Weapons.Staff,
-  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.MagicArrow, Weapons.Staff]
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.MagicArrow, Weapons.Staff],
+  radius: -1
 }
 
 const clericModifiers = {
@@ -177,7 +184,8 @@ const clericModifiers = {
   availableArmor: [Armor.RingMail],
   primary: Weapons.Mace,
   secondary: Weapons.Heal,
-  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.Mace, Weapons.Heal]
+  availableEquipment: [Weapons.None, Weapons.Fists, Weapons.Mace, Weapons.Heal],
+  radius: 1
 }
 
 function addWarriorModifiers (attributes) {
@@ -196,6 +204,7 @@ function addWarriorModifiers (attributes) {
   attributes.secondary = warriorModifiers.secondary
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(warriorModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canWarriorUse(weapon))
+  attributes.radius += warriorModifiers.radius
 }
 
 function addArcherModifiers (attributes) {
@@ -215,6 +224,7 @@ function addArcherModifiers (attributes) {
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(archerModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canArcherUse(weapon))
   attributes.arrows = archerModifiers.arrows
+  attributes.radius += archerModifiers.radius
 }
 
 function addMagiModifiers (attributes) {
@@ -233,6 +243,7 @@ function addMagiModifiers (attributes) {
   attributes.secondary = magiModifiers.secondary
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(magiModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canMagiUse(weapon))
+  attributes.radius += magiModifiers.radius
 }
 
 function addClericModifiers (attributes) {
@@ -251,4 +262,5 @@ function addClericModifiers (attributes) {
   attributes.secondary = clericModifiers.secondary
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(clericModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canClericUse(weapon))
+  attributes.radius += clericModifiers.radius
 }

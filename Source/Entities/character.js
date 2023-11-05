@@ -32,6 +32,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else {
       this.processInput = this.useGamepadInput
     }
+    this.lastPosition = new Phaser.Math.Vector2(this.x, this.y)
     this.inputManager = null // input manager will be set by the Level Scene
     this.primaryAttackCoolingDown = false
     this.secondaryAttackCoolingDown = false
@@ -84,6 +85,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   preUpdate (time, delta) {
+    // this.lastPosition.x = this.x
+    // this.lastPosition.y = this.y
+
     super.preUpdate(time, delta)
 
     // Do stuff each game step before the physics/collision simulation
@@ -100,6 +104,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
+
+    this.lastPosition.x = this.x
+    this.lastPosition.y = this.y
 
     this.body.setVelocity(0, 0)
   }
@@ -150,9 +157,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
   didCollideWith (otherEntity) {
     // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
     switch (otherEntity.entityType) {
-      // case CharacterType:
-      //   this.shouldBeDead = true
-      //   break
+      case CharacterType:
+        // console.log('Velocity: ', this.body.velocity)
+        break
       default:
         console.log(`Character.didCollideWith: ${this.player} collided with ${otherEntity.entityType}`)
         break
