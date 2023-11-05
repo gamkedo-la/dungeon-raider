@@ -1,4 +1,4 @@
-import { SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
+import { CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
 import { CharacterType } from '../Keys/entityKeys.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
@@ -258,35 +258,35 @@ function getSpriteSheet (race, characterClass) {
     case Races.Human:
       switch (characterClass) {
         case CharacterClasses.Warrior:
-          return SpriteSheets.HumanWarrior
+          return CharacterSpriteSheets.HumanWarrior
         case CharacterClasses.Archer:
-          return SpriteSheets.HumanArcher
+          return CharacterSpriteSheets.HumanArcher
         case CharacterClasses.Magi:
-          return SpriteSheets.HumanMagi
+          return CharacterSpriteSheets.HumanMagi
         case CharacterClasses.Cleric:
-          return SpriteSheets.HumanCleric
+          return CharacterSpriteSheets.HumanCleric
       }
     case Races.Elven:
       switch (characterClass) {
         case CharacterClasses.Warrior:
-          return SpriteSheets.ElvenWarrior
+          return CharacterSpriteSheets.ElvenWarrior
         case CharacterClasses.Archer:
-          return SpriteSheets.ElvenArcher
+          return CharacterSpriteSheets.ElvenArcher
         case CharacterClasses.Magi:
-          return SpriteSheets.ElvenMagi
+          return CharacterSpriteSheets.ElvenMagi
         case CharacterClasses.Cleric:
-          return SpriteSheets.ElvenCleric
+          return CharacterSpriteSheets.ElvenCleric
       }
     case Races.Dwarven:
       switch (characterClass) {
         case CharacterClasses.Warrior:
-          return SpriteSheets.DwarvenWarrior
+          return CharacterSpriteSheets.DwarvenWarrior
         case CharacterClasses.Archer:
-          return SpriteSheets.DwarvenArcher
+          return CharacterSpriteSheets.DwarvenArcher
         case CharacterClasses.Magi:
-          return SpriteSheets.DwarvenMagi
+          return CharacterSpriteSheets.DwarvenMagi
         case CharacterClasses.Cleric:
-          return SpriteSheets.DwarvenCleric
+          return CharacterSpriteSheets.DwarvenCleric
       }
   }
 }

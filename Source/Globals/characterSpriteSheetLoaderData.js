@@ -13,7 +13,7 @@ export const DwarvenArcherSpriteSheet = 'dwarvenArcherSpriteSheet'
 export const DwarvenMagiSpriteSheet = 'dwarvenMagiSpriteSheet'
 export const DwarvenClericSpriteSheet = 'dwarvenClericSpriteSheet'
 
-export const SpriteSheets = {
+export const CharacterSpriteSheets = {
   ElvenWarrior: ElvenWarriorSpriteSheet,
   ElvenArcher: ElvenArcherSpriteSheet,
   ElvenMagi: ElvenMagiSpriteSheet,
@@ -28,9 +28,9 @@ export const SpriteSheets = {
   DwarvenCleric: DwarvenClericSpriteSheet
 }
 
-export const SpriteSheetLoaderData = [
+export const CharacterSpriteSheetLoaderData = [
   {
-    key: SpriteSheets.ElvenWarrior,
+    key: CharacterSpriteSheets.ElvenWarrior,
     url: `../../Public/Images/${ElvenWarriorSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -42,7 +42,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.ElvenArcher,
+    key: CharacterSpriteSheets.ElvenArcher,
     url: `../../Public/Images/${ElvenArcherSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -53,7 +53,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.ElvenMagi,
+    key: CharacterSpriteSheets.ElvenMagi,
     url: `../../Public/Images/${ElvenMagiSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -64,7 +64,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.ElvenCleric,
+    key: CharacterSpriteSheets.ElvenCleric,
     url: `../../Public/Images/${ElvenClericSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -75,7 +75,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.HumanWarrior,
+    key: CharacterSpriteSheets.HumanWarrior,
     url: `../../Public/Images/${HumanWarriorSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -86,7 +86,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.HumanArcher,
+    key: CharacterSpriteSheets.HumanArcher,
     url: `../../Public/Images/${HumanArcherSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -97,7 +97,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.HumanMagi,
+    key: CharacterSpriteSheets.HumanMagi,
     url: `../../Public/Images/${HumanMagiSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -108,7 +108,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.HumanCleric,
+    key: CharacterSpriteSheets.HumanCleric,
     url: `../../Public/Images/${HumanClericSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -119,7 +119,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.DwarvenWarrior,
+    key: CharacterSpriteSheets.DwarvenWarrior,
     url: `../../Public/Images/${DwarvenWarriorSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -130,7 +130,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.DwarvenArcher,
+    key: CharacterSpriteSheets.DwarvenArcher,
     url: `../../Public/Images/${DwarvenArcherSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -141,7 +141,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.DwarvenMagi,
+    key: CharacterSpriteSheets.DwarvenMagi,
     url: `../../Public/Images/${DwarvenMagiSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,
@@ -152,7 +152,7 @@ export const SpriteSheetLoaderData = [
     }
   },
   {
-    key: SpriteSheets.DwarvenCleric,
+    key: CharacterSpriteSheets.DwarvenCleric,
     url: `../../Public/Images/${DwarvenClericSpriteSheet}.png`,
     frameConfig: {
       frameWidth: 32,

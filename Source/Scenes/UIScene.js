@@ -37,6 +37,7 @@ class UserInterface extends Phaser.Scene {
   createCharacterUI (player, frameX, frameY) {
     const playerFrame = this.add.image(frameX, frameY, CharacterUIPane)
     const leftPadding = 10
+    const column2Padding = 240
     const topPadding = -5
     let playerColor = UIAttributes.RedPlayerColor
     switch (player) {
@@ -63,7 +64,6 @@ class UserInterface extends Phaser.Scene {
     const lineHeight = fontSizeNumber + UIAttributes.TextLineSpacing
 
     const header = new FontLabel(this, {
-      // 5 for padding, fontSizeNumber for spacing
       x: leftPadding + playerFrame.x - (playerFrame.width / 2),
       y: topPadding + verticalMultiplier++ * lineHeight,
       title: `${characterRace} ${characterClass}`,
@@ -74,8 +74,17 @@ class UserInterface extends Phaser.Scene {
 
     const health = new FontLabel(this, {
       x: leftPadding + playerFrame.x - (playerFrame.width / 2),
-      y: topPadding + verticalMultiplier++ * lineHeight,
+      y: topPadding + verticalMultiplier * lineHeight,
       title: `Health: ${characterAttributes.health}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
+    })
+
+    const gold = new FontLabel(this, {
+      x: column2Padding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier++ * lineHeight,
+      title: `Gold: ${formatGold(characterAttributes.gold)}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor
@@ -137,7 +146,7 @@ class UserInterface extends Phaser.Scene {
       })
     }
 
-    return { header, health, magic, armor, primary, secondary, arrows }
+    return { header, health, gold, magic, armor, primary, secondary, arrows }
   }
 
   update (time, delta) {
@@ -149,6 +158,7 @@ class UserInterface extends Phaser.Scene {
         playerUI.health.updateColor(UIAttributes.UIDangerColor)
       }
       playerUI.health.updateTitle(`Health: ${playerAttributes.health}`)
+      playerUI.gold.updateTitle(`Gold: ${formatGold(playerAttributes.gold)}`)
 
       if (playerUI.magic) {
         if (playerAttributes.magic <= 10) {
@@ -179,6 +189,16 @@ class UserInterface extends Phaser.Scene {
 
 function getFontSizeNumber (fontSize) {
   return parseInt(fontSize.substring(0, fontSize.length - 2))
+}
+
+function formatGold (gold) {
+  const goldString = `${gold}`
+  if (goldString.length > 3) {
+    // this works because we know the max gold is less than 1,000,000
+    return `${goldString.substring(0, goldString.length - 3)},${goldString.substring(goldString.length - 3)}`
+  } else {
+    return goldString
+  }
 }
 
 export default UserInterface

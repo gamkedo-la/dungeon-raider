@@ -1,12 +1,14 @@
 import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys from '../Keys/imageKeys.js'
-import { SpriteSheetLoaderData, SpriteSheets } from '../Globals/spriteSheetLoaderData.js'
+import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
+import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
 import CharacterAnimations from '../Keys/characterAnimationKeys.js'
+import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/character.js"
@@ -51,8 +53,9 @@ class Preloader extends Phaser.Scene {
 
     // Spritesheets differ from Sprite Altases in that the individual images in a Spritesheet are all the same dimensions, and are arranged in a grid.
     // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
-    // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what SpriteSheetLoaderData is
-    this.load.spritesheet(SpriteSheetLoaderData)
+    // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what CharacterSpriteSheetLoaderData is
+    this.load.spritesheet(CharacterSpriteSheetLoaderData)
+    this.load.spritesheet(EnemySpriteSheetLoaderData)
 
     // Load the webfont script. This is needed to load custom fonts.
     this.load.script('webfont', `../../Public/Fonts/webfont_loader.js`)
@@ -78,6 +81,7 @@ class Preloader extends Phaser.Scene {
 
 function buildAllAnimations (preloader) {
   buildAllCharacterAnimations(preloader)
+  buildAllEnemyAnimations(preloader)
 }
 
 function buildAllCharacterAnimations (preloader) {
@@ -93,7 +97,7 @@ function buildCharacterAnimations (preloader, characterType) {
   const playerKeys = [Player1Keys.Player, Player2Keys.Player, Player3Keys.Player, Player4Keys.Player]
 
   // subtract 1 to account for the "__base" frame, divide by 4 to account for the 4 nearly duplicate rows (1 for each player color)
-  const frameCount = (preloader.textures.get(SpriteSheets[`${characterType}`]).frameTotal - 1) / 4
+  const frameCount = (preloader.textures.get(CharacterSpriteSheets[`${characterType}`]).frameTotal - 1) / 4
 
   let i = 0
   for (const playerKey of playerKeys) {
@@ -106,12 +110,38 @@ function buildCharacterAnimations (preloader, characterType) {
 
       preloader.anims.create({
         key: `${playerKey}-${animation.key}`,
-        frames: preloader.anims.generateFrameNumbers(SpriteSheets[`${characterType}`], { frames }),
+        frames: preloader.anims.generateFrameNumbers(CharacterSpriteSheets[`${characterType}`], { frames }),
         frameRate: animation.props.frameRate,
         repeat: animation.props.repeat
       })
     }
     i++
+  }
+}
+
+function buildAllEnemyAnimations (preloader) {
+  for (const enemyType in EnemySpriteSheets) {
+    buildEnemyAnimations(preloader, enemyType)
+  }
+}
+
+function buildEnemyAnimations (preloader, enemyType) {
+  // This function builds all of the animations for a single enemy type
+  const frameCount = preloader.textures.get(EnemySpriteSheets[`${enemyType}`]).frameTotal
+
+  for (const animationKey in EnemyAnimations[enemyType]) {
+    const animation = EnemyAnimations[enemyType][animationKey]
+    const frames = []
+    for (const frame of animation.frames) {
+      frames.push(frame)
+    }
+
+    preloader.anims.create({
+      key: `${enemyType}-${animation.key}`,
+      frames: preloader.anims.generateFrameNumbers(EnemySpriteSheets[`${enemyType}`], { frames }),
+      frameRate: animation.props.frameRate,
+      repeat: animation.props.repeat
+    })
   }
 }
 

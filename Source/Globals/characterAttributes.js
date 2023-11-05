@@ -29,7 +29,8 @@ export function getCharacterAttributes (race, characterClass) {
     primary: Weapons.Fists,
     secondary: Weapons.Fists,
     availableEquipment: [Weapons.Fists],
-    radius: 12
+    radius: 12,
+    gold: 100
   }
 
   switch (race) {
