@@ -137,7 +137,7 @@ function buildEnemyAnimations (preloader, enemyType) {
     }
 
     preloader.anims.create({
-      key: `${enemyType}-${animation.key}`,
+      key: `${animation.key}`,
       frames: preloader.anims.generateFrameNumbers(EnemySpriteSheets[`${enemyType}`], { frames }),
       frameRate: animation.props.frameRate,
       repeat: animation.props.repeat

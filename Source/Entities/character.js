@@ -1,6 +1,6 @@
 import { CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
-import { CharacterType } from '../Keys/entityKeys.js'
+import EntityTypes from '../Globals/entityTypes.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 
@@ -13,7 +13,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
     this.scene = scene
     this.spriteSheet = spriteSheet
-    this.entityType = CharacterType
+    this.entityType = EntityTypes.Character
     this.player = config.player
     this.race = config.race
     this.characterClass = config.characterClass
@@ -156,17 +156,24 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   didCollideWith (otherEntity) {
     // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
-    switch (otherEntity.entityType) {
-      case CharacterType:
-        // console.log('Velocity: ', this.body.velocity)
-        break
-      default:
-        console.log(`Character.didCollideWith: ${this.player} collided with ${otherEntity.entityType}`)
-        break
+    if (EntityTypes.isEnemy(otherEntity)) {
+      // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
+    } else if (otherEntity.entityType === EntityTypes.Tile) {
+      // hit a tile
+    } else if (otherEntity.entityType === EntityTypes.Character) {
+      // hit another character
+    }
+  }
+
+  takeDamage (damage) {
+    this.attributes.health -= damage
+    if (this.attributes.health <= 0) {
+      this.shouldBeDead = true
     }
   }
 
   useKeyboardInput (event) {
+    if (this.isDead) return
     if (event.right.isDown) {
       if (event.left.isDown) {
         this.body.velocity.x = 0

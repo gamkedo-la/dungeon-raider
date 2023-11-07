@@ -1,6 +1,6 @@
 import { MasterTileset } from "../Keys/imageKeys.js"
 import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
-import TiledObjectTypes from "../Keys/tiledObjectKeys.js"
+import EntityTypes from "../Globals/entityTypes.js"
 import CollidableGIDs from "../Globals/collisionTiles.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
@@ -30,7 +30,7 @@ export default class MapManager {
       for (const object of objectLayer.objects) {
         // Tiled uses Upper Left as the origin/anchor, Phaser uses Center
         object.x += object.width / 2
-        object.y += object.height / 2
+        object.y -= object.height / 2
         processObject(this, object)
       }
     }
@@ -68,10 +68,10 @@ export default class MapManager {
 
 function processObject (manager, object) {
   switch (object.type) {
-    case TiledObjectTypes.SpawnPoint:
+    case EntityTypes.Character:
       processPlayerSpawnObject(manager, object)
       break
-    case TiledObjectTypes.Ogre1:
+    case EntityTypes.Ogre1:
       console.log(object)
       manager.enemySpawnPoints.push(object)
       break

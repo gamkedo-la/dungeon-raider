@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="6">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="8">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -49,6 +49,12 @@
     <frame tileid="289" duration="200"/>
     <frame tileid="321" duration="200"/>
    </animation>
+  </tile>
+ </tileset>
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0" type="ogre1">
+   <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
@@ -214,18 +220,19 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="2" name="Player1Spawn" type="spawnPoint" x="239" y="148">
+  <object id="2" name="Player1Spawn" type="character" x="239" y="148">
    <point/>
   </object>
-  <object id="3" name="Player2Spawn" type="spawnPoint" x="305" y="145">
+  <object id="3" name="Player2Spawn" type="character" x="305" y="145">
    <point/>
   </object>
-  <object id="4" name="Player3Spawn" type="spawnPoint" x="367" y="146">
+  <object id="4" name="Player3Spawn" type="character" x="367" y="146">
    <point/>
   </object>
-  <object id="5" name="Player4Spawn" type="spawnPoint" x="433" y="146">
+  <object id="5" name="Player4Spawn" type="character" x="433" y="146">
    <point/>
   </object>
+  <object id="7" gid="1025" x="351.019" y="352.434" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

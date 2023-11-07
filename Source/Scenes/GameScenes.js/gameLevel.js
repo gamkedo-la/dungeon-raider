@@ -2,6 +2,7 @@ import { GameLevelKey, UserInterfaceKey, GameOverKey, GameCompleteKey, InterLeve
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
+import EnemyManager from "../../Managers/enemyManager.js"
 import Character from "../../Entities/character.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
@@ -26,6 +27,7 @@ class GameLevel extends Phaser.Scene {
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.mapManager = new MapManager(this, this.mapKey)
     this.collisionManager = new CollisionManager(this, this.mapManager)
+    this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
@@ -103,9 +105,11 @@ class GameLevel extends Phaser.Scene {
       this.cameras.main.centerOnY((maxY + minY) / 2)
     }
 
-    for (const character of this.characters) {
-      character.x = Phaser.Math.Clamp(character.x, this.cameras.main.worldView.left + character.width / 2, this.cameras.main.worldView.right - character.width / 2)
-      character.y = Phaser.Math.Clamp(character.y, this.cameras.main.worldView.top + character.height / 2, this.cameras.main.worldView.bottom - character.height / 2)
+    if (this.cameras.main.worldView.right !== 0 && this.cameras.main.worldView.bottom !== 0) {
+      for (const character of this.characters) {
+        character.x = Phaser.Math.Clamp(character.x, this.cameras.main.worldView.left + character.width / 2, this.cameras.main.worldView.right - character.width / 2)
+        character.y = Phaser.Math.Clamp(character.y, this.cameras.main.worldView.top + character.height / 2, this.cameras.main.worldView.bottom - character.height / 2)
+      }
     }
   }
 

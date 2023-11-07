@@ -196,7 +196,7 @@
                  "name":"Player1Spawn",
                  "point":true,
                  "rotation":0,
-                 "type":"spawnPoint",
+                 "type":"character",
                  "visible":true,
                  "width":0,
                  "x":239,
@@ -208,7 +208,7 @@
                  "name":"Player2Spawn",
                  "point":true,
                  "rotation":0,
-                 "type":"spawnPoint",
+                 "type":"character",
                  "visible":true,
                  "width":0,
                  "x":305,
@@ -220,7 +220,7 @@
                  "name":"Player3Spawn",
                  "point":true,
                  "rotation":0,
-                 "type":"spawnPoint",
+                 "type":"character",
                  "visible":true,
                  "width":0,
                  "x":367,
@@ -232,11 +232,23 @@
                  "name":"Player4Spawn",
                  "point":true,
                  "rotation":0,
-                 "type":"spawnPoint",
+                 "type":"character",
                  "visible":true,
                  "width":0,
                  "x":433,
                  "y":146
+                }, 
+                {
+                 "gid":1025,
+                 "height":32,
+                 "id":7,
+                 "name":"",
+                 "rotation":0,
+                 "type":"ogre1",
+                 "visible":true,
+                 "width":32,
+                 "x":351.019243022811,
+                 "y":352.434306104244
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -306,7 +318,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":6,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -443,6 +455,30 @@
                          "tileid":321
                         }],
                  "id":353
+                }],
+         "tilewidth":32
+        }, 
+        {
+         "columns":0,
+         "firstgid":1025,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"Objects",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":32,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Ogre1.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "type":"ogre1"
                 }],
          "tilewidth":32
         }],
