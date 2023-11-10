@@ -50,7 +50,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.isDead = false
 
     // Register for the 'update
-    this.scene.events.on('update', this.update, this)
+    this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
 
   healthLoss () {
@@ -254,11 +254,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
   
   useGamepadInput (event) {
-    // TODO: Need to implement this
+    // TODO: Need to implement this, analog stick and allow movement along angles other than 45 degrees?
+    this.useKeyboardInput(event)
   }
 
   serialize () {
     // this function records all information about the character that needs to be saved to the Game Manager in order to restore the character in the next scene
+    // be sure to add new properties here (or to the 'attributes' property) if you add them to the Character class
     this.gameManager.setCharacterRaceForPlayer(this.player, this.race)
     this.gameManager.setCharacterClassForPlayer(this.player, this.characterClass)
     this.gameManager.setCharacterAttributesForPlayer(this.player, this.attributes)

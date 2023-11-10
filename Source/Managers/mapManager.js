@@ -72,7 +72,6 @@ function processObject (manager, object) {
       processPlayerSpawnObject(manager, object)
       break
     case EntityTypes.Ogre1:
-      console.log(object)
       manager.enemySpawnPoints.push(object)
       break
     default:

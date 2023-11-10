@@ -17,6 +17,9 @@ class CharacterCreate extends Phaser.Scene {
   }
 
   create () {
+    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+      console.log('Gamepad connected:', pad)
+    })
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.inputManager = new InputManager(this, this.gameManager)
 

@@ -1,6 +1,4 @@
 import EntityTypes from '../Globals/entityTypes.js'
-import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
-
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -19,7 +17,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
     // Register for the 'update
-    this.scene.events.on('update', this.update, this)
+    this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
 
   buildAnimations (animations) {
@@ -34,6 +32,22 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (this.shouldBeDead) {
       enemyDied(this)
       return
+    }
+
+    this.pursueCharacters()
+  }
+
+  pursueCharacters () {
+    const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
+
+    if (closestCharacter === null) {
+      this.anims.play(this.animations.idle, this)
+      this.body.setVelocity(0, 0)
+    } else if (distance <= this.attributes.range) {
+      this.anims.play(this.animations.primary, this)
+    } else {
+      this.anims.play(this.animations.walk, this)
+      this.scene.physics.moveToObject(this, closestCharacter, this.attributes.speed)
     }
   }
 

@@ -7,6 +7,7 @@ export default class CollisionManager {
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
+    this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.characterGroup, this.characteCharacterOverlap, this.characteCharacterProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.enemyGroup, this.characterEnemyOverlap, this.characterEnemyProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.enemyEnemyOverlap, this.enemyEnemyProcess, this)
@@ -31,11 +32,21 @@ export default class CollisionManager {
     return true
   }
 
+  enemyMapProcess (enemy, tile) {
+    return true
+  }
+
   // Collision Handlers - Phaser repositions entities that are colliding so they no longer are colliding
   characterMapCollision (character, tile) {
     tile.entityType = EntityTypes.Tile
     character.didCollideWith(tile)
     if (tile.didCollideWith) tile.didCollideWith(character) // tiles may not have a didCollideWith method
+  }
+
+  enemyMapCollision (enemy, tile) {
+    tile.entityType = EntityTypes.Tile
+    enemy.didCollideWith(tile)
+    if (tile.didCollideWith) tile.didCollideWith(enemy) // tiles may not have a didCollideWith method
   }
 
   // Overlap Process Handlers - These are the same as Collision Process Handlers, but for Overlap events

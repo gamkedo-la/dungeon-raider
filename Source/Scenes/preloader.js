@@ -62,6 +62,9 @@ class Preloader extends Phaser.Scene {
   }
 
   create () {
+    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+      console.log('Gamepad connected:', pad)
+    })
     const gameManager = new GameManager(this.game)
     this.game.registry.set(GameManagerKey, gameManager)
 

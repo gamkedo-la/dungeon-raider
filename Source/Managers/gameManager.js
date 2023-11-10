@@ -56,16 +56,16 @@ export default class GameManager {
   }
 
   setInputForNextPlayer (inputOption) {
-    if (!Player1Keys.Active) {
+    if (!this.game.registry.get(Player1Keys.Active)) {
       this.setActivePlayer(Player1Keys.Player, inputOption, true)
       return Player1Keys.Player
-    } else if (!Player2Keys.Active) {
+    } else if (!this.game.registry.get(Player2Keys.Active)) {
       this.setActivePlayer(Player2Keys.Player, inputOption, true)
       return Player2Keys.Player
-    } else if (!Player3Keys.Active) {
+    } else if (!this.game.registry.get(Player3Keys.Active)) {
       this.setActivePlayer(Player3Keys.Player, inputOption, true)
       return Player3Keys.Player
-    } else if (!Player4Keys.Active) {
+    } else if (!this.game.registry.get(Player4Keys.Active)) {
       this.setActivePlayer(Player4Keys.Player, inputOption, true)
       return Player4Keys.Player
     } else {
@@ -239,9 +239,9 @@ export default class GameManager {
 
 function createDebugCharacter (gameManager) {
   // TODO: All of this must be managed on the Title and/or Character Create Screen(s). Remove this and the whole function when we can do it properly
-  gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
-  gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.WASD, true)
-  gameManager.setActivePlayer(Player3Keys.Player, null, false)
-  gameManager.setActivePlayer(Player4Keys.Player, null, false)
+  gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Gamepad1, true)
+  gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Arrows, true)
+  // gameManager.setActivePlayer(Player3Keys.Player, null, false)
+  // gameManager.setActivePlayer(Player4Keys.Player, null, false)
   // END TODO
 }

@@ -35,7 +35,8 @@ export const Ogre1Attributes = {
   damage: 20,
   attackCooldown: 1000,
   runSpeed: 50,
-  radius: 12
+  radius: 12,
+  range: 32
 }
 
 export function getAttributesForEnemy (enemy) {

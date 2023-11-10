@@ -12,6 +12,8 @@ export const GameOverKey = 'game-over-scene'
 export const GameCompleteKey = 'game-complete-scene'
 export const UserInterfaceKey = 'user-interface-scene'
 
+export const FinalLevelKey = Level3Key // TODO: Change this to the final level
+
 const SceneKeys = {
   Preloader: PreloaderKey,
   Title: TitleKey,
@@ -22,6 +24,7 @@ const SceneKeys = {
   Level1: Level1Key,
   Level2: Level2Key,
   Level3: Level3Key,
+  FinalLevel: FinalLevelKey,
   InterLevel: InterLevelKey,
   GameOver: GameOverKey,
   GameComplete: GameCompleteKey,
