@@ -84,7 +84,7 @@ class UserInterface extends Phaser.Scene {
     const gold = new FontLabel(this, {
       x: column2Padding + playerFrame.x - (playerFrame.width / 2),
       y: topPadding + verticalMultiplier++ * lineHeight,
-      title: `Gold: ${formatGold(characterAttributes.gold)}`,
+      title: `Gold: ${formatGold(characterAttributes.loot.gold)}`,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor
@@ -158,7 +158,7 @@ class UserInterface extends Phaser.Scene {
         playerUI.health.updateColor(UIAttributes.UIDangerColor)
       }
       playerUI.health.updateTitle(`Health: ${playerAttributes.health}`)
-      playerUI.gold.updateTitle(`Gold: ${formatGold(playerAttributes.gold)}`)
+      playerUI.gold.updateTitle(`Gold: ${formatGold(playerAttributes.loot.gold)}`)
 
       if (playerUI.magic) {
         if (playerAttributes.magic <= 10) {

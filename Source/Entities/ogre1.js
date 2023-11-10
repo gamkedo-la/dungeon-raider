@@ -10,8 +10,12 @@ export default class Ogre1 extends Enemy {
     config.entityType = Ogre1Type
     super(scene, config)
 
-    this.animations = buildAnimations(scene)
+    this.buildAnimations()
     this.anims.play(this.animations.idle, this)
+  }
+
+  buildAnimations () {
+    super.buildAnimations(Ogre1Animations)
   }
 
   didCollideWith (otherEntity) {
@@ -22,10 +26,4 @@ export default class Ogre1 extends Enemy {
 
 function getSpriteSheet () {
   return Ogre1SpriteSheet
-}
-
-function buildAnimations (scene) {
-  const idle = scene.anims.get(`${Ogre1Animations.idle.key}`)
-
-  return { idle }
 }

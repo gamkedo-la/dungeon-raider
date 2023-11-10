@@ -1,4 +1,4 @@
-import { getAttributesForEnemyType } from '../Globals/enemyAttributes.js'
+import { getAttributesForEnemy, getLootForEnemy } from '../Globals/enemyAttributes.js'
 import Ogre1 from '../Entities/ogre1.js'
 
 export default class EnemyManager {
@@ -12,7 +12,7 @@ export default class EnemyManager {
 
   addEnemies () {
     for (const enemySpawnPoint of this.mapManager.enemySpawnPoints) {
-      const attributes = getAttributesForEnemyType(enemySpawnPoint.type)
+      const attributes = getAttributesForEnemy(enemySpawnPoint)
       const config = {}
       Object.assign(config, enemySpawnPoint)
       config.attributes = attributes

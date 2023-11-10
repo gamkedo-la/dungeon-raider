@@ -1,4 +1,6 @@
 import EntityTypes from '../Globals/entityTypes.js'
+import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
+
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -9,15 +11,29 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.spriteSheet = config.spriteSheet
     this.entityType = config.entityType
     this.attributes = config.attributes
+    this.shouldBeDead = false
+    this.isDead = false
+    this.animations = {}
     this.canAttack = true
 
-    // this.buildAnimations()
+    this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
+
+    // Register for the 'update
+    this.scene.events.on('update', this.update, this)
   }
 
-  buildAnimations () {
-    const animationsProps = CharacterAnimations[`${this.race}${this.characterClass}`]
-    for (const animationProps in animationsProps) {
-      this.animations[animationProps] = this.scene.anims.get(`${this.player}-${animationsProps[animationProps].key}`)
+  buildAnimations (animations) {
+    for (const animsKey in animations) {
+      this.animations[animsKey] = this.scene.anims.get(animations[animsKey].key)
+    }
+  }
+
+  update (time, delta) {
+    if (this.isDead) return
+
+    if (this.shouldBeDead) {
+      enemyDied(this)
+      return
     }
   }
 
@@ -29,4 +45,23 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
     }
   }
+
+  takeDamage (damage, otherEntity) {
+    this.attributes.health -= damage
+    if (this.attributes.health <= 0) {
+      this.anims.play(this.animations.death, this)
+      this.scene.enemyKilledBy(this, otherEntity)
+    }
+  }
+
+  animationComplete (animation, frame, gameObject) {
+    if (animation.key === this.animations.death.key) {
+      this.shouldBeDead = true
+    }
+  }
+}
+
+function enemyDied (enemy) {
+  enemy.isDead = true
+  enemy.destroy()
 }

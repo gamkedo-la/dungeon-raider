@@ -172,6 +172,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
+  addLoot (loot) {
+    const lootType = Object.keys(loot)[0]
+    this.attributes.loot[lootType] += loot[lootType]
+  }
+
   useKeyboardInput (event) {
     if (this.isDead) return
     if (event.right.isDown) {

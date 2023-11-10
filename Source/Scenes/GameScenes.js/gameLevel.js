@@ -27,7 +27,7 @@ class GameLevel extends Phaser.Scene {
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.mapManager = new MapManager(this, this.mapKey)
     this.collisionManager = new CollisionManager(this, this.mapManager)
-    this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager)
+    this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
@@ -111,6 +111,11 @@ class GameLevel extends Phaser.Scene {
         character.y = Phaser.Math.Clamp(character.y, this.cameras.main.worldView.top + character.height / 2, this.cameras.main.worldView.bottom - character.height / 2)
       }
     }
+  }
+
+  enemyKilledBy (enemy, otherEntity) {
+    const loot = getLootForEnemy(enemy)
+    otherEntity.addLoot(loot)
   }
 
   toggleDebug () {
