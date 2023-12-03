@@ -247,8 +247,8 @@
                  "type":"ogre1",
                  "visible":true,
                  "width":32,
-                 "x":351.019243022811,
-                 "y":352.434306104244
+                 "x":351.019,
+                 "y":352.434
                 }],
          "opacity":1,
          "type":"objectgroup",
