@@ -331,7 +331,7 @@
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
-         "name":"masterTileSet",
+         "name":"masterTileset",
          "spacing":0,
          "tilecount":1024,
          "tileheight":32,

@@ -1,5 +1,5 @@
 // Exporting image keys individually allows us to reference them individually in the game
-export const MasterTileset = 'masterTileSet'
+export const MasterTileset = 'masterTileset'
 export const CharacterUIPane = 'characterUIPane'
 
 const ImageKeys = {

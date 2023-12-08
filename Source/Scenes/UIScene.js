@@ -2,7 +2,7 @@ import { UserInterfaceKey } from "../Keys/sceneKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterUIPane } from "../Keys/imageKeys.js"
-import FontLabel from "../UIElements/FontLabel.js"
+import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import { CharacterClasses } from "../Globals/characterAttributes.js"
 

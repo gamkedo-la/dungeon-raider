@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="masterTileSet" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+ <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
   <tile id="225">
    <animation>

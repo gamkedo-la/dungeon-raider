@@ -9,7 +9,7 @@ import Level2 from './Source/Scenes/GameScenes.js/level2.js'
 import Level3 from './Source/Scenes/GameScenes.js/level3.js'
 import GameOver from './Source/Scenes/gameOver.js'
 import GameComplete from './Source/Scenes/gameComplete.js'
-import UserInterface from './Source/Scenes/uiScene.js'
+import UserInterface from './Source/Scenes/UIScene.js'
 
 const scenes = [
   Preloader,
