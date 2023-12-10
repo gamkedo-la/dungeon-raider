@@ -2,6 +2,7 @@ import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
+import { PlayerMarkerSpriteSheetLoaderData } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
@@ -55,6 +56,7 @@ class Preloader extends Phaser.Scene {
     // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
     // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what CharacterSpriteSheetLoaderData is
     this.load.spritesheet(CharacterSpriteSheetLoaderData)
+    this.load.spritesheet(PlayerMarkerSpriteSheetLoaderData)
     this.load.spritesheet(EnemySpriteSheetLoaderData)
 
     // Load the webfont script. This is needed to load custom fonts.
@@ -97,28 +99,20 @@ function buildAllCharacterAnimations (preloader) {
 
 function buildCharacterAnimations (preloader, characterType) {
   // This function builds all of the animations for a single character type
-  const playerKeys = [Player1Keys.Player, Player2Keys.Player, Player3Keys.Player, Player4Keys.Player]
+  // const playerKeys = [Player1Keys.Player, Player2Keys.Player, Player3Keys.Player, Player4Keys.Player]
 
   // subtract 1 to account for the "__base" frame, divide by 4 to account for the 4 nearly duplicate rows (1 for each player color)
-  const frameCount = (preloader.textures.get(CharacterSpriteSheets[`${characterType}`]).frameTotal - 1) / 4
+  // const frameCount = (preloader.textures.get(CharacterSpriteSheets[`${characterType}`]).frameTotal - 1) / 4
 
-  let i = 0
-  for (const playerKey of playerKeys) {
-    for (const animationKey in CharacterAnimations[characterType]) {
-      const animation = CharacterAnimations[characterType][animationKey]
-      const frames = []
-      for (const frame of animation.frames) {
-        frames.push(frame + (i * frameCount))
-      }
+  for (const animationKey in CharacterAnimations[characterType]) {
+    const animation = CharacterAnimations[characterType][animationKey]
 
-      preloader.anims.create({
-        key: `${playerKey}-${animation.key}`,
-        frames: preloader.anims.generateFrameNumbers(CharacterSpriteSheets[`${characterType}`], { frames }),
-        frameRate: animation.props.frameRate,
-        repeat: animation.props.repeat
-      })
-    }
-    i++
+    preloader.anims.create({
+      key: animation.key,
+      frames: preloader.anims.generateFrameNumbers(CharacterSpriteSheets[`${characterType}`], { frames: animation.frames }),
+      frameRate: animation.props.frameRate,
+      repeat: animation.props.repeat
+    })
   }
 }
 

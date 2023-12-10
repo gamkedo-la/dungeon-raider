@@ -454,6 +454,30 @@ export const DwarvenMagiAnimations = {
   }
 }
 
+export const Player1Marker = {
+  key: 'player-1-marker',
+  frames: [0],
+  props: { frameRate: 1, repeat: -1 }
+}
+
+export const Player2Marker = {
+  key: 'player-2-marker',
+  frames: [1],
+  props: { frameRate: 1, repeat: -1 }
+}
+
+export const Player3Marker = {
+  key: 'player-3-marker',
+  frames: [2],
+  props: { frameRate: 1, repeat: -1 }
+}
+
+export const Player4Marker = {
+  key: 'player-4-marker',
+  frames: [3],
+  props: { frameRate: 1, repeat: -1 }
+}
+
 const CharacterAnimations = {
   ElvenWarrior: ElvenWarriorAnimations,
   ElvenArcher: ElvenArcherAnimations,
@@ -466,7 +490,11 @@ const CharacterAnimations = {
   DwarvenWarrior: DwarvenWarriorAnimations,
   DwarvenArcher: DwarvenArcherAnimations,
   DwarvenCleric: DwarvenClericAnimations,
-  DwarvenMagi: DwarvenMagiAnimations
+  DwarvenMagi: DwarvenMagiAnimations,
+  Player1Marker: Player1Marker,
+  Player2Marker: Player2Marker,
+  Player3Marker: Player3Marker,
+  Player4Marker: Player4Marker
 }
 
 export default CharacterAnimations

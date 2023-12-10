@@ -1,4 +1,5 @@
 import { CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
+import { PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
 import EntityTypes from '../Globals/entityTypes.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
@@ -12,6 +13,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     super(scene, tempPosition.x, tempPosition.y, spriteSheet, frame) // actual position will be set by the Level Scene
 
     this.scene = scene
+    this.depth = 10
     this.spriteSheet = spriteSheet
     this.entityType = EntityTypes.Character
     this.player = config.player
@@ -24,6 +26,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
+
+    this.buildPlayerMarker()
 
     // Set Input properties
     this.inputEvent = config.inputEvent
@@ -77,17 +81,34 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
+  buildPlayerMarker () {
+    let markerData = null
+    switch (this.player) {
+      case 'player-1':
+        markerData = CharacterAnimations.Player1Marker
+        break
+      case 'player-2':
+        markerData = CharacterAnimations.Player2Marker
+        break
+      case 'player-3':
+        markerData = CharacterAnimations.Player3Marker
+        break
+      case 'player-4':
+        markerData = CharacterAnimations.Player4Marker
+        break
+    }
+    this.playerMarker = this.scene.add.sprite(this.x, this.y, PlayerMarkerSpriteSheet, markerData.frames[0])
+    this.playerMarker.depth = this.depth - 1
+  }
+
   buildAnimations () {
     const animationsProps = CharacterAnimations[`${this.race}${this.characterClass}`]
     for (const animationProps in animationsProps) {
-      this.animations[animationProps] = this.scene.anims.get(`${this.player}-${animationsProps[animationProps].key}`)
+      this.animations[animationProps] = this.scene.anims.get(`${animationsProps[animationProps].key}`)
     }
   }
 
   preUpdate (time, delta) {
-    // this.lastPosition.x = this.x
-    // this.lastPosition.y = this.y
-
     super.preUpdate(time, delta)
 
     // Do stuff each game step before the physics/collision simulation
@@ -105,6 +126,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
+    this.playerMarker.x = this.x
+    this.playerMarker.y = this.y
     this.lastPosition.x = this.x
     this.lastPosition.y = this.y
 
