@@ -1,4 +1,4 @@
-export const PlayerMarkerSpriteSheet = 'playerCircles'
+export const PlayerMarkerSpriteSheet = 'playerMarkers'
 
 export const PlayerMarkerSpriteSheetLoaderData = [
   {

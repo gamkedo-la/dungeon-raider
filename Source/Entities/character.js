@@ -99,6 +99,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
     this.playerMarker = this.scene.add.sprite(this.x, this.y, PlayerMarkerSpriteSheet, markerData.frames[0])
     this.playerMarker.depth = this.depth - 1
+    this.playerMarker.anims.play(markerData.key, true)
   }
 
   buildAnimations () {

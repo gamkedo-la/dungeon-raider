@@ -2,7 +2,7 @@ import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
-import { PlayerMarkerSpriteSheetLoaderData } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
+import { PlayerMarkerSpriteSheetLoaderData, PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
@@ -86,6 +86,7 @@ class Preloader extends Phaser.Scene {
 
 function buildAllAnimations (preloader) {
   buildAllCharacterAnimations(preloader)
+  buildAllPlayerMarkerAnimations(preloader)
   buildAllEnemyAnimations(preloader)
 }
 
@@ -115,6 +116,39 @@ function buildCharacterAnimations (preloader, characterType) {
     })
   }
 }
+
+function buildAllPlayerMarkerAnimations (preloader) {
+  buildPlayerMarkerAnimations(preloader, Player1Keys.Player)
+  buildPlayerMarkerAnimations(preloader, Player2Keys.Player)
+  buildPlayerMarkerAnimations(preloader, Player3Keys.Player)
+  buildPlayerMarkerAnimations(preloader, Player4Keys.Player)
+}
+
+function buildPlayerMarkerAnimations (preloader, playerKey) {
+  let markerAnimationData  = null
+  switch (playerKey) {
+    case Player1Keys.Player:
+      markerAnimationData = CharacterAnimations.Player1Marker
+      break
+    case Player2Keys.Player:
+      markerAnimationData = CharacterAnimations.Player2Marker
+      break
+    case Player3Keys.Player:
+      markerAnimationData = CharacterAnimations.Player3Marker
+      break
+    case Player4Keys.Player:
+      markerAnimationData = CharacterAnimations.Player4Marker
+      break
+  }
+
+    preloader.anims.create({
+      key: markerAnimationData.key,
+      frames: preloader.anims.generateFrameNumbers(PlayerMarkerSpriteSheet, { frames: markerAnimationData.frames }),
+      frameRate: markerAnimationData.props.frameRate,
+      repeat: markerAnimationData.props.repeat
+    })
+  }
+
 
 function buildAllEnemyAnimations (preloader) {
   for (const enemyType in EnemySpriteSheets) {
