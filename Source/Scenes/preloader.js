@@ -44,7 +44,7 @@ class Preloader extends Phaser.Scene {
 
     // Load individual Audio files. This will include loopable background music and sound effects.
     for (const key in AudioKeys) {
-      this.load.audio(AudioKeys[key], `../../Public/Audio/${AudioKeys[key]}.mp3`)
+      this.load.audio(key, `../../Public/Audio/${key}.mp3`)
     }
 
     // We may not need to load any Sprite Atlases for this project, but if we do, this is how we would do it:

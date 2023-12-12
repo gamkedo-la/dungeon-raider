@@ -1,4 +1,5 @@
 import { GameLevelKey, UserInterfaceKey, GameOverKey, GameCompleteKey, InterLevelKey, FinalLevelKey } from "../../Keys/sceneKeys.js"
+import AudioKeys, { AlertSound } from "../../Keys/audioKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
@@ -16,35 +17,23 @@ class GameLevel extends Phaser.Scene {
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.characters = []
     this.debugGraphics = null
+    this.alertSound = null
+    this.voiceoverWelcomeSounds = []
   }
 
   preload () {
     // May not need to preload anything here since we have a Preloader scene
-
-    // FIXME: see audioKeys.js where I attempted to get this loaded to no avail
-    this.load.audio("alertSound",["../../Public/Audio/alert_sound.mp3"]);
-    this.load.audio("voiceoverWelcome1",["../../Public/Audio/find_the_key.mp3"]);
-    this.load.audio("voiceoverWelcome2",["../../Public/Audio/defeat_the_horde.mp3"]);
-    this.load.audio("voiceoverWelcome3",["../../Public/Audio/exit_in_time.mp3"]);
-    this.load.audio("voiceoverWelcome4",["../../Public/Audio/find_the_exit.mp3"]);
-    this.load.audio("voiceoverWelcome5",["../../Public/Audio/find_the_potion.mp3"]);
-    this.load.audio("voiceoverWelcome6",["../../Public/Audio/get_the_treasure.mp3"]);
-    this.load.audio("voiceoverWelcome7",["../../Public/Audio/welcome.mp3"]);
-
   }
 
   create () {
-
-    this.alertSound = this.sound.add("alertSound", { loop: false, volume: 0.2 });
-    this.voiceoverWelcomeSounds = [
-        this.sound.add("voiceoverWelcome1", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome2", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome3", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome4", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome5", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome6", { loop: false, volume: 0.5 }),
-        this.sound.add("voiceoverWelcome7", { loop: false, volume: 0.5 }),
-    ];
+    for (const key in AudioKeys) {
+      const sound  = this.sound.add(key, { loop: AudioKeys[key].loop, volume: AudioKeys[key].volume })
+      if (key === AlertSound) {
+        this.alertSound = sound
+      } else {
+        this.voiceoverWelcomeSounds.push(sound)
+      }
+    }
 
     this.physics.world.debugGraphic.visible = false
     this.gameManager = this.game.registry.get(GameManagerKey)
