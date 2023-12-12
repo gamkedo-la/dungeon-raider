@@ -249,6 +249,24 @@
                  "width":32,
                  "x":351.019,
                  "y":352.434
+                }, 
+                {
+                 "gid":41,
+                 "height":32,
+                 "id":9,
+                 "name":"Exit1",
+                 "properties":[
+                        {
+                         "name":"destinationLevel",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -318,7 +336,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":8,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
