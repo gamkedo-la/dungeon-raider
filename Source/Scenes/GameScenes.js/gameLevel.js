@@ -41,6 +41,10 @@ class GameLevel extends Phaser.Scene {
     this.debugGraphics = this.add.graphics()
     this.scene.launch(UserInterfaceKey)
     this.mapManager.startTileAnimations()
+
+    // hmm this does not work - are audioKeys being preloaded?
+    // see audioKeys.js where I attempted to get this loaded to no avail
+    // this.announcerWelcomeSound = this.sound.add("voiceoverWelcome");
   }
 
   createCharacters () {
