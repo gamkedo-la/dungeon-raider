@@ -22,6 +22,7 @@ class GameLevel extends Phaser.Scene {
     // May not need to preload anything here since we have a Preloader scene
 
     // FIXME: see audioKeys.js where I attempted to get this loaded to no avail
+    this.load.audio("alertSound",["../../Public/Audio/alert_sound.mp3"]);
     this.load.audio("voiceoverWelcome1",["../../Public/Audio/find_the_key.mp3"]);
     this.load.audio("voiceoverWelcome2",["../../Public/Audio/defeat_the_horde.mp3"]);
     this.load.audio("voiceoverWelcome3",["../../Public/Audio/exit_in_time.mp3"]);
@@ -34,6 +35,7 @@ class GameLevel extends Phaser.Scene {
 
   create () {
 
+    this.alertSound = this.sound.add("alertSound", { loop: false, volume: 0.2 });
     this.voiceoverWelcomeSounds = [
         this.sound.add("voiceoverWelcome1", { loop: false, volume: 0.5 }),
         this.sound.add("voiceoverWelcome2", { loop: false, volume: 0.5 }),
@@ -111,6 +113,7 @@ class GameLevel extends Phaser.Scene {
 
     if (!this.hasWelcomedPlayers) {
         // play a random welcome message (for now)
+        this.alertSound.play();
         this.voiceoverWelcomeSounds[Math.floor(Math.random()*this.voiceoverWelcomeSounds.length)].play();
         this.hasWelcomedPlayers = true;
     }
