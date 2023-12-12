@@ -20,9 +20,16 @@ class GameLevel extends Phaser.Scene {
 
   preload () {
     // May not need to preload anything here since we have a Preloader scene
+
+    // FIXME: see audioKeys.js where I attempted to get this loaded to no avail
+    this.load.audio("voiceoverWelcome", ["../../Public/Audio/find_the_key.mp3"]);
+
   }
 
   create () {
+
+    this.voiceoverWelcomeSound = this.sound.add("voiceoverWelcome", { loop: false, volume: 0.5 });
+
     this.physics.world.debugGraphic.visible = false
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.mapManager = new MapManager(this, this.mapKey)
@@ -42,9 +49,6 @@ class GameLevel extends Phaser.Scene {
     this.scene.launch(UserInterfaceKey)
     this.mapManager.startTileAnimations()
 
-    // hmm this does not work - are audioKeys being preloaded?
-    // see audioKeys.js where I attempted to get this loaded to no avail
-    // this.announcerWelcomeSound = this.sound.add("voiceoverWelcome");
   }
 
   createCharacters () {
@@ -90,6 +94,13 @@ class GameLevel extends Phaser.Scene {
   }
 
   update (time, delta) {
+
+    if (!this.hasWelcomedPlayers) {
+        this.voiceoverWelcomeSound.play();
+        this.hasWelcomedPlayers = true;
+    }
+
+
     if (this.characters.length === 0) {
       this.createCharacters()
       if (this.characters.length === 0) return
