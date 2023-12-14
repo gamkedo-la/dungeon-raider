@@ -196,7 +196,7 @@
                  "id":7,
                  "name":"",
                  "rotation":0,
-                 "type":"",
+                 "type":"ogre1",
                  "visible":true,
                  "width":32,
                  "x":351.019,
@@ -225,8 +225,14 @@
                  "height":32,
                  "id":10,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-1"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"character",
                  "visible":true,
                  "width":32,
                  "x":224,
@@ -237,8 +243,14 @@
                  "height":32,
                  "id":11,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-2"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"character",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -249,8 +261,14 @@
                  "height":32,
                  "id":12,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-3"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"character",
                  "visible":true,
                  "width":32,
                  "x":352,
@@ -261,8 +279,14 @@
                  "height":32,
                  "id":13,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-4"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"character",
                  "visible":true,
                  "width":32,
                  "x":416,
