@@ -19,6 +19,8 @@ export default class MapManager {
       this.layers[layerKey].animatedTiles = findAnimatedTiles(this.tileAnimations, this.layers[layerKey].layer.data)
     }
 
+    this.exits = []
+
     this.player1Spawn = null
     this.player2Spawn = null
     this.player3Spawn = null
@@ -69,7 +71,11 @@ export default class MapManager {
 function processObject (manager, object) {
   switch (object.type) {
     case EntityTypes.Character:
+      object = assignPropertiesToObject(object.properties, object)
       processPlayerSpawnObject(manager, object)
+      break
+    case EntityTypes.Exit:
+      manager.exits.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Ogre1:
       manager.enemySpawnPoints.push(object)
@@ -81,20 +87,28 @@ function processObject (manager, object) {
 }
 
 function processPlayerSpawnObject (manager, object) {
-  switch (object.name) {
-    case 'Player1Spawn':
+  switch (object.player) {
+    case Player1Keys.Player:
       manager.player1Spawn = object
       break
-    case 'Player2Spawn':
+    case Player2Keys.Player:
       manager.player2Spawn = object
       break
-    case 'Player3Spawn':
+    case Player3Keys.Player:
       manager.player3Spawn = object
       break
-    case 'Player4Spawn':
+    case Player4Keys.Player:
       manager.player4Spawn = object
       break
   }
+}
+
+function assignPropertiesToObject (properties, object) {
+  const objectProperties = {}
+  properties.forEach(property => {
+    objectProperties[property.name] = property.value
+  })
+  return { ...object, ...objectProperties }
 }
 
 function extractTileAnimations (map) {

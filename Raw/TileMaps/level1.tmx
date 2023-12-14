@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="10">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="14">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -51,10 +51,34 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="5" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
+  </tile>
+  <tile id="1" type="character">
+   <properties>
+    <property name="player" value="player-1"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Player1Marker.png"/>
+  </tile>
+  <tile id="2" type="character">
+   <properties>
+    <property name="player" value="player-2"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Player2Marker.png"/>
+  </tile>
+  <tile id="3" type="character">
+   <properties>
+    <property name="player" value="player-3"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Player3Marker.png"/>
+  </tile>
+  <tile id="4" type="character">
+   <properties>
+    <property name="player" value="player-4"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Player4Marker.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
@@ -220,24 +244,16 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="2" name="Player1Spawn" type="character" x="239" y="148">
-   <point/>
-  </object>
-  <object id="3" name="Player2Spawn" type="character" x="305" y="145">
-   <point/>
-  </object>
-  <object id="4" name="Player3Spawn" type="character" x="367" y="146">
-   <point/>
-  </object>
-  <object id="5" name="Player4Spawn" type="character" x="433" y="146">
-   <point/>
-  </object>
   <object id="7" gid="1025" x="351.019" y="352.434" width="32" height="32"/>
   <object id="9" name="Exit1" type="exit" gid="41" x="512" y="480" width="32" height="32">
    <properties>
     <property name="destinationLevel" type="int" value="2"/>
    </properties>
   </object>
+  <object id="10" gid="1026" x="224" y="160" width="32" height="32"/>
+  <object id="11" gid="1027" x="288" y="160" width="32" height="32"/>
+  <object id="12" gid="1028" x="352" y="160" width="32" height="32"/>
+  <object id="13" gid="1029" x="416" y="160" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

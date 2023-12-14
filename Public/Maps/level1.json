@@ -191,54 +191,6 @@
          "name":"interactive",
          "objects":[
                 {
-                 "height":0,
-                 "id":2,
-                 "name":"Player1Spawn",
-                 "point":true,
-                 "rotation":0,
-                 "type":"character",
-                 "visible":true,
-                 "width":0,
-                 "x":239,
-                 "y":148
-                }, 
-                {
-                 "height":0,
-                 "id":3,
-                 "name":"Player2Spawn",
-                 "point":true,
-                 "rotation":0,
-                 "type":"character",
-                 "visible":true,
-                 "width":0,
-                 "x":305,
-                 "y":145
-                }, 
-                {
-                 "height":0,
-                 "id":4,
-                 "name":"Player3Spawn",
-                 "point":true,
-                 "rotation":0,
-                 "type":"character",
-                 "visible":true,
-                 "width":0,
-                 "x":367,
-                 "y":146
-                }, 
-                {
-                 "height":0,
-                 "id":5,
-                 "name":"Player4Spawn",
-                 "point":true,
-                 "rotation":0,
-                 "type":"character",
-                 "visible":true,
-                 "width":0,
-                 "x":433,
-                 "y":146
-                }, 
-                {
                  "gid":1025,
                  "height":32,
                  "id":7,
@@ -267,6 +219,78 @@
                  "width":32,
                  "x":512,
                  "y":480
+                }, 
+                {
+                 "gid":1026,
+                 "height":32,
+                 "id":10,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-1"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":224,
+                 "y":160
+                }, 
+                {
+                 "gid":1027,
+                 "height":32,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-2"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":160
+                }, 
+                {
+                 "gid":1028,
+                 "height":32,
+                 "id":12,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-3"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":160
+                }, 
+                {
+                 "gid":1029,
+                 "height":32,
+                 "id":13,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-4"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -336,7 +360,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":10,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -488,7 +512,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":5,
          "tileheight":32,
          "tiles":[
                 {
@@ -497,6 +521,58 @@
                  "imageheight":32,
                  "imagewidth":32,
                  "type":"ogre1"
+                }, 
+                {
+                 "id":1,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Player1Marker.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-1"
+                        }],
+                 "type":"character"
+                }, 
+                {
+                 "id":2,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Player2Marker.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-2"
+                        }],
+                 "type":"character"
+                }, 
+                {
+                 "id":3,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Player3Marker.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-3"
+                        }],
+                 "type":"character"
+                }, 
+                {
+                 "id":4,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Player4Marker.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-4"
+                        }],
+                 "type":"character"
                 }],
          "tilewidth":32
         }],

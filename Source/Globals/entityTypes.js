@@ -1,11 +1,13 @@
 export const CharacterType = 'character'
-export const Tile = 'tile'
+export const ExitType = 'exit'
 export const Ogre1Type = 'ogre1'
+export const Tile = 'tile'
 
 export default {
   Character: CharacterType,
-  Tile: Tile,
+  Exit: ExitType,
   Ogre1: Ogre1Type,
+  Tile: Tile,
   isEnemy
 }
 
