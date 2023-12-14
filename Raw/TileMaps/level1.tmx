@@ -3,6 +3,9 @@
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
+ <properties>
+  <property name="mapKey" value="level1"/>
+ </properties>
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
   <tile id="225">
@@ -51,7 +54,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="5" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="6" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
@@ -79,6 +82,13 @@
     <property name="player" value="player-4"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Player4Marker.png"/>
+  </tile>
+  <tile id="5" type="exit">
+   <properties>
+    <property name="destinationLevelKey" value=""/>
+    <property name="exitId" value=""/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Exit.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

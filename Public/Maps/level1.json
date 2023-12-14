@@ -362,6 +362,12 @@
  "nextlayerid":6,
  "nextobjectid":14,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"mapKey",
+         "type":"string",
+         "value":"level1"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
  "tileheight":32,
@@ -512,7 +518,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":5,
+         "tilecount":6,
          "tileheight":32,
          "tiles":[
                 {
@@ -573,6 +579,24 @@
                          "value":"player-4"
                         }],
                  "type":"character"
+                }, 
+                {
+                 "id":5,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Exit.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"destinationLevelKey",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
+                         "name":"exitId",
+                         "type":"string",
+                         "value":""
+                        }],
+                 "type":"exit"
                 }],
          "tilewidth":32
         }],
