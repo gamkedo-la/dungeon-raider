@@ -5,6 +5,7 @@ import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
 import EnemyManager from "../../Managers/enemyManager.js"
 import Character from "../../Entities/character.js"
+import Exit from "../../Entities/exit.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
 
@@ -48,6 +49,7 @@ class GameLevel extends Phaser.Scene {
     })
 
     this.createCharacters()
+    this.createExits()
     this.setupCamera()
 
     this.debugGraphics = this.add.graphics()
@@ -76,6 +78,12 @@ class GameLevel extends Phaser.Scene {
       this.add.existing(character) // add the character to the scene => will be visible and updated
 
       this.characters.push(character)
+    }
+  }
+
+  createExits () {
+    for (const exit of this.mapManager.exits) {
+      new Exit(this, exit)
     }
   }
 

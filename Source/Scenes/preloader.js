@@ -1,9 +1,10 @@
 import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
-import ImageKeys from '../Keys/imageKeys.js'
+import ImageKeys, { MasterTileset } from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheetLoaderData, PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
+import { TileSpriteSheetLoaderData } from '../Globals/tileSpriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
@@ -58,6 +59,7 @@ class Preloader extends Phaser.Scene {
     this.load.spritesheet(CharacterSpriteSheetLoaderData)
     this.load.spritesheet(PlayerMarkerSpriteSheetLoaderData)
     this.load.spritesheet(EnemySpriteSheetLoaderData)
+    this.load.spritesheet(TileSpriteSheetLoaderData)
 
     // Load the webfont script. This is needed to load custom fonts.
     this.load.script('webfont', `../../Public/Fonts/webfont_loader.js`)
