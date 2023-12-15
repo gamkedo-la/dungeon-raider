@@ -97,8 +97,7 @@ export default class CollisionManager {
   }
 
   characterExitOverlap (character, exit) {
-    console.log("character and exit overlapping!");
-    character.isExiting = true
+    character.didCollideWith(exit)
   }
 
   characterExitProcess (character, exit) {

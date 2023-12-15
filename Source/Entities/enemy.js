@@ -13,6 +13,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.isDead = false
     this.animations = {}
     this.canAttack = true
+    this.depth = 8
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 

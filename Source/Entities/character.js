@@ -21,6 +21,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.characterClass = config.characterClass
     this.gameManager = config.gameManager
     this.isExiting = false
+    this.exited = false
 
     this.animations = {}
 
@@ -59,6 +60,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   healthLoss () {
+    if (!this.scene || this.exited || this.isDead) return
+
     this.attributes.health--
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
@@ -136,19 +139,24 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.scaleX < 0) {
         console.log("character finished the exit animation!");
         this.isExiting = false
-        // TODO:hide sprite and stop processing input
-        // temporary: reset the sprite for now
         this.scaleX = 1
         this.scaleY = 1
         this.setTint(Phaser.Display.Color.GetColor(255,255,255))
+        this.serialize()
+        this.exited = true
     }
   }
 
   update (time, delta) {
     // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
-    if (this.isDead) return
+    if (!this.scene || this.exited || this.isDead) return
 
     if (this.isExiting) this.exitAnimation(time, delta)
+    if (this.exited) {
+      this.scene.characterExited(this)
+      this.destroy()
+      return
+    }
 
     if (this.shouldBeDead) {
       characterDied(this)
@@ -219,7 +227,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       // hit another character
     } else if (otherEntity.entityType === EntityTypes.Exit) { // FIXME: this never fires
       // reached an exit
-      console.log("character touched the exit!");
+      this.playerMarker.destroy()
       this.isExiting = true;
     }
   }
@@ -367,5 +375,7 @@ function getSpriteSheet (race, characterClass) {
 function characterDied (character) {
   console.log(`${character.player} died!`)
   character.isDead = true
+  character.scene.characterDied(character)
+  character.playerMarker.destroy()
   character.destroy() // when destroy() returns, this GameObject no longer has a scene (character.scene === null) and many things will be broken if we try to do anything else with this GameObject
 }

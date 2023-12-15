@@ -83,8 +83,7 @@ class GameLevel extends Phaser.Scene {
 
   createExits () {
     for (const exit of this.mapManager.exits) {
-      let another = new Exit(this, exit)
-      this.collisionManager.addEntity(another, 50) // add the exit to the physics simulation and enable collisions
+      this.collisionManager.addEntity(new Exit(this, exit)) // add the exit to the physics simulation and enable collisions
     }
   }
 
@@ -179,6 +178,14 @@ class GameLevel extends Phaser.Scene {
   enemyKilledBy (enemy, otherEntity) {
     const loot = getLootForEnemy(enemy)
     otherEntity.addLoot(loot)
+  }
+
+  characterExited (character) {
+    // TODO: Keep track of how many characters have exited or died so we know it is time to transition to the InterLevel scene
+  }
+
+  characterDied (character) {
+    // TODO: Keep track of how many characters have exited or died so we know it is time to transition to the InterLevel scene    
   }
 
   toggleDebug () {
