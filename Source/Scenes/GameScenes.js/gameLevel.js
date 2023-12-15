@@ -83,7 +83,8 @@ class GameLevel extends Phaser.Scene {
 
   createExits () {
     for (const exit of this.mapManager.exits) {
-      new Exit(this, exit)
+      let another = new Exit(this, exit)
+      this.collisionManager.addEntity(another, 50) // add the exit to the physics simulation and enable collisions
     }
   }
 

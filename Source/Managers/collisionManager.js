@@ -6,11 +6,13 @@ export default class CollisionManager {
     this.mapManager = mapManager
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
+    this.exitGroup = this.scene.physics.add.group()
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.characterGroup, this.characteCharacterOverlap, this.characteCharacterProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.enemyGroup, this.characterEnemyOverlap, this.characterEnemyProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.enemyEnemyOverlap, this.enemyEnemyProcess, this)
+    this.scene.physics.add.overlap(this.characterGroup, this.exitGroup, this.characterExitOverlap, this.characterExitProcess, this)
   }
 
   addEntity (entityToAdd, radius = null) {
@@ -21,6 +23,12 @@ export default class CollisionManager {
         break
       case EntityTypes.Ogre1:
         this.enemyGroup.add(entityToAdd)
+        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        break
+      case EntityTypes.Exit:
+        this.exitGroup.add(entityToAdd)
+        // FIXME: should probably be a square tile shape
+        console.log("adding an exit to the collision manager");
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
     }
@@ -86,5 +94,14 @@ export default class CollisionManager {
     enemy2.y = enemy2.lastPosition.y
     enemy1.didCollideWith(enemy2)
     enemy2.didCollideWith(enemy1)
+  }
+
+  characterExitOverlap (character, exit) {
+    console.log("character and exit overlapping!");
+    character.isExiting = true
+  }
+
+  characterExitProcess (character, exit) {
+    return true
   }
 }

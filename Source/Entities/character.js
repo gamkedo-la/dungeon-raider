@@ -119,19 +119,28 @@ export default class Character extends Phaser.GameObjects.Sprite {
   exitAnimation(time, delta) {
     const spinSpeed = 10
     const shrinkSpeed = 0.0005
+    
     // spin around
     this.angle += spinSpeed * delta
+    
     // shrink to nothingness
     this.scaleX -= shrinkSpeed * delta
     this.scaleY -= shrinkSpeed * delta
+    
     // fade to black
     let darker = Math.round(255*this.scaleX)
-    this.setTint(darker,darker,darker)
+    let rgb = Phaser.Display.Color.GetColor(darker,darker,darker)
+    this.setTint(rgb)
+    
     // finally, actually exit
     if (this.scaleX < 0) {
         console.log("character finished the exit animation!");
-        this.isExiting = false;
+        this.isExiting = false
         // TODO:hide sprite and stop processing input
+        // temporary: reset the sprite for now
+        this.scaleX = 1
+        this.scaleY = 1
+        this.setTint(Phaser.Display.Color.GetColor(255,255,255))
     }
   }
 
