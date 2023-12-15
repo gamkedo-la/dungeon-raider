@@ -10,6 +10,7 @@ export default class Exit extends Phaser.GameObjects.Sprite  {
     this.spriteSheet = config.spriteSheet
     this.entityType = EntityTypes.Exit
     this.attributes = config.attributes
+    this.scene.physics.add.existing(this)
     this.scene.add.existing(this)
     // this.shouldBeDead = false
     // this.isDead = false
