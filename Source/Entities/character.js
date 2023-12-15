@@ -20,6 +20,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.race = config.race
     this.characterClass = config.characterClass
     this.gameManager = config.gameManager
+    this.isExiting = false
 
     this.animations = {}
 
@@ -115,9 +116,30 @@ export default class Character extends Phaser.GameObjects.Sprite {
     // Do stuff each game step before the physics/collision simulation
   }
 
+  exitAnimation(time, delta) {
+    const spinSpeed = 10
+    const shrinkSpeed = 0.0005
+    // spin around
+    this.angle += spinSpeed * delta
+    // shrink to nothingness
+    this.scaleX -= shrinkSpeed * delta
+    this.scaleY -= shrinkSpeed * delta
+    // fade to black
+    let darker = Math.round(255*this.scaleX)
+    this.setTint(darker,darker,darker)
+    // finally, actually exit
+    if (this.scaleX < 0) {
+        console.log("character finished the exit animation!");
+        this.isExiting = false;
+        // TODO:hide sprite and stop processing input
+    }
+  }
+
   update (time, delta) {
     // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
     if (this.isDead) return
+
+    if (this.isExiting) this.exitAnimation(time, delta)
 
     if (this.shouldBeDead) {
       characterDied(this)
@@ -186,6 +208,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       // hit a tile
     } else if (otherEntity.entityType === EntityTypes.Character) {
       // hit another character
+    } else if (otherEntity.entityType === EntityTypes.Exit) { // FIXME: this never fires
+      // reached an exit
+      console.log("character touched the exit!");
+      this.isExiting = true;
     }
   }
 
