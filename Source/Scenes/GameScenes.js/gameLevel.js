@@ -78,6 +78,8 @@ class GameLevel extends Phaser.Scene {
       this.add.existing(character) // add the character to the scene => will be visible and updated
 
       this.characters.push(character)
+
+      this.gameManager.clearActiveExit() // Clear the active exit now that we've spawned the characters
     }
   }
 
