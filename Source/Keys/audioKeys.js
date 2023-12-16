@@ -7,6 +7,7 @@ export const FindTheKey = 'find_the_key'
 export const FindThePotion = 'find_the_potion'
 export const GetTheTreasure = 'get_the_treasure'
 export const Welcome = 'welcome'
+export const TitleMusic = 'title_music'
 
 const AudioKeys = {
   // Including audio keys here enables the Preloader to automatically load them for us
@@ -50,6 +51,11 @@ const AudioKeys = {
     volume: 0.5,
     loop: false,
   },
+  [TitleMusic]: {
+    fileName: TitleMusic,
+    volume: 0.25,
+    loop: true,
+  }
 }
 
 export default AudioKeys
