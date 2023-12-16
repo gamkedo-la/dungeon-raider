@@ -83,6 +83,7 @@ class GameLevel extends Phaser.Scene {
 
   createExits () {
     for (const exit of this.mapManager.exits) {
+      exit.gameManager = this.gameManager
       this.collisionManager.addEntity(new Exit(this, exit)) // add the exit to the physics simulation and enable collisions
     }
   }
@@ -166,7 +167,7 @@ class GameLevel extends Phaser.Scene {
   getClosestCharacter (entity) {
     const distances = this.characters.map(character => {
 
-      const distance = character.isDead || character.shouldBeDead ? Number.MAX_VALUE : Phaser.Math.Distance.Between(entity.x, entity.y, character.x, character.y)
+      const distance = !character.canBePursued() ? Number.MAX_VALUE : Phaser.Math.Distance.Between(entity.x, entity.y, character.x, character.y)
       return { character, distance }
     })
 

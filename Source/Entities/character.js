@@ -22,6 +22,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.gameManager = config.gameManager
     this.isExiting = false
     this.exited = false
+    this.activeExit = null
 
     this.animations = {}
 
@@ -151,7 +152,24 @@ export default class Character extends Phaser.GameObjects.Sprite {
     // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
     if (!this.scene || this.exited || this.isDead) return
 
-    if (this.isExiting) this.exitAnimation(time, delta)
+    if (this.isExiting) {
+      this.exitAnimation(time, delta)
+      if (this.activeExit) {
+        const maxDelta  = 1
+        if (this.x > this.activeExit.x) {
+          this.x -= Math.min(maxDelta, (this.x - this.activeExit.x) / 2)
+        } else if (this.x < this.activeExit.x) {
+          this.x += Math.min(maxDelta, (this.activeExit.x - this.x) / 2)
+        }
+
+        if (this.y > this.activeExit.y) {
+          this.y -= Math.min(maxDelta, (this.y - this.activeExit.y) / 2)
+        } else if (this.y < this.activeExit.y) {
+          this.y += Math.min(maxDelta, (this.activeExit.y - this.y) / 2)
+        }
+      }
+    }
+
     if (this.exited) {
       this.scene.characterExited(this)
       this.destroy()
@@ -217,6 +235,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
+  canBePursued () {
+    return !this.isDead && !this.shouldBeDead && !this.isExiting && !this.exited
+  }
+
   didCollideWith (otherEntity) {
     // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
     if (EntityTypes.isEnemy(otherEntity)) {
@@ -228,11 +250,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else if (otherEntity.entityType === EntityTypes.Exit) { // FIXME: this never fires
       // reached an exit
       this.playerMarker.destroy()
-      this.isExiting = true;
+      this.isExiting = true
+      this.activeExit = otherEntity
     }
   }
 
   takeDamage (damage) {
+    if (this.isDead || this.isExiting) return
     this.attributes.health -= damage
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
@@ -245,7 +269,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   useKeyboardInput (event) {
-    if (this.isDead) return
+    if (this.isDead || this.isExiting) return
     if (event.right.isDown) {
       if (event.left.isDown) {
         this.body.velocity.x = 0

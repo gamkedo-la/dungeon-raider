@@ -4,6 +4,7 @@ import InputEventKeys from "../Keys/inputEventKeys.js"
 
 export const GameManagerKey = 'game-manager'
 export const PlayerCountKey = 'player-count'
+export const ActiveExitKey = 'active-exit'
 
 export default class GameManager {
   constructor (game) {
@@ -234,6 +235,21 @@ export default class GameManager {
       case Player4Keys.Player:
         return Player4Keys
     }
+  }
+
+  getActiveExit () {
+    return this.game.registry.get(ActiveExitKey)
+  }
+
+  setActiveExit (exit) {
+    const activeExit = this.getActiveExit()
+    if (!activeExit) {
+      this.game.registry.set(ActiveExitKey, exit)
+    }
+  }
+
+  clearActiveExit () {
+    this.game.registry.set(ActiveExitKey, null)
   }
 }
 

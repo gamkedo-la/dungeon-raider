@@ -7,6 +7,7 @@ export default class Exit extends Phaser.GameObjects.Sprite  {
     super(scene, config.x, config.y, TileSpriteSheet, TileFrames.Exit)
 
     this.scene = scene
+    this.gameManager = config.gameManager
     this.spriteSheet = config.spriteSheet
     this.entityType = EntityTypes.Exit
     this.attributes = config.attributes
@@ -20,5 +21,11 @@ export default class Exit extends Phaser.GameObjects.Sprite  {
 
     // Register for the 'update
     // this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
+  }
+
+  didCollideWith (otherEntity) {
+    if (otherEntity.entityType === EntityTypes.Character) {
+      this.gameManager.setActiveExit(this)
+    }
   }
 }

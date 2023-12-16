@@ -98,6 +98,7 @@ export default class CollisionManager {
 
   characterExitOverlap (character, exit) {
     character.didCollideWith(exit)
+    exit.didCollideWith(character)
   }
 
   characterExitProcess (character, exit) {
