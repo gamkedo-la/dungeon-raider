@@ -21,10 +21,10 @@ export default class MapManager {
 
     this.exits = []
 
-    this.player1Spawn = null
-    this.player2Spawn = null
-    this.player3Spawn = null
-    this.player4Spawn = null
+    this.player1Spawns = []
+    this.player2Spawns = []
+    this.player3Spawns = []
+    this.player4Spawns = []
 
     this.enemySpawnPoints = []
 
@@ -38,16 +38,16 @@ export default class MapManager {
     }
   }
 
-  getPlayerSpawn (player) {
+  getPlayerSpawn (player, targetingExitId = null) {
     switch (player) {
       case Player1Keys.Player:
-        return this.player1Spawn
+        return this.player1Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
       case Player2Keys.Player:
-        return this.player2Spawn
+        return this.player2Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
       case Player3Keys.Player:
-        return this.player3Spawn
+        return this.player3Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
       case Player4Keys.Player:
-        return this.player4Spawn
+        return this.player4Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
       default:
         return null
     }
@@ -89,16 +89,16 @@ function processObject (manager, object) {
 function processPlayerSpawnObject (manager, object) {
   switch (object.player) {
     case Player1Keys.Player:
-      manager.player1Spawn = object
+      manager.player1Spawns.push(object)
       break
     case Player2Keys.Player:
-      manager.player2Spawn = object
+      manager.player2Spawns.push(object)
       break
     case Player3Keys.Player:
-      manager.player3Spawn = object
+      manager.player3Spawns.push(object)
       break
     case Player4Keys.Player:
-      manager.player4Spawn = object
+      manager.player4Spawns.push(object)
       break
   }
 }

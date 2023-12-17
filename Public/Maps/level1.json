@@ -203,33 +203,25 @@
                  "y":352.434
                 }, 
                 {
-                 "gid":41,
-                 "height":32,
-                 "id":9,
-                 "name":"Exit1",
-                 "properties":[
-                        {
-                         "name":"destinationLevel",
-                         "type":"int",
-                         "value":2
-                        }],
-                 "rotation":0,
-                 "type":"exit",
-                 "visible":true,
-                 "width":32,
-                 "x":512,
-                 "y":480
-                }, 
-                {
                  "gid":1026,
                  "height":32,
                  "id":10,
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-1"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -245,9 +237,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-2"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -263,9 +265,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-3"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -281,9 +293,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-4"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -296,17 +318,17 @@
                  "gid":1030,
                  "height":32,
                  "id":14,
-                 "name":"",
+                 "name":"Exit1",
                  "properties":[
                         {
                          "name":"destinationLevelKey",
                          "type":"string",
-                         "value":""
+                         "value":"level1"
                         }, 
                         {
                          "name":"exitId",
                          "type":"string",
-                         "value":""
+                         "value":"level1_exit1"
                         }],
                  "rotation":0,
                  "type":"exit",
@@ -314,6 +336,141 @@
                  "width":32,
                  "x":160,
                  "y":224
+                }, 
+                {
+                 "gid":1030,
+                 "height":32,
+                 "id":15,
+                 "name":"Exit2",
+                 "properties":[
+                        {
+                         "name":"destinationLevelKey",
+                         "type":"string",
+                         "value":"level2"
+                        }, 
+                        {
+                         "name":"exitId",
+                         "type":"string",
+                         "value":"level1_exit2"
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":448
+                }, 
+                {
+                 "gid":1026,
+                 "height":32,
+                 "id":16,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-1"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":"level1_exit2"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":320
+                }, 
+                {
+                 "gid":1027,
+                 "height":32,
+                 "id":17,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-2"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":"level1_exit2"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
+                 "y":320
+                }, 
+                {
+                 "gid":1028,
+                 "height":32,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-3"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":"level1_exit2"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":384
+                }, 
+                {
+                 "gid":1029,
+                 "height":32,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"player",
+                         "type":"string",
+                         "value":"player-4"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":"level1_exit2"
+                        }],
+                 "rotation":0,
+                 "type":"character",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -383,7 +540,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":15,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -558,9 +715,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-1"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -571,9 +738,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-2"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -584,9 +761,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-3"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -597,9 +784,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-4"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 

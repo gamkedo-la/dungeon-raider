@@ -71,7 +71,7 @@ class GameLevel extends Phaser.Scene {
         inputEvent: this.gameManager.getInputEventForPlayer(activePlayer)
       }))
 
-      const playerSpawnPos = this.mapManager.getPlayerSpawn(activePlayer)
+      const playerSpawnPos = this.mapManager.getPlayerSpawn(activePlayer, this.gameManager.getActiveExit()?.exitId)
       character.setPosition(playerSpawnPos.x, playerSpawnPos.y)
 
       this.collisionManager.addEntity(character, character.attributes.radius) // add the character to the physics simulation and enable collisions
