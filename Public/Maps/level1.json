@@ -323,7 +323,7 @@
                         {
                          "name":"destinationLevelKey",
                          "type":"string",
-                         "value":"level1"
+                         "value":"level-1-scene"
                         }, 
                         {
                          "name":"exitId",
@@ -346,7 +346,7 @@
                         {
                          "name":"destinationLevelKey",
                          "type":"string",
-                         "value":"level2"
+                         "value":"level-2-scene"
                         }, 
                         {
                          "name":"exitId",
@@ -379,7 +379,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":"level1_exit2"
+                         "value":"level1_exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -407,7 +407,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":"level1_exit2"
+                         "value":"level1_exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -435,7 +435,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":"level1_exit2"
+                         "value":"level1_exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -463,7 +463,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":"level1_exit2"
+                         "value":"level1_exit1"
                         }],
                  "rotation":0,
                  "type":"character",

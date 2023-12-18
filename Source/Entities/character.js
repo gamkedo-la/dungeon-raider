@@ -356,6 +356,15 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.gameManager.setCharacterClassForPlayer(this.player, this.characterClass)
     this.gameManager.setCharacterAttributesForPlayer(this.player, this.attributes)
   }
+
+  shutdown () {
+    this.serialize()
+    this.off(Phaser.Scenes.Events.UPDATE, this.update, this)
+    this.off(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
+    this.inputManager.unregisterForEvent(this.inputEvent, this.processInput, this)
+    this.playerMarker.destroy()
+    this.destroy()
+  }
 }
 
 function getSpriteSheet (race, characterClass) {

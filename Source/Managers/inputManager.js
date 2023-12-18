@@ -47,6 +47,24 @@ export default class InputManager {
     return success
   }
 
+  unregisterForEvent (event, callback, context) {
+    let success = false
+    if (!event) {
+      console.warn('InputManager.unregisterForEvent: event is required')
+    } else if (!callback) {
+      console.warn('InputManager.unregisterForEvent: callback is required')
+    } else if (!context) {
+      console.warn('InputManager.unregisterForEvent: context is required')
+    } else if (!Object.keys(InputEventKeys).includes(event)) {
+      console.warn(`InputManager.unregisterForEvent: ${event} is not a valid event`)
+    } else {
+      this.eventEmitter.off(event, callback, context)
+      success = true
+    }
+
+    return success
+  }
+
   addGamepad (pad) {
     this.pads.push(pad)
     pad.on(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, (index, value, button) => {
@@ -117,7 +135,6 @@ export default class InputManager {
       }
     }
 
-    // TODO: Continue on with gamepad inputs
     this.eventEmitter.emit(InputEventKeys.onGamepad1, this.inputMethods[InputOptionsKeys.Gamepad1])
     this.eventEmitter.emit(InputEventKeys.onGamepad2, this.inputMethods[InputOptionsKeys.Gamepad2])
     this.eventEmitter.emit(InputEventKeys.onGamepad3, this.inputMethods[InputOptionsKeys.Gamepad3])

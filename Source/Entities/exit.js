@@ -9,6 +9,9 @@ export default class Exit extends Phaser.GameObjects.Sprite  {
     this.scene = scene
     this.gameManager = config.gameManager
     this.spriteSheet = config.spriteSheet
+    this.exitId = config.exitId
+    this.name = config.name
+    this.destinationLevelKey = config.destinationLevelKey
     this.entityType = EntityTypes.Exit
     this.attributes = config.attributes
     this.scene.add.existing(this)

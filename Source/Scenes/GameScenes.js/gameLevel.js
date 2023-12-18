@@ -17,6 +17,7 @@ class GameLevel extends Phaser.Scene {
     this.mapManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.characters = []
+    this.charactersOutOfPlay = 0
     this.debugGraphics = null
     this.alertSound = null
     this.voiceoverWelcomeSounds = []
@@ -78,9 +79,9 @@ class GameLevel extends Phaser.Scene {
       this.add.existing(character) // add the character to the scene => will be visible and updated
 
       this.characters.push(character)
-
-      this.gameManager.clearActiveExit() // Clear the active exit now that we've spawned the characters
     }
+
+    this.gameManager.clearActiveExit() // Clear the active exit now that we've spawned the characters
   }
 
   createExits () {
@@ -122,19 +123,20 @@ class GameLevel extends Phaser.Scene {
     if (this.characters.length === 0) {
       this.createCharacters()
       if (this.characters.length === 0) return
-    } else if (this.characters.every(character => character.isDead)) {
-      this.scene.stop(UserInterfaceKey)
-      this.scene.start(GameOverKey)
-      return
-    } else if (this.characters.every(character => character.isDead || character.hasExited)) {
-      this.scene.stop(UserInterfaceKey)
-      if (this.key === FinalLevelKey) {
-        this.scene.start(GameCompleteKey)
-      } else {
-        this.scene.start(InterLevelKey)
-      }
-      return
-    }
+    } 
+    // else if (this.characters.every(character => character.isDead)) {
+    //   this.scene.stop(UserInterfaceKey)
+    //   this.scene.start(GameOverKey)
+    //   return
+    // } else if (this.characters.every(character => character.isDead || character.hasExited)) {
+    //   this.scene.stop(UserInterfaceKey)
+    //   if (this.key === FinalLevelKey) {
+    //     this.scene.start(GameCompleteKey)
+    //   } else {
+    //     this.scene.start(InterLevelKey)
+    //   }
+    //   return
+    // }
 
     this.inputManager.update(time, delta)
     if (this.physics.world.debugGraphic.visible) {
@@ -184,11 +186,40 @@ class GameLevel extends Phaser.Scene {
   }
 
   characterExited (character) {
-    // TODO: Keep track of how many characters have exited or died so we know it is time to transition to the InterLevel scene
+    this.processCharacterOutOfPlay(character)
+    // TODO: Any other logic that needs to happen when a character exits the level
   }
 
   characterDied (character) {
-    // TODO: Keep track of how many characters have exited or died so we know it is time to transition to the InterLevel scene    
+    this.processCharacterOutOfPlay(character)
+    // TODO: Any other logic that needs to happen when a character dies    
+  }
+
+  processCharacterOutOfPlay (character) {
+    this.charactersOutOfPlay++
+    if (this.charactersOutOfPlay === this.characters.length) {
+      // this.scene.stop(UserInterfaceKey)
+      if (this.key === FinalLevelKey) {
+        this.scene.start(GameCompleteKey)
+      } else {
+        this.scene.start(InterLevelKey)
+      }
+
+      this.shutdown()
+
+      // this.scene.stop(this.scene.key)
+    }
+  }
+
+  shutdown () {
+    for (const sound of this.sound.sounds) sound.stop()
+    for (const character of this.characters) character.shutdown()
+    this.collisionManager.shutdown()
+    this.enemyManager.shutdown()
+
+    this.scene.stop(UserInterfaceKey)
+    // this.scene.stop(this.scene.key)
+    this.scene.remove(this.scene.key)
   }
 
   toggleDebug () {

@@ -29,4 +29,11 @@ export default class EnemyManager {
         break
     }
   }
+
+  shutdown () {
+    for (const enemy of this.enemies) {
+      enemy.destroy()
+    }
+    this.enemies = []
+  }
 }

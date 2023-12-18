@@ -1,4 +1,5 @@
 import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
+import Level1 from './GameScenes.js/level1.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys, { MasterTileset } from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
@@ -81,7 +82,8 @@ class Preloader extends Phaser.Scene {
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
     // this.scene.start(TitleKey)
-    this.scene.start(Level1Key)
+    // this.scene.start(Level1Key)
+    this.scene.add(Level1Key, new Level1(), true)
     this.scene.remove(PreloaderKey)
   }
 }

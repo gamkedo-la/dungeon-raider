@@ -251,6 +251,10 @@ export default class GameManager {
   clearActiveExit () {
     this.game.registry.set(ActiveExitKey, null)
   }
+
+  getDestinationLevelKey () {
+    return this.getActiveExit()?.destinationLevelKey
+  }
 }
 
 function createDebugCharacter (gameManager) {

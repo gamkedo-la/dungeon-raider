@@ -28,7 +28,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   }
 
   update (time, delta) {
-    if (this.isDead) return
+    if (!this.scene || this.isDead) return
 
     if (this.shouldBeDead) {
       enemyDied(this)
