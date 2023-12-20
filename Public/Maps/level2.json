@@ -197,9 +197,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-1"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -215,9 +225,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-2"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -233,9 +253,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-3"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -251,9 +281,19 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-4"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"character",
@@ -384,9 +424,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-1"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -397,9 +447,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-2"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -410,9 +470,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-3"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 
@@ -423,9 +493,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"isDefault",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"player",
                          "type":"string",
                          "value":"player-4"
+                        }, 
+                        {
+                         "name":"targetingExitId",
+                         "type":"string",
+                         "value":""
                         }],
                  "type":"character"
                 }, 

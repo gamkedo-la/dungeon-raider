@@ -16,25 +16,33 @@
   </tile>
   <tile id="1" type="character">
    <properties>
+    <property name="isDefault" type="bool" value="true"/>
     <property name="player" value="player-1"/>
+    <property name="targetingExitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Player1Marker.png"/>
   </tile>
   <tile id="2" type="character">
    <properties>
+    <property name="isDefault" type="bool" value="true"/>
     <property name="player" value="player-2"/>
+    <property name="targetingExitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Player2Marker.png"/>
   </tile>
   <tile id="3" type="character">
    <properties>
+    <property name="isDefault" type="bool" value="true"/>
     <property name="player" value="player-3"/>
+    <property name="targetingExitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Player3Marker.png"/>
   </tile>
   <tile id="4" type="character">
    <properties>
+    <property name="isDefault" type="bool" value="true"/>
     <property name="player" value="player-4"/>
+    <property name="targetingExitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Player4Marker.png"/>
   </tile>

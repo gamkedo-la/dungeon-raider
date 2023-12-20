@@ -25,6 +25,12 @@ export default class MapManager {
     this.player2Spawns = []
     this.player3Spawns = []
     this.player4Spawns = []
+    this.defaultSpawns = {
+      [Player1Keys.Player]: null,
+      [Player2Keys.Player]: null,
+      [Player3Keys.Player]: null,
+      [Player4Keys.Player]: null
+    }
 
     this.enemySpawnPoints = []
 
@@ -39,19 +45,28 @@ export default class MapManager {
   }
 
   getPlayerSpawn (player, targetingExitId = null) {
+    let result = null
     switch (player) {
       case Player1Keys.Player:
-        return this.player1Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        result  = this.player1Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        if (!result) result = this.defaultSpawns[Player1Keys.Player]
+        return result
       case Player2Keys.Player:
-        return this.player2Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        result = this.player2Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        if (!result) result = this.defaultSpawns[Player2Keys.Player]
+        return result
       case Player3Keys.Player:
-        return this.player3Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        result = this.player3Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        if (!result) result = this.defaultSpawns[Player3Keys.Player]
+        return result
       case Player4Keys.Player:
-        return this.player4Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        result = this.player4Spawns.find(spawn => targetingExitId ? spawn.targetingExitId === targetingExitId : spawn.isDefault)
+        if (!result) result = this.defaultSpawns[Player4Keys.Player]
+        return result
       default:
-        return null
+        result = null
+        return result
     }
-  
   }
 
   startTileAnimations () {
@@ -90,15 +105,19 @@ function processPlayerSpawnObject (manager, object) {
   switch (object.player) {
     case Player1Keys.Player:
       manager.player1Spawns.push(object)
+      if (object.isDefault) manager.defaultSpawns[Player1Keys.Player] = object
       break
     case Player2Keys.Player:
       manager.player2Spawns.push(object)
+      if (object.isDefault) manager.defaultSpawns[Player2Keys.Player] = object
       break
     case Player3Keys.Player:
       manager.player3Spawns.push(object)
+      if (object.isDefault) manager.defaultSpawns[Player3Keys.Player] = object
       break
     case Player4Keys.Player:
       manager.player4Spawns.push(object)
+      if (object.isDefault) manager.defaultSpawns[Player4Keys.Player] = object
       break
   }
 }
