@@ -8,6 +8,7 @@ import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
+import { InterLevelCharacterPane } from "../Keys/imageKeys.js"
 
 class InterLevel extends Phaser.Scene {
   constructor () {
@@ -28,6 +29,12 @@ class InterLevel extends Phaser.Scene {
     for (const inputEvent in InputEventKeys) {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
+
+    const player1Frame = this.add.image(0, 0, InterLevelCharacterPane)
+    player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
+    const player2Frame = this.add.image(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+    const player3Frame = this.add.image(player2Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+    const player4Frame = this.add.image(player3Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
 
     // TODO: Temporary until this scene has been implemented
     new FontLabel(this, {

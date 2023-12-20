@@ -17,7 +17,8 @@ class GameLevel extends Phaser.Scene {
     this.mapManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.characters = []
-    this.charactersOutOfPlay = 0
+    this.deadCharacterCount = 0
+    this.exitedCharacterCount = 0
     this.debugGraphics = null
     this.alertSound = null
     this.voiceoverWelcomeSounds = []
@@ -57,6 +58,7 @@ class GameLevel extends Phaser.Scene {
     this.scene.launch(UserInterfaceKey)
     this.mapManager.startTileAnimations()
     this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
+    this.scene.bringToTop(UserInterfaceKey)
   }
 
   createCharacters () {
@@ -123,20 +125,7 @@ class GameLevel extends Phaser.Scene {
     if (this.characters.length === 0) {
       this.createCharacters()
       if (this.characters.length === 0) return
-    } 
-    // else if (this.characters.every(character => character.isDead)) {
-    //   this.scene.stop(UserInterfaceKey)
-    //   this.scene.start(GameOverKey)
-    //   return
-    // } else if (this.characters.every(character => character.isDead || character.hasExited)) {
-    //   this.scene.stop(UserInterfaceKey)
-    //   if (this.key === FinalLevelKey) {
-    //     this.scene.start(GameCompleteKey)
-    //   } else {
-    //     this.scene.start(InterLevelKey)
-    //   }
-    //   return
-    // }
+    }
 
     this.inputManager.update(time, delta)
     if (this.physics.world.debugGraphic.visible) {
@@ -186,19 +175,24 @@ class GameLevel extends Phaser.Scene {
   }
 
   characterExited (character) {
+    this.exitedCharacterCount++
     this.processCharacterOutOfPlay(character)
     // TODO: Any other logic that needs to happen when a character exits the level
   }
 
   characterDied (character) {
-    this.processCharacterOutOfPlay(character)
-    // TODO: Any other logic that needs to happen when a character dies    
+    this.deadCharacterCount++
+    if (this.deadCharacterCount >= this.characters.length) {
+      this.scene.start(GameOverKey)
+      this.shutdown()
+      return
+    } else {
+      this.processCharacterOutOfPlay(character)
+    }
   }
 
   processCharacterOutOfPlay (character) {
-    this.charactersOutOfPlay++
-    if (this.charactersOutOfPlay === this.characters.length) {
-      // this.scene.stop(UserInterfaceKey)
+    if (this.exitedCharacterCount + this.deadCharacterCount >= this.characters.length) {
       if (this.key === FinalLevelKey) {
         this.scene.start(GameCompleteKey)
       } else {
@@ -206,8 +200,6 @@ class GameLevel extends Phaser.Scene {
       }
 
       this.shutdown()
-
-      // this.scene.stop(this.scene.key)
     }
   }
 
@@ -218,7 +210,6 @@ class GameLevel extends Phaser.Scene {
     this.enemyManager.shutdown()
 
     this.scene.stop(UserInterfaceKey)
-    // this.scene.stop(this.scene.key)
     this.scene.remove(this.scene.key)
   }
 

@@ -237,6 +237,22 @@ export default class GameManager {
     }
   }
 
+  clearPlayerData (player) {
+    this.setActivePlayer(player, null, false)
+    this.setInputForPlayer(player, null)
+    this.setCharacterRaceForPlayer(player, null)
+    this.setCharacterClassForPlayer(player, null)
+    this.setCharacterAttributesForPlayer(player, null)
+  }
+
+  clearAllPlayerData () {
+    this.setPlayerCount(0)
+    this.clearPlayerData(Player1Keys.Player)
+    this.clearPlayerData(Player2Keys.Player)
+    this.clearPlayerData(Player3Keys.Player)
+    this.clearPlayerData(Player4Keys.Player)
+  }
+
   getActiveExit () {
     return this.game.registry.get(ActiveExitKey)
   }

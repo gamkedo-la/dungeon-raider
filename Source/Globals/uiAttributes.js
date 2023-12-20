@@ -11,6 +11,8 @@ export const UIFontSize = '20px'
 export const UIFontFamily = FontFamilies.MedivalSharpRegular
 export const TextLineSpacing = 2
 
+export const TitleFontSize = '48px'
+
 export default {
   RedPlayerColor,
   GreenPlayerColor,
@@ -21,5 +23,6 @@ export default {
   UIDangerColor,
   UIFontSize,
   UIFontFamily,
-  TextLineSpacing
+  TextLineSpacing,
+  TitleFontSize
 }

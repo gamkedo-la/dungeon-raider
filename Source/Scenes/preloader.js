@@ -1,5 +1,6 @@
-import { PreloaderKey, TitleKey, Level1Key } from '../Keys/sceneKeys.js'
+import SceneKeys from '../Keys/sceneKeys.js'
 import Level1 from './GameScenes.js/level1.js'
+import Title from './title.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys, { MasterTileset } from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
@@ -15,11 +16,12 @@ import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/character.js"
+import Debug from "../Globals/debug.js"
 // import AtlasKeys from '../Keys/atlasKeys.js'
 
 class Preloader extends Phaser.Scene {
   constructor () {
-    super(PreloaderKey)
+    super(SceneKeys.Preloader)
   }
 
   init () {
@@ -81,10 +83,17 @@ class Preloader extends Phaser.Scene {
     createPlayer2Character(this, gameManager)
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
-    // this.scene.start(TitleKey)
-    // this.scene.start(Level1Key)
-    this.scene.add(Level1Key, new Level1(), true)
-    this.scene.remove(PreloaderKey)
+    if (Debug.SkipTitleScene) {
+      if (Debug.SkipCharacterCreateScene) {
+        this.scene.add(SceneKeys.Level1, new Level1(), true)
+      } else {
+        this.scene.start(SceneKeys.CharacterCreate)
+      }
+    } else {
+      this.scene.add(SceneKeys.Title, new Title(), true)
+    }
+
+    this.scene.remove(SceneKeys.Preloader)
   }
 }
 
