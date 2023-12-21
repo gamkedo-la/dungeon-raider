@@ -1,8 +1,4 @@
 import SceneKeys from "../Keys/sceneKeys.js"
-import Level1 from "./GameScenes.js/level1.js"
-import Level2 from "./GameScenes.js/level2.js"
-import Level3 from "./GameScenes.js/level3.js"
-// Add more level imports here as we create them
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
@@ -61,7 +57,7 @@ class Title extends Phaser.Scene {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
         if (Debug.SkipCharacterCreateScene) {
-          this.scene.add(SceneKeys.Level1, new Level1(), true)
+          this.gameManager.goToLevel(SceneKeys.Level1)
         } else {
           this.scene.start(SceneKeys.CharacterCreate)
         }

@@ -1,8 +1,4 @@
 import SceneKeys from "../Keys/sceneKeys.js"
-import Level1 from "./GameScenes.js/level1.js"
-import Level2 from "./GameScenes.js/level2.js"
-import Level3 from "./GameScenes.js/level3.js"
-// Add more level imports here as we create them
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
@@ -36,6 +32,14 @@ class InterLevel extends Phaser.Scene {
     const player3Frame = this.add.image(player2Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
     const player4Frame = this.add.image(player3Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
 
+    const activePlayers = this.gameManager.getActivePlayers()
+    for (const activePlayer of activePlayers) {
+      const attributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
+      attributes.health = Math.ceil((attributes.maxHealth - attributes.health) / 2)
+      attributes.magic = Math.ceil((attributes.maxMagic - attributes.magic) / 2)
+      this.gameManager.setCharacterAttributesForPlayer(activePlayer, attributes)
+    }
+
     // TODO: Temporary until this scene has been implemented
     new FontLabel(this, {
       x: this.game.canvas.width / 2 - 200,
@@ -65,9 +69,8 @@ class InterLevel extends Phaser.Scene {
       if (event[eventKey].isDown) {
         const destinationLevelKey = this.gameManager.getDestinationLevelKey()
         if (destinationLevelKey) {
-          // this.scene.start(destinationLevelKey)
-          this.scene.add(destinationLevelKey, buildLevelForKey(destinationLevelKey), true)
-          this.scene.stop(this.scene.key)
+          this.gameManager.goToLevel(destinationLevelKey)
+          this.scene.remove(this.scene.key)
         } else {
           console.warn('InterLevel.processInput: destinationLevelKey is not set')
         }
@@ -77,17 +80,3 @@ class InterLevel extends Phaser.Scene {
 }
 
 export default InterLevel
-
-function buildLevelForKey (key) {
-  switch (key) {
-    case SceneKeys.Level1:
-      return new Level1()
-    case SceneKeys.Level2:
-      return new Level2()
-    case SceneKeys.Level3:
-      return new Level3()
-    default:
-      console.warn(`buildLevelForKey: Invalid Level Key: ${key}. See interLevelScene.js`)
-      return null
-  }
-}

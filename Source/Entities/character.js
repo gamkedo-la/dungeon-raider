@@ -50,8 +50,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.attributes.magic = 0
     }
 
-    this.maxHealth = this.attributes.health
-    this.maxMagic = this.attributes.magic
+    this.maxHealth = this.attributes.maxHealth
+    this.maxMagic = this.attributes.maxMagic
 
     this.shouldBeDead = false
     this.isDead = false
@@ -66,6 +66,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.attributes.health--
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
+      this.attributes.health = 0
     } else {
       this.scene.time.delayedCall(this.attributes.healthLossRate, () => {
         this.healthLoss()

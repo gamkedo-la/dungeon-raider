@@ -58,6 +58,7 @@ class GameOver extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
+        // TODO: We need to clear all the Player & Character data so a new game can be started
         this.scene.add(TitleKey, new Title(), true)
         this.scene.stop(this.scene.key)
       }

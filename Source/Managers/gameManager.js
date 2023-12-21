@@ -1,6 +1,11 @@
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import InputEventKeys from "../Keys/inputEventKeys.js"
+import InterLevel from "../Scenes/interLevelScene.js"
+import SceneKeys from "../Keys/sceneKeys.js"
+import Level1 from "../Scenes/GameScenes.js/level1.js"
+import Level2 from "../Scenes/GameScenes.js/level2.js"
+import Level3 from "../Scenes/GameScenes.js/level3.js"
 
 export const GameManagerKey = 'game-manager'
 export const PlayerCountKey = 'player-count'
@@ -271,6 +276,14 @@ export default class GameManager {
   getDestinationLevelKey () {
     return this.getActiveExit()?.destinationLevelKey
   }
+
+  goToInterLevelScene () {
+    this.game.scene.add(SceneKeys.InterLevel, new InterLevel(), true)
+  }
+
+  goToLevel (levelKey) {
+    this.game.scene.add(levelKey, buildLevelForKey(levelKey), true)
+  }
 }
 
 function createDebugCharacter (gameManager) {
@@ -280,4 +293,18 @@ function createDebugCharacter (gameManager) {
   // gameManager.setActivePlayer(Player3Keys.Player, null, false)
   // gameManager.setActivePlayer(Player4Keys.Player, null, false)
   // END TODO
+}
+
+function buildLevelForKey (key) {
+  switch (key) {
+    case SceneKeys.Level1:
+      return new Level1()
+    case SceneKeys.Level2:
+      return new Level2()
+    case SceneKeys.Level3:
+      return new Level3()
+    default:
+      console.warn(`buildLevelForKey: Invalid Level Key: ${key}. See gameManager.js`)
+      return new GameLevel(key)
+  }
 }

@@ -3,16 +3,10 @@ import Character from "../Entities/character.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from "../Keys/inputEventKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
-
+import SceneKeys from "../Keys/sceneKeys.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import Debug from "../Globals/debug.js"
-
-import SceneKeys from "../Keys/sceneKeys.js"
-import Level1 from "./GameScenes.js/level1.js"
-import Level2 from "./GameScenes.js/level2.js"
-import Level3 from "./GameScenes.js/level3.js"
-// Add more level imports here as we create them
 
 class CharacterCreate extends Phaser.Scene {
   constructor () {
@@ -55,16 +49,13 @@ class CharacterCreate extends Phaser.Scene {
   }
 
   update (time, delta) {
-    // for (const inputEvent in InputEventKeys) {
-    //   this.inputManager.registerForEvent(inputEvent, this.processInput, this)
-    // }
     this.inputManager.update(time, delta)
   }
 
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
-        this.scene.add(SceneKeys.Level1, new Level1(), true)
+        this.gameManager.goToLevel(SceneKeys.Level1)
         this.scene.stop(SceneKeys.CharacterCreate)
       }
     }

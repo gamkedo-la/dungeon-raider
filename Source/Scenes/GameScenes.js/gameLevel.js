@@ -1,4 +1,4 @@
-import { GameLevelKey, UserInterfaceKey, GameOverKey, GameCompleteKey, InterLevelKey, FinalLevelKey } from "../../Keys/sceneKeys.js"
+import SceneKeys from "../../Keys/sceneKeys.js"
 import AudioKeys, { AlertSound, TitleMusic } from "../../Keys/audioKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
@@ -11,7 +11,7 @@ import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
 
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
-    super(sceneKey || GameLevelKey)
+    super(sceneKey || SceneKeys.GameLevel)
     this.mapKey = mapKey
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.mapManager = null // can't create this until the scene is initialized => in create()
@@ -55,10 +55,10 @@ class GameLevel extends Phaser.Scene {
     this.setupCamera()
 
     this.debugGraphics = this.add.graphics()
-    this.scene.launch(UserInterfaceKey)
+    this.scene.launch(SceneKeys.UserInterface)
     this.mapManager.startTileAnimations()
     this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
-    this.scene.bringToTop(UserInterfaceKey)
+    this.scene.bringToTop(SceneKeys.UserInterface)
   }
 
   createCharacters () {
@@ -183,7 +183,7 @@ class GameLevel extends Phaser.Scene {
   characterDied (character) {
     this.deadCharacterCount++
     if (this.deadCharacterCount >= this.characters.length) {
-      this.scene.start(GameOverKey)
+      this.scene.start(SceneKeys.GameOver)
       this.shutdown()
       return
     } else {
@@ -193,10 +193,10 @@ class GameLevel extends Phaser.Scene {
 
   processCharacterOutOfPlay (character) {
     if (this.exitedCharacterCount + this.deadCharacterCount >= this.characters.length) {
-      if (this.key === FinalLevelKey) {
-        this.scene.start(GameCompleteKey)
+      if (this.key === SceneKeys.FinalLevel) {
+        this.scene.start(SceneKeys.GameComplete)
       } else {
-        this.scene.start(InterLevelKey)
+        this.gameManager.goToInterLevelScene()
       }
 
       this.shutdown()
@@ -209,7 +209,7 @@ class GameLevel extends Phaser.Scene {
     this.collisionManager.shutdown()
     this.enemyManager.shutdown()
 
-    this.scene.stop(UserInterfaceKey)
+    this.scene.stop(SceneKeys.UserInterface)
     this.scene.remove(this.scene.key)
   }
 

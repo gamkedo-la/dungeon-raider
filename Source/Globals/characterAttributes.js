@@ -20,8 +20,10 @@ export function getCharacterAttributes (race, characterClass) {
     attackCooldown: 0,
     health: 0,
     healthLossRate: 0,
+    maxHealth: 0,
     magic: 0,
     magicRegen: 0,
+    maxMagic: 0,
     meleeDamage: 0,
     rangedDamage: 0,
     armor: Armor.PlainClothes,
@@ -70,8 +72,10 @@ const human = {
   attackCooldown: 500, // lower is better
   health: 100,  // higher is better
   healthLossRate: 1000, // higher is better
+  maxHealth: 100,
   magic: 0, // higher is better
   magicRegen: 1000, // lower is better
+  maxMagic: 0,
   meleeDamage: 0, // higher is better, final damage = meleeDamage + weaponDamage
   rangedDamage: 0, // higher is better, final damage = rangedDamage + weaponDamage
   armor: Armor.PlainClothes,
@@ -87,8 +91,10 @@ const elf = {
   attackCooldown: 300,
   health: 80,
   healthLossRate: 800,
+  maxHealth: 80,
   magic: 20,
   magicRegen: 800,
+  maxMagic: 20,
   meleeDamage: -3,
   rangedDamage: 3,
   armor: Armor.PlainClothes,
@@ -104,8 +110,10 @@ const dwarven = {
   attackCooldown: 700,
   health: 120,
   healthLossRate: 1200,
+  maxHealth: 120,
   magic: -20,
   magicRegen: 1200,
+  maxMagic: -20,
   meleeDamage: 3,
   rangedDamage: -3,
   armor: Armor.PlainClothes,
@@ -121,8 +129,10 @@ const warriorModifiers = {
   attackCooldown: 100,
   health: 20,
   healthLossRate: 300,
+  maxHealth: 20,
   magic: 0,
   magicRegen: 0,
+  maxMagic: 0,
   meleeDamage: 3,
   rangedDamage: 0,
   armor: Armor.RingMail,
@@ -138,8 +148,10 @@ const archerModifiers = {
   attackCooldown: -100,
   health: -10,
   healthLossRate: -100,
+  maxHealth: -10,
   magic: 0,
   magicRegen: 0,
+  maxMagic: 0,
   meleeDamage: 0,
   rangedDamage: 3,
   armor: Armor.LeatherArmor,
@@ -162,8 +174,10 @@ const magiModifiers = {
   attackCooldown: 300,
   health: -20,
   healthLossRate: -200,
+  maxHealth: -20,
   magic: 100,
   magicRegen: -200,
+  maxMagic: 100,
   meleeDamage: 0,
   rangedDamage: 0,
   armor: Armor.PlainClothes,
@@ -179,8 +193,10 @@ const clericModifiers = {
   attackCooldown: 200,
   health: 0,
   healthLossRate: 150,
+  maxHealth: 0,
   magic: 50,
   magicRegen: -100,
+  maxMagic: 50,
   meleeDamage: 1,
   rangedDamage: 0,
   armor: Armor.RingMail,
@@ -196,8 +212,10 @@ function addWarriorModifiers (attributes) {
   attributes.attackCooldown += warriorModifiers.attackCooldown
   attributes.health += warriorModifiers.health
   attributes.healthLossRate += warriorModifiers.healthLossRate
+  attributes.maxHealth += warriorModifiers.maxHealth
   attributes.magic += warriorModifiers.magic
   attributes.magicRegen += warriorModifiers.magicRegen
+  attributes.maxMagic += warriorModifiers.maxMagic
   attributes.meleeDamage += warriorModifiers.meleeDamage
   attributes.rangedDamage += warriorModifiers.rangedDamage
   attributes.armor = warriorModifiers.armor
@@ -215,8 +233,10 @@ function addArcherModifiers (attributes) {
   attributes.attackCooldown += archerModifiers.attackCooldown
   attributes.health += archerModifiers.health
   attributes.healthLossRate += archerModifiers.healthLossRate
+  attributes.maxHealth += archerModifiers.maxHealth
   attributes.magic += archerModifiers.magic
   attributes.magicRegen += archerModifiers.magicRegen
+  attributes.maxMagic += archerModifiers.maxMagic
   attributes.meleeDamage += archerModifiers.meleeDamage
   attributes.rangedDamage += archerModifiers.rangedDamage
   attributes.armor = archerModifiers.armor
@@ -235,8 +255,10 @@ function addMagiModifiers (attributes) {
   attributes.attackCooldown += magiModifiers.attackCooldown
   attributes.health += magiModifiers.health
   attributes.healthLossRate += magiModifiers.healthLossRate
+  attributes.maxHealth += magiModifiers.maxHealth
   attributes.magic += magiModifiers.magic
   attributes.magicRegen += magiModifiers.magicRegen
+  attributes.maxMagic += magiModifiers.maxMagic
   attributes.meleeDamage += magiModifiers.meleeDamage
   attributes.rangedDamage += magiModifiers.rangedDamage
   attributes.armor = magiModifiers.armor
@@ -254,8 +276,10 @@ function addClericModifiers (attributes) {
   attributes.attackCooldown += clericModifiers.attackCooldown
   attributes.health += clericModifiers.health
   attributes.healthLossRate += clericModifiers.healthLossRate
+  attributes.maxHealth += clericModifiers.maxHealth
   attributes.magic += clericModifiers.magic
   attributes.magicRegen += clericModifiers.magicRegen
+  attributes.maxMagic += clericModifiers.maxMagic
   attributes.meleeDamage += clericModifiers.meleeDamage
   attributes.rangedDamage += clericModifiers.rangedDamage
   attributes.armor = clericModifiers.armor

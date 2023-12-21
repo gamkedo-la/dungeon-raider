@@ -2,7 +2,6 @@ import Preloader from './Source/Scenes/preloader.js'
 import Credits from './Source/Scenes/credits.js'
 import Options from './Source/Scenes/options.js'
 import CharacterCreate from './Source/Scenes/characterCreate.js'
-import InterLevel from './Source/Scenes/interLevelScene.js'
 import GameOver from './Source/Scenes/gameOver.js'
 import GameComplete from './Source/Scenes/gameComplete.js'
 import UserInterface from './Source/Scenes/uiScene.js'
@@ -12,7 +11,6 @@ const scenes = [
   Credits,
   Options,
   CharacterCreate,
-  InterLevel,
   GameOver,
   GameComplete,
   UserInterface

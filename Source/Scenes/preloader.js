@@ -1,5 +1,4 @@
 import SceneKeys from '../Keys/sceneKeys.js'
-import Level1 from './GameScenes.js/level1.js'
 import Title from './title.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
 import ImageKeys, { MasterTileset } from '../Keys/imageKeys.js'
@@ -22,6 +21,7 @@ import Debug from "../Globals/debug.js"
 class Preloader extends Phaser.Scene {
   constructor () {
     super(SceneKeys.Preloader)
+    this.gameManager = null // can't create this until the scene is initialized => in create()
   }
 
   init () {
@@ -72,20 +72,20 @@ class Preloader extends Phaser.Scene {
     this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
       console.log('Gamepad connected:', pad)
     })
-    const gameManager = new GameManager(this.game)
-    this.game.registry.set(GameManagerKey, gameManager)
+    this.gameManager = new GameManager(this.game)
+    this.game.registry.set(GameManagerKey, this.gameManager)
 
     // Animations are Global for whole Game => load them here and use anywhere
     buildAllAnimations(this)
 
     // TODO: Move this into the Character Create Scene
-    createPlayer1Character(this, gameManager)
-    createPlayer2Character(this, gameManager)
+    createPlayer1Character(this, this.gameManager)
+    createPlayer2Character(this, this.gameManager)
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
     if (Debug.SkipTitleScene) {
       if (Debug.SkipCharacterCreateScene) {
-        this.scene.add(SceneKeys.Level1, new Level1(), true)
+        this.gameManager.goToLevel(SceneKeys.Level1)
       } else {
         this.scene.start(SceneKeys.CharacterCreate)
       }
