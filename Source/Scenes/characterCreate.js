@@ -1,5 +1,5 @@
 import { getCharacterAttributes } from "../Globals/characterAttributes.js"
-import Character from "../Entities/character.js"
+import Character from "../Entities/Characters/character.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from "../Keys/inputEventKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"

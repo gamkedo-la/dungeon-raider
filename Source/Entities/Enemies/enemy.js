@@ -1,4 +1,4 @@
-import EntityTypes from '../Globals/entityTypes.js'
+import EntityTypes from '../../Globals/entityTypes.js'
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {

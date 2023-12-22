@@ -1,5 +1,6 @@
-import { getAttributesForEnemy, getLootForEnemy } from '../Globals/enemyAttributes.js'
-import Ogre1 from '../Entities/ogre1.js'
+import EntityTypes from '../Globals/entityTypes.js'
+import { getAttributesForEnemy } from '../Globals/enemyAttributes.js'
+import Ogre1 from '../Entities/Enemies/ogre1.js'
 
 export default class EnemyManager {
   constructor (scene, mapManager, collisionManager) {
@@ -22,7 +23,7 @@ export default class EnemyManager {
 
   addEnemy (entityType, config) {
     switch (entityType) {
-      case 'ogre1':
+      case EntityTypes.Ogre1:
         const newOgre = new Ogre1(this.scene, config)
         this.collisionManager.addEntity(newOgre, newOgre.attributes.radius)
         this.scene.add.existing(newOgre)

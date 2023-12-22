@@ -4,8 +4,9 @@ import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
 import EnemyManager from "../../Managers/enemyManager.js"
-import Character from "../../Entities/character.js"
-import Exit from "../../Entities/exit.js"
+import LootManager from "../../Managers/lootManager.js"
+import Character from "../../Entities/Characters/character.js"
+import Exit from "../../Entities/Other/exit.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
 
@@ -43,6 +44,7 @@ class GameLevel extends Phaser.Scene {
     this.mapManager = new MapManager(this, this.mapKey)
     this.collisionManager = new CollisionManager(this, this.mapManager)
     this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
+    this.lootManager = new LootManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
@@ -90,6 +92,13 @@ class GameLevel extends Phaser.Scene {
     for (const exit of this.mapManager.exits) {
       exit.gameManager = this.gameManager
       this.collisionManager.addEntity(new Exit(this, exit)) // add the exit to the physics simulation and enable collisions
+    }
+  }
+
+  createLoot () {
+    for (const loot of this.mapManager.loot) {
+
+      this.collisionManager.addEntity(loot) // add the loot to the physics simulation and enable collisions
     }
   }
 

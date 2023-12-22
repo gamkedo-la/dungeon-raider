@@ -1,9 +1,9 @@
-import { CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
-import { PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
-import { Races, CharacterClasses } from '../Globals/characterAttributes.js'
-import EntityTypes from '../Globals/entityTypes.js'
-import InputEventKeys from '../Keys/inputEventKeys.js'
-import CharacterAnimations from '../Keys/characterAnimationKeys.js'
+import { CharacterSpriteSheets } from '../../Globals/characterSpriteSheetLoaderData.js'
+import { PlayerMarkerSpriteSheet } from '../../Globals/playerMarkerSpriteSheetLoaderData.js'
+import { Races, CharacterClasses } from '../../Globals/characterAttributes.js'
+import EntityTypes from '../../Globals/entityTypes.js'
+import InputEventKeys from '../../Keys/inputEventKeys.js'
+import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -240,10 +240,24 @@ export default class Character extends Phaser.GameObjects.Sprite {
     return !this.isDead && !this.shouldBeDead && !this.isExiting && !this.exited
   }
 
+  collectedLoot (loot) {
+    if (loot.attribute === 'health') {
+      this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
+    } else if (loot.attribute === 'magic') {
+      this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
+    } else {
+      this.attributes.loot[loot.attribute] += loot.value
+    }
+  }
+
   didCollideWith (otherEntity) {
     // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
     if (EntityTypes.isEnemy(otherEntity)) {
       // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
+    } else if (EntityTypes.isLoot(otherEntity)) {
+      // picked up a loot item
+      this.collectedLoot(otherEntity.loot)
+      otherEntity.destroy()
     } else if (otherEntity.entityType === EntityTypes.Tile) {
       // hit a tile
     } else if (otherEntity.entityType === EntityTypes.Character) {

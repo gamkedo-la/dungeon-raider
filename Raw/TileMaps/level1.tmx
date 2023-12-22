@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="20">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="24">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -54,8 +54,11 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="6" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="32" tilecount="10" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
+  <properties>
+   <property name="minPlayerCount" type="int" value="1"/>
+  </properties>
   <tile id="0" type="ogre1">
    <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
   </tile>
@@ -97,6 +100,34 @@
     <property name="exitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Exit.png"/>
+  </tile>
+  <tile id="6" type="singleGoldPiece">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="16" height="16" source="ObjectImages/GoldSinglePiece.png"/>
+  </tile>
+  <tile id="7" type="fiveGoldPieces">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="12"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/GoldFivePieces.png"/>
+  </tile>
+  <tile id="8" type="smallFood">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="16" height="16" source="ObjectImages/FoodSmall.png"/>
+  </tile>
+  <tile id="9" type="largeFood">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/FoodLarge.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
@@ -262,7 +293,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="7" gid="1025" x="351.019" y="352.434" width="32" height="32"/>
+  <object id="7" gid="1025" x="191.519" y="95.434" width="32" height="32"/>
   <object id="10" gid="1026" x="224" y="160" width="32" height="32"/>
   <object id="11" gid="1027" x="288" y="160" width="32" height="32"/>
   <object id="12" gid="1028" x="352" y="160" width="32" height="32"/>
@@ -303,6 +334,10 @@
     <property name="targetingExitId" value="level1_exit1"/>
    </properties>
   </object>
+  <object id="20" gid="1031" x="264" y="215" width="16" height="16"/>
+  <object id="21" gid="1032" x="223" y="320.5" width="32" height="32"/>
+  <object id="22" gid="1033" x="296.5" y="279" width="16" height="16"/>
+  <object id="23" gid="1034" x="383.5" y="288.5" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

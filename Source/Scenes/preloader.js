@@ -14,7 +14,7 @@ import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
-import Character from "../Entities/character.js"
+import Character from "../Entities/Characters/character.js"
 import Debug from "../Globals/debug.js"
 // import AtlasKeys from '../Keys/atlasKeys.js'
 

@@ -8,7 +8,8 @@ export default class CollisionManager {
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
     this.exitGroup = this.scene.physics.add.group()
-    this.groups = [this.characterGroup, this.enemyGroup, this.exitGroup]
+    this.lootGroup = this.scene.physics.add.group()
+    this.groups = [this.characterGroup, this.enemyGroup, this.exitGroup, this.lootGroup]
 
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
@@ -16,6 +17,7 @@ export default class CollisionManager {
     this.scene.physics.add.overlap(this.characterGroup, this.enemyGroup, this.characterEnemyOverlap, this.characterEnemyProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.enemyEnemyOverlap, this.enemyEnemyProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.exitGroup, this.characterExitOverlap, this.characterExitProcess, this)
+    this.scene.physics.add.overlap(this.characterGroup, this.lootGroup, this.characterLootOverlap, this.characterLootProcess, this)
   }
 
   addEntity (entityToAdd, radius = null) {
@@ -24,12 +26,19 @@ export default class CollisionManager {
         this.characterGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
+      case EntityTypes.Exit:
+        this.exitGroup.add(entityToAdd)
+        break
       case EntityTypes.Ogre1:
         this.enemyGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
-      case EntityTypes.Exit:
-        this.exitGroup.add(entityToAdd)
+      case EntityTypes.FoodLarge:
+      case EntityTypes.FoodSmall:
+      case EntityTypes.GoldFivePieces:
+        case EntityTypes.GoldSinglePiece:
+          this.lootGroup.add(entityToAdd)
+        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
     }
   }
@@ -76,6 +85,14 @@ export default class CollisionManager {
     return true
   }
 
+  characterExitProcess (character, exit) {
+    return true
+  }
+
+  characterLootProcess (character, loot) {
+    return true
+  }
+
   // Overlap Handlers - Phaser only notifies us that an overlap has occurred, but does not reposition entities
   characteCharacterOverlap (character1, character2) {
     character1.x = character1.lastPosition.x
@@ -107,7 +124,8 @@ export default class CollisionManager {
     exit.didCollideWith(character)
   }
 
-  characterExitProcess (character, exit) {
-    return true
+  characterLootOverlap (character, loot) {
+    character.didCollideWith(loot)
+    // loot.didCollideWith(character) // loot doesn't care?
   }
 }

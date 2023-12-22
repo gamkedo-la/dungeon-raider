@@ -1,7 +1,7 @@
 import Enemy from './enemy.js'
-import { Ogre1SpriteSheet } from '../Globals/enemySpriteSheetLoaderData.js'
-import { Ogre1Type } from '../Globals/entityTypes.js'
-import { Ogre1Animations } from '../Keys/enemyAnimationKeys.js'
+import { Ogre1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.js'
+import { Ogre1Type } from '../../Globals/entityTypes.js'
+import { Ogre1Animations } from '../../Keys/enemyAnimationKeys.js'
 
 export default class Ogre1 extends Enemy {
   constructor (scene, config) {

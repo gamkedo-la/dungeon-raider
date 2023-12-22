@@ -1,5 +1,5 @@
-import EntityTypes from '../Globals/entityTypes.js'
-import { TileSpriteSheet, TileFrames } from '../Globals/tileSpriteSheetLoaderData.js'
+import EntityTypes from '../../Globals/entityTypes.js'
+import { TileSpriteSheet, TileFrames } from '../../Globals/tileSpriteSheetLoaderData.js'
 
 export default class Exit extends Phaser.GameObjects.Sprite  {
   constructor (scene, config) {

@@ -199,8 +199,8 @@
                  "type":"ogre1",
                  "visible":true,
                  "width":32,
-                 "x":351.019,
-                 "y":352.434
+                 "x":191.519,
+                 "y":95.434
                 }, 
                 {
                  "gid":1026,
@@ -471,6 +471,98 @@
                  "width":32,
                  "x":128,
                  "y":384
+                }, 
+                {
+                 "gid":1031,
+                 "height":16,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"singleGoldPiece",
+                 "visible":true,
+                 "width":16,
+                 "x":264,
+                 "y":215
+                }, 
+                {
+                 "gid":1032,
+                 "height":32,
+                 "id":21,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":12
+                        }],
+                 "rotation":0,
+                 "type":"fiveGoldPieces",
+                 "visible":true,
+                 "width":32,
+                 "x":223,
+                 "y":320.5
+                }, 
+                {
+                 "gid":1033,
+                 "height":16,
+                 "id":22,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"smallFood",
+                 "visible":true,
+                 "width":16,
+                 "x":296.5,
+                 "y":279
+                }, 
+                {
+                 "gid":1034,
+                 "height":32,
+                 "id":23,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"largeFood",
+                 "visible":true,
+                 "width":32,
+                 "x":383.5,
+                 "y":288.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -540,7 +632,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":20,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -687,6 +779,7 @@
          "tilewidth":32
         }, 
         {
+         "class":"singleGoldPiece",
          "columns":0,
          "firstgid":1025,
          "grid":
@@ -697,8 +790,14 @@
             },
          "margin":0,
          "name":"Objects",
+         "properties":[
+                {
+                 "name":"minPlayerCount",
+                 "type":"int",
+                 "value":1
+                }],
          "spacing":0,
-         "tilecount":6,
+         "tilecount":10,
          "tileheight":32,
          "tiles":[
                 {
@@ -817,6 +916,78 @@
                          "value":""
                         }],
                  "type":"exit"
+                }, 
+                {
+                 "id":6,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/GoldSinglePiece.png",
+                 "imageheight":16,
+                 "imagewidth":16,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"singleGoldPiece"
+                }, 
+                {
+                 "id":7,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/GoldFivePieces.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":12
+                        }],
+                 "type":"fiveGoldPieces"
+                }, 
+                {
+                 "id":8,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/FoodSmall.png",
+                 "imageheight":16,
+                 "imagewidth":16,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"smallFood"
+                }, 
+                {
+                 "id":9,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/FoodLarge.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"largeFood"
                 }],
          "tilewidth":32
         }],
