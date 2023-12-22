@@ -293,7 +293,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="7" gid="1025" x="191.519" y="95.434" width="32" height="32"/>
+  <object id="7" gid="1025" x="38.519" y="70.934" width="32" height="32"/>
   <object id="10" gid="1026" x="224" y="160" width="32" height="32"/>
   <object id="11" gid="1027" x="288" y="160" width="32" height="32"/>
   <object id="12" gid="1028" x="352" y="160" width="32" height="32"/>
