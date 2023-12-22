@@ -21,6 +21,7 @@ const Game = new Phaser.Game({
   width: 1600,
   height: 900,
   scene: scenes,
+  backgroundColor: '#000000',
   physics: {
     default: 'arcade',
     arcade: {
