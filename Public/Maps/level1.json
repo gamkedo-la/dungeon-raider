@@ -820,7 +820,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":10,
+         "tilecount":16,
          "tileheight":32,
          "tiles":[
                 {
@@ -1011,6 +1011,114 @@
                          "value":16
                         }],
                  "type":"largeFood"
+                }, 
+                {
+                 "id":10,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowNormalSingle.png",
+                 "imageheight":16,
+                 "imagewidth":16,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"arrowNormalSingle"
+                }, 
+                {
+                 "id":11,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowNormalMultiple.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"arrowNormalMultiple"
+                }, 
+                {
+                 "id":12,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowSilverSingle.png",
+                 "imageheight":16,
+                 "imagewidth":16,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"arrowSilverSingle"
+                }, 
+                {
+                 "id":13,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowSilverMultiple.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"arrowSilverMultiple"
+                }, 
+                {
+                 "id":14,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowMagicSingle.png",
+                 "imageheight":16,
+                 "imagewidth":16,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"arrowMagicSingle"
+                }, 
+                {
+                 "id":15,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/ArrowMagicMultiple.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"arrowMagicMultiple"
                 }],
          "tilewidth":32
         }],
