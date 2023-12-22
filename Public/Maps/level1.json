@@ -563,6 +563,29 @@
                  "width":32,
                  "x":383.5,
                  "y":288.5
+                }, 
+                {
+                 "gid":1032,
+                 "height":32,
+                 "id":24,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minPlayerCount",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":12
+                        }],
+                 "rotation":0,
+                 "type":"fiveGoldPieces",
+                 "visible":true,
+                 "width":32,
+                 "x":320,
+                 "y":287.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -632,7 +655,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":24,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "properties":[
         {

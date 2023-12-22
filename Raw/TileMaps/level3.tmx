@@ -9,7 +9,7 @@
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="6" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="10" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
@@ -52,6 +52,34 @@
     <property name="exitId" value=""/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Exit.png"/>
+  </tile>
+  <tile id="6" type="singleGoldPiece">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="16" height="16" source="ObjectImages/GoldSinglePiece.png"/>
+  </tile>
+  <tile id="7" type="fiveGoldPieces">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="12"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/GoldFivePieces.png"/>
+  </tile>
+  <tile id="8" type="smallFood">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="16" height="16" source="ObjectImages/FoodSmall.png"/>
+  </tile>
+  <tile id="9" type="largeFood">
+   <properties>
+    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/FoodLarge.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
