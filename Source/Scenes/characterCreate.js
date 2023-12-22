@@ -35,6 +35,19 @@ class CharacterCreate extends Phaser.Scene {
     this.playerCount = this.gameManager.getPlayerCount()
 
     this.buildCharacterFrames()
+
+    // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
+    // and then presses Enter/Return/X to confirm
+
+    // TODO: Temporary until this scene has been implemented
+    new FontLabel(this, {
+      x: this.game.canvas.width / 2 - 200,
+      y: this.game.canvas.height / 2,
+      title: '[Character Create] Press Any Control Key (WASD or Arrows) to Continue',
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
+    })
   }
 
   buildCharacterFrames () {
@@ -49,19 +62,6 @@ class CharacterCreate extends Phaser.Scene {
     const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color)
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color)
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color)
-
-    // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
-    // and then presses Enter/Return/X to confirm
-
-    // TODO: Temporary until this scene has been implemented
-    new FontLabel(this, {
-      x: this.game.canvas.width / 2 - 200,
-      y: this.game.canvas.height / 2,
-      title: '[Character Create] Press Any Control Key (WASD or Arrows) to Continue',
-      fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color: UIAttributes.UIColor
-    })
   }
 
   buildFrameForPlayer (x, y, title, color) {
