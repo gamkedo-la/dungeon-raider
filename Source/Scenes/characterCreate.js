@@ -7,6 +7,7 @@ import SceneKeys from "../Keys/sceneKeys.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import Debug from "../Globals/debug.js"
+import { InterLevelCharacterPane } from "../Keys/imageKeys.js"
 
 class CharacterCreate extends Phaser.Scene {
   constructor () {
@@ -35,7 +36,14 @@ class CharacterCreate extends Phaser.Scene {
     }
 
     // TODO: Divide the screen into 4 columns, one for each player, dim or fade out the columns that are not active
-    // TODO: Each player chooses a Race and a Character Class for their character and then presses Enter/Return/X to confirm
+    const player1Frame = this.add.image(0, 0, InterLevelCharacterPane)
+    player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
+    const player2Frame = this.add.image(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+    const player3Frame = this.add.image(player2Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+    const player4Frame = this.add.image(player3Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+
+    // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
+    // and then presses Enter/Return/X to confirm
 
     // TODO: Temporary until this scene has been implemented
     new FontLabel(this, {
