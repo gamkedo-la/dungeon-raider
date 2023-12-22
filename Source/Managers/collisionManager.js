@@ -7,8 +7,8 @@ export default class CollisionManager {
 
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
-    this.exitGroup = this.scene.physics.add.group()
-    this.lootGroup = this.scene.physics.add.group()
+    this.exitGroup = this.scene.physics.add.staticGroup()
+    this.lootGroup = this.scene.physics.add.staticGroup()
     this.groups = [this.characterGroup, this.enemyGroup, this.exitGroup, this.lootGroup]
 
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
@@ -34,10 +34,22 @@ export default class CollisionManager {
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
       case EntityTypes.FoodLarge:
+        this.lootGroup.add(entityToAdd)
+        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        break
       case EntityTypes.FoodSmall:
+        this.lootGroup.add(entityToAdd)
+        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        break
       case EntityTypes.GoldFivePieces:
-        case EntityTypes.GoldSinglePiece:
-          this.lootGroup.add(entityToAdd)
+        this.lootGroup.add(entityToAdd)
+        if (radius) {
+          if (entityToAdd.radius < 16) entityToAdd.body.setOffset(16 - entityToAdd.radius, 16 - entityToAdd.radius)
+          entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        }
+        break
+      case EntityTypes.GoldSinglePiece:
+        this.lootGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
     }
