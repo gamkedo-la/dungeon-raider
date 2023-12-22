@@ -61,7 +61,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   healthLoss () {
-    if (!this.scene || this.exited || this.isDead) return
+    if (!this.scene || this.exited || this.isExiting || this.isDead) return
 
     this.attributes.health--
     if (this.attributes.health <= 0) {
@@ -409,6 +409,9 @@ function getSpriteSheet (race, characterClass) {
 function characterDied (character) {
   console.log(`${character.player} died!`)
   character.isDead = true
+  character.attributes.health = 0
+  character.attributes.magic = 0
+  character.serialize()
   character.scene.characterDied(character)
   character.playerMarker.destroy()
   character.destroy() // when destroy() returns, this GameObject no longer has a scene (character.scene === null) and many things will be broken if we try to do anything else with this GameObject

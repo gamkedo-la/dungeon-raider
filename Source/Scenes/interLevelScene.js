@@ -35,8 +35,8 @@ class InterLevel extends Phaser.Scene {
     const activePlayers = this.gameManager.getActivePlayers()
     for (const activePlayer of activePlayers) {
       const attributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
-      attributes.health = Math.ceil((attributes.maxHealth - attributes.health) / 2)
-      attributes.magic = Math.ceil((attributes.maxMagic - attributes.magic) / 2)
+      attributes.health = attributes.health + Math.ceil((attributes.maxHealth - attributes.health) / 2)
+      attributes.magic = attributes.magic + Math.ceil((attributes.maxMagic - attributes.magic) / 2)
       this.gameManager.setCharacterAttributesForPlayer(activePlayer, attributes)
     }
 
