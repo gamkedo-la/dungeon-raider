@@ -39,19 +39,19 @@ class UserInterface extends Phaser.Scene {
     const leftPadding = 10
     const column2Padding = 240
     const topPadding = -5
-    let playerColor = UIAttributes.RedPlayerColor
+    let playerColor = UIAttributes.Player1Color
     switch (player) {
       case Player1Keys.Player:
-        playerColor = UIAttributes.RedPlayerColor
+        playerColor = UIAttributes.Player1Color
         break
       case Player2Keys.Player:
-        playerColor = UIAttributes.GreenPlayerColor
+        playerColor = UIAttributes.Player2Color
         break
       case Player3Keys.Player:
-        playerColor = UIAttributes.BluePlayerColor
+        playerColor = UIAttributes.Player3Color
         break
       case Player4Keys.Player:
-        playerColor = UIAttributes.YellowPlayerColor
+        playerColor = UIAttributes.Player4Color
         break
     }
 

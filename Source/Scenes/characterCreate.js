@@ -28,19 +28,27 @@ class CharacterCreate extends Phaser.Scene {
     })
     this.gameManager = this.game.registry.get(GameManagerKey)
     this.inputManager = new InputManager(this, this.gameManager)
-
-    this.playerCount = this.gameManager.getPlayerCount()
-
     for (const inputEvent in InputEventKeys) {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
+    this.playerCount = this.gameManager.getPlayerCount()
+
+    this.buildCharacterFrames()
+  }
+
+  buildCharacterFrames () {
     // TODO: Divide the screen into 4 columns, one for each player, dim or fade out the columns that are not active
-    const player1Frame = this.add.image(0, 0, InterLevelCharacterPane)
+
+    const frameData = this.buildFrameForPlayer(0, 0, 'Player 1', UIAttributes.Player1Color)
+    const player1Frame = frameData.frame
+    const player1Label = frameData.label
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
-    const player2Frame = this.add.image(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
-    const player3Frame = this.add.image(player2Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
-    const player4Frame = this.add.image(player3Frame.x + player1Frame.width, this.game.canvas.height / 2, InterLevelCharacterPane)
+    player1Label.x += player1Frame.x
+
+    const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color)
+    const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color)
+    const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color)
 
     // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
     // and then presses Enter/Return/X to confirm
@@ -54,6 +62,24 @@ class CharacterCreate extends Phaser.Scene {
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor
     })
+  }
+
+  buildFrameForPlayer (x, y, title, color) {
+    const frame = this.add.image(x, y, InterLevelCharacterPane)
+
+    const labelWidth = 40
+    const playerLabelY = 30
+
+    const label = new FontLabel(this, {
+      x: frame.x - labelWidth,
+      y: playerLabelY,
+      title: title,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color
+    })
+
+    return { frame, label }
   }
 
   update (time, delta) {
