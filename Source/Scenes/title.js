@@ -12,6 +12,8 @@ class Title extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
+
+    this.menuTop = null // can't create this until the scene is initialized => in create()
   }
 
   preload () {
@@ -29,20 +31,35 @@ class Title extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    // TODO: Temporary until this scene has been implemented
-    new FontLabel(this, {
-      x: this.game.canvas.width / 2 - 200,
-      y: this.game.canvas.height / 2,
-      title: '[TITLE] Press Any Control Key (WASD or Arrows) to Continue',
-      fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color: UIAttributes.UIColor
-    })
+    this.menuTop = 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
+
+    this.buildMenu()
 
     //TODO: Build the Menu, including:
     // 1. Title
     // 2. Menu Options (1 Player Game, 2 Player Game, 3 Player Game, 4 Player Game, Credits)
     // 3. Some sort of audio & visual markers to indicate which option will be selected when Enter/Return/X is pressed
+  }
+
+  buildMenu () {
+    this.buildMenuOption('1 Player Game', 1)
+    this.buildMenuOption('2 Player Game', 2)
+    this.buildMenuOption('3 Player Game', 3)
+    this.buildMenuOption('4 Player Game', 4)
+    this.buildMenuOption('Options', 5)
+    this.buildMenuOption('Credits', 6)
+  }
+
+  buildMenuOption (optionName, optionNumber) {
+    new FontLabel(this, {
+      x: (this.game.canvas.width / 2),
+      y: this.menuTop + (optionNumber - 1) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
+      title: optionName,
+      align: UIAttributes.CenterAlign,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.TitleFontSize,
+      color: UIAttributes.UIColor
+    })
   }
 
   update (time, delta) {

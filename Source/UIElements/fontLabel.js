@@ -1,3 +1,5 @@
+import UIAttributes from "../Globals/uiAttributes.js"
+
 export default class FontLabel {
   constructor (scene, config) {
     this.scene = scene
@@ -9,8 +11,8 @@ export default class FontLabel {
       fontFamily: config.fontFamily,
       fontSize: config.fontSize,
       color: config.color,
-      align: config.align || 'left',
-      vertAlign: config.vertAlign  || 'top'
+      align: config.align || UIAttributes.LeftAlign,
+      vertAlign: config.vertAlign  || UIAttributes.TopAlign,
     }
 
     if (config.strokeColor) {
@@ -28,15 +30,15 @@ export default class FontLabel {
         this.text = this.scene.add.text(this.x, this.y, this.title, this.titleConfig)
         let originX = 0.0
         let originY = 0.0
-        if (this.titleConfig.align === 'center') {
+        if (this.titleConfig.align === UIAttributes.CenterAlign) {
           originX = 0.5
-        } else if (this.titleConfig.align === 'right') {
+        } else if (this.titleConfig.align === UIAttributes.RightAlign) {
           originX = 1.0
         }
 
-        if (this.titleConfig.vertAlign === 'middle') {
+        if (this.titleConfig.vertAlign === UIAttributes.MiddleAlign) {
           originY = 0.5
-        } else if (this.titleConfig.vertAlign === 'bottom') {
+        } else if (this.titleConfig.vertAlign === UIAttributes.BottomAlign) {
           originY = 1.0
         }
 
