@@ -195,6 +195,12 @@
                  "height":32,
                  "id":7,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"ogre1",
                  "visible":true,
@@ -479,7 +485,7 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -502,7 +508,7 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -525,7 +531,7 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -548,7 +554,7 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -570,6 +576,11 @@
                  "id":24,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
                         {
                          "name":"minPlayerCount",
                          "type":"int",
@@ -828,6 +839,12 @@
                  "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Ogre1.png",
                  "imageheight":32,
                  "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
                  "type":"ogre1"
                 }, 
                 {
@@ -947,7 +964,7 @@
                  "imagewidth":16,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -965,7 +982,7 @@
                  "imagewidth":32,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -983,7 +1000,7 @@
                  "imagewidth":16,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1001,7 +1018,7 @@
                  "imagewidth":32,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1019,7 +1036,7 @@
                  "imagewidth":16,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1037,7 +1054,7 @@
                  "imagewidth":32,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1055,7 +1072,7 @@
                  "imagewidth":16,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1073,7 +1090,7 @@
                  "imagewidth":32,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1091,7 +1108,7 @@
                  "imagewidth":16,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 
@@ -1109,7 +1126,7 @@
                  "imagewidth":32,
                  "properties":[
                         {
-                         "name":"minPlayerCount",
+                         "name":"minCharacterCount",
                          "type":"int",
                          "value":1
                         }, 

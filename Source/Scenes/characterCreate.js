@@ -6,7 +6,6 @@ import { GameManagerKey } from "../Managers/gameManager.js"
 import SceneKeys from "../Keys/sceneKeys.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
-import Debug from "../Globals/debug.js"
 import { InterLevelCharacterPane, MissingPlayerShadow } from "../Keys/imageKeys.js"
 
 class CharacterCreate extends Phaser.Scene {
@@ -15,7 +14,7 @@ class CharacterCreate extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
-    this.playerCount = 1
+    this.characterCount = 1
   }
 
   preload () {
@@ -32,7 +31,7 @@ class CharacterCreate extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    this.playerCount = this.gameManager.getPlayerCount() || 2 // 2 for testing until Title Scene is implemented
+    this.characterCount = this.gameManager.getCharacterCount() || 2 // 2 for testing until Title Scene is implemented
 
     this.buildCharacterFrames()
 
@@ -59,9 +58,9 @@ class CharacterCreate extends Phaser.Scene {
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
     player1Label.x += player1Frame.x
 
-    const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.playerCount < 2)
-    const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.playerCount < 3)
-    const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.playerCount < 4)
+    const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
+    const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
+    const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {

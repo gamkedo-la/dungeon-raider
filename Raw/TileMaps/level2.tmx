@@ -12,6 +12,9 @@
  <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="16" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+   </properties>
    <image width="32" height="32" source="ObjectImages/Ogre1.png"/>
   </tile>
   <tile id="1" type="character">
@@ -55,70 +58,70 @@
   </tile>
   <tile id="6" type="singleGoldPiece">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/GoldSinglePiece.png"/>
   </tile>
   <tile id="7" type="fiveGoldPieces">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="12"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/GoldFivePieces.png"/>
   </tile>
   <tile id="8" type="smallFood">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/FoodSmall.png"/>
   </tile>
   <tile id="9" type="largeFood">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/FoodLarge.png"/>
   </tile>
   <tile id="10" type="arrowNormalSingle">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowNormalSingle.png"/>
   </tile>
   <tile id="11" type="arrowNormalMultiple">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/ArrowNormalMultiple.png"/>
   </tile>
   <tile id="12" type="arrowSilverSingle">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowSilverSingle.png"/>
   </tile>
   <tile id="13" type="arrowSilverMultiple">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/ArrowSilverMultiple.png"/>
   </tile>
   <tile id="14" type="arrowMagicSingle">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowMagicSingle.png"/>
   </tile>
   <tile id="15" type="arrowMagicMultiple">
    <properties>
-    <property name="minPlayerCount" type="int" value="1"/>
+    <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/ArrowMagicMultiple.png"/>

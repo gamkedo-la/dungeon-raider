@@ -9,6 +9,7 @@ import Level3 from "../Scenes/GameScenes.js/level3.js"
 
 export const GameManagerKey = 'game-manager'
 export const PlayerCountKey = 'player-count'
+export const CharacterCountKey = 'character-count'
 export const ActiveExitKey = 'active-exit'
 
 export default class GameManager {
@@ -25,6 +26,14 @@ export default class GameManager {
 
   setPlayerCount (playerCount) {
     this.game.registry.set(PlayerCountKey, playerCount)
+  }
+
+  getCharacterCount () {
+    return this.game.registry.get(CharacterCountKey)
+  }
+
+  setCharacterCount (characterCount) {
+    this.game.registry.set(CharacterCountKey, characterCount)
   }
 
   getPlayerForInputOption (inputOption) {
@@ -252,6 +261,7 @@ export default class GameManager {
 
   clearAllPlayerData () {
     this.setPlayerCount(0)
+    this.setCharacterCount(0)
     this.clearPlayerData(Player1Keys.Player)
     this.clearPlayerData(Player2Keys.Player)
     this.clearPlayerData(Player3Keys.Player)
