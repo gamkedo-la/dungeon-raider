@@ -31,7 +31,7 @@ class CharacterCreate extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    this.characterCount = this.gameManager.getCharacterCount() || 2 // 2 for testing until Title Scene is implemented
+    this.characterCount = this.gameManager.getCharacterCount()
 
     this.buildCharacterFrames()
 

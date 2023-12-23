@@ -11,7 +11,7 @@ export default class LootManager {
     this.collisionManager = collisionManager
     this.gameManager = gameManager
     this.loot = []
-    this.characterCount = this.gameManager.getCharacterCount() || 2 // default to 2 players until TitleScene sets the player count
+    this.characterCount = this.gameManager.getCharacterCount()
     this.addInitialLoot()
   }
 

@@ -81,6 +81,8 @@ class Preloader extends Phaser.Scene {
     // TODO: Move this into the Character Create Scene
     createPlayer1Character(this, this.gameManager)
     createPlayer2Character(this, this.gameManager)
+    this.gameManager.setPlayerCount(2)
+    this.gameManager.setCharacterCount(2)
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
     if (Debug.SkipTitleScene) {

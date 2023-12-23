@@ -100,7 +100,7 @@ function processObject (manager, object) {
       manager.loot.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Ogre1:
-      manager.enemySpawnPoints.push(object)
+      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
       break
     default:
       console.warn(`Unknown object type: ${object.type}`)

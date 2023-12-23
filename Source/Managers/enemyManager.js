@@ -3,10 +3,12 @@ import { getAttributesForEnemy } from '../Globals/enemyAttributes.js'
 import Ogre1 from '../Entities/Enemies/ogre1.js'
 
 export default class EnemyManager {
-  constructor (scene, mapManager, collisionManager) {
+  constructor (scene, mapManager, collisionManager, gameManager) {
     this.scene = scene
     this.mapManager = mapManager
     this.collisionManager = collisionManager
+    this.gameManager = gameManager
+    this.characterCount = this.gameManager.getCharacterCount()
     this.enemies = []
     this.addEnemies()
   }
@@ -22,6 +24,8 @@ export default class EnemyManager {
   }
 
   addEnemy (entityType, config) {
+    if (config.minCharacterCount > this.characterCount) return
+
     switch (entityType) {
       case EntityTypes.Ogre1:
         const newOgre = new Ogre1(this.scene, config)
