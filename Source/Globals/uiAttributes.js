@@ -19,6 +19,8 @@ export const TextLineSpacing = 2
 
 export const TitleFontSize = '48px'
 
+export const MenuSelectionCooldown = 250
+
 export function getFontSizeNumber (fontSize) {
   return parseInt(fontSize.replace('px', ''))
 }
@@ -42,6 +44,8 @@ export default {
   UIFontFamily,
   TextLineSpacing,
   TitleFontSize,
+
+  MenuSelectionCooldown,
 
   getFontSizeNumber
 }

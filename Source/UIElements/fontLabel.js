@@ -5,6 +5,8 @@ export default class FontLabel {
     this.scene = scene
     this.x = config.x
     this.y = config.y
+    this.width = config.width || 0
+    this.height = config.height || 0
     this.title = config.title
 
     this.titleConfig = {
@@ -43,6 +45,11 @@ export default class FontLabel {
         }
 
         this.text.setOrigin(originX, originY)
+        this.width = this.text.width
+        this.height = this.text.height
+        if (config.activeCallback) {
+          config.activeCallback()
+        }
       }
     })
   }
@@ -50,6 +57,8 @@ export default class FontLabel {
   updateTitle (newTitle) {
     if (!this.text) return
     this.text.setText(newTitle)
+    this.width = this.text.width
+    this.height = this.text.height
   }
 
   updateColor (newColor) {

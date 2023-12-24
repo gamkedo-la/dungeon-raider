@@ -4,6 +4,7 @@ import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
+import { GoldSinglePieceImage } from "../Keys/imageKeys.js"
 import Debug from "../Globals/debug.js"
 
 class Title extends Phaser.Scene {
@@ -13,7 +14,11 @@ class Title extends Phaser.Scene {
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
 
+    this.menuSelectionCoolingDown = false
     this.menuTop = null // can't create this until the scene is initialized => in create()
+    this.activeMarker = null // can't create this until the scene is initialized => in create()
+    this.activeSelection = null // can't create this until the scene is initialized => in create()
+    this.markerPositions = [{ x: 0, y: 0 }] // will never use position 0, but it makes the math easier
   }
 
   preload () {
@@ -32,6 +37,8 @@ class Title extends Phaser.Scene {
     }
 
     this.menuTop = 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
+    this.activeMarker = null
+    this.activeSelection = 1
 
     this.buildMenu()
 
@@ -42,23 +49,41 @@ class Title extends Phaser.Scene {
   }
 
   buildMenu () {
-    this.buildMenuOption('1 Player Game', 1)
-    this.buildMenuOption('2 Player Game', 2)
-    this.buildMenuOption('3 Player Game', 3)
-    this.buildMenuOption('4 Player Game', 4)
+    this.buildMenuOption('1 Player Game', 1, UIAttributes.Player1Color, true)
+    this.buildMenuOption('2 Player Game', 2, UIAttributes.Player2Color)
+    this.buildMenuOption('3 Player Game', 3, UIAttributes.Player3Color)
+    this.buildMenuOption('4 Player Game', 4, UIAttributes.Player4Color)
     this.buildMenuOption('Options', 5)
     this.buildMenuOption('Credits', 6)
   }
 
-  buildMenuOption (optionName, optionNumber) {
-    new FontLabel(this, {
+  buildMenuOption (optionName, optionNumber, color = UIAttributes.UIColor, active = false) {
+    const label = new FontLabel(this, {
       x: (this.game.canvas.width / 2),
       y: this.menuTop + (optionNumber - 1) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
       title: optionName,
       align: UIAttributes.CenterAlign,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.TitleFontSize,
-      color: UIAttributes.UIColor
+      color,
+      activeCallback: () => {
+        if (active) {
+          this.activeMarker = this.add.image(
+            (this.game.canvas.width / 2) - label.width / 2,
+            this.menuTop + (optionNumber - 0.5) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
+            GoldSinglePieceImage
+          )
+    
+          const scale = 2.0
+          this.activeMarker.setScale(scale)
+          this.activeMarker.x -= ((scale * (this.activeMarker.width / 2)) + 10) // 10 is the padding between the marker and the text
+        }
+
+        this.markerPositions.push({
+          x: (this.game.canvas.width / 2) - label.width / 2,
+          y: this.menuTop + (optionNumber - 0.5) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
+        })
+      }
     })
   }
 
@@ -71,15 +96,43 @@ class Title extends Phaser.Scene {
     // TODO: Register with the Game Manager (this.gameManager.setPlayerCount()) how many players are playing
     // TODO: On selecting a 1-4 player game, transition to the Character Select scene
     // this.scene.start(SceneKeys.CharacterCreate)
-    for (const eventKey in event) {
-      if (event[eventKey].isDown) {
-        if (Debug.SkipCharacterCreateScene) {
-          this.gameManager.goToLevel(SceneKeys.Level1)
-        } else {
-          this.scene.start(SceneKeys.CharacterCreate)
-        }
-        this.scene.remove(SceneKeys.Title)
+    if (event.up.isDown) {
+      if (this.menuSelectionCoolingDown) return
+
+      this.activeSelection--
+      if (this.activeSelection < 1) {
+        this.activeSelection = 6
       }
+      this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
+      this.activeMarker.y = this.markerPositions[this.activeSelection].y
+      this.menuSelectionCoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menuSelectionCoolingDown = false
+      })
+    }
+  
+    if (event.down.isDown) {
+      if (this.menuSelectionCoolingDown) return
+
+      this.activeSelection++
+      if (this.activeSelection > 6) {
+        this.activeSelection = 1
+      }
+      this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
+      this.activeMarker.y = this.markerPositions[this.activeSelection].y
+      this.menuSelectionCoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menuSelectionCoolingDown = false
+      })
+    } 
+    
+    if (event.primary.isDown || event.secondary.isDown) {
+      if (Debug.SkipCharacterCreateScene) {
+        this.gameManager.goToLevel(SceneKeys.Level1)
+      } else {
+        this.scene.start(SceneKeys.CharacterCreate)
+      }
+      this.scene.remove(SceneKeys.Title)
     }
   }
 }
