@@ -8,6 +8,7 @@ export default class InputManager {
     this.gameManager = gameManager
     this.debugCooldownClear = true
     this.pauseCooldownClear = true
+    this.selectCooldownClear = true
 
     this.inputMethods = {
       [InputOptionsKeys.WASD]: this.scene.input.keyboard.addKeys({
@@ -22,6 +23,7 @@ export default class InputManager {
       // Non-game control inputs
       [InputOptionsKeys.Pause]: this.scene.input.keyboard.addKey(KeyCodes.ESC),
       [InputOptionsKeys.Debug]: this.scene.input.keyboard.addKey(KeyCodes.F1),
+      [InputOptionsKeys.Select]: this.scene.input.keyboard.addKeys({ select1: KeyCodes.ENTER, select2: KeyCodes.SPACE })
     }
 
     this.pads = []
@@ -143,7 +145,7 @@ export default class InputManager {
     // Non-game control inputs
     if (this.inputMethods[InputOptionsKeys.Pause].isDown) {
       if (this.pauseCooldownClear) {
-        this.eventEmitter.emit(InputEventKeys.onPause)
+        this.eventEmitter.emit(InputEventKeys.onPause, this.inputMethods[InputOptionsKeys.Pause])
         this.pauseCooldownClear = false
         this.scene.time.delayedCall(100, () => { this.pauseCooldownClear = true }, [], this)
       }
@@ -151,9 +153,17 @@ export default class InputManager {
 
     if (this.inputMethods[InputOptionsKeys.Debug].isDown) {
       if (this.debugCooldownClear) {
-        this.eventEmitter.emit(InputEventKeys.onDebug)
+        this.eventEmitter.emit(InputEventKeys.onDebug, this.inputMethods[InputOptionsKeys.Debug])
         this.debugCooldownClear = false
         this.scene.time.delayedCall(100, () => { this.debugCooldownClear = true }, [], this)
+      }
+    }
+
+    if (this.inputMethods[InputOptionsKeys.Select].select1.isDown || this.inputMethods[InputOptionsKeys.Select].select2.isDown) {
+      if (this.selectCooldownClear) {
+        this.eventEmitter.emit(InputEventKeys.onSelect, this.inputMethods[InputOptionsKeys.Select])
+        this.selectCooldownClear = false
+        this.scene.time.delayedCall(100, () => { this.selectCooldownClear = true }, [], this)
       }
     }
   }

@@ -8,6 +8,7 @@ export const Gamepad4 = 'gamepad4'
 
 export const Pause = 'pause'
 export const Debug = 'debug'
+export const Select = 'select'
 
 const InputOptionsKeys = {
   WASD,
@@ -18,7 +19,8 @@ const InputOptionsKeys = {
   Gamepad4,
 
   Pause,
-  Debug
+  Debug,
+  Select
 }
 
 export default InputOptionsKeys

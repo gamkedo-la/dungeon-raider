@@ -7,6 +7,15 @@ import UIAttributes from "../Globals/uiAttributes.js"
 import { GoldSinglePieceImage } from "../Keys/imageKeys.js"
 import Debug from "../Globals/debug.js"
 
+const selections = {
+  OnePlayer: 1,
+  TwoPlayer: 2,
+  ThreePlayer: 3,
+  FourPlayer: 4,
+  Options: 5,
+  Credits: 6
+}
+
 class Title extends Phaser.Scene {
   constructor () {
     super(SceneKeys.Title)
@@ -17,7 +26,7 @@ class Title extends Phaser.Scene {
     this.menuSelectionCoolingDown = false
     this.menuTop = null // can't create this until the scene is initialized => in create()
     this.activeMarker = null // can't create this until the scene is initialized => in create()
-    this.activeSelection = null // can't create this until the scene is initialized => in create()
+    this.activeSelection = selections.OnePlayer
     this.markerPositions = [{ x: 0, y: 0 }] // will never use position 0, but it makes the math easier
   }
 
@@ -38,7 +47,7 @@ class Title extends Phaser.Scene {
 
     this.menuTop = 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
     this.activeMarker = null
-    this.activeSelection = 1
+    this.activeSelection = selections.OnePlayer
 
     this.buildMenu()
 
@@ -96,12 +105,13 @@ class Title extends Phaser.Scene {
     // TODO: Register with the Game Manager (this.gameManager.setPlayerCount()) how many players are playing
     // TODO: On selecting a 1-4 player game, transition to the Character Select scene
     // this.scene.start(SceneKeys.CharacterCreate)
-    if (event.up.isDown) {
+ 
+    if (event.up?.isDown) {
       if (this.menuSelectionCoolingDown) return
 
       this.activeSelection--
-      if (this.activeSelection < 1) {
-        this.activeSelection = 6
+      if (this.activeSelection < selections.OnePlayer) {
+        this.activeSelection = selections.Credits
       }
       this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
       this.activeMarker.y = this.markerPositions[this.activeSelection].y
@@ -111,12 +121,12 @@ class Title extends Phaser.Scene {
       })
     }
   
-    if (event.down.isDown) {
+    if (event.down?.isDown) {
       if (this.menuSelectionCoolingDown) return
 
       this.activeSelection++
-      if (this.activeSelection > 6) {
-        this.activeSelection = 1
+      if (this.activeSelection > selections.Credits) {
+        this.activeSelection = selections.OnePlayer
       }
       this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
       this.activeMarker.y = this.markerPositions[this.activeSelection].y
@@ -126,13 +136,22 @@ class Title extends Phaser.Scene {
       })
     } 
     
-    if (event.primary.isDown || event.secondary.isDown) {
-      if (Debug.SkipCharacterCreateScene) {
-        this.gameManager.goToLevel(SceneKeys.Level1)
+    if (event.primary?.isDown || event.secondary?.isDown || event.select1?.isDown || event.select2?.isDown) {
+      if (this.activeSelection === selections.Options) {
+        this.scene.start(SceneKeys.Options)
+        this.scene.remove(SceneKeys.Title)
+      } else if (this.activeSelection === selections.Credits) {
+        this.scene.start(SceneKeys.Credits)
+        this.scene.remove(SceneKeys.Title)
       } else {
-        this.scene.start(SceneKeys.CharacterCreate)
+        this.gameManager.setPlayerCount(this.activeSelection || selections.OnePlayer)
+        if (Debug.SkipCharacterCreateScene) {
+          this.gameManager.goToLevel(SceneKeys.Level1)
+        } else {
+          this.scene.start(SceneKeys.CharacterCreate)
+        }
+        this.scene.remove(SceneKeys.Title)
       }
-      this.scene.remove(SceneKeys.Title)
     }
   }
 }

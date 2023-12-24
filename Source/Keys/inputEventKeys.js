@@ -8,6 +8,7 @@ export const onGamepad4 = 'onGamepad4'
 
 export const onDebug = 'onDebug'
 export const onPause = 'onPause'
+export const onSelect = 'onSelect'
 
 const InputEventKeys = {
   onWASD,
@@ -18,7 +19,8 @@ const InputEventKeys = {
   onGamepad4,
 
   onDebug,
-  onPause
+  onPause,
+  onSelect
 }
 
 export default InputEventKeys
