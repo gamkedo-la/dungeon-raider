@@ -2,6 +2,10 @@ import SceneKeys from "../Keys/sceneKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
+import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
+import { Races, CharacterClasses, getCharacterAttributes } from "../Globals/characterAttributes.js"
+import Character from "../Entities/Characters/character.js"
+import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import { GoldSinglePieceImage } from "../Keys/imageKeys.js"
@@ -145,7 +149,26 @@ class Title extends Phaser.Scene {
         this.scene.remove(SceneKeys.Title)
       } else {
         this.gameManager.setPlayerCount(this.activeSelection || selections.OnePlayer)
+        this.gameManager.setCharacterCount(this.activeSelection || selections.OnePlayer)
         if (Debug.SkipCharacterCreateScene) {
+          createPlayer1Character(this, this.gameManager)
+          this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)        
+
+          if (this.activeSelection > selections.OnePlayer) {
+            createPlayer2Character(this, this.gameManager)
+            this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)
+          }
+
+          if (this.activeSelection > selections.TwoPlayer) {
+            createPlayer3Character(this, this.gameManager)
+            this.gameManager.setActivePlayer(Player3Keys.Player, InputOptionsKeys.Gamepad2, true)
+          }
+
+          if (this.activeSelection > selections.ThreePlayer) {
+            createPlayer4Character(this, this.gameManager)
+            this.gameManager.setActivePlayer(Player4Keys.Player, InputOptionsKeys.Gamepad3, true)
+          }
+
           this.gameManager.goToLevel(SceneKeys.Level1)
         } else {
           this.scene.start(SceneKeys.CharacterCreate)
@@ -154,6 +177,66 @@ class Title extends Phaser.Scene {
       }
     }
   }
+}
+
+function createPlayer1Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player1Keys.Player,
+    race: Races.Elven,
+    characterClass: CharacterClasses.Warrior,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer2Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player2Keys.Player,
+    race: Races.Human,
+    characterClass: CharacterClasses.Archer,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer3Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Dwarven, CharacterClasses.Magi)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player3Keys.Player,
+    race: Races.Dwarven,
+    characterClass: CharacterClasses.Magi,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer4Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Cleric)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player4Keys.Player,
+    race: Races.Human,
+    characterClass: CharacterClasses.Cleric,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
+  }))
+
+  newCharacter.serialize()
 }
 
 export default Title

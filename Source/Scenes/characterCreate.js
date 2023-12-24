@@ -1,11 +1,13 @@
-import { getCharacterAttributes } from "../Globals/characterAttributes.js"
+import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from "../Keys/inputEventKeys.js"
+import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import SceneKeys from "../Keys/sceneKeys.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
+import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { InterLevelCharacterPane, MissingPlayerShadow } from "../Keys/imageKeys.js"
 
 class CharacterCreate extends Phaser.Scene {
@@ -93,6 +95,28 @@ class CharacterCreate extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
+        createPlayer1Character(this, this.gameManager)
+        // TODO: Player 1 isn't locked to Arrow keys. This scene needs to be updated to allow each player to select their input option
+        this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
+
+        if (this.characterCount > 1) {
+          createPlayer2Character(this, this.gameManager)
+          // TODO: Player 2 isn't locked to Gamepad 1. This scene needs to be updated to allow each player to select their input option
+          this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)
+        }
+
+        if (this.characterCount > 2) {
+          createPlayer3Character(this, this.gameManager)
+          // TODO: Player 3 isn't locked to Gamepad 2. This scene needs to be updated to allow each player to select their input option
+          this.gameManager.setActivePlayer(Player3Keys.Player, InputOptionsKeys.Gamepad2, true)
+        }
+
+        if (this.characterCount > 3) {
+          createPlayer4Character(this, this.gameManager)
+          // TODO: Player 4 isn't locked to Gamepad 3. This scene needs to be updated to allow each player to select their input option
+          this.gameManager.setActivePlayer(Player4Keys.Player, InputOptionsKeys.Gamepad3, true)
+        }
+
         this.gameManager.goToLevel(SceneKeys.Level1)
         this.scene.stop(SceneKeys.CharacterCreate)
       }
@@ -121,6 +145,66 @@ class CharacterCreate extends Phaser.Scene {
     // this.scene.start(SceneKeys.Level1)
     // this.scene.stop(SceneKeys.CharacterCreate)
   }
+}
+
+function createPlayer1Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player1Keys.Player,
+    race: Races.Elven,
+    characterClass: CharacterClasses.Warrior,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer2Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player2Keys.Player,
+    race: Races.Human,
+    characterClass: CharacterClasses.Archer,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer3Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Dwarven, CharacterClasses.Magi)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player3Keys.Player,
+    race: Races.Dwarven,
+    characterClass: CharacterClasses.Magi,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer4Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Cleric)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player4Keys.Player,
+    race: Races.Human,
+    characterClass: CharacterClasses.Cleric,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
+  }))
+
+  newCharacter.serialize()
 }
 
 export default CharacterCreate

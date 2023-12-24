@@ -1,7 +1,7 @@
 import SceneKeys from '../Keys/sceneKeys.js'
 import Title from './title.js'
 import { StyleConfigs } from '../Keys/fontKeys.js'
-import ImageKeys, { MasterTileset } from '../Keys/imageKeys.js'
+import ImageKeys from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheetLoaderData, PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
@@ -12,6 +12,7 @@ import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
 import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
+import InputOptionsKeys from '../Keys/inputOptionsKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
@@ -79,9 +80,11 @@ class Preloader extends Phaser.Scene {
     buildAllAnimations(this)
 
     // TODO: Move this into the Character Create Scene
-    if (Debug.SkipTitleScene || Debug.SkipCharacterCreateScene) {
+    if (Debug.SkipTitleScene && Debug.SkipCharacterCreateScene) {
       createPlayer1Character(this, this.gameManager)
       createPlayer2Character(this, this.gameManager)
+      this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
+      this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)    
       this.gameManager.setPlayerCount(2)
       this.gameManager.setCharacterCount(2)
     }
