@@ -35,7 +35,6 @@ class CharacterCreate extends Phaser.Scene {
     }
 
     this.characterCount = this.gameManager.getCharacterCount()
-
     this.buildCharacterFrames()
 
     // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
