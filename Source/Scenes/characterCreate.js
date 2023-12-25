@@ -9,6 +9,7 @@ import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { InterLevelCharacterPane, MissingPlayerShadow } from "../Keys/imageKeys.js"
+import Debug from "../Globals/debug.js"
 
 class CharacterCreate extends Phaser.Scene {
   constructor () {
@@ -149,12 +150,12 @@ class CharacterCreate extends Phaser.Scene {
 
 function createPlayer1Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
+  const attributes = getCharacterAttributes(Debug.Player1Race, Debug.Player1Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player1Keys.Player,
-    race: Races.Elven,
-    characterClass: CharacterClasses.Warrior,
+    race: Debug.Player1Race,
+    characterClass: Debug.Player1Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
   }))
@@ -164,12 +165,12 @@ function createPlayer1Character (scene, gameManager) {
 
 function createPlayer2Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const attributes = getCharacterAttributes(Debug.Player2Race, Debug.Player2Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player2Keys.Player,
-    race: Races.Human,
-    characterClass: CharacterClasses.Archer,
+    race: Debug.Player2Race,
+    characterClass: Debug.Player2Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
   }))
@@ -179,12 +180,12 @@ function createPlayer2Character (scene, gameManager) {
 
 function createPlayer3Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Dwarven, CharacterClasses.Magi)
+  const attributes = getCharacterAttributes(Debug.Player3Race, Debug.Player3Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player3Keys.Player,
-    race: Races.Dwarven,
-    characterClass: CharacterClasses.Magi,
+    race: Debug.Player3Race,
+    characterClass: Debug.Player3Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
   }))
@@ -194,12 +195,12 @@ function createPlayer3Character (scene, gameManager) {
 
 function createPlayer4Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Cleric)
+  const attributes = getCharacterAttributes(Debug.Player4Race, Debug.Player4Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player4Keys.Player,
-    race: Races.Human,
-    characterClass: CharacterClasses.Cleric,
+    race: Debug.Player4Race,
+    characterClass: Debug.Player4Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
   }))

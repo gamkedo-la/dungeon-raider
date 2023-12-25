@@ -151,25 +151,7 @@ class Title extends Phaser.Scene {
         this.gameManager.setPlayerCount(this.activeSelection || selections.OnePlayer)
         this.gameManager.setCharacterCount(this.activeSelection || selections.OnePlayer)
         if (Debug.SkipCharacterCreateScene) {
-          createPlayer1Character(this, this.gameManager)
-          this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)        
-
-          if (this.activeSelection > selections.OnePlayer) {
-            createPlayer2Character(this, this.gameManager)
-            this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)
-          }
-
-          if (this.activeSelection > selections.TwoPlayer) {
-            createPlayer3Character(this, this.gameManager)
-            this.gameManager.setActivePlayer(Player3Keys.Player, InputOptionsKeys.Gamepad2, true)
-          }
-
-          if (this.activeSelection > selections.ThreePlayer) {
-            createPlayer4Character(this, this.gameManager)
-            this.gameManager.setActivePlayer(Player4Keys.Player, InputOptionsKeys.Gamepad3, true)
-          }
-
-          this.gameManager.goToLevel(SceneKeys.Level1)
+          loadDebugDefaults(this, this.gameManager)
         } else {
           this.scene.start(SceneKeys.CharacterCreate)
         }
@@ -179,14 +161,36 @@ class Title extends Phaser.Scene {
   }
 }
 
+function loadDebugDefaults (scene, gameManager) {
+  createPlayer1Character(scene, gameManager)
+  gameManager.setActivePlayer(Player1Keys.Player, Debug.Player1Input, true)        
+
+  if (scene.activeSelection > selections.OnePlayer) {
+    createPlayer2Character(scene, gameManager)
+    gameManager.setActivePlayer(Player2Keys.Player, Debug.Player2Input, true)
+  }
+
+  if (scene.activeSelection > selections.TwoPlayer) {
+    createPlayer3Character(scene, gameManager)
+    gameManager.setActivePlayer(Player3Keys.Player, Debug.Player3Input, true)
+  }
+
+  if (scene.activeSelection > selections.ThreePlayer) {
+    createPlayer4Character(scene, gameManager)
+    gameManager.setActivePlayer(Player4Keys.Player, Debug.Player4Input, true)
+  }
+
+  gameManager.goToLevel(Debug.LevelToLoad)
+}
+
 function createPlayer1Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
+  const attributes = getCharacterAttributes(Debug.Player1Race, Debug.Player1Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player1Keys.Player,
-    race: Races.Elven,
-    characterClass: CharacterClasses.Warrior,
+    race: Debug.Player1Race,
+    characterClass: Debug.Player1Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
   }))
@@ -196,12 +200,12 @@ function createPlayer1Character (scene, gameManager) {
 
 function createPlayer2Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const attributes = getCharacterAttributes(Debug.Player2Race, Debug.Player2Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player2Keys.Player,
-    race: Races.Human,
-    characterClass: CharacterClasses.Archer,
+    race: Debug.Player2Race,
+    characterClass: Debug.Player2Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
   }))
@@ -211,12 +215,12 @@ function createPlayer2Character (scene, gameManager) {
 
 function createPlayer3Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Dwarven, CharacterClasses.Magi)
+  const attributes = getCharacterAttributes(Debug.Player3Race, Debug.Player3Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player3Keys.Player,
-    race: Races.Dwarven,
-    characterClass: CharacterClasses.Magi,
+    race: Debug.Player3Race,
+    characterClass: Debug.Player3Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
   }))
@@ -226,12 +230,12 @@ function createPlayer3Character (scene, gameManager) {
 
 function createPlayer4Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Cleric)
+  const attributes = getCharacterAttributes(Debug.Player4Race, Debug.Player4Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player4Keys.Player,
-    race: Races.Human,
-    characterClass: CharacterClasses.Cleric,
+    race: Debug.Player4Race,
+    characterClass: Debug.Player4Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
   }))

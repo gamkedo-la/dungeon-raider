@@ -79,14 +79,8 @@ class Preloader extends Phaser.Scene {
     // Animations are Global for whole Game => load them here and use anywhere
     buildAllAnimations(this)
 
-    // TODO: Move this into the Character Create Scene
     if (Debug.SkipTitleScene && Debug.SkipCharacterCreateScene) {
-      createPlayer1Character(this, this.gameManager)
-      createPlayer2Character(this, this.gameManager)
-      this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
-      this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)    
-      this.gameManager.setPlayerCount(2)
-      this.gameManager.setCharacterCount(2)
+      loadDebugDefaults(this, this.gameManager)
     }
 
     // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
@@ -101,6 +95,25 @@ class Preloader extends Phaser.Scene {
     }
 
     this.scene.remove(SceneKeys.Preloader)
+  }
+}
+
+function loadDebugDefaults (scene, gameManager) {
+  gameManager.setPlayerCount(Debug.DefaultCharacterCount)
+  gameManager.setCharacterCount(Debug.DefaultCharacterCount)
+  gameManager.setActivePlayer(Player1Keys.Player, Debug.Player1Input, true)
+  createPlayer1Character(scene, gameManager)
+  if (Debug.DefaultCharacterCount >= 2) {
+    gameManager.setActivePlayer(Player2Keys.Player, Debug.Player2Input, true)
+    createPlayer2Character(scene, gameManager)
+  }
+  if (Debug.DefaultCharacterCount >= 3) {
+    gameManager.setActivePlayer(Player3Keys.Player, Debug.Player3Input, true)
+    createPlayer3Character(scene, gameManager)
+  }
+  if (Debug.DefaultCharacterCount >= 4) {
+    gameManager.setActivePlayer(Player4Keys.Player, Debug.Player4Input, true)
+    createPlayer4Character(scene, gameManager)
   }
 }
 
@@ -198,12 +211,12 @@ function buildEnemyAnimations (preloader, enemyType) {
 
 function createPlayer1Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Elven, CharacterClasses.Warrior)
+  const attributes = getCharacterAttributes(Debug.Player1Race, Debug.Player1Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player1Keys.Player,
-    race: Races.Elven,
-    characterClass: CharacterClasses.Warrior,
+    race: Debug.Player1Race,
+    characterClass: Debug.Player1Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
   }))
@@ -213,14 +226,44 @@ function createPlayer1Character (scene, gameManager) {
 
 function createPlayer2Character (scene, gameManager) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Races.Human, CharacterClasses.Archer)
+  const attributes = getCharacterAttributes(Debug.Player2Race, Debug.Player2Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player2Keys.Player,
-    race: Races.Human,
-    characterClass: CharacterClasses.Archer,
+    race: Debug.Player2Race,
+    characterClass: Debug.Player2Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer3Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Debug.Player3Race, Debug.Player3Class)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player3Keys.Player,
+    race: Debug.Player3Race,
+    characterClass: Debug.Player3Class,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
+  }))
+
+  newCharacter.serialize()
+}
+
+function createPlayer4Character (scene, gameManager) {
+  // This is a temporary function to create a player for testing purposes
+  const attributes = getCharacterAttributes(Debug.Player4Race, Debug.Player4Class)
+  const newCharacter = (new Character(scene, {
+    attributes,
+    player: Player4Keys.Player,
+    race: Debug.Player4Race,
+    characterClass: Debug.Player4Class,
+    gameManager: gameManager,
+    inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
   }))
 
   newCharacter.serialize()
