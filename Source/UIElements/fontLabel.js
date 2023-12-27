@@ -65,4 +65,16 @@ export default class FontLabel {
     if (!this.text) return
     this.text.setColor(newColor)
   }
+
+  setPosition (x, y) {
+    if (!this.text) return
+    this.x = x
+    this.y = y
+    this.text.setPosition(x, y)
+  }
+
+  setAlpha (topLeft, topRight, bottomLeft, bottomRight) {
+    if (!this.text) return
+    this.text.setAlpha(topLeft, topRight, bottomLeft, bottomRight)
+  }
 }

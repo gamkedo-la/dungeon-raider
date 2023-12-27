@@ -9,6 +9,7 @@ import UIAttributes from "../Globals/uiAttributes.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { InterLevelCharacterPane, MissingPlayerShadow } from "../Keys/imageKeys.js"
+import HorizontalMenu from "../UIElements/horizontalMenu.js"
 import Debug from "../Globals/debug.js"
 
 class CharacterCreate extends Phaser.Scene {
@@ -18,6 +19,10 @@ class CharacterCreate extends Phaser.Scene {
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.characterCount = 1
+    this.player1Menu = null
+    this.player2Menu = null
+    this.player3Menu = null
+    this.player4Menu = null
   }
 
   preload () {
@@ -59,10 +64,14 @@ class CharacterCreate extends Phaser.Scene {
     const player1Label = frameData.label
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
     player1Label.x += player1Frame.x
+    this.player1Menu = this.buildPlayerMenu(player1Frame, UIAttributes.Player1Color)
 
     const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
+    this.player2Menu = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
+    this.player3Menu = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
+    this.player4Menu = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {
@@ -88,11 +97,36 @@ class CharacterCreate extends Phaser.Scene {
     return { frame, label }
   }
 
+  buildPlayerMenu (frame, color) {
+    const racesMenu = this.buildCharacterRacesMenu(frame, color)
+
+    return { racesMenu } // TODO: also build & return the character class menu
+  }
+
+  buildCharacterRacesMenu (frame, color) {
+    const menu = new HorizontalMenu(this, {
+      inputManager: this.inputManager,
+      gameManager: this.gameManager,
+      title: 'Character Type',
+      titleColor: color,
+      x: frame.x,
+      y: frame.y,
+      options: Object.values(Races),
+      initialOption: 1,
+      activeColor: UIAttributes.UIColor,
+      inactiveColor: UIAttributes.UIInactiveColor,
+      spacing: 20,
+    })
+
+    return menu
+  }
+
   update (time, delta) {
     this.inputManager.update(time, delta)
   }
 
   processInput (event) {
+    return // TODO: Need to process input properly here. Need to change which menu has focus and also to detect when a player has confirmed their character selection
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
         createPlayer1Character(this, this.gameManager)
