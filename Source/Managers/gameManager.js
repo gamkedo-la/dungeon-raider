@@ -12,6 +12,8 @@ export const PlayerCountKey = 'player-count'
 export const CharacterCountKey = 'character-count'
 export const ActiveExitKey = 'active-exit'
 
+const gamepads = {}
+
 export default class GameManager {
   constructor (game) {
     this.game = game
@@ -82,6 +84,32 @@ export default class GameManager {
       return Player4Keys.Player
     } else {
       return false
+    }
+  }
+
+  getGamepadLabelForPad (pad) {
+    return gamepads[pad.index]
+  }
+
+  addGamepad (gamepad) {
+    if (!Object.values(gamepads).map(gp => gp.index).includes(gamepad.index)) {
+      switch (Object.keys(gamepads).length) {
+        case 0:
+          gamepads[gamepad.index] = InputOptionsKeys.Gamepad1
+          break
+        case 1:
+          gamepads[gamepad.index] = InputOptionsKeys.Gamepad2
+          break
+        case 2:
+          gamepads[gamepad.index] = InputOptionsKeys.Gamepad3
+          break
+        case 3:
+          gamepads[gamepad.index] = InputOptionsKeys.Gamepad4
+          break
+        default:
+          console.warn(`GameManager.addGamepad: Too many gamepads. Ignoring gamepad ${gamepad.index}`)
+          return
+      }
     }
   }
 

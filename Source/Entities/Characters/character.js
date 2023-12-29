@@ -284,7 +284,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   useKeyboardInput (event) {
-    if (this.isDead || this.isExiting) return
+    if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
     if (event.right.isDown) {
       if (event.left.isDown) {
         this.body.velocity.x = 0

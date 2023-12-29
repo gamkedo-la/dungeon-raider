@@ -73,10 +73,12 @@ class CharacterCreate extends Phaser.Scene {
   }
 
   create () {
-    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
-      console.log('Gamepad connected:', pad)
-    })
     this.gameManager = this.game.registry.get(GameManagerKey)
+    if (Debug.SkipTitleScene) {
+      this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+        this.gameManager.addGamepad(pad)
+      })
+    }
     this.playerCount = this.gameManager.getPlayerCount()
     this.characterCount = this.gameManager.getCharacterCount()
 
@@ -84,9 +86,6 @@ class CharacterCreate extends Phaser.Scene {
 
     this.registerSceneForInputEvents()
     this.buildCharacterFrames()
-
-    // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
-    // and then presses Enter/Return/X to confirm their selection
   }
 
   registerSceneForInputEvents () {
@@ -110,9 +109,6 @@ class CharacterCreate extends Phaser.Scene {
         case InputEventKeys.onGamepad4:
           this.inputManager.registerForEvent(inputEvent, this.processGamepad4, this)
           break
-        // case InputEventKeys.onSelect:
-        //   this.inputManager.registerForEvent(inputEvent, this.processSelect, this)
-        //   break
         case InputEventKeys.onSelect:
         case InputEventKeys.onDebug:
         case InputEventKeys.onPause:
@@ -125,14 +121,12 @@ class CharacterCreate extends Phaser.Scene {
   }
 
   buildCharacterFrames () {
-    // TODO: Divide the screen into 4 columns, one for each player, dim or fade out the columns that are not active
-
     const frameData = this.buildFrameForPlayer(0, 0, 'Player 1', UIAttributes.Player1Color)
     const player1Frame = frameData.frame
     const player1Label = frameData.label
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
     player1Label.x += player1Frame.x
-    const player1Menus = this.buildPlayerMenu(player1Frame, UIAttributes.Player1Color, true)
+    const player1Menus = this.buildPlayerMenu(player1Frame, UIAttributes.Player1Color, this.playerCount < 4)
     this.menus[Player1Keys.Player].Race = player1Menus.Race
     this.menus[Player1Keys.Player].Class = player1Menus.Class
     this.menus[Player1Keys.Player].Done = player1Menus.Done
@@ -144,11 +138,17 @@ class CharacterCreate extends Phaser.Scene {
     this.menus[Player2Keys.Player].Class = player2Menus.Class
     this.menus[Player2Keys.Player].Done = player2Menus.Done
 
-    // this.player2Menu = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
-    // this.player3Menu = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
+    const player3Menus = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
+    this.menus[Player2Keys.Player].Race = player3Menus.Race
+    this.menus[Player2Keys.Player].Class = player3Menus.Class
+    this.menus[Player2Keys.Player].Done = player3Menus.Done
+
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
-    // this.player4Menu = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
+    const player4Menus = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
+    this.menus[Player2Keys.Player].Race = player4Menus.Race
+    this.menus[Player2Keys.Player].Class = player4Menus.Class
+    this.menus[Player2Keys.Player].Done = player4Menus.Done
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {

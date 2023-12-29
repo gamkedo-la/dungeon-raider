@@ -26,7 +26,12 @@ export default class InputManager {
       [InputOptionsKeys.Select]: this.scene.input.keyboard.addKeys({ select1: KeyCodes.ENTER, select2: KeyCodes.SPACE })
     }
 
-    this.pads = []
+    this.scene.input.gamepad.on(Phaser.Input.Gamepad.Events.BUTTON_DOWN, (pad, button, value) => {
+      this.gamepadDownEvent(pad, button.index, value, button)
+    })
+    this.scene.input.gamepad.on(Phaser.Input.Gamepad.Events.BUTTON_UP, (pad, button, value) => {
+      this.gamepadUpEvent(pad, button.index, value, button)
+    })
 
     this.eventEmitter = new Phaser.Events.EventEmitter()
   }
@@ -67,55 +72,52 @@ export default class InputManager {
     return success
   }
 
-  addGamepad (pad) {
-    this.pads.push(pad)
-    pad.on(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, (index, value, button) => {
-      switch (index) {
-        case 0:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].primary.isDown = true
-          break
-        case 2:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].secondary.isDown = true
-          break
-        case 12:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].up.isDown = true
-          break
-        case 13:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].down.isDown = true
-          break
-        case 14:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].left.isDown = true
-          break
-        case 15:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].right.isDown = true
-          break
-      }
-    })
+  gamepadDownEvent (pad, index, value, button) {
+    const label = this.gameManager.getGamepadLabelForPad(pad)
+    switch (index) {
+      case 0:
+        this.inputMethods[label].primary.isDown = true
+        break
+      case 2:
+        this.inputMethods[label].secondary.isDown = true
+        break
+      case 12:
+        this.inputMethods[label].up.isDown = true
+        break
+      case 13:
+        this.inputMethods[label].down.isDown = true
+        break
+      case 14:
+        this.inputMethods[label].left.isDown = true
+        break
+      case 15:
+        this.inputMethods[label].right.isDown = true
+        break
+    }
+  }
 
-    pad.on(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_UP, (index, value, button) => {
-      switch (index) {
-        case 0:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].primary.isDown = false
-          break
-        case 2:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].secondary.isDown = false
-          break
-        case 12:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].up.isDown = false
-          break
-        case 13:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].down.isDown = false
-          break
-        case 14:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].left.isDown = false
-          break
-        case 15:
-          this.inputMethods[InputOptionsKeys[`Gamepad${pad.index + 1}`]].right.isDown = false
-          break
-      }
-    })
-
-    this.gameManager.setInputForNextPlayer(InputOptionsKeys[`Gamepad${this.pads.length}`])
+  gamepadUpEvent (pad, index, value, button) {
+    const label = this.gameManager.getGamepadLabelForPad(pad)
+    switch (index) {
+      case 0:
+        this.inputMethods[label].primary.isDown = false
+        break
+      case 2:
+        this.inputMethods[label].secondary.isDown = false
+        break
+      case 12:
+        this.inputMethods[label].up.isDown = false
+        break
+      case 13:
+        this.inputMethods[label].down.isDown = false
+        break
+      case 14:
+        this.inputMethods[label].left.isDown = false
+        break
+      case 15:
+        this.inputMethods[label].right.isDown = false
+        break
+    }
   }
 
   update (time, delta) {
@@ -137,10 +139,41 @@ export default class InputManager {
       }
     }
 
-    this.eventEmitter.emit(InputEventKeys.onGamepad1, this.inputMethods[InputOptionsKeys.Gamepad1])
-    this.eventEmitter.emit(InputEventKeys.onGamepad2, this.inputMethods[InputOptionsKeys.Gamepad2])
-    this.eventEmitter.emit(InputEventKeys.onGamepad3, this.inputMethods[InputOptionsKeys.Gamepad3])
-    this.eventEmitter.emit(InputEventKeys.onGamepad4, this.inputMethods[InputOptionsKeys.Gamepad4])
+    if (this.inputMethods[InputOptionsKeys.Gamepad1]) {
+      for (const control in this.inputMethods[InputOptionsKeys.Gamepad1]) {
+        if (this.inputMethods[InputOptionsKeys.Gamepad1][control].isDown) {
+          this.eventEmitter.emit(InputEventKeys.onGamepad1, this.inputMethods[InputOptionsKeys.Gamepad1])
+          break
+        }
+      }
+    }
+
+    if (this.inputMethods[InputOptionsKeys.Gamepad2]) {
+      for (const control in this.inputMethods[InputOptionsKeys.Gamepad2]) {
+        if (this.inputMethods[InputOptionsKeys.Gamepad2][control].isDown) {
+          this.eventEmitter.emit(InputEventKeys.onGamepad2, this.inputMethods[InputOptionsKeys.Gamepad2])
+          break
+        }
+      }
+    }
+
+    if (this.inputMethods[InputOptionsKeys.Gamepad3]) {
+      for (const control in this.inputMethods[InputOptionsKeys.Gamepad3]) {
+        if (this.inputMethods[InputOptionsKeys.Gamepad3][control].isDown) {
+          this.eventEmitter.emit(InputEventKeys.onGamepad3, this.inputMethods[InputOptionsKeys.Gamepad3])
+          break
+        }
+      }
+    }
+
+    if (this.inputMethods[InputOptionsKeys.Gamepad4]) {
+      for (const control in this.inputMethods[InputOptionsKeys.Gamepad4]) {
+        if (this.inputMethods[InputOptionsKeys.Gamepad4][control].isDown) {
+          this.eventEmitter.emit(InputEventKeys.onGamepad4, this.inputMethods[InputOptionsKeys.Gamepad4])
+          break
+        }
+      }
+    }
 
     // Non-game control inputs
     if (this.inputMethods[InputOptionsKeys.Pause].isDown) {

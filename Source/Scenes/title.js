@@ -39,10 +39,10 @@ class Title extends Phaser.Scene {
   }
 
   create () {
-    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
-      console.log('Gamepad connected:', pad)
-    })
     this.gameManager = this.game.registry.get(GameManagerKey)
+    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+      this.gameManager.addGamepad(pad)
+    })
     this.inputManager = new InputManager(this, this.gameManager)
 
     for (const inputEvent in InputEventKeys) {

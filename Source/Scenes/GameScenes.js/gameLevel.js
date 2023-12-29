@@ -9,6 +9,7 @@ import Character from "../../Entities/Characters/character.js"
 import Exit from "../../Entities/Other/exit.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
+import Debug from "../../Globals/debug.js"
 
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
@@ -41,6 +42,11 @@ class GameLevel extends Phaser.Scene {
 
     this.physics.world.debugGraphic.visible = false
     this.gameManager = this.game.registry.get(GameManagerKey)
+    if (Debug.SkipTitleScene && Debug.SkipCharacterCreateScene) {
+      this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+        this.gameManager.addGamepad(pad)
+      })
+    }
     this.mapManager = new MapManager(this, this.mapKey)
     this.collisionManager = new CollisionManager(this, this.mapManager)
     this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
@@ -48,9 +54,6 @@ class GameLevel extends Phaser.Scene {
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
-    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
-      this.inputManager.addGamepad(pad)
-    })
 
     this.createCharacters()
     this.createExits()
