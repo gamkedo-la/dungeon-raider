@@ -6,15 +6,15 @@ export default class HorizontalMenu {
   constructor (scene, config) {
     this.config = config
     this.scene = scene
-    this.inputManager = config.inputManager
     this.gameManager = config.gameManager
 
     this.x = config.x
     this.y = config.y
     this.title = null
-    this.titleY = this.y - UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2
-    this.optionsY = this.y + UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2
+    this.titleY = this.y
+    this.optionsY = this.y + (1.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize))
     this.options = config.options
+    this.isActive = config.isActive
     this.activeOption = config.initialOption
     this.optionLabels = []
     this.totalWidth = 0
@@ -25,10 +25,6 @@ export default class HorizontalMenu {
   }
 
   build () {
-    for (const inputEvent in InputEventKeys) {
-      this.inputManager.registerForEvent(inputEvent, this.processInput, this)
-    }
-
     this.buildTitle()
     this.buildOptions()
   }
@@ -40,12 +36,14 @@ export default class HorizontalMenu {
       title: this.config.title,
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
-      color: this.config.titleColor,
+      color: this.config.isActive ? this.config.titleColor : UIAttributes.UIColor,
       align: UIAttributes.CenterAlign,
     })
   }
 
   buildOptions () {
+    if (this.options.length === 0) return
+
     let activeLabels = 0
     this.options.forEach((option, index) => {
       const label = new FontLabel(this.scene, {
@@ -57,6 +55,8 @@ export default class HorizontalMenu {
         color: index === this.activeOption ? this.config.activeColor : this.config.inactiveColor,
         align: UIAttributes.CenterAlign,
         activeCallback: () => {
+          if (this.options.length === 0) return
+
           this.optionLabels.push(label)
           this.totalWidth += (label.width + this.config.spacing)
           activeLabels++
@@ -70,6 +70,13 @@ export default class HorizontalMenu {
 
               this.setAlphas(labelToMove, i)
             }
+
+            // Center the active option
+            const activeLabel = this.optionLabels[this.activeOption]
+            const activeDelta = this.x - activeLabel.x
+            this.optionLabels.forEach(label => {
+              label.setPosition(label.x + activeDelta, label.y)
+            })
           }
         }
       })
@@ -77,7 +84,6 @@ export default class HorizontalMenu {
   }
 
   update (time, delta) {
-    this.inputManager.update(time, delta)
   }
 
   processInput (event) {
@@ -111,7 +117,36 @@ export default class HorizontalMenu {
     }
   }
 
+  setActive (newValue) {
+    this.isActive = newValue
+    this.title.updateColor(newValue ? this.config.titleColor : UIAttributes.UIColor)
+  }
+
+  moveLeft () {
+    if (this.optionLabels.length === 0) return
+
+    const oldActiveOption = this.activeOption
+    this.activeOption--
+    if (this.activeOption < 0) {
+      this.activeOption = 0
+    }
+    if (this.activeOption !== oldActiveOption) this.updateActiveOption()
+  }
+
+  moveRight () {
+    if (this.optionLabels.length === 0) return
+
+    const oldActiveOption = this.activeOption
+    this.activeOption++
+    if (this.activeOption >= this.options.length) {
+      this.activeOption = this.options.length - 1
+    }
+    if (this.activeOption !== oldActiveOption) this.updateActiveOption()
+  }
+
   setAlphas (label, i) {
+    if (this.optionLabels.length === 0) return
+
     const partialAlpha = 0.25
     if (i < this.activeOption - 1) {
       label.setAlpha(0.0, 0.0, 0.0, 0.0)
@@ -127,6 +162,8 @@ export default class HorizontalMenu {
   }
 
   getAlphas (label, i) {
+    if (this.optionLabels.length === 0) return []
+
     const partialAlpha = 0.25
     if (i < this.activeOption - 1) {
       return [0.0, 0.0, 0.0, 0.0]
@@ -142,6 +179,8 @@ export default class HorizontalMenu {
   }
 
   updateActiveOption () {
+    if (this.optionLabels.length === 0) return
+
     this.optionLabels.forEach(label => {
       label.updateColor(this.config.inactiveColor)
     })
@@ -151,13 +190,13 @@ export default class HorizontalMenu {
 
     const activeDelta = this.x - activeLabel.x
     this.optionLabels.forEach((label, i) => {
-      // label.setPosition(label.x + activeDelta, label.y)
-      // this.setAlphas(label, i)
       this.playUpdateActiveTimeline(label, activeDelta, ...this.getAlphas(label, i))
     })
   }
 
   playUpdateActiveTimeline (optionLabel, deltaX, alphaTopLeft, alphaTopRight, alphaBottomLeft, alphaBottomRight) {
+    if (this.optionLabels.length === 0) return
+
     this.scene.tweens.add({
       targets: optionLabel.text,
       x: {

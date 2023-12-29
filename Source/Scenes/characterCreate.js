@@ -18,11 +18,54 @@ class CharacterCreate extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
+    this.playerCount = 1
     this.characterCount = 1
-    this.player1Menu = null
-    this.player2Menu = null
-    this.player3Menu = null
-    this.player4Menu = null
+    this.donePlayers = new Set()
+    this.allPayersAreReady = false
+    this.player1Registered = false
+    this.player2Registered = false
+    this.player3Registered = false
+    this.player4Registered = false
+    this.allActivePlayersRegistered = false
+    this.playerInputs = {
+      [InputEventKeys.onWASD]: null,
+      [InputEventKeys.onArrows]: null,
+      [InputEventKeys.onGamepad1]: null,
+      [InputEventKeys.onGamepad2]: null,
+      [InputEventKeys.onGamepad3]: null,
+      [InputEventKeys.onGamepad4]: null
+    }
+    this.menus = {
+      [Player1Keys.Player]: {
+        ActiveMenu: 'Race',
+        CoolingDown: false,
+        Race: null,
+        Class: null,
+        Done: null,
+        NPC: null
+      },
+      [Player2Keys.Player]: {
+        ActiveMenu: 'Race',
+        CoolingDown: false,
+        Race: null,
+        Class: null,
+        Done: null
+      },
+      [Player3Keys.Player]: {
+        ActiveMenu: 'Race',
+        CoolingDown: false,
+        Race: null,
+        Class: null,
+        Done: null
+      },
+      [Player4Keys.Player]: {
+        ActiveMenu: 'Race',
+        CoolingDown: false,
+        Race: null,
+        Class: null,
+        Done: null
+      }
+    }
   }
 
   preload () {
@@ -34,26 +77,51 @@ class CharacterCreate extends Phaser.Scene {
       console.log('Gamepad connected:', pad)
     })
     this.gameManager = this.game.registry.get(GameManagerKey)
-    this.inputManager = new InputManager(this, this.gameManager)
-    for (const inputEvent in InputEventKeys) {
-      this.inputManager.registerForEvent(inputEvent, this.processInput, this)
-    }
-
+    this.playerCount = this.gameManager.getPlayerCount()
     this.characterCount = this.gameManager.getCharacterCount()
+
+    this.inputManager = new InputManager(this, this.gameManager)
+
+    this.registerSceneForInputEvents()
     this.buildCharacterFrames()
 
     // TODO: Each player chooses a Character Type (Elf, Human, Dwarf) and a Character Class (Warrior, Archer, Magi, Cleric) for their character
-    // and then presses Enter/Return/X to confirm
+    // and then presses Enter/Return/X to confirm their selection
+  }
 
-    // TODO: Temporary until this scene has been implemented
-    new FontLabel(this, {
-      x: this.game.canvas.width / 2 - 200,
-      y: this.game.canvas.height / 2,
-      title: '[Character Create] Press Any Control Key (WASD or Arrows) to Continue',
-      fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color: UIAttributes.UIColor
-    })
+  registerSceneForInputEvents () {
+    for (const inputEvent in InputEventKeys) {
+      switch (inputEvent) {
+        case InputEventKeys.onWASD:
+          this.inputManager.registerForEvent(inputEvent, this.processWASD, this)
+          break
+        case InputEventKeys.onArrows:
+          this.inputManager.registerForEvent(inputEvent, this.processArrows, this)
+          break
+        case InputEventKeys.onGamepad1:
+          this.inputManager.registerForEvent(inputEvent, this.processGamepad1, this)
+          break
+        case InputEventKeys.onGamepad2:
+          this.inputManager.registerForEvent(inputEvent, this.processGamepad2, this)
+          break
+        case InputEventKeys.onGamepad3:
+          this.inputManager.registerForEvent(inputEvent, this.processGamepad3, this)
+          break
+        case InputEventKeys.onGamepad4:
+          this.inputManager.registerForEvent(inputEvent, this.processGamepad4, this)
+          break
+        // case InputEventKeys.onSelect:
+        //   this.inputManager.registerForEvent(inputEvent, this.processSelect, this)
+        //   break
+        case InputEventKeys.onSelect:
+        case InputEventKeys.onDebug:
+        case InputEventKeys.onPause:
+          break
+        default:
+          console.warn(`Unhandled input event: ${inputEvent}`)
+          break
+      }
+    }
   }
 
   buildCharacterFrames () {
@@ -64,14 +132,23 @@ class CharacterCreate extends Phaser.Scene {
     const player1Label = frameData.label
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
     player1Label.x += player1Frame.x
-    this.player1Menu = this.buildPlayerMenu(player1Frame, UIAttributes.Player1Color)
+    const player1Menus = this.buildPlayerMenu(player1Frame, UIAttributes.Player1Color, true)
+    this.menus[Player1Keys.Player].Race = player1Menus.Race
+    this.menus[Player1Keys.Player].Class = player1Menus.Class
+    this.menus[Player1Keys.Player].Done = player1Menus.Done
+    this.menus[Player1Keys.Player].NPC = player1Menus.NPC
 
     const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
-    this.player2Menu = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
+    const player2Menus = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
+    this.menus[Player2Keys.Player].Race = player2Menus.Race
+    this.menus[Player2Keys.Player].Class = player2Menus.Class
+    this.menus[Player2Keys.Player].Done = player2Menus.Done
+
+    // this.player2Menu = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
-    this.player3Menu = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
+    // this.player3Menu = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
-    this.player4Menu = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
+    // this.player4Menu = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {
@@ -97,25 +174,87 @@ class CharacterCreate extends Phaser.Scene {
     return { frame, label }
   }
 
-  buildPlayerMenu (frame, color) {
-    const racesMenu = this.buildCharacterRacesMenu(frame, color)
+  buildPlayerMenu (frame, color, includeNPCMenu = false) {
+    const racesMenu = this.buildCharacterRacesMenu(frame.x, frame.y, color)
+    const classesMenu = this.buildCharacterClassesMenu(frame.x, frame.y + 60, color)
+    const doneMenu = this.buildDoneMenu(frame.x, frame.y + 120, color)
+    let npcMenu = null
+    if (includeNPCMenu) npcMenu = this.buildNPCMenu(frame.x, frame.y + 180, color)
 
-    return { racesMenu } // TODO: also build & return the character class menu
+    return { Race: racesMenu, Class: classesMenu, Done: doneMenu, NPC: npcMenu }
   }
 
-  buildCharacterRacesMenu (frame, color) {
+  buildCharacterRacesMenu (x, y, color) {
     const menu = new HorizontalMenu(this, {
-      inputManager: this.inputManager,
       gameManager: this.gameManager,
       title: 'Character Type',
       titleColor: color,
-      x: frame.x,
-      y: frame.y,
+      x,
+      y,
       options: Object.values(Races),
       initialOption: 1,
       activeColor: UIAttributes.UIColor,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
+      isActive: true
+    })
+
+    return menu
+  }
+
+  buildCharacterClassesMenu (x, y, color) {
+    const menu = new HorizontalMenu(this, {
+      gameManager: this.gameManager,
+      title: 'Character Class',
+      titleColor: color,
+      x: x,
+      y: y,
+      options: Object.values(CharacterClasses),
+      initialOption: 1,
+      activeColor: UIAttributes.UIColor,
+      inactiveColor: UIAttributes.UIInactiveColor,
+      spacing: 20,
+      isActive: false
+    })
+
+    return menu
+  }
+
+  buildDoneMenu (x, y, color) {
+    const menu = new HorizontalMenu(this, {
+      gameManager: this.gameManager,
+      title: 'Done',
+      titleColor: color,
+      x: x,
+      y: y,
+      options: [],
+      initialOption: 0,
+      activeColor: UIAttributes.UIColor,
+      inactiveColor: UIAttributes.UIInactiveColor,
+      spacing: 20,
+      isActive: false
+    })
+
+    return menu
+  }
+
+  buildNPCMenu (x, y, color) {
+    let npcOptions = ['None']
+      if (this.characterCount < 2) npcOptions.push('One NPC', 'Two NPCs', 'Three NPCs')
+      else if (this.characterCount < 3) npcOptions.push('One NPC', 'Two NPCs')
+      else if (this.characterCount < 4) npcOptions.push('One NPC')
+    const menu = new HorizontalMenu(this, {
+      gameManager: this.gameManager,
+      title: 'NPC',
+      titleColor: color,
+      x: x,
+      y: y,
+      options: npcOptions,
+      initialOption: 0,
+      activeColor: UIAttributes.UIColor,
+      inactiveColor: UIAttributes.UIInactiveColor,
+      spacing: 30,
+      isActive: false
     })
 
     return menu
@@ -125,59 +264,227 @@ class CharacterCreate extends Phaser.Scene {
     this.inputManager.update(time, delta)
   }
 
-  processInput (event) {
-    return // TODO: Need to process input properly here. Need to change which menu has focus and also to detect when a player has confirmed their character selection
-    for (const eventKey in event) {
-      if (event[eventKey].isDown) {
-        createPlayer1Character(this, this.gameManager)
-        // TODO: Player 1 isn't locked to Arrow keys. This scene needs to be updated to allow each player to select their input option
-        this.gameManager.setActivePlayer(Player1Keys.Player, InputOptionsKeys.Arrows, true)
+  registerInput (inputEvent) {
+    if (this.allActivePlayersRegistered) return
+    if (this.playerInputs[inputEvent]) return
 
-        if (this.characterCount > 1) {
-          createPlayer2Character(this, this.gameManager)
-          // TODO: Player 2 isn't locked to Gamepad 1. This scene needs to be updated to allow each player to select their input option
-          this.gameManager.setActivePlayer(Player2Keys.Player, InputOptionsKeys.Gamepad1, true)
-        }
+    if (!this.player1Registered) {
+      this.playerInputs[inputEvent] = Player1Keys.Player
+      this.player1Registered = true
+      if (this.playerCount === 1) this.allActivePlayersRegistered = true
+      this.gameManager.setActivePlayer(Player1Keys.Player, this.getInputOptionForInputEvent(inputEvent), true)
+    } else if (!this.player2Registered) {
+      this.playerInputs[inputEvent] = Player2Keys.Player
+      this.player2Registered = true
+      if (this.playerCount === 2) this.allActivePlayersRegistered = true
+      this.gameManager.setActivePlayer(Player2Keys.Player, this.getInputOptionForInputEvent(inputEvent), true)
+    } else if (!this.player3Registered) {
+      this.playerInputs[inputEvent] = Player3Keys.Player
+      this.player3Registered = true
+      if (this.playerCount === 3) this.allActivePlayersRegistered = true
+      this.gameManager.setActivePlayer(Player3Keys.Player, this.getInputOptionForInputEvent(inputEvent), true)
+    } else if (!this.player4Registered) {
+      this.playerInputs[inputEvent] = Player4Keys.Player
+      this.player4Registered = true
+      if (this.playerCount === 4) this.allActivePlayersRegistered = true
+      this.gameManager.setActivePlayer(Player4Keys.Player, this.getInputOptionForInputEvent(inputEvent), true)
+    }
+  }
 
-        if (this.characterCount > 2) {
-          createPlayer3Character(this, this.gameManager)
-          // TODO: Player 3 isn't locked to Gamepad 2. This scene needs to be updated to allow each player to select their input option
-          this.gameManager.setActivePlayer(Player3Keys.Player, InputOptionsKeys.Gamepad2, true)
-        }
+  processWASD (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
 
-        if (this.characterCount > 3) {
-          createPlayer4Character(this, this.gameManager)
-          // TODO: Player 4 isn't locked to Gamepad 3. This scene needs to be updated to allow each player to select their input option
-          this.gameManager.setActivePlayer(Player4Keys.Player, InputOptionsKeys.Gamepad3, true)
-        }
+    this.registerInput(InputEventKeys.onWASD)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onWASD], event)
+  }
 
-        this.gameManager.goToLevel(SceneKeys.Level1)
-        this.scene.stop(SceneKeys.CharacterCreate)
-      }
+  processArrows (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
+
+    this.registerInput(InputEventKeys.onArrows)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onArrows], event)
+  }
+
+  processGamepad1 (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
+
+    this.registerInput(InputEventKeys.onGamepad1)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onGamepad1], event)
+  }
+
+  processGamepad2 (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
+
+    this.registerInput(InputEventKeys.onGamepad2)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onGamepad2], event)
+  }
+
+  processGamepad3 (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
+
+    this.registerInput(InputEventKeys.onGamepad3)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onGamepad3], event)
+  }
+
+  processGamepad4 (event) {
+    if (this.allPayersAreReady || !Object.values(event).some(input => input.isDown)) return
+
+    this.registerInput(InputEventKeys.onGamepad4)
+    this.processInputForPlayer(this.playerInputs[InputEventKeys.onGamepad4], event)
+  }
+
+  processInputForPlayer (player, event) {
+    if (this.allPayersAreReady) return
+    if (this.donePlayers.has(player)) return
+
+    if (event.left?.isDown) {
+      if (this.menus[player].CoolingDown) return
+
+      this.getActiveMenuForPlayer(player).moveLeft()
+
+      this.menus[player].CoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menus[player].CoolingDown = false
+      })
     }
 
-    // const activePlayer = this.gameManager.getPlayerForInputOption(event)
-    // // TODO: When each Player selects a Race, update the Game Manager (this.gameManager.setPlayerRace())
-    // // this.gameManager.setCharacterRaceForPlayer(activePlayer, selectedRace)
+    if (event.right?.isDown) {
+      if (this.menus[player].CoolingDown) return
 
-    // // TODO: When each Player selects a Character Class, update the Game Manager (this.gameManager.setPlayerClass())
-    // // this.gameManager.setCharacterClassForPlayer(activePlayer, selectedCharacterClass)
+      this.getActiveMenuForPlayer(player).moveRight()
 
-    // // TODO: When each Player confirms, create their character and add its serializable attributes to the gameManager
-    // const attributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
-    // const character = (new Character(this, {
-    //   attributes,
-    //   player: activePlayer,
-    //   race: this.gameManager.getCharacterRaceForPlayer(activePlayer),
-    //   characterClass: this.gameManager.getCharacterClassForPlayer(activePlayer),
-    //   gameManager: this.gameManager,
-    //   inputEvent: this.gameManager.getInputEventForPlayer(activePlayer)
-    // }))
-    // character.serialize()
-    
-    // // TODO: When all players have confirmed, transition to the Level 1 Scene
-    // this.scene.start(SceneKeys.Level1)
-    // this.scene.stop(SceneKeys.CharacterCreate)
+      this.menus[player].CoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menus[player].CoolingDown = false
+      })
+    }
+
+    if (event.down?.isDown) {
+      if (this.menus[player].CoolingDown) return
+
+      let menus = Object.keys(this.menus[player])
+      menus = menus.filter(menu => menu !== 'ActiveMenu' && menu !== 'CoolingDown')
+      const activeMenuIndex = menus.indexOf(this.menus[player].ActiveMenu)
+      const nextMenuIndex = activeMenuIndex + 1
+      if (nextMenuIndex < menus.length) {
+        this.menus[player].ActiveMenu = menus[nextMenuIndex]
+      } else {
+        this.menus[player].ActiveMenu = menus[0]
+      }
+
+      menus.forEach(menu => {
+        if (menu !== this.menus[player].ActiveMenu) {
+          this.menus[player][menu].setActive(false)
+        } else {
+          this.menus[player][menu].setActive(true)
+        } 
+      })
+
+      this.menus[player].CoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menus[player].CoolingDown = false
+      })
+    }
+
+    if (event.up?.isDown) {
+      if (this.menus[player].CoolingDown) return
+
+      let menus = Object.keys(this.menus[player])
+      menus = menus.filter(menu => menu !== 'ActiveMenu' && menu !== 'CoolingDown')
+      const activeMenuIndex = menus.indexOf(this.menus[player].ActiveMenu)
+      const previousMenuIndex = activeMenuIndex - 1
+      if (previousMenuIndex >= 0) {
+        this.menus[player].ActiveMenu = menus[previousMenuIndex]
+      } else {
+        this.menus[player].ActiveMenu = menus[menus.length - 1]
+      }
+
+      menus.forEach(menu => {
+        if (menu !== this.menus[player].ActiveMenu) {
+          this.menus[player][menu].setActive(false)
+        } else {
+          this.menus[player][menu].setActive(true)
+        } 
+      })
+
+      this.menus[player].CoolingDown = true
+      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
+        this.menus[player].CoolingDown = false
+      })
+    }
+
+    if (event.primary?.isDown || event.secondary?.isDown) {
+      if (this.menus[player].CoolingDown) return
+      if (this.getActiveMenuForPlayer(player) === this.menus[player].Done) {
+        this.playerIsDone(player)
+      }
+    }
+  }
+
+  getInputOptionForInputEvent (inputEvent) {
+    switch (inputEvent) {
+      case InputEventKeys.onWASD:
+        return InputOptionsKeys.WASD
+      case InputEventKeys.onArrows:
+        return InputOptionsKeys.Arrows
+      case InputEventKeys.onGamepad1:
+        return InputOptionsKeys.Gamepad1
+      case InputEventKeys.onGamepad2:
+        return InputOptionsKeys.Gamepad2
+      case InputEventKeys.onGamepad3:
+        return InputOptionsKeys.Gamepad3
+      case InputEventKeys.onGamepad4:
+        return InputOptionsKeys.Gamepad4
+      default:
+        return null
+    }
+  }
+
+  playerIsDone (player) {
+    this.donePlayers.add(player)
+    if (this.donePlayers.size >= this.playerCount) {
+      this.allPlayersAreDone()
+    }
+  }
+
+  allPlayersAreDone () {
+    this.allPayersAreReady = true
+    this.updateCharacterCountForNPCs()
+    this.buildCharacters()
+    this.gameManager.goToLevel(Debug.LevelToLoad)
+    this.scene.remove(SceneKeys.CharacterCreate)
+  }
+
+  updateCharacterCountForNPCs () {
+    const npcMenu = this.menus[Player1Keys.Player].NPC
+    switch (npcMenu.activeOption) {
+      case 0: // "None"
+        break
+      case 1: // "One NPC"
+        this.characterCount++
+        break
+      case 2: // "Two NPCs"
+        this.characterCount += 2
+        break
+      case 3: // "Three NPCs"
+        this.characterCount += 3
+        break
+      default: // "None" or Invalid Option
+        break
+    }
+
+    this.gameManager.setCharacterCount(this.characterCount)
+  }
+
+  buildCharacters () {
+    createPlayer1Character(this, this.gameManager)
+    if (this.characterCount > 1) createPlayer2Character(this, this.gameManager)
+    if (this.characterCount > 2) createPlayer3Character(this, this.gameManager)
+    if (this.characterCount > 3) createPlayer4Character(this, this.gameManager)
+  }
+
+  getActiveMenuForPlayer (player) {
+    return this.menus[player][this.menus[player].ActiveMenu]
   }
 }
 
