@@ -140,15 +140,15 @@ class CharacterCreate extends Phaser.Scene {
 
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
     const player3Menus = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
-    this.menus[Player2Keys.Player].Race = player3Menus.Race
-    this.menus[Player2Keys.Player].Class = player3Menus.Class
-    this.menus[Player2Keys.Player].Done = player3Menus.Done
+    this.menus[Player3Keys.Player].Race = player3Menus.Race
+    this.menus[Player3Keys.Player].Class = player3Menus.Class
+    this.menus[Player3Keys.Player].Done = player3Menus.Done
 
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
     const player4Menus = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
-    this.menus[Player2Keys.Player].Race = player4Menus.Race
-    this.menus[Player2Keys.Player].Class = player4Menus.Class
-    this.menus[Player2Keys.Player].Done = player4Menus.Done
+    this.menus[Player4Keys.Player].Race = player4Menus.Race
+    this.menus[Player4Keys.Player].Class = player4Menus.Class
+    this.menus[Player4Keys.Player].Done = player4Menus.Done
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {
@@ -477,10 +477,10 @@ class CharacterCreate extends Phaser.Scene {
   }
 
   buildCharacters () {
-    createPlayer1Character(this, this.gameManager)
-    if (this.characterCount > 1) createPlayer2Character(this, this.gameManager)
-    if (this.characterCount > 2) createPlayer3Character(this, this.gameManager)
-    if (this.characterCount > 3) createPlayer4Character(this, this.gameManager)
+    createPlayer1Character(this, this.gameManager, this.menus[Player1Keys.Player])
+    if (this.characterCount > 1) createPlayer2Character(this, this.gameManager, this.menus[Player2Keys.Player])
+    if (this.characterCount > 2) createPlayer3Character(this, this.gameManager, this.menus[Player3Keys.Player])
+    if (this.characterCount > 3) createPlayer4Character(this, this.gameManager, this.menus[Player4Keys.Player])
   }
 
   getActiveMenuForPlayer (player) {
@@ -488,14 +488,14 @@ class CharacterCreate extends Phaser.Scene {
   }
 }
 
-function createPlayer1Character (scene, gameManager) {
+function createPlayer1Character (scene, gameManager, menus) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Debug.Player1Race, Debug.Player1Class)
+  const attributes = getCharacterAttributes(menus.Race.getSelectedOption(), menus.Class.getSelectedOption())
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player1Keys.Player,
-    race: Debug.Player1Race,
-    characterClass: Debug.Player1Class,
+    race: menus.Race.getSelectedOption(),
+    characterClass: menus.Class.getSelectedOption(),
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player1Keys.Player)
   }))
@@ -503,14 +503,14 @@ function createPlayer1Character (scene, gameManager) {
   newCharacter.serialize()
 }
 
-function createPlayer2Character (scene, gameManager) {
+function createPlayer2Character (scene, gameManager, menus) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Debug.Player2Race, Debug.Player2Class)
+  const attributes = getCharacterAttributes(menus ? menus.Race.getSelectedOption() : Debug.Player2Race, menus ? menus.Class.getSelectedOption() : Debug.Player2Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player2Keys.Player,
-    race: Debug.Player2Race,
-    characterClass: Debug.Player2Class,
+    race: menus ? menus.Race.getSelectedOption() : Debug.Player2Race,
+    characterClass: menus ? menus.Class.getSelectedOption() : Debug.Player2Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player2Keys.Player)
   }))
@@ -518,14 +518,14 @@ function createPlayer2Character (scene, gameManager) {
   newCharacter.serialize()
 }
 
-function createPlayer3Character (scene, gameManager) {
+function createPlayer3Character (scene, gameManager, menus) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Debug.Player3Race, Debug.Player3Class)
+  const attributes = getCharacterAttributes(menus ? menus.Race.getSelectedOption() : Debug.Player3Race, menus ? menus.Class.getSelectedOption() : Debug.Player3Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player3Keys.Player,
-    race: Debug.Player3Race,
-    characterClass: Debug.Player3Class,
+    race: menus ? menus.Race.getSelectedOption() : Debug.Player3Race,
+    characterClass: menus ? menus.Class.getSelectedOption() : Debug.Player3Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player3Keys.Player)
   }))
@@ -533,14 +533,14 @@ function createPlayer3Character (scene, gameManager) {
   newCharacter.serialize()
 }
 
-function createPlayer4Character (scene, gameManager) {
+function createPlayer4Character (scene, gameManager, menus) {
   // This is a temporary function to create a player for testing purposes
-  const attributes = getCharacterAttributes(Debug.Player4Race, Debug.Player4Class)
+  const attributes = getCharacterAttributes(menus ? menus.Race.getSelectedOption() : Debug.Player4Race, menus ? menus.Class.getSelectedOption() : Debug.Player4Class)
   const newCharacter = (new Character(scene, {
     attributes,
     player: Player4Keys.Player,
-    race: Debug.Player4Race,
-    characterClass: Debug.Player4Class,
+    race: menus ? menus.Race.getSelectedOption() : Debug.Player4Race,
+    characterClass: menus ? menus.Class.getSelectedOption() : Debug.Player4Class,
     gameManager: gameManager,
     inputEvent: gameManager.getInputEventForPlayer(Player4Keys.Player)
   }))

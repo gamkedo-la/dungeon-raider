@@ -122,6 +122,10 @@ export default class HorizontalMenu {
     this.title.updateColor(newValue ? this.config.titleColor : UIAttributes.UIColor)
   }
 
+  getSelectedOption () {
+    return this.options[this.activeOption]
+  }
+
   moveLeft () {
     if (this.optionLabels.length === 0) return
 
