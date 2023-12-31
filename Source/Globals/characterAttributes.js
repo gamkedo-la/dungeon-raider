@@ -158,14 +158,32 @@ const archerModifiers = {
   availableArmor: [Armor.LeatherArmor],
   primary: Weapons.ShortBow,
   secondary: Weapons.None,
-  availableEquipment: [Weapons.None, Weapons.ShortBow, Weapons.NormalArrows],
+  availableEquipment: [Weapons.None, Weapons.ShortBow],
   arrows: {
     primary: {
-      name: 'Normal Arrows',
+      name: 'Normal',
       quantity: 100
     },
     secondary: null
   },
+  availableArrows: [
+    {
+      name: 'Normal',
+      quantity: 100
+    },
+    {
+      name: 'Silver',
+      quantity: 0
+    },
+    {
+      name: 'Fire',
+      quantity: 0
+    },
+    {
+      name: 'Magic',
+      quantity: 0
+    }
+  ],
   radius: -1
 }
 
@@ -247,6 +265,7 @@ function addArcherModifiers (attributes) {
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(archerModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canArcherUse(weapon))
   attributes.arrows = archerModifiers.arrows
+  attributes.availableArrows = archerModifiers.availableArrows
   attributes.radius += archerModifiers.radius
 }
 

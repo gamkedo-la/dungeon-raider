@@ -73,7 +73,10 @@ export default class InputManager {
   }
 
   gamepadDownEvent (pad, index, value, button) {
-    const label = this.gameManager.getGamepadLabelForPad(pad)
+    let label = this.gameManager.getGamepadLabelForPad(pad)
+    if (!label) this.gameManager.addGamepad(pad)
+    label = this.gameManager.getGamepadLabelForPad(pad)
+
     switch (index) {
       case 0:
         this.inputMethods[label].primary.isDown = true
