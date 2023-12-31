@@ -197,7 +197,7 @@ class CharacterCreate extends Phaser.Scene {
       y,
       options: Object.values(Races),
       initialOption: 1,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
       isActive: true
@@ -215,7 +215,7 @@ class CharacterCreate extends Phaser.Scene {
       y: y,
       options: Object.values(CharacterClasses),
       initialOption: 1,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
       isActive: false
@@ -233,7 +233,7 @@ class CharacterCreate extends Phaser.Scene {
       y: y,
       options: [],
       initialOption: 0,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
       isActive: false
@@ -255,7 +255,7 @@ class CharacterCreate extends Phaser.Scene {
       y: y,
       options: npcOptions,
       initialOption: 0,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 30,
       isActive: false

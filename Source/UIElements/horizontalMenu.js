@@ -1,6 +1,6 @@
 import FontLabel from "./fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
-import InputEventKeys from "../Keys/inputEventKeys.js"
+import { HorizontalMenuBackgrund } from "../Keys/imageKeys.js"
 
 export default class HorizontalMenu {
   constructor (scene, config) {
@@ -26,6 +26,10 @@ export default class HorizontalMenu {
 
   build () {
     this.buildTitle()
+    if (this.options?.length > 0) {
+      const bkgdImage = this.scene.add.image(this.x, this.optionsY, HorizontalMenuBackgrund)
+      bkgdImage.y = this.optionsY + bkgdImage.height / 2  
+    }
     this.buildOptions()
   }
 

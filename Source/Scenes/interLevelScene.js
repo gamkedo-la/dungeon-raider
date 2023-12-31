@@ -235,7 +235,7 @@ class InterLevel extends Phaser.Scene {
       y,
       options,
       initialOption,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
       isActive: false
@@ -253,7 +253,7 @@ class InterLevel extends Phaser.Scene {
       y,
       options: [],
       initialOption: 0,
-      activeColor: UIAttributes.UIColor,
+      activeColor: UIAttributes.UIColorDark,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
       isActive: true

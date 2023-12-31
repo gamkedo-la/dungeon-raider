@@ -8,7 +8,8 @@ export const MiddleAlign = 'middle'
 export const BottomAlign = 'bottom'
 
 export const UIColor = '#FFFFFF'
-export const UIInactiveColor = '#AAAAAA'
+export const UIColorDark = '#000000'
+export const UIInactiveColor = '#888888'
 export const UIDisabledColor = '#444444'
 export const UIDangerColor = '#FF0000'
 export const Player1Color = '#FF0000'
@@ -41,6 +42,7 @@ export default {
   Player4Color,
 
   UIColor,
+  UIColorDark,
   UIInactiveColor,
   UIDisabledColor,
   UIDangerColor,
