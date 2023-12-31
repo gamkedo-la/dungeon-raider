@@ -77,4 +77,9 @@ export default class FontLabel {
     if (!this.text) return
     this.text.setAlpha(topLeft, topRight, bottomLeft, bottomRight)
   }
+
+  destroy () {
+    if (!this.scene || !this.text) return
+    this.text.destroy()
+  }
 }

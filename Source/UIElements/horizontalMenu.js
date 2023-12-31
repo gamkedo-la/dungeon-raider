@@ -244,6 +244,9 @@ export default class HorizontalMenu {
   updateAvailableOptions (options, initialOption = 0) {
     this.options = options
     this.activeOption = initialOption
+    for (const label of this.optionLabels) {
+      label.destroy()
+    }
     this.optionLabels = []
     this.totalWidth = 0
     this.buildOptions()

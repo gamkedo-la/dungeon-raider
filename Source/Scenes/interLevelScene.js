@@ -235,8 +235,9 @@ class InterLevel extends Phaser.Scene {
     const doneMenu = this.buildDoneMenu(frame.x, frame.y, color)
 
     let deltaY = 30
-    const primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-    const primaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Primary', primaryEquipment)
+    let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+    primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+    const primaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Primary', primaryEquipment, primaryEquipment.indexOf(characterAttributes?.primary.name))
 
     let arrowMenu = null
     let secondaryMenu = null
@@ -250,10 +251,11 @@ class InterLevel extends Phaser.Scene {
       arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
     } else {
       // Archers have arrows, but do not have a secondary weapon
-      const secondaryEquipment = primaryEquipment.length > 0 ? primaryEquipment.filter(equipment => equipment !== primaryEquipment[0]) : null
+      let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+      secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
       if (secondaryEquipment) {
         deltaY += 60
-        secondaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Secondary', secondaryEquipment)
+        secondaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Secondary', secondaryEquipment, secondaryEquipment.indexOf(characterAttributes?.secondary.name))
       }
     }
 
@@ -346,6 +348,21 @@ class InterLevel extends Phaser.Scene {
       if (this.menus[player].CoolingDown) return
 
       this.getActiveMenuForPlayer(player).moveLeft()
+      if (this.menus[player].ActiveMenu === 'Primary') {
+        // Need to update the options available in the Secondary menu
+        const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
+        let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
+        this.menus[player].Secondary.updateAvailableOptions(secondaryEquipment, secondaryEquipment.indexOf(secondaryActiveOption))
+      } else if (this.menus[player].ActiveMenu === 'Secondary') {
+        // Need to update the options available in the Primary menu
+        const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
+        let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+        this.menus[player].Primary.updateAvailableOptions(primaryEquipment, primaryEquipment.indexOf(primaryActiveOption))
+      }
 
       this.menus[player].CoolingDown = true
       this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
@@ -357,6 +374,21 @@ class InterLevel extends Phaser.Scene {
       if (this.menus[player].CoolingDown) return
 
       this.getActiveMenuForPlayer(player).moveRight()
+      if (this.menus[player].ActiveMenu === 'Primary') {
+        // Need to update the options available in the Secondary menu
+        const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
+        let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
+        this.menus[player].Secondary.updateAvailableOptions(secondaryEquipment, secondaryEquipment.indexOf(secondaryActiveOption))
+      } else if (this.menus[player].ActiveMenu === 'Secondary') {
+        // Need to update the options available in the Primary menu
+        const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
+        let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+        this.menus[player].Primary.updateAvailableOptions(primaryEquipment, primaryEquipment.indexOf(primaryActiveOption))
+      }
 
       this.menus[player].CoolingDown = true
       this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
