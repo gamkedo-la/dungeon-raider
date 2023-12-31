@@ -250,7 +250,7 @@ class InterLevel extends Phaser.Scene {
       arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
     } else {
       // Archers have arrows, but do not have a secondary weapon
-      const secondaryEquipment = primaryEquipment.length > 0 ? primaryEquipment.filter(equipment => equipment !== primaryEquipment[0].name) : null
+      const secondaryEquipment = primaryEquipment.length > 0 ? primaryEquipment.filter(equipment => equipment !== primaryEquipment[0]) : null
       if (secondaryEquipment) {
         deltaY += 60
         secondaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Secondary', secondaryEquipment)

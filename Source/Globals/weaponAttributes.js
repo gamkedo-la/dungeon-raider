@@ -285,7 +285,9 @@ export function isOneHanded (weapon) {
 }
 
 export function canWarriorUse (weapon) {
-  return weapon.name === WeaponNames.ShortSword ||
+  return weapon.name === WeaponNames.None ||
+    weapon.name === WeaponNames.Fists ||
+    weapon.name === WeaponNames.ShortSword ||
     weapon.name === WeaponNames.LongSword ||
     weapon.name === WeaponNames.Axe ||
     weapon.name === WeaponNames.BattleAxe ||
@@ -296,7 +298,9 @@ export function canWarriorUse (weapon) {
 }
 
 export function canArcherUse (weapon) {
-  return weapon.name === WeaponNames.ShortBow ||
+  return weapon.name === WeaponNames.None ||
+    weapon.name === WeaponNames.Fists ||
+    weapon.name === WeaponNames.ShortBow ||
     weapon.name === WeaponNames.LongBow ||
     weapon.name === WeaponNames.Crossbow ||
     weapon.name === WeaponNames.NormalArrows ||
@@ -306,7 +310,9 @@ export function canArcherUse (weapon) {
 }
 
 export function canMagiUse (weapon) {
-  return weapon.name === WeaponNames.MagicArrow ||
+  return weapon.name === WeaponNames.None ||
+    weapon.name === WeaponNames.Fists ||
+    weapon.name === WeaponNames.MagicArrow ||
     weapon.name === WeaponNames.MagicQuiver ||
     weapon.name === WeaponNames.FireBall ||
     weapon.name === WeaponNames.Staff ||
@@ -315,7 +321,9 @@ export function canMagiUse (weapon) {
 }
 
 export function canClericUse (weapon) {
-  return weapon.name === WeaponNames.Heal ||
+  return weapon.name === WeaponNames.None ||
+    weapon.name === WeaponNames.Fists ||
+    weapon.name === WeaponNames.Heal ||
     weapon.name === WeaponNames.HealAll ||
     weapon.name === WeaponNames.TurnUndead ||
     weapon.name === WeaponNames.DestroyUndead ||
