@@ -12,7 +12,7 @@ export default class HorizontalMenu {
     this.y = config.y
     this.title = null
     this.titleY = this.y
-    this.optionsY = this.y + (1.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize))
+    this.optionsY = this.y + (1.25 * UIAttributes.getFontSizeNumber(UIAttributes.CharacterUIFontSize))
     this.options = config.options
     this.isActive = config.isActive
     this.activeOption = config.initialOption
@@ -39,7 +39,7 @@ export default class HorizontalMenu {
       y: this.titleY,
       title: this.config.title,
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
+      fontSize: UIAttributes.CharacterUIFontSize,
       color: this.config.isActive ? this.config.titleColor : UIAttributes.UIColor,
       align: UIAttributes.CenterAlign,
     })
@@ -55,7 +55,7 @@ export default class HorizontalMenu {
         y: this.optionsY,
         title: option,
         fontFamily: UIAttributes.UIFontFamily,
-        fontSize: UIAttributes.UIFontSize,
+        fontSize: UIAttributes.CharacterUIFontSize,
         color: index === this.activeOption ? this.config.activeColor : this.config.inactiveColor,
         align: UIAttributes.CenterAlign,
         activeCallback: () => {
@@ -239,5 +239,13 @@ export default class HorizontalMenu {
         optionLabel.setPosition(optionLabel.x + deltaX, optionLabel.y)
       }
    })
+  }
+
+  updateAvailableOptions (options, initialOption = 0) {
+    this.options = options
+    this.activeOption = initialOption
+    this.optionLabels = []
+    this.totalWidth = 0
+    this.buildOptions()
   }
 }

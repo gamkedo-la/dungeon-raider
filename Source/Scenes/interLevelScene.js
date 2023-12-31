@@ -31,7 +31,8 @@ class InterLevel extends Phaser.Scene {
         ActiveMenu: 'Done',
         CoolingDown: false,
         Done: null,
-        Equipment: null,
+        Primary: null,
+        Secondary: null,
         Arrows: null,
         Armor: null
       },
@@ -39,7 +40,8 @@ class InterLevel extends Phaser.Scene {
         ActiveMenu: 'Done',
         CoolingDown: false,
         Done: null,
-        Equipment: null,
+        Primary: null,
+        Secondary: null,
         Arrows: null,
         Armor: null
       },
@@ -47,7 +49,8 @@ class InterLevel extends Phaser.Scene {
         ActiveMenu: 'Done',
         CoolingDown: false,
         Done: null,
-        Equipment: null,
+        Primary: null,
+        Secondary: null,
         Arrows: null,
         Armor: null
       },
@@ -55,7 +58,8 @@ class InterLevel extends Phaser.Scene {
         ActiveMenu: 'Done',
         CoolingDown: false,
         Done: null,
-        Equipment: null,
+        Primary: null,
+        Secondary: null,
         Arrows: null,
         Armor: null
       }
@@ -130,76 +134,99 @@ class InterLevel extends Phaser.Scene {
   }
 
   buildCharacterFrames () {
-    const frameData = this.buildFrameForPlayer(0, 0, 'Player 1', UIAttributes.Player1Color)
+    const frameData = this.buildFrameForPlayer(Player1Keys.Player, 0, 0, 'Player 1', UIAttributes.Player1Color)
     const player1Frame = frameData.frame
-    const player1Label = frameData.label
     player1Frame.setPosition(player1Frame.width / 2, this.game.canvas.height / 2)
-    player1Label.x += player1Frame.x
+    frameData.label.x += player1Frame.x
+    if (frameData.typeAndClass) frameData.typeAndClass.x += player1Frame.x
     const player1Menus = this.buildPlayerMenu(Player1Keys.Player, player1Frame, UIAttributes.Player1Color)
-    this.menus[Player1Keys.Player].Equipment = player1Menus.Equipment
+    this.menus[Player1Keys.Player].Primary = player1Menus.Primary
     if (player1Menus.Arrows) {
       this.menus[Player1Keys.Player].Arrows = player1Menus.Arrows
+      delete this.menus[Player1Keys.Player].Secondary
     } else {
       delete this.menus[Player1Keys.Player].Arrows
+      this.menus[Player1Keys.Player].Secondary = player1Menus.Secondary
     }
     this.menus[Player1Keys.Player].Armor = player1Menus.Armor
     this.menus[Player1Keys.Player].Done = player1Menus.Done
 
-    const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
+    const player2Frame = this.buildFrameForPlayer(Player2Keys.Player, player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
     const player2Menus = this.buildPlayerMenu(Player2Keys.Player, player2Frame.frame, UIAttributes.Player2Color)
-    this.menus[Player2Keys.Player].Equipment = player2Menus.Equipment
+    this.menus[Player2Keys.Player].Primary = player2Menus.Primary
     if (player2Menus.Arrows) {
       this.menus[Player2Keys.Player].Arrows = player2Menus.Arrows
+      delete this.menus[Player2Keys.Player].Secondary
     } else {
       delete this.menus[Player2Keys.Player].Arrows
+      this.menus[Player2Keys.Player].Secondary = player2Menus.Secondary
     }
     this.menus[Player2Keys.Player].Armor = player2Menus.Armor
     this.menus[Player2Keys.Player].Done = player2Menus.Done  
 
-    const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
+    const player3Frame = this.buildFrameForPlayer(Player3Keys.Player, player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
     const player3Menus = this.buildPlayerMenu(Player3Keys.Player, player3Frame.frame, UIAttributes.Player3Color)
-    this.menus[Player3Keys.Player].Equipment = player3Menus.Equipment
+    this.menus[Player3Keys.Player].Primary = player3Menus.Primary
     if (player3Menus.Arrows) {
       this.menus[Player3Keys.Player].Arrows = player3Menus.Arrows
+      delete this.menus[Player3Keys.Player].Secondary
     } else {
       delete this.menus[Player3Keys.Player].Arrows
+      this.menus[Player3Keys.Player].Secondary = player3Menus.Secondary
     }
     this.menus[Player3Keys.Player].Armor = player3Menus.Armor
     this.menus[Player3Keys.Player].Done = player3Menus.Done  
 
-    const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
+    const player4Frame = this.buildFrameForPlayer(Player4Keys.Player, player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
     const player4Menus = this.buildPlayerMenu(Player4Keys.Player, player4Frame.frame, UIAttributes.Player4Color)
-    this.menus[Player4Keys.Player].Equipment = player4Menus.Equipment
+    this.menus[Player4Keys.Player].Primary = player4Menus.Primary
     if (this.menus[Player4Keys.Player].Arrows) {
       this.menus[Player4Keys.Player].Arrows = player4Menus.Arrows
+      delete this.menus[Player4Keys.Player].Secondary
     } else {
       delete this.menus[Player4Keys.Player].Arrows
+      this.menus[Player4Keys.Player].Secondary = player4Menus.Secondary
     }
     this.menus[Player4Keys.Player].Armor = player4Menus.Armor
     this.menus[Player4Keys.Player].Done = player4Menus.Done  
   }
 
-  buildFrameForPlayer (x, y, title, color, missing = false) {
+  buildFrameForPlayer (player, x, y, title, color, missing = false) {
     const frame = this.add.image(x, y, InterLevelCharacterPane)
 
-    const labelWidth = 40
     const playerLabelY = 30
 
     const label = new FontLabel(this, {
-      x: frame.x - labelWidth,
+      x: frame.x,
       y: playerLabelY,
       title: title,
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color
+      fontSize: UIAttributes.CharacterHeaderSize,
+      color,
+      align: UIAttributes.CenterAlign,
     })
+
+    const race = this.gameManager.getCharacterRaceForPlayer(player)
+    const characterClass =  this.gameManager.getCharacterClassForPlayer(player)
+    let typeAndClass = null
+    if (race && characterClass) {
+      typeAndClass = new FontLabel(this, {
+        x: frame.x,
+        y: playerLabelY + UIAttributes.getFontSizeNumber(UIAttributes.CharacterHeaderSize) + 10,
+        title: `${race} ${characterClass}`,
+        fontFamily: UIAttributes.UIFontFamily,
+        fontSize: UIAttributes.CharacterHeaderSize,
+        color,
+        align: UIAttributes.CenterAlign,
+      })
+    }
 
     if (missing) {
       const shadow = this.add.image(frame.x, frame.y, MissingPlayerShadow)
       shadow.depth = 100
     }
 
-    return { frame, label }
+    return { frame, label, typeAndClass }
   }
 
   buildPlayerMenu (player, frame, color) {
@@ -208,22 +235,32 @@ class InterLevel extends Phaser.Scene {
     const doneMenu = this.buildDoneMenu(frame.x, frame.y, color)
 
     let deltaY = 30
-    const equipmentMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Equipment', characterAttributes?.availableEquipment.map(equipment => equipment.name) || [])
+    const primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+    const primaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Primary', primaryEquipment)
 
     let arrowMenu = null
+    let secondaryMenu = null
     if (characterAttributes?.availableArrows)  {
+      // This is an archer because they have arrows
       const arrowOptions = []
       characterAttributes.availableArrows.forEach(arrow => {
         arrowOptions.push(`${arrow.name} (${arrow.quantity})`)
       })
       deltaY += 60
       arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
+    } else {
+      // Archers have arrows, but do not have a secondary weapon
+      const secondaryEquipment = primaryEquipment.length > 0 ? primaryEquipment.filter(equipment => equipment !== primaryEquipment[0].name) : null
+      if (secondaryEquipment) {
+        deltaY += 60
+        secondaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Secondary', secondaryEquipment)
+      }
     }
 
     deltaY += 60
     const armorMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Armor', characterAttributes?.availableArmor.map(armor => armor.name) || [])
 
-    return { Done: doneMenu, Equipment: equipmentMenu, Arrows: arrowMenu, Armor: armorMenu }
+    return { Done: doneMenu, Primary: primaryMenu, Secondary: secondaryMenu, Arrows: arrowMenu, Armor: armorMenu }
   }
 
   buildCharacterMenu (x, y, color, title, options, initialOption = 0) {

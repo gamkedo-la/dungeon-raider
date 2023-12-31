@@ -17,10 +17,12 @@ export const Player2Color = '#00FF00'
 export const Player3Color = '#0000FF'
 export const Player4Color = '#FFFF00'
 export const UIFontSize = '20px'
+export const CharacterUIFontSize = '26px'
 export const UIFontFamily = FontFamilies.MedivalSharpRegular
 export const TextLineSpacing = 2
 
 export const TitleFontSize = '48px'
+export const CharacterHeaderSize = '40px'
 
 export const MenuSelectionCooldown = 250
 
@@ -47,9 +49,11 @@ export default {
   UIDisabledColor,
   UIDangerColor,
   UIFontSize,
+  CharacterUIFontSize,
   UIFontFamily,
   TextLineSpacing,
   TitleFontSize,
+  CharacterHeaderSize,
 
   MenuSelectionCooldown,
 

@@ -66,6 +66,12 @@ class CharacterCreate extends Phaser.Scene {
         Done: null
       }
     }
+    this.characterTitles = {
+      [Player1Keys.Player]: null,
+      [Player2Keys.Player]: null,
+      [Player3Keys.Player]: null,
+      [Player4Keys.Player]: null
+    }
   }
 
   preload () {
@@ -130,6 +136,15 @@ class CharacterCreate extends Phaser.Scene {
     this.menus[Player1Keys.Player].Race = player1Menus.Race
     this.menus[Player1Keys.Player].Class = player1Menus.Class
     this.menus[Player1Keys.Player].Done = player1Menus.Done
+    const activeRaceIndex = this.menus[Player1Keys.Player].Race.activeOption
+    const activeClassIndex = this.menus[Player1Keys.Player].Class.activeOption
+    this.characterTitles[Player1Keys.Player] = this.buildCharacterTitle(
+      player1Frame.x,
+      player1Label.y + UIAttributes.getFontSizeNumber(UIAttributes.CharacterHeaderSize) + 10,
+      UIAttributes.Player1Color,
+      this.menus[Player1Keys.Player].Race.options[activeRaceIndex],
+      this.menus[Player1Keys.Player].Class.options[activeClassIndex]
+    )
     if (this.playerCount < 4) {
       this.menus[Player1Keys.Player].NPC = player1Menus.NPC
     } else {
@@ -141,33 +156,66 @@ class CharacterCreate extends Phaser.Scene {
     this.menus[Player2Keys.Player].Race = player2Menus.Race
     this.menus[Player2Keys.Player].Class = player2Menus.Class
     this.menus[Player2Keys.Player].Done = player2Menus.Done
+    if (this.playerCount > 1) {
+      const activeRaceIndex = this.menus[Player2Keys.Player].Race.activeOption
+      const activeClassIndex = this.menus[Player2Keys.Player].Class.activeOption
+      this.characterTitles[Player2Keys.Player] = this.buildCharacterTitle(
+        player2Frame.frame.x,
+        player2Frame.label.y + UIAttributes.getFontSizeNumber(UIAttributes.CharacterHeaderSize) + 10,
+        UIAttributes.Player2Color,
+        this.menus[Player2Keys.Player].Race.options[activeRaceIndex],
+        this.menus[Player2Keys.Player].Class.options[activeClassIndex]
+      )
+    }
 
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
     const player3Menus = this.buildPlayerMenu(player3Frame.frame, UIAttributes.Player3Color)
     this.menus[Player3Keys.Player].Race = player3Menus.Race
     this.menus[Player3Keys.Player].Class = player3Menus.Class
     this.menus[Player3Keys.Player].Done = player3Menus.Done
+    if (this.playerCount > 2) {
+      const activeRaceIndex = this.menus[Player3Keys.Player].Race.activeOption
+      const activeClassIndex = this.menus[Player3Keys.Player].Class.activeOption
+      this.characterTitles[Player3Keys.Player] = this.buildCharacterTitle(
+        player3Frame.frame.x,
+        player3Frame.label.y + UIAttributes.getFontSizeNumber(UIAttributes.CharacterHeaderSize) + 10,
+        UIAttributes.Player3Color,
+        this.menus[Player3Keys.Player].Race.options[activeRaceIndex],
+        this.menus[Player3Keys.Player].Class.options[activeClassIndex]
+      )
+    }
 
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
     const player4Menus = this.buildPlayerMenu(player4Frame.frame, UIAttributes.Player4Color)
     this.menus[Player4Keys.Player].Race = player4Menus.Race
     this.menus[Player4Keys.Player].Class = player4Menus.Class
     this.menus[Player4Keys.Player].Done = player4Menus.Done
+    if (this.playerCount > 3) {
+      const activeRaceIndex = this.menus[Player4Keys.Player].Race.activeOption
+      const activeClassIndex = this.menus[Player4Keys.Player].Class.activeOption
+      this.characterTitles[Player4Keys.Player] = this.buildCharacterTitle(
+        player4Frame.frame.x,
+        player4Frame.label.y + UIAttributes.getFontSizeNumber(UIAttributes.CharacterHeaderSize) + 10,
+        UIAttributes.Player4Color,
+        this.menus[Player4Keys.Player].Race.options[activeRaceIndex],
+        this.menus[Player4Keys.Player].Class.options[activeClassIndex]
+      )
+    }
   }
 
   buildFrameForPlayer (x, y, title, color, missing = false) {
     const frame = this.add.image(x, y, InterLevelCharacterPane)
 
-    const labelWidth = 40
     const playerLabelY = 30
 
     const label = new FontLabel(this, {
-      x: frame.x - labelWidth,
+      x: frame.x,
       y: playerLabelY,
       title: title,
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color
+      fontSize: UIAttributes.CharacterHeaderSize,
+      color,
+      align: UIAttributes.CenterAlign,
     })
 
     if (missing) {
@@ -186,6 +234,20 @@ class CharacterCreate extends Phaser.Scene {
     if (includeNPCMenu) npcMenu = this.buildNPCMenu(frame.x, frame.y + 150, color)
 
     return { Race: racesMenu, Class: classesMenu, Done: doneMenu, NPC: npcMenu }
+  }
+
+  buildCharacterTitle (x, y, color, race, characterClass) {
+    const title = new FontLabel(this, {
+      x,
+      y,
+      title: `${race} ${characterClass}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.CharacterHeaderSize,
+      color,
+      align: UIAttributes.CenterAlign
+    })
+
+    return title
   }
 
   buildCharacterRacesMenu (x, y, color) {
@@ -345,6 +407,14 @@ class CharacterCreate extends Phaser.Scene {
       if (this.menus[player].CoolingDown) return
 
       this.getActiveMenuForPlayer(player).moveLeft()
+      if (this.menus[player].ActiveMenu === 'Race' || this.menus[player].ActiveMenu === 'Class') {
+        const activeRaceIndex = this.menus[player].Race.activeOption
+        const activeClassIndex = this.menus[player].Class.activeOption
+  
+        this.characterTitles[player].updateTitle(
+          `${this.menus[player].Race.options[activeRaceIndex]} ${this.menus[player].Class.options[activeClassIndex]}`
+        )
+      }
 
       this.menus[player].CoolingDown = true
       this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
@@ -356,6 +426,14 @@ class CharacterCreate extends Phaser.Scene {
       if (this.menus[player].CoolingDown) return
 
       this.getActiveMenuForPlayer(player).moveRight()
+      if (this.menus[player].ActiveMenu === 'Race' || this.menus[player].ActiveMenu === 'Class') {
+        const activeRaceIndex = this.menus[player].Race.activeOption
+        const activeClassIndex = this.menus[player].Class.activeOption
+  
+        this.characterTitles[player].updateTitle(
+          `${this.menus[player].Race.options[activeRaceIndex]} ${this.menus[player].Class.options[activeClassIndex]}`
+        )
+      }
 
       this.menus[player].CoolingDown = true
       this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
