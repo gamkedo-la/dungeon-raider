@@ -65,7 +65,7 @@ export default class HorizontalMenu {
             let currentLabelX = this.x - this.totalWidth / 2
             for (let i = 0; i < this.optionLabels.length; i++) {
               const labelToMove = this.optionLabels[i]
-              labelToMove.setPosition(currentLabelX + label.width / 2, labelToMove.y)
+              labelToMove.setPosition(currentLabelX + labelToMove.width / 2, labelToMove.y)
               currentLabelX += labelToMove.width + this.config.spacing
 
               this.setAlphas(labelToMove, i)

@@ -130,7 +130,11 @@ class CharacterCreate extends Phaser.Scene {
     this.menus[Player1Keys.Player].Race = player1Menus.Race
     this.menus[Player1Keys.Player].Class = player1Menus.Class
     this.menus[Player1Keys.Player].Done = player1Menus.Done
-    this.menus[Player1Keys.Player].NPC = player1Menus.NPC
+    if (this.playerCount < 4) {
+      this.menus[Player1Keys.Player].NPC = player1Menus.NPC
+    } else {
+      delete this.menus[Player1Keys.Player].NPC
+    }
 
     const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
     const player2Menus = this.buildPlayerMenu(player2Frame.frame, UIAttributes.Player2Color)
@@ -179,7 +183,7 @@ class CharacterCreate extends Phaser.Scene {
     const classesMenu = this.buildCharacterClassesMenu(frame.x, frame.y + 60, color)
     const doneMenu = this.buildDoneMenu(frame.x, frame.y + 120, color)
     let npcMenu = null
-    if (includeNPCMenu) npcMenu = this.buildNPCMenu(frame.x, frame.y + 180, color)
+    if (includeNPCMenu) npcMenu = this.buildNPCMenu(frame.x, frame.y + 150, color)
 
     return { Race: racesMenu, Class: classesMenu, Done: doneMenu, NPC: npcMenu }
   }

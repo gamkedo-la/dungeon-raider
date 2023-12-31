@@ -30,30 +30,34 @@ class InterLevel extends Phaser.Scene {
       [Player1Keys.Player]: {
         ActiveMenu: 'Done',
         CoolingDown: false,
+        Done: null,
         Equipment: null,
-        Armor: null,
-        Done: null
+        Arrows: null,
+        Armor: null
       },
       [Player2Keys.Player]: {
         ActiveMenu: 'Done',
         CoolingDown: false,
+        Done: null,
         Equipment: null,
-        Armor: null,
-        Done: null
+        Arrows: null,
+        Armor: null
       },
       [Player3Keys.Player]: {
         ActiveMenu: 'Done',
         CoolingDown: false,
+        Done: null,
         Equipment: null,
-        Armor: null,
-        Done: null
+        Arrows: null,
+        Armor: null
       },
       [Player4Keys.Player]: {
         ActiveMenu: 'Done',
         CoolingDown: false,
+        Done: null,
         Equipment: null,
-        Armor: null,
-        Done: null
+        Arrows: null,
+        Armor: null
       }
     }
   }
@@ -133,28 +137,44 @@ class InterLevel extends Phaser.Scene {
     player1Label.x += player1Frame.x
     const player1Menus = this.buildPlayerMenu(Player1Keys.Player, player1Frame, UIAttributes.Player1Color)
     this.menus[Player1Keys.Player].Equipment = player1Menus.Equipment
-    if (player1Menus.Arrows) this.menus[Player1Keys.Player].Arrows = player1Menus.Arrows
+    if (player1Menus.Arrows) {
+      this.menus[Player1Keys.Player].Arrows = player1Menus.Arrows
+    } else {
+      delete this.menus[Player1Keys.Player].Arrows
+    }
     this.menus[Player1Keys.Player].Armor = player1Menus.Armor
     this.menus[Player1Keys.Player].Done = player1Menus.Done
 
     const player2Frame = this.buildFrameForPlayer(player1Frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 2', UIAttributes.Player2Color, this.characterCount < 2)
     const player2Menus = this.buildPlayerMenu(Player2Keys.Player, player2Frame.frame, UIAttributes.Player2Color)
     this.menus[Player2Keys.Player].Equipment = player2Menus.Equipment
-    if (player2Menus.Arrows) this.menus[Player2Keys.Player].Arrows = player2Menus.Arrows
+    if (player2Menus.Arrows) {
+      this.menus[Player2Keys.Player].Arrows = player2Menus.Arrows
+    } else {
+      delete this.menus[Player2Keys.Player].Arrows
+    }
     this.menus[Player2Keys.Player].Armor = player2Menus.Armor
     this.menus[Player2Keys.Player].Done = player2Menus.Done  
 
     const player3Frame = this.buildFrameForPlayer(player2Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 3', UIAttributes.Player3Color, this.characterCount < 3)
     const player3Menus = this.buildPlayerMenu(Player3Keys.Player, player3Frame.frame, UIAttributes.Player3Color)
     this.menus[Player3Keys.Player].Equipment = player3Menus.Equipment
-    if (player3Menus.Arrows) this.menus[Player3Keys.Player].Arrows = player3Menus.Arrows
+    if (player3Menus.Arrows) {
+      this.menus[Player3Keys.Player].Arrows = player3Menus.Arrows
+    } else {
+      delete this.menus[Player3Keys.Player].Arrows
+    }
     this.menus[Player3Keys.Player].Armor = player3Menus.Armor
     this.menus[Player3Keys.Player].Done = player3Menus.Done  
 
     const player4Frame = this.buildFrameForPlayer(player3Frame.frame.x + player1Frame.width, this.game.canvas.height / 2, 'Player 4', UIAttributes.Player4Color, this.characterCount < 4)
     const player4Menus = this.buildPlayerMenu(Player4Keys.Player, player4Frame.frame, UIAttributes.Player4Color)
     this.menus[Player4Keys.Player].Equipment = player4Menus.Equipment
-    if (this.menus[Player4Keys.Player].Arrows) this.menus[Player4Keys.Player].Arrows = player4Menus.Arrows
+    if (this.menus[Player4Keys.Player].Arrows) {
+      this.menus[Player4Keys.Player].Arrows = player4Menus.Arrows
+    } else {
+      delete this.menus[Player4Keys.Player].Arrows
+    }
     this.menus[Player4Keys.Player].Armor = player4Menus.Armor
     this.menus[Player4Keys.Player].Done = player4Menus.Done  
   }
@@ -184,25 +204,29 @@ class InterLevel extends Phaser.Scene {
 
   buildPlayerMenu (player, frame, color) {
     const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
-    const equipmentMenu = this.buildCharacterMenu(frame.x, frame.y, color, 'Equipment', characterAttributes?.availableEquipment.map(equipment => equipment.name) || [], 0, true)
-    let deltaY = 60
+
+    const doneMenu = this.buildDoneMenu(frame.x, frame.y, color)
+
+    let deltaY = 30
+    const equipmentMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Equipment', characterAttributes?.availableEquipment.map(equipment => equipment.name) || [])
+
     let arrowMenu = null
     if (characterAttributes?.availableArrows)  {
       const arrowOptions = []
       characterAttributes.availableArrows.forEach(arrow => {
         arrowOptions.push(`${arrow.name} (${arrow.quantity})`)
       })
-      arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
       deltaY += 60
+      arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
     }
-    const armorMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Armor', characterAttributes?.availableArmor.map(armor => armor.name) || [])
-    deltaY += 60
-    const doneMenu = this.buildDoneMenu(frame.x, frame.y + deltaY, color)
 
-    return { Equipment: equipmentMenu, Arrows: arrowMenu, Armor: armorMenu, Done: doneMenu }
+    deltaY += 60
+    const armorMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Armor', characterAttributes?.availableArmor.map(armor => armor.name) || [])
+
+    return { Done: doneMenu, Equipment: equipmentMenu, Arrows: arrowMenu, Armor: armorMenu }
   }
 
-  buildCharacterMenu (x, y, color, title, options, initialOption = 0, initiallyActive = false) {
+  buildCharacterMenu (x, y, color, title, options, initialOption = 0) {
     const menu = new HorizontalMenu(this, {
       gameManager: this.gameManager,
       title,
@@ -214,7 +238,7 @@ class InterLevel extends Phaser.Scene {
       activeColor: UIAttributes.UIColor,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
-      isActive: initiallyActive
+      isActive: false
     })
 
     return menu
@@ -232,7 +256,7 @@ class InterLevel extends Phaser.Scene {
       activeColor: UIAttributes.UIColor,
       inactiveColor: UIAttributes.UIInactiveColor,
       spacing: 20,
-      isActive: false
+      isActive: true
     })
 
     return menu
