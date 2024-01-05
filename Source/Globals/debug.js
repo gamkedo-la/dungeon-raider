@@ -2,7 +2,6 @@ import { Races, CharacterClasses } from "./characterAttributes.js"
 import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import SceneKeys from "../Keys/sceneKeys.js"
 
-//Elizabeth practice commit
 // Skip the title scene and character create scene
 export const SkipTitleScene = true
 export const SkipCharacterCreateScene = true
