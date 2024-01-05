@@ -1,7 +1,7 @@
 import { Races, CharacterClasses } from "./characterAttributes.js"
 import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import SceneKeys from "../Keys/sceneKeys.js"
-
+// test example
 // Skip the title scene and character create scene
 export const SkipTitleScene = true
 export const SkipCharacterCreateScene = true
