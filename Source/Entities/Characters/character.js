@@ -75,6 +75,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   magicRegen () {
+    if (!this.scene || this.exited || this.isExiting || this.isDead) return
+
     if (this.characterClass === CharacterClasses.Magi || this.characterClass === CharacterClasses.Cleric) {
       if (this.attributes.magic < this.maxMagic) {
         this.attributes.magic++
