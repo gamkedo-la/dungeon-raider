@@ -12,6 +12,7 @@ export default class HorizontalMenu {
     this.y = config.y
     this.title = null
     this.titleY = this.y
+    this.titleColor = this.config.titleColor
     this.optionsY = this.y + (1.25 * UIAttributes.getFontSizeNumber(UIAttributes.CharacterUIFontSize))
     this.options = config.options
     this.isActive = config.isActive
@@ -250,5 +251,12 @@ export default class HorizontalMenu {
     this.optionLabels = []
     this.totalWidth = 0
     this.buildOptions()
+  }
+
+  destroy () {
+    this.title.destroy()
+    for (const label of this.optionLabels) {
+      label.destroy()
+    }
   }
 }

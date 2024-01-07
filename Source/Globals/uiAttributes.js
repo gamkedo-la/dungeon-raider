@@ -24,7 +24,7 @@ export const TextLineSpacing = 2
 export const TitleFontSize = '48px'
 export const CharacterHeaderSize = '40px'
 
-export const MenuSelectionCooldown = 250
+export const MenuSelectionCooldown = 200
 
 export function getFontSizeNumber (fontSize) {
   return parseInt(fontSize.replace('px', ''))
