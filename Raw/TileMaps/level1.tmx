@@ -5,6 +5,9 @@
  </editorsettings>
  <properties>
   <property name="mapKey" value="level1"/>
+  <property name="priceArrowsNormal" type="int" value="5"/>
+  <property name="priceFoodLarge" type="int" value="20"/>
+  <property name="priceFoodSmall" type="int" value="10"/>
  </properties>
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>

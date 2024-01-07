@@ -673,6 +673,21 @@
          "name":"mapKey",
          "type":"string",
          "value":"level1"
+        }, 
+        {
+         "name":"priceArrowsNormal",
+         "type":"int",
+         "value":5
+        }, 
+        {
+         "name":"priceFoodLarge",
+         "type":"int",
+         "value":20
+        }, 
+        {
+         "name":"priceFoodSmall",
+         "type":"int",
+         "value":10
         }],
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
