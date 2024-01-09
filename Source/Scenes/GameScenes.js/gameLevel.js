@@ -35,7 +35,7 @@ class GameLevel extends Phaser.Scene {
       const sound  = this.sound.add(key, { loop: AudioKeys[key].loop, volume: AudioKeys[key].volume })
       if (key === AlertSound) {
         this.alertSound = sound
-      } else {
+      } else if (AudioKeys[key].type === 'voiceover') {
         this.voiceoverWelcomeSounds.push(sound)
       }
     }

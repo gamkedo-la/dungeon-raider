@@ -585,7 +585,6 @@ class CharacterCreate extends Phaser.Scene {
     this.updateCharacterCountForNPCs()
     this.buildCharacters()
     this.gameManager.goToLevel(Debug.LevelToLoad)
-    // this.sound.get(TitleMusic).stop()
     this.music?.stop()
     this.scene.remove(SceneKeys.CharacterCreate)
   }

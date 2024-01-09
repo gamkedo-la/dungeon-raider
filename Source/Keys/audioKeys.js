@@ -17,16 +17,19 @@ const AudioKeys = {
     fileName: AlertSound,
     volume: 0.2,
     loop: false,
+    type: 'voiceover'
   },
   [DefeatTheHorde]: {
     fileName: DefeatTheHorde,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [ExitInTime]: {
     fileName: ExitInTime,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [FindTheExit]: {
     fileName: FindTheExit,
@@ -37,36 +40,43 @@ const AudioKeys = {
     fileName: FindTheKey,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [FindThePotion]: {
     fileName: FindThePotion,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [GetTheTreasure]: {
     fileName: GetTheTreasure,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [Welcome]: {
     fileName: Welcome,
     volume: 0.5,
     loop: false,
+    type: 'voiceover'
   },
   [GamePlayMusic]: {
     fileName: GamePlayMusic,
     volume: 0.25,
     loop: true,
+    type: 'music'
   },
   [TitleMusic]: {
     fileName: TitleMusic,
     volume: 0.5,
     loop: true,
+    type: 'music'
   },
   [WelcomeMusicBody]: {
     fileName: WelcomeMusicBody,
     volume: 0.5,
     loop: true,
+    type: 'music'
   },
 }
 

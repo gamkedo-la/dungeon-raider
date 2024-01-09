@@ -99,10 +99,14 @@ class InterLevel extends Phaser.Scene {
       this.gameManager.setCharacterAttributesForPlayer(activePlayer, attributes)
     }
 
-    this.music = this.sound.get(WelcomeMusicBody)
-    if (this.music.isPaused) {
+    let allSounds = this.sound.getAll()
+
+    this.music = allSounds.find(sound => sound.key === WelcomeMusicBody && sound.isPaused)
+    if (this.music) {
       this.music.resume()
     } else {
+      allSounds = this.sound.getAll()
+      this.music = allSounds.find(sound => sound.key === WelcomeMusicBody)
       this.music.play({ loop: AudioKeys[WelcomeMusicBody].loop, volume: AudioKeys[WelcomeMusicBody].volume })
     }
 
