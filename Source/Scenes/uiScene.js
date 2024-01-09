@@ -155,7 +155,7 @@ class UserInterface extends Phaser.Scene {
       })
     }
 
-    return { header, health, gold, magic, armor, primary, secondary, arrows }
+    return { header, health, gold, magic, keys, armor, primary, secondary, arrows }
   }
 
   update (time, delta) {
@@ -168,6 +168,7 @@ class UserInterface extends Phaser.Scene {
       }
       playerUI.health.updateTitle(`Health: ${playerAttributes.health}`)
       playerUI.gold.updateTitle(`Gold: ${formatGold(playerAttributes.loot.gold)}`)
+      playerUI.keys.updateTitle(`Keys: ${playerAttributes.loot.keys}`)
 
       if (playerUI.magic) {
         if (playerAttributes.magic <= 10) {
