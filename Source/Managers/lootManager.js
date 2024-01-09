@@ -3,6 +3,7 @@ import FoodLarge from '../Entities/Loot/foodLarge.js'
 import FoodSmall from '../Entities/Loot/foodSmall.js'
 import GoldSinglePiece from '../Entities/Loot/goldSinglePiece.js'
 import GoldFivePieces from '../Entities/Loot/goldFivePieces.js'
+import Key from '../Entities/Loot/key.js'
 
 export default class LootManager {
   constructor (scene, mapManager, collisionManager, gameManager) {
@@ -51,7 +52,13 @@ export default class LootManager {
         loot = new GoldSinglePiece(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
-        break            
+        break
+      case EntityTypes.Key:
+        config.entityType = entityType
+        loot = new Key(this.scene, config)
+        this.collisionManager.addEntity(loot, loot.radius)
+        this.scene.add.existing(loot)
+        break
     }
   }
 

@@ -3,6 +3,7 @@ export const FoodLargeType = 'largeFood'
 export const FoodSmallType = 'smallFood'
 export const GoldFivePiecesType = 'fiveGoldPieces'
 export const GoldSinglePieceType = 'singleGoldPiece'
+export const KeyType = 'key'
 export const ExitType = 'exit'
 export const Ogre1Type = 'ogre1'
 export const Tile = 'tile'
@@ -14,6 +15,7 @@ export default {
   FoodSmall: FoodSmallType,
   GoldFivePieces: GoldFivePiecesType,
   GoldSinglePiece: GoldSinglePieceType,
+  Key: KeyType,
   Ogre1: Ogre1Type,
   Tile: Tile,
   isEnemy,
@@ -56,6 +58,7 @@ export function isLoot (entity) {
     case FoodSmallType:
     case GoldFivePiecesType:
     case GoldSinglePieceType:
+    case KeyType:
       return true
     default:
       return false

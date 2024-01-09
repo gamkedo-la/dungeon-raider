@@ -102,6 +102,15 @@ class UserInterface extends Phaser.Scene {
       })
     }
 
+    const keys = new FontLabel(this, {
+      x: column2Padding + playerFrame.x - (playerFrame.width / 2),
+      y: topPadding + verticalMultiplier * lineHeight,
+      title: `Keys: ${characterAttributes.loot.keys}`,
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor
+    })
+
     const armor = new FontLabel(this, {
       x: leftPadding + playerFrame.x - (playerFrame.width / 2),
       y: topPadding + verticalMultiplier++ * lineHeight,

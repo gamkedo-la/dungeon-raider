@@ -4,6 +4,7 @@ export const FoodLargeImage = 'foodLarge'
 export const FoodSmallImage = 'foodSmall'
 export const GoldFivePiecesImage = 'goldFivePieces'
 export const GoldSinglePieceImage = 'goldSinglePiece'
+export const KeyImage = 'key'
 export const HorizontalMenuBackgrund = 'horizontalMenuBackground'
 export const InterLevelCharacterPane = 'interlevelCharacterPane'
 export const MasterTileset = 'masterTileset'
@@ -16,6 +17,7 @@ const ImageKeys = {
   FoodSmallImage,
   GoldFivePiecesImage,
   GoldSinglePieceImage,
+  KeyImage,
   HorizontalMenuBackgrund,
   InterLevelCharacterPane,
   MasterTileset,

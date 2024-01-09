@@ -33,7 +33,8 @@ export function getCharacterAttributes (race, characterClass) {
     availableEquipment: [Weapons.Fists],
     radius: 12,
     loot: {
-      gold: 100
+      gold: 100,
+      keys: 0
     }
   }
 

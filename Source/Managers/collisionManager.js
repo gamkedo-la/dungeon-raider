@@ -48,6 +48,10 @@ export default class CollisionManager {
         this.lootGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         break
+      case EntityTypes.Key:
+        this.lootGroup.add(entityToAdd)
+        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        break
       case EntityTypes.Ogre1:
         this.enemyGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)

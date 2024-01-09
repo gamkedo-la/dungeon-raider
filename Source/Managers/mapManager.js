@@ -97,6 +97,7 @@ function processObject (manager, object) {
     case EntityTypes.FoodSmall:
     case EntityTypes.GoldFivePieces:
     case EntityTypes.GoldSinglePiece:
+    case EntityTypes.Key:
       manager.loot.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Ogre1:
