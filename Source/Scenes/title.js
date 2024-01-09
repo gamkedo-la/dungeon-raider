@@ -3,6 +3,7 @@ import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
+import AudioKeys, { TitleMusic } from "../Keys/audioKeys.js"
 import { Races, CharacterClasses, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
 import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
@@ -54,6 +55,8 @@ class Title extends Phaser.Scene {
     this.activeSelection = selections.OnePlayer
 
     this.buildMenu()
+
+    this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
 
     //TODO: Build the Menu, including:
     // 1. Title

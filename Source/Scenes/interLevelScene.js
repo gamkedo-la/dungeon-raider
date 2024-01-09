@@ -1,4 +1,5 @@
 import SceneKeys from "../Keys/sceneKeys.js"
+import AudioKeys, { WelcomeMusicBody } from "../Keys/audioKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
@@ -15,6 +16,7 @@ class InterLevel extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
+    this.music = null
     this.characterCount = 1
     this.playerCount = 1
     this.donePlayers = new Set()
@@ -95,6 +97,13 @@ class InterLevel extends Phaser.Scene {
       attributes.health = attributes.health + Math.ceil((attributes.maxHealth - attributes.health) / 2)
       attributes.magic = attributes.magic + Math.ceil((attributes.maxMagic - attributes.magic) / 2)
       this.gameManager.setCharacterAttributesForPlayer(activePlayer, attributes)
+    }
+
+    this.music = this.sound.get(WelcomeMusicBody)
+    if (this.music.isPaused) {
+      this.music.resume()
+    } else {
+      this.music.play({ loop: AudioKeys[WelcomeMusicBody].loop, volume: AudioKeys[WelcomeMusicBody].volume })
     }
 
     // TODO: Build the Inter-Level screen, including:
@@ -467,6 +476,7 @@ class InterLevel extends Phaser.Scene {
 
   allPlayersAreDone () {
     this.gameManager.goToLevel(this.gameManager.getActiveExit().destinationLevelKey)
+    this.music.pause()
     this.scene.remove(this.key)
   }
 

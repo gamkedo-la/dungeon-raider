@@ -1,4 +1,5 @@
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
+import { TitleMusic } from "../Keys/audioKeys.js"
 import Character from "../Entities/Characters/character.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from "../Keys/inputEventKeys.js"
@@ -18,6 +19,7 @@ class CharacterCreate extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
+    this.music = null
     this.playerCount = 1
     this.characterCount = 1
     this.donePlayers = new Set()
@@ -108,6 +110,9 @@ class CharacterCreate extends Phaser.Scene {
 
     this.registerSceneForInputEvents()
     this.buildCharacterFrames()
+
+    const allSounds = this.sound.getAll()
+    this.music = allSounds.find(sound => sound.key === TitleMusic && sound.isPlaying)
   }
 
   registerSceneForInputEvents () {
@@ -580,6 +585,8 @@ class CharacterCreate extends Phaser.Scene {
     this.updateCharacterCountForNPCs()
     this.buildCharacters()
     this.gameManager.goToLevel(Debug.LevelToLoad)
+    // this.sound.get(TitleMusic).stop()
+    this.music?.stop()
     this.scene.remove(SceneKeys.CharacterCreate)
   }
 
