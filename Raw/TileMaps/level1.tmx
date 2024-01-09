@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="26">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="31">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -348,6 +348,8 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
+  <object id="26" gid="1036" x="512" y="192" width="32" height="32"/>
+  <object id="27" gid="1035" x="512" y="256" width="16" height="16"/>
   <object id="7" gid="1025" x="38.519" y="70.934" width="32" height="32"/>
   <object id="10" gid="1026" x="224" y="160" width="32" height="32"/>
   <object id="11" gid="1027" x="288" y="160" width="32" height="32"/>

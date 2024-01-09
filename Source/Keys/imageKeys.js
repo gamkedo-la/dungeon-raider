@@ -4,6 +4,8 @@ export const FoodLargeImage = 'foodLarge'
 export const FoodSmallImage = 'foodSmall'
 export const GoldFivePiecesImage = 'goldFivePieces'
 export const GoldSinglePieceImage = 'goldSinglePiece'
+export const ArrowNormalSingleImage = 'arrowNormalSingle'
+export const ArrowNormalMultipleImage = 'arrowNormalMultiple'
 export const KeyImage = 'key'
 export const HorizontalMenuBackgrund = 'horizontalMenuBackground'
 export const InterLevelCharacterPane = 'interlevelCharacterPane'
@@ -17,6 +19,8 @@ const ImageKeys = {
   FoodSmallImage,
   GoldFivePiecesImage,
   GoldSinglePieceImage,
+  ArrowNormalSingleImage,
+  ArrowNormalMultipleImage,
   KeyImage,
   HorizontalMenuBackgrund,
   InterLevelCharacterPane,

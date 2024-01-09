@@ -132,11 +132,11 @@ class UserInterface extends Phaser.Scene {
     let arrows = null
     let secondary = null
     if (characterClass === CharacterClasses.Archer) {
-      let arrowsText = `${characterAttributes.arrows.primary.name}: ${characterAttributes.arrows.primary.quantity}`
-      if (characterAttributes.arrows.secondary) {
-        arrowsText += `\n${characterAttributes.arrows.secondary.name}: ${characterAttributes.arrows.secondary.quantity}`
+      let arrowsText = `${characterAttributes.equippedArrowPrimary}: ${characterAttributes.getArrowQuantity(characterAttributes.equippedArrowPrimary, characterAttributes.availableArrows)}`
+      if (characterAttributes.equippedArrowSecondary) {
+        arrowsText += `\n${characterAttributes.equippedArrowSecondary}: ${characterAttributes.getArrowQuantity(characterAttributes.equippedArrowSecondary, characterAttributes.availableArrows)}`
       }
-      new FontLabel(this, {
+      arrows = new FontLabel(this, {
         x: leftPadding + playerFrame.x - (playerFrame.width / 2),
         y: topPadding + verticalMultiplier++ * lineHeight,
         title: arrowsText,
@@ -182,9 +182,9 @@ class UserInterface extends Phaser.Scene {
       playerUI.primary.updateTitle(`Primary: ${playerAttributes.primary.name}`)
 
       if (playerUI.arrows) {
-        let arrowsText = `${characterAttributes.arrows.primary.name}: ${characterAttributes.arrows.primary.quantity}`
-        if (characterAttributes.arrows.secondary) {
-          arrowsText += `\n${characterAttributes.arrows.secondary.name}: ${characterAttributes.arrows.secondary.quantity}`
+        let arrowsText = `${playerAttributes.equippedArrowPrimary}: ${playerAttributes.getArrowQuantity(playerAttributes.equippedArrowPrimary, playerAttributes.availableArrows)}`
+        if (playerAttributes.equippedArrowSecondary) {
+            arrowsText += `\n${playerAttributes.equippedArrowSecondary}: ${playerAttributes.getArrowQuantity(playerAttributes.equippedArrowSecondary, playerAttributes.availableArrows)}`
         }
 
         playerUI.arrows.updateTitle(arrowsText)

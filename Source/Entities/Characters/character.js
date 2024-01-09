@@ -247,6 +247,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
     } else if (loot.attribute === 'magic') {
       this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
+    } else if (loot.attribute === 'arrows') {
+      const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
+      arrow.quantity += loot.value;
     } else {
       this.attributes.loot[loot.attribute] += loot.value
     }
@@ -257,9 +260,17 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (EntityTypes.isEnemy(otherEntity)) {
       // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
     } else if (EntityTypes.isLoot(otherEntity)) {
-      // picked up a loot item
-      this.collectedLoot(otherEntity.loot)
-      otherEntity.destroy()
+      // only pickup arrows if you're an Archer
+      if (otherEntity.loot.attribute === 'arrows') {
+        if (this.characterClass === CharacterClasses.Archer) {
+          this.collectedLoot(otherEntity.loot);
+          otherEntity.destroy();
+        }
+      } else {
+        // picked up a loot item
+        this.collectedLoot(otherEntity.loot);
+        otherEntity.destroy();
+      }
     } else if (otherEntity.entityType === EntityTypes.Tile) {
       // hit a tile
     } else if (otherEntity.entityType === EntityTypes.Character) {

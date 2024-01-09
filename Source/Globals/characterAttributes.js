@@ -160,13 +160,8 @@ const archerModifiers = {
   primary: Weapons.ShortBow,
   secondary: Weapons.None,
   availableEquipment: [Weapons.None, Weapons.ShortBow],
-  arrows: {
-    primary: {
-      name: 'Normal',
-      quantity: 100
-    },
-    secondary: null
-  },
+  equippedArrowPrimary: 'Normal',
+  equippedArrowSecondary: null,
   availableArrows: [
     {
       name: 'Normal',
@@ -185,6 +180,10 @@ const archerModifiers = {
       quantity: 0
     }
   ],
+  getArrowQuantity: (equipped, available) => {
+    const result = available.find((arrow) => arrow.name === equipped);
+    return result?.quantity;
+  },
   radius: -1
 }
 
@@ -265,8 +264,10 @@ function addArcherModifiers (attributes) {
   attributes.secondary = archerModifiers.secondary
   attributes.availableEquipment = Array.from(new Set(attributes.availableEquipment.concat(archerModifiers.availableEquipment)))
   attributes.availableEquipment = attributes.availableEquipment.filter(weapon => Weapons.canArcherUse(weapon))
-  attributes.arrows = archerModifiers.arrows
-  attributes.availableArrows = archerModifiers.availableArrows
+  attributes.equippedArrowPrimary = archerModifiers.equippedArrowPrimary
+  attributes.equippedArrowSecondary = archerModifiers.equippedArrowSecondary
+  attributes.getArrowQuantity = archerModifiers.getArrowQuantity
+  attributes.availableArrows = JSON.parse(JSON.stringify(archerModifiers.availableArrows)); // there was a bug where Player 2's arrows were increased whenever Player 1 also collected arrows, this fixes it
   attributes.radius += archerModifiers.radius
 }
 

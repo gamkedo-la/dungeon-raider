@@ -3,6 +3,8 @@ import FoodLarge from '../Entities/Loot/foodLarge.js'
 import FoodSmall from '../Entities/Loot/foodSmall.js'
 import GoldSinglePiece from '../Entities/Loot/goldSinglePiece.js'
 import GoldFivePieces from '../Entities/Loot/goldFivePieces.js'
+import ArrowNormalSingle from '../Entities/Loot/arrowNormalSingle.js'
+import ArrowNormalMultiple from '../Entities/Loot/arrowNormalMultiple.js'
 import Key from '../Entities/Loot/key.js'
 
 export default class LootManager {
@@ -50,6 +52,18 @@ export default class LootManager {
       case EntityTypes.GoldSinglePiece:
         config.entityType = entityType
         loot = new GoldSinglePiece(this.scene, config)
+        this.collisionManager.addEntity(loot, loot.radius)
+        this.scene.add.existing(loot)
+        break
+      case EntityTypes.ArrowNormalSingle:
+        config.entityType = entityType
+        loot = new ArrowNormalSingle(this.scene, config)
+        this.collisionManager.addEntity(loot, loot.radius)
+        this.scene.add.existing(loot)
+        break
+      case EntityTypes.ArrowNormalMultiple:
+        config.entityType = entityType
+        loot = new ArrowNormalMultiple(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break

@@ -44,6 +44,8 @@ export default class CollisionManager {
           entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
         }
         break
+      case EntityTypes.ArrowNormalSingle:
+      case EntityTypes.ArrowNormalMultiple:
       case EntityTypes.GoldSinglePiece:
         this.lootGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
