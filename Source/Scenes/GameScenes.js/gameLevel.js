@@ -119,6 +119,10 @@ class GameLevel extends Phaser.Scene {
           character.setInputManager(this.inputManager)
           character.levelDidStart()
         }
+
+        for (const enemy of this.enemyManager.enemies) {
+          enemy.levelDidStart();
+        }
       },
       onCompleteScope: this
     })

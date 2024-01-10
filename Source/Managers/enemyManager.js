@@ -31,6 +31,7 @@ export default class EnemyManager {
         const newOgre = new Ogre1(this.scene, config)
         this.collisionManager.addEntity(newOgre, newOgre.attributes.radius)
         this.scene.add.existing(newOgre)
+        this.enemies.push(newOgre)
         break
     }
   }

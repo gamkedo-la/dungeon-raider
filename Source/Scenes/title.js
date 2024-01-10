@@ -108,11 +108,6 @@ class Title extends Phaser.Scene {
   }
 
   processInput (event) {
-    // TODO: Process inputs (moving up/down on the menu, selecting an option, etc.)
-    // TODO: Register with the Game Manager (this.gameManager.setPlayerCount()) how many players are playing
-    // TODO: On selecting a 1-4 player game, transition to the Character Select scene
-    // this.scene.start(SceneKeys.CharacterCreate)
- 
     if (event.up?.isDown) {
       if (this.menuSelectionCoolingDown) return
 

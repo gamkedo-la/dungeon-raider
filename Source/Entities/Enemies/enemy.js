@@ -12,6 +12,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.shouldBeDead = false
     this.isDead = false
     this.animations = {}
+    this.canMove = false
     this.canAttack = true
     this.depth = 8
 
@@ -38,7 +39,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.pursueCharacters()
   }
 
+  levelDidStart() {
+    this.canMove = true
+  }
+
   pursueCharacters () {
+    if (!this.canMove) return
     const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
 
     if (closestCharacter === null) {
