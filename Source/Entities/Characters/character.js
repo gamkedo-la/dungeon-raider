@@ -301,6 +301,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
     }
+
+    this.setTintFill(Phaser.Display.Color.GetColor(255, 255, 255));
+    this.scene.time.delayedCall(200, () => { this.clearTint(); })
   }
 
   addLoot (loot) {
