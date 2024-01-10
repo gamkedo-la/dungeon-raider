@@ -139,7 +139,7 @@ class UserInterface extends Phaser.Scene {
       arrows = new FontLabel(this, {
         x: leftPadding + playerFrame.x - (playerFrame.width / 2),
         y: topPadding + verticalMultiplier++ * lineHeight,
-        title: arrowsText,
+        title: `Arrows (${arrowsText})`,
         fontFamily: UIAttributes.UIFontFamily,
         fontSize: UIAttributes.UIFontSize,
         color: UIAttributes.UIColor
@@ -187,7 +187,7 @@ class UserInterface extends Phaser.Scene {
             arrowsText += `\n${playerAttributes.equippedArrowSecondary}: ${playerAttributes.getArrowQuantity(playerAttributes.equippedArrowSecondary, playerAttributes.availableArrows)}`
         }
 
-        playerUI.arrows.updateTitle(arrowsText)
+        playerUI.arrows.updateTitle(`Arrows (${arrowsText})`)
       }
 
       if (playerUI.secondary) {
