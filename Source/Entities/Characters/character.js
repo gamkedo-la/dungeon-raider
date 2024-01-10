@@ -43,7 +43,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.inputManager = null // input manager will be set by the Level Scene
     this.primaryAttackCoolingDown = false
     this.secondaryAttackCoolingDown = false
-    this.isAttacking = false
+    this.shouldStartPrimaryAttack = false
+    this.shouldStartSecondaryAttack = false
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
     if (this.characterClass !== CharacterClasses.Magi && this.characterClass !== CharacterClasses.Cleric) {
@@ -187,6 +188,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
+    if (this.shouldStartPrimaryAttack) {
+      this.executePrimaryAttack()
+    } else if (this.shouldStartSecondaryAttack) {
+      this.executeSecondaryAttack()
+    }
+
     this.playerMarker.x = this.x
     this.playerMarker.y = this.y
     this.lastPosition.x = this.x
@@ -196,12 +203,17 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateAnimationsIfRequired () {
-    if (!this.isAttacking) {
+    if (!this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
       if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
         this.anims.play(this.animations.walk, true)
       } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
         this.anims.play(this.animations.idle, true)
       }
+    } else if (this.shouldStartPrimaryAttack) {
+      this.anims.play(this.animations.primary, true)
+    } else if (this.shouldStartSecondaryAttack) {
+      // TODO: This should play the secondary attack animation, but there isn't one yet
+      this.anims.play(this.animations.primary, true)
     }
   }
 
@@ -230,10 +242,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   animationComplete (animation, frame) {
     if (animation.key === this.animations.primary.key) {
-      this.isAttacking = false
+      this.shouldStartPrimaryAttack = false
       this.anims.play(this.animations.idle, true)
     } else if (animation.key === this.animations.secondary.key) {
-      this.isAttacking = false
+      this.shouldStartSecondaryAttack = false
       this.anims.play(this.animations.idle, true)
     }
   }
@@ -348,10 +360,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y *= 0.7071
     }
 
-    if (event.primary.isDown && !this.primaryAttackCoolingDown) {
+    if (event.primary.isDown && !this.primaryAttackCoolingDown && !this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
-      this.isAttacking = true
+      this.shouldStartPrimaryAttack = true
       this.primaryAttackCoolingDown = true
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
         this.primaryAttackCoolingDown = false
@@ -359,10 +371,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.primary, false)
     }
 
-    if (event.secondary.isDown && !this.secondaryAttackCoolingDown) {
+    if (event.secondary.isDown && !this.secondaryAttackCoolingDown && !this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
-      this.isAttacking = true
+      this.shouldStartSecondaryAttack = true
       this.secondaryAttackCoolingDown = true
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
         this.secondaryAttackCoolingDown = false
@@ -375,6 +387,22 @@ export default class Character extends Phaser.GameObjects.Sprite {
   useGamepadInput (event) {
     // TODO: Need to implement this, analog stick and allow movement along angles other than 45 degrees?
     this.useKeyboardInput(event)
+  }
+
+  executePrimaryAttack () {
+    console.log(`Primary attack (${this.attributes.primary.name})`)
+    this.shouldStartPrimaryAttack = false
+    this.executeAttackWith(this.attributes.primary)
+  }
+
+  executeSecondaryAttack () {
+    console.log(`Secondary attack (${this.attributes.secondary.name})`)
+    this.shouldStartSecondaryAttack = false
+    this.executeAttackWith(this.attributes.secondary)
+  }
+
+  executeAttackWith (weapon) {
+
   }
 
   serialize () {
