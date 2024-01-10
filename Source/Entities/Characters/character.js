@@ -296,14 +296,34 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   takeDamage (damage) {
-    if (this.isDead || this.isExiting) return
+    if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
     this.attributes.health -= damage
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
+    } else {
+      this.flashWhite()
     }
+  }
 
-    this.setTintFill(Phaser.Display.Color.GetColor(255, 255, 255));
-    this.scene.time.delayedCall(200, () => { this.clearTint(); })
+  flashWhite (counter = 0) {
+    this.scene.time.delayedCall(30, (counter) => {
+      if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) {
+        this.clearTint()
+        return
+      }
+
+      if (counter++ % 2 === 0) {
+        this.clearTint()
+      } else {
+        this.setTintFill(Phaser.Display.Color.GetColor(255, 255, 255))
+      }
+
+      if (counter < 10) {
+        this.flashWhite(counter)
+      } else {
+        this.clearTint()
+      }
+    }, [counter])
   }
 
   addLoot (loot) {
@@ -466,6 +486,7 @@ function getSpriteSheet (race, characterClass) {
 
 function characterDied (character) {
   console.log(`${character.player} died!`)
+  character.clearTint()
   character.isDead = true
   character.attributes.health = 0
   character.attributes.magic = 0
