@@ -7,12 +7,15 @@ export default class CollisionManager {
 
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
+    this.doorGroup = this.scene.physics.add.staticGroup()
     this.exitGroup = this.scene.physics.add.staticGroup()
     this.lootGroup = this.scene.physics.add.staticGroup()
-    this.groups = [this.characterGroup, this.enemyGroup, this.exitGroup, this.lootGroup]
+    this.groups = [this.characterGroup, this.enemyGroup, this.doorGroup, this.exitGroup, this.lootGroup]
 
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
+    this.scene.physics.add.collider(this.characterGroup, this.doorGroup, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
+    this.scene.physics.add.collider(this.enemyGroup, this.doorGroup, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.characterGroup, this.characteCharacterOverlap, this.characteCharacterProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.enemyGroup, this.characterEnemyOverlap, this.characterEnemyProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.enemyEnemyOverlap, this.enemyEnemyProcess, this)
@@ -25,6 +28,10 @@ export default class CollisionManager {
       case EntityTypes.Character:
         this.characterGroup.add(entityToAdd)
         if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+        break
+      case EntityTypes.Door:
+        this.doorGroup.add(entityToAdd)
+        entityToAdd.body.setCircle(16, 0, 0)
         break
       case EntityTypes.Exit:
         this.exitGroup.add(entityToAdd)

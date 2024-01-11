@@ -1,7 +1,8 @@
 export const TileSpriteSheet = 'masterTilesetSpriteSheet'
 
 export const TileFrames = {
-  Exit: 40
+  Exit: 40,
+  Door: 72
 }
 
 export const TileSpriteSheetLoaderData = [

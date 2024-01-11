@@ -12,6 +12,7 @@ const collisionTiles = [
   // 225, 257, 289, 321, 353, // animated vertical water tiles
   
   40, // exit (so we get the collision event)
+  72, // door
 
 ]
 

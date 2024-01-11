@@ -20,6 +20,7 @@ export default class MapManager {
     }
 
     this.exits = []
+    this.doors = []
     this.loot = []
 
     this.player1Spawns = []
@@ -92,6 +93,9 @@ function processObject (manager, object) {
       break
     case EntityTypes.Exit:
       manager.exits.push(assignPropertiesToObject(object.properties, object))
+      break
+    case EntityTypes.Door:
+      manager.doors.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.FoodLarge:
     case EntityTypes.FoodSmall:

@@ -191,6 +191,24 @@
          "name":"interactive",
          "objects":[
                 {
+                 "gid":73,
+                 "height":32,
+                 "id":32,
+                 "name":"Door1",
+                 "properties":[
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"door",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":384
+                }, 
+                {
                  "gid":1036,
                  "height":32,
                  "id":26,
@@ -735,7 +753,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":31,
+ "nextobjectid":33,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -6,6 +6,7 @@ export const GoldSinglePieceType = 'singleGoldPiece'
 export const ArrowNormalMultipleType = 'arrowNormalMultiple'
 export const ArrowNormalSingleType = 'arrowNormalSingle'
 export const KeyType = 'key'
+export const DoorType = 'door'
 export const ExitType = 'exit'
 export const Ogre1Type = 'ogre1'
 export const Tile = 'tile'
@@ -20,6 +21,7 @@ export default {
   ArrowNormalMultiple: ArrowNormalMultipleType,
   ArrowNormalSingle: ArrowNormalSingleType,
   Key: KeyType,
+  Door: DoorType,
   Ogre1: Ogre1Type,
   Tile: Tile,
   isEnemy,
