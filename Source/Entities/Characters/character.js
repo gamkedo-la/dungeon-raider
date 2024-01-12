@@ -24,6 +24,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.exited = false
     this.activeExit = null
 
+    this.facing = new Phaser.Math.Vector2(0.0, -1.0)
+
     this.animations = {}
 
     this.buildAnimations()
@@ -222,6 +224,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
     const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.body.velocity.x, this.body.velocity.y)
     this.angle = Phaser.Math.RadToDeg(angle)
+    this.facing = new Phaser.Math.Vector2(this.body.velocity.x, this.body.velocity.y).normalize()
   }
 
   setInputManager (inputManager) {
@@ -425,7 +428,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   executeAttackWith (weapon) {
-
+    weapon.attack(weapon, this, this.facing)
   }
 
   serialize () {

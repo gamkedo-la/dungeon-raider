@@ -37,98 +37,112 @@ export const none = {
   name: WeaponNames.None,
   range: WeaponRanges.Melee,
   damage: 0, // higher is better
-  speed: 0 // lower is better
+  speed: 0, // lower is better
+  attack: (weaponData, weaponUser, facing) => {} // do nothing
 }
 
 export const fists = {
   name: WeaponNames.Fists,
   range: WeaponRanges.Melee,
   damage: 1,
-  speed: 1
+  speed: 1,
+  attack: meleeAttack
 }
 
 export const dagger = {
   name: WeaponNames.Dagger,
   range: WeaponRanges.Melee,
   damage: 2,
-  speed: 1
+  speed: 1,
+  attack: meleeAttack
 }
 
 export const shortSword = {
   name: WeaponNames.ShortSword,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2
+  speed: 2,
+  attack: meleeAttack
 }
 
 export const longSword = {
   name: WeaponNames.LongSword,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3
+  speed: 3,
+  attack: meleeAttack
 }
 
 export const axe = {
   name: WeaponNames.Axe,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2
+  speed: 2,
+  attack: meleeAttack
 }
 
 export const battleAxe = {
   name: WeaponNames.BattleAxe,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3
+  speed: 3,
+  attack: meleeAttack
 }
 
 export const mace = {
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3
+  speed: 3,
+  attack: meleeAttack
 }
 
 export const hammer = {
   name: WeaponNames.Hammer,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2
+  speed: 2,
+  attack: meleeAttack
 }
 
 export const warHammer = {
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3
+  speed: 3,
+  attack: meleeAttack
 }
 
 export const shortBow = {
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
   damage: 2,
-  speed: 2
+  speed: 2,
+  attack: rangedAttack
 }
 
 export const longBow = {
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
   damage: 3,
-  speed: 3
+  speed: 3,
+  attack: rangedAttack
 }
 
 export const crossbow = {
   name: WeaponNames.Crossbow,
   range: WeaponRanges.Long,
   damage: 4,
-  speed: 4
+  speed: 4,
+  attack: rangedAttack
 }
 
 export const staff = {
   name: WeaponNames.Staff,
   range: WeaponRanges.Melee,
   damage: 2,
-  speed: 2
+  speed: 2,
+  attack: rangedAttack
 }
 
 export const normalArrows = {
@@ -343,6 +357,14 @@ export function canCharacterClassUse (characterClass, weapon) {
     default:
       return false
   }
+}
+
+export function meleeAttack(weapon, user, facing) {
+  console.log('Melee Attack')
+}
+
+export function rangedAttack(weapon, user, facing) {
+  console.log('Ranged Attack')
 }
 
 export default {
