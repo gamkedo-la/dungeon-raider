@@ -4,6 +4,10 @@ import { Races, CharacterClasses } from '../../Globals/characterAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
 import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
+import AudioKeys from '../../Keys/audioKeys.js'
+import { pickupCoinSound } from '../../Keys/audioKeys.js'
+import { pickupKeySound } from '../../Keys/audioKeys.js'
+import { exitSound } from '../../Keys/audioKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -257,16 +261,27 @@ export default class Character extends Phaser.GameObjects.Sprite {
     return !this.isDead && !this.shouldBeDead && !this.isExiting && !this.exited
   }
 
+  sfx(soundId) {
+    if (!soundId) return;
+    if (!this.scene.sound) return;
+    this.scene.sound.play(soundId, { loop: AudioKeys[soundId].loop, volume: AudioKeys[soundId].volume })  
+  }
+
   collectedLoot (loot) {
     if (loot.attribute === 'health') {
       this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
+      this.sfx(pickupCoinSound);
     } else if (loot.attribute === 'magic') {
       this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
+      this.sfx(pickupKeySound);
     } else if (loot.attribute === 'arrows') {
       const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
       arrow.quantity += loot.value;
+      this.sfx(pickupCoinSound);
     } else {
       this.attributes.loot[loot.attribute] += loot.value
+      console.log("loot: "+loot.attribute);
+      if (loot.attribute == 'keys') this.sfx(pickupKeySound); else this.sfx(pickupCoinSound)
     }
   }
 
@@ -293,6 +308,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else if (otherEntity.entityType === EntityTypes.Exit) { // FIXME: this never fires
       // reached an exit
       this.playerMarker.destroy()
+      if (!this.isExiting) this.sfx(exitSound) // play sound on 1st frame only
       this.isExiting = true
       this.activeExit = otherEntity
     }

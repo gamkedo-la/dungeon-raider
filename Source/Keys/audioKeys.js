@@ -85,25 +85,25 @@ const AudioKeys = {
   [pickupCoinSound]: {
     fileName: pickupCoinSound,
     volume: 0.5,
-    loop: true,
+    loop: false,
     type: 'sfx'
   },
   [exitSound]: {
     fileName: exitSound,
     volume: 0.5,
-    loop: true,
+    loop: false,
     type: 'sfx'
   },
   [pickupKeySound]: {
     fileName: pickupKeySound,
     volume: 0.5,
-    loop: true,
+    loop: false,
     type: 'sfx'
   },
   [importantEventSound]: {
     fileName: importantEventSound,
     volume: 0.5,
-    loop: true,
+    loop: false,
     type: 'sfx'
   },
 }
