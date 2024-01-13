@@ -10,6 +10,10 @@ export const Welcome = 'welcome'
 export const GamePlayMusic = 'title_music'
 export const TitleMusic = 'music_welcome_intro'
 export const WelcomeMusicBody = 'music_welcome_body'
+export const pickupCoinSound = 'pickup_coin'
+export const pickupKeySound = 'pickup_key'
+export const exitSound = 'exit_sound'
+export const importantEventSound = 'important_event'
 
 const AudioKeys = {
   // Including audio keys here enables the Preloader to automatically load them for us
@@ -77,6 +81,30 @@ const AudioKeys = {
     volume: 0.5,
     loop: true,
     type: 'music'
+  },
+  [pickupCoinSound]: {
+    fileName: pickupCoinSound,
+    volume: 0.5,
+    loop: true,
+    type: 'sfx'
+  },
+  [exitSound]: {
+    fileName: exitSound,
+    volume: 0.5,
+    loop: true,
+    type: 'sfx'
+  },
+  [pickupKeySound]: {
+    fileName: pickupKeySound,
+    volume: 0.5,
+    loop: true,
+    type: 'sfx'
+  },
+  [importantEventSound]: {
+    fileName: importantEventSound,
+    volume: 0.5,
+    loop: true,
+    type: 'sfx'
   },
 }
 
