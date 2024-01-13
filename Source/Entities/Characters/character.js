@@ -264,6 +264,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   sfx(soundId) {
     if (!soundId) return;
     if (!this.scene.sound) return;
+    if (!AudioKeys[soundId]) return;
     this.scene.sound.play(soundId, { loop: AudioKeys[soundId].loop, volume: AudioKeys[soundId].volume })  
   }
 
@@ -280,7 +281,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.sfx(pickupCoinSound);
     } else {
       this.attributes.loot[loot.attribute] += loot.value
-      console.log("loot: "+loot.attribute);
+      //console.log("loot: "+loot.attribute);
       if (loot.attribute == 'keys') this.sfx(pickupKeySound); else this.sfx(pickupCoinSound)
     }
   }
