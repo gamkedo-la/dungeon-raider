@@ -225,7 +225,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"arrowNormalMultiple",
+                 "type":"lootArrowNormalMultiple",
                  "visible":true,
                  "width":32,
                  "x":512,
@@ -248,7 +248,7 @@
                          "value":8
                         }],
                  "rotation":0,
-                 "type":"arrowNormalSingle",
+                 "type":"lootArrowNormalSingle",
                  "visible":true,
                  "width":16,
                  "x":512,
@@ -559,7 +559,7 @@
                          "value":8
                         }],
                  "rotation":0,
-                 "type":"singleGoldPiece",
+                 "type":"lootGoldPiece",
                  "visible":true,
                  "width":16,
                  "x":264,
@@ -582,7 +582,7 @@
                          "value":12
                         }],
                  "rotation":0,
-                 "type":"fiveGoldPieces",
+                 "type":"lootGoldPile",
                  "visible":true,
                  "width":32,
                  "x":223,
@@ -605,7 +605,7 @@
                          "value":8
                         }],
                  "rotation":0,
-                 "type":"smallFood",
+                 "type":"lootSmallFood",
                  "visible":true,
                  "width":16,
                  "x":296.5,
@@ -628,7 +628,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"largeFood",
+                 "type":"lootLargeFood",
                  "visible":true,
                  "width":32,
                  "x":383.5,
@@ -656,7 +656,7 @@
                          "value":12
                         }],
                  "rotation":0,
-                 "type":"fiveGoldPieces",
+                 "type":"lootGoldPile",
                  "visible":true,
                  "width":32,
                  "x":320,
@@ -933,7 +933,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":17,
+         "tilecount":27,
          "tileheight":32,
          "tiles":[
                 {
@@ -1075,7 +1075,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"singleGoldPiece"
+                 "type":"lootGoldPiece"
                 }, 
                 {
                  "id":7,
@@ -1093,7 +1093,7 @@
                          "type":"int",
                          "value":12
                         }],
-                 "type":"fiveGoldPieces"
+                 "type":"lootGoldPile"
                 }, 
                 {
                  "id":8,
@@ -1111,7 +1111,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"smallFood"
+                 "type":"lootSmallFood"
                 }, 
                 {
                  "id":9,
@@ -1129,7 +1129,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"largeFood"
+                 "type":"lootLargeFood"
                 }, 
                 {
                  "id":10,
@@ -1147,7 +1147,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"arrowNormalSingle"
+                 "type":"lootArrowNormalSingle"
                 }, 
                 {
                  "id":11,
@@ -1165,7 +1165,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"arrowNormalMultiple"
+                 "type":"lootArrowNormalMultiple"
                 }, 
                 {
                  "id":12,
@@ -1183,7 +1183,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"arrowSilverSingle"
+                 "type":"lootArrowSilverSingle"
                 }, 
                 {
                  "id":13,
@@ -1201,7 +1201,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"arrowSilverMultiple"
+                 "type":"lootArrowSilverMultiple"
                 }, 
                 {
                  "id":14,
@@ -1219,7 +1219,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"arrowMagicSingle"
+                 "type":"lootArrowMagicSingle"
                 }, 
                 {
                  "id":15,
@@ -1237,7 +1237,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"arrowMagicMultiple"
+                 "type":"lootArrowMagicMultiple"
                 }, 
                 {
                  "id":16,
@@ -1256,6 +1256,186 @@
                          "value":8
                         }],
                  "type":"key"
+                }, 
+                {
+                 "id":17,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponAxe.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootAxe"
+                }, 
+                {
+                 "id":18,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponBattleAxe.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootBattleAxe"
+                }, 
+                {
+                 "id":19,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponMace.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootMace"
+                }, 
+                {
+                 "id":20,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponFlangedMace.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootFlangedMace"
+                }, 
+                {
+                 "id":21,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponHammer.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootHammer"
+                }, 
+                {
+                 "id":22,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponWarHammer.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootWarHammer"
+                }, 
+                {
+                 "id":23,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponShortBow.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootShortBow"
+                }, 
+                {
+                 "id":24,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponLongBow.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootLongBow"
+                }, 
+                {
+                 "id":25,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponShortSword.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootShortSword"
+                }, 
+                {
+                 "id":26,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/WeaponLongSword.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootLongSword"
                 }],
          "tilewidth":32
         }],

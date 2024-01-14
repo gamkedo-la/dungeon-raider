@@ -1,10 +1,10 @@
 export const CharacterType = 'character'
-export const FoodLargeType = 'largeFood'
-export const FoodSmallType = 'smallFood'
-export const GoldFivePiecesType = 'fiveGoldPieces'
-export const GoldSinglePieceType = 'singleGoldPiece'
-export const ArrowNormalMultipleType = 'arrowNormalMultiple'
-export const ArrowNormalSingleType = 'arrowNormalSingle'
+export const LootFoodLargeType = 'lootLargeFood'
+export const LootFoodSmallType = 'lootSmallFood'
+export const LootGoldPileType = 'lootGoldPile'
+export const LootGoldPieceType = 'lootGoldPiece'
+export const LootArrowNormalMultipleType = 'lootArrowNormalMultiple'
+export const LootArrowNormalSingleType = 'lootArrowNormalSingle'
 export const KeyType = 'key'
 export const DoorType = 'door'
 export const ExitType = 'exit'
@@ -14,12 +14,12 @@ export const Tile = 'tile'
 export default {
   Character: CharacterType,
   Exit: ExitType,
-  FoodLarge: FoodLargeType,
-  FoodSmall: FoodSmallType,
-  GoldFivePieces: GoldFivePiecesType,
-  GoldSinglePiece: GoldSinglePieceType,
-  ArrowNormalMultiple: ArrowNormalMultipleType,
-  ArrowNormalSingle: ArrowNormalSingleType,
+  FoodLarge: LootFoodLargeType,
+  FoodSmall: LootFoodSmallType,
+  GoldFivePieces: LootGoldPileType,
+  GoldSinglePiece: LootGoldPieceType,
+  ArrowNormalMultiple: LootArrowNormalMultipleType,
+  ArrowNormalSingle: LootArrowNormalSingleType,
   Key: KeyType,
   Door: DoorType,
   Ogre1: Ogre1Type,
@@ -40,8 +40,8 @@ export function isEnemy (entity) {
 
 export function isFood (entity) {
   switch (entity.entityType) {
-    case FoodLargeType:
-    case FoodSmallType:
+    case LootFoodLargeType:
+    case LootFoodSmallType:
       return true
     default:
       return false
@@ -50,8 +50,8 @@ export function isFood (entity) {
 
 export function isGold (entity) {
   switch (entity.entityType) {
-    case GoldFivePiecesType:
-    case GoldSinglePieceType:
+    case LootGoldPileType:
+    case LootGoldPieceType:
       return true
     default:
       return false
@@ -60,13 +60,13 @@ export function isGold (entity) {
 
 export function isLoot (entity) {
   switch (entity.entityType) {
-    case FoodLargeType:
-    case FoodSmallType:
-    case GoldFivePiecesType:
-    case GoldSinglePieceType:
+    case LootFoodLargeType:
+    case LootFoodSmallType:
+    case LootGoldPileType:
+    case LootGoldPieceType:
     case KeyType:
-    case ArrowNormalSingleType:
-    case ArrowNormalMultipleType:
+    case LootArrowNormalSingleType:
+    case LootArrowNormalMultipleType:
       return true
     default:
       return false

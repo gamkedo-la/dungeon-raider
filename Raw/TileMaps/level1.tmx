@@ -57,7 +57,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="32" tilecount="17" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="32" tilecount="27" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -107,70 +107,70 @@
    </properties>
    <image width="32" height="32" source="ObjectImages/Exit.png"/>
   </tile>
-  <tile id="6" type="singleGoldPiece">
+  <tile id="6" type="lootGoldPiece">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/GoldSinglePiece.png"/>
   </tile>
-  <tile id="7" type="fiveGoldPieces">
+  <tile id="7" type="lootGoldPile">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="12"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/GoldFivePieces.png"/>
   </tile>
-  <tile id="8" type="smallFood">
+  <tile id="8" type="lootSmallFood">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/FoodSmall.png"/>
   </tile>
-  <tile id="9" type="largeFood">
+  <tile id="9" type="lootLargeFood">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/FoodLarge.png"/>
   </tile>
-  <tile id="10" type="arrowNormalSingle">
+  <tile id="10" type="lootArrowNormalSingle">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowNormalSingle.png"/>
   </tile>
-  <tile id="11" type="arrowNormalMultiple">
+  <tile id="11" type="lootArrowNormalMultiple">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/ArrowNormalMultiple.png"/>
   </tile>
-  <tile id="12" type="arrowSilverSingle">
+  <tile id="12" type="lootArrowSilverSingle">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowSilverSingle.png"/>
   </tile>
-  <tile id="13" type="arrowSilverMultiple">
+  <tile id="13" type="lootArrowSilverMultiple">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/ArrowSilverMultiple.png"/>
   </tile>
-  <tile id="14" type="arrowMagicSingle">
+  <tile id="14" type="lootArrowMagicSingle">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="16" height="16" source="ObjectImages/ArrowMagicSingle.png"/>
   </tile>
-  <tile id="15" type="arrowMagicMultiple">
+  <tile id="15" type="lootArrowMagicMultiple">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
@@ -183,6 +183,76 @@
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/key.png"/>
+  </tile>
+  <tile id="17" type="lootAxe">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponAxe.png"/>
+  </tile>
+  <tile id="18" type="lootBattleAxe">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponBattleAxe.png"/>
+  </tile>
+  <tile id="19" type="lootMace">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponMace.png"/>
+  </tile>
+  <tile id="20" type="lootFlangedMace">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponFlangedMace.png"/>
+  </tile>
+  <tile id="21" type="lootHammer">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponHammer.png"/>
+  </tile>
+  <tile id="22" type="lootWarHammer">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponWarHammer.png"/>
+  </tile>
+  <tile id="23" type="lootShortBow">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponShortBow.png"/>
+  </tile>
+  <tile id="24" type="lootLongBow">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponLongBow.png"/>
+  </tile>
+  <tile id="25" type="lootShortSword">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponShortSword.png"/>
+  </tile>
+  <tile id="26" type="lootLongSword">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/WeaponLongSword.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
