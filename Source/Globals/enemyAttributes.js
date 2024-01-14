@@ -41,7 +41,7 @@ export const Ogre1Attributes = {
 
 export function getAttributesForEnemy (enemy) {
   switch (enemy.entityType) {
-    case EntityTypes.Ogre1Type: return Ogre1Attributes
+    case EntityTypes.Enemies.Ogre1: return Ogre1Attributes
     default:
       console.warn(`Unknown enemy type: ${enemy.entityType}`)
       return Ogre1Attributes
@@ -50,7 +50,7 @@ export function getAttributesForEnemy (enemy) {
 
 export function getLootForEnemy (enemy) {
   switch (enemy.entityType) {
-    case EntityTypes.Ogre1Type: return Ogre1Attributes
+    case EntityTypes.Enemies.Ogre1: return Ogre1Attributes
     default:
       console.warn(`Unknown enemy type: ${enemy.entityType}`)
       return Ogre1Attributes

@@ -1,8 +1,8 @@
 import EntityTypes from '../Globals/entityTypes.js'
 import FoodLarge from '../Entities/Loot/foodLarge.js'
 import FoodSmall from '../Entities/Loot/foodSmall.js'
-import GoldSinglePiece from '../Entities/Loot/goldSinglePiece.js'
-import GoldFivePieces from '../Entities/Loot/goldFivePieces.js'
+import GoldPiece from '../Entities/Loot/goldPiece.js'
+import GoldPile from '../Entities/Loot/goldPile.js'
 import ArrowNormalSingle from '../Entities/Loot/arrowNormalSingle.js'
 import ArrowNormalMultiple from '../Entities/Loot/arrowNormalMultiple.js'
 import Key from '../Entities/Loot/key.js'
@@ -30,44 +30,46 @@ export default class LootManager {
 
   addLoot (entityType, config) {
     let loot = null
+    const LootTypes = EntityTypes.Loot
+
     switch (entityType) {
-      case EntityTypes.FoodLarge:
+      case LootTypes.FoodLarge:
         config.entityType = entityType
         loot = new FoodLarge(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break   
-      case EntityTypes.FoodSmall:
+      case LootTypes.FoodSmall:
         config.entityType = entityType
         loot = new FoodSmall(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break   
-      case EntityTypes.GoldFivePieces:
+      case LootTypes.GoldFivePieces:
         config.entityType = entityType
-        loot = new GoldFivePieces(this.scene, config)
+        loot = new GoldPile(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break   
-      case EntityTypes.GoldSinglePiece:
+      case LootTypes.GoldSinglePiece:
         config.entityType = entityType
-        loot = new GoldSinglePiece(this.scene, config)
+        loot = new GoldPiece(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break
-      case EntityTypes.ArrowNormalSingle:
+      case LootTypes.ArrowNormalSingle:
         config.entityType = entityType
         loot = new ArrowNormalSingle(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break
-      case EntityTypes.ArrowNormalMultiple:
+      case LootTypes.ArrowNormalMultiple:
         config.entityType = entityType
         loot = new ArrowNormalMultiple(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break
-      case EntityTypes.Key:
+      case LootTypes.Key:
         config.entityType = entityType
         loot = new Key(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)

@@ -97,16 +97,32 @@ function processObject (manager, object) {
     case EntityTypes.Door:
       manager.doors.push(assignPropertiesToObject(object.properties, object))
       break
-    case EntityTypes.FoodLarge:
-    case EntityTypes.FoodSmall:
-    case EntityTypes.GoldFivePieces:
-    case EntityTypes.GoldSinglePiece:
-    case EntityTypes.ArrowNormalMultiple:
-    case EntityTypes.ArrowNormalSingle:
-    case EntityTypes.Key:
+    case EntityTypes.Loot.ArrowFireMultiple:
+    case EntityTypes.Loot.ArrowFireSingle:
+    case EntityTypes.Loot.ArrowMagicMultiple:
+    case EntityTypes.Loot.ArrowMagicSingle:
+    case EntityTypes.Loot.ArrowNormalMultiple:
+    case EntityTypes.Loot.ArrowNormalSingle:
+    case EntityTypes.Loot.ArrowSilverMultiple:
+    case EntityTypes.Loot.ArrowSilverSingle:
+    case EntityTypes.Loot.Axe:
+    case EntityTypes.Loot.BattleAxe:
+    case EntityTypes.Loot.FlangedMace:
+    case EntityTypes.Loot.FoodLarge:
+    case EntityTypes.Loot.FoodSmall:
+    case EntityTypes.Loot.GoldPile:
+    case EntityTypes.Loot.GoldPiece:
+    case EntityTypes.Loot.Hammer:
+    case EntityTypes.Loot.Key:
+    case EntityTypes.Loot.LongBow:
+    case EntityTypes.Loot.LongSword:
+    case EntityTypes.Loot.Mace:
+    case EntityTypes.Loot.ShortBow:
+    case EntityTypes.Loot.ShortSword:
+    case EntityTypes.Loot.WarHammer:
       manager.loot.push(assignPropertiesToObject(object.properties, object))
       break
-    case EntityTypes.Ogre1:
+    case EntityTypes.Enemies.Ogre1:
       manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
       break
     default:

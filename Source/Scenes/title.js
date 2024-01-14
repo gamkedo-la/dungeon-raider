@@ -9,7 +9,7 @@ import Character from "../Entities/Characters/character.js"
 import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
-import { GoldSinglePieceImage } from "../Keys/imageKeys.js"
+import { GoldPieceImage } from "../Keys/imageKeys.js"
 import Debug from "../Globals/debug.js"
 
 const selections = {
@@ -87,7 +87,7 @@ class Title extends Phaser.Scene {
           this.activeMarker = this.add.image(
             (this.game.canvas.width / 2) - label.width / 2,
             this.menuTop + (optionNumber - 0.5) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
-            GoldSinglePieceImage
+            GoldPieceImage
           )
     
           const scale = 2.0

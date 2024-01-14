@@ -64,14 +64,14 @@
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
-   <image width="16" height="16" source="ObjectImages/GoldSinglePiece.png"/>
+   <image width="16" height="16" source="ObjectImages/GoldPiece.png"/>
   </tile>
   <tile id="7" type="lootGoldPile">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="12"/>
    </properties>
-   <image width="32" height="32" source="ObjectImages/GoldFivePieces.png"/>
+   <image width="32" height="32" source="ObjectImages/GoldPile.png"/>
   </tile>
   <tile id="8" type="lootSmallFood">
    <properties>

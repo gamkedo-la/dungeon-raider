@@ -25,9 +25,10 @@ export default class EnemyManager {
 
   addEnemy (entityType, config) {
     if (config.minCharacterCount > this.characterCount) return
+    const EnemyTypes = EntityTypes.Enemies
 
     switch (entityType) {
-      case EntityTypes.Ogre1:
+      case EnemyTypes.Enemies.Ogre1:
         const newOgre = new Ogre1(this.scene, config)
         this.collisionManager.addEntity(newOgre, newOgre.attributes.radius)
         this.scene.add.existing(newOgre)

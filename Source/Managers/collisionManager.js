@@ -1,4 +1,4 @@
-import EntityTypes from '../Globals/entityTypes.js'
+import EntityTypes, { isEnemy, isLoot } from '../Globals/entityTypes.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -24,47 +24,22 @@ export default class CollisionManager {
   }
 
   addEntity (entityToAdd, radius = null) {
-    switch (entityToAdd.entityType) {
-      case EntityTypes.Character:
-        this.characterGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break
-      case EntityTypes.Door:
-        this.doorGroup.add(entityToAdd)
-        entityToAdd.body.setCircle(16, 0, 0)
-        break
-      case EntityTypes.Exit:
-        this.exitGroup.add(entityToAdd)
-        break
-      case EntityTypes.FoodLarge:
-        this.lootGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break
-      case EntityTypes.FoodSmall:
-        this.lootGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break
-      case EntityTypes.GoldFivePieces:
-        this.lootGroup.add(entityToAdd)
-        if (radius) {
-          if (entityToAdd.radius < 16) entityToAdd.body.setOffset(16 - entityToAdd.radius, 16 - entityToAdd.radius)
-          entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        }
-        break
-      case EntityTypes.ArrowNormalSingle:
-      case EntityTypes.ArrowNormalMultiple:
-      case EntityTypes.GoldSinglePiece:
-        this.lootGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break
-      case EntityTypes.Key:
-        this.lootGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break
-      case EntityTypes.Ogre1:
-        this.enemyGroup.add(entityToAdd)
-        if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
-        break  
+    if (isLoot(entityToAdd)) {
+      addLoot(this, entityToAdd, radius)
+    } else if (isEnemy(entityToAdd)) {
+      addEnemy(this, entityToAdd, radius)
+    } else if (isCharacter(entityToAdd)) {
+      addCharacter(this, entityToAdd, radius)
+    } else {
+      switch (entityToAdd.entityType) {
+        case EntityTypes.Door:
+          this.doorGroup.add(entityToAdd)
+          entityToAdd.body.setCircle(16, 0, 0)
+          break
+        case EntityTypes.Exit:
+          this.exitGroup.add(entityToAdd)
+          break
+      }
     }
   }
 
@@ -153,4 +128,22 @@ export default class CollisionManager {
     character.didCollideWith(loot)
     // loot.didCollideWith(character) // loot doesn't care?
   }
+}
+
+function addCharacter (manager, entityToAdd, radius = null) {
+  manager.characterGroup.add(entityToAdd)
+  if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+}
+
+function addLoot (manager, entityToAdd, radius = null) {
+  manager.lootGroup.add(entityToAdd)
+  if (radius) {
+    if (entityToAdd.radius < 16) entityToAdd.body.setOffset(16 - entityToAdd.radius, 16 - entityToAdd.radius)
+    entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+  }
+}
+
+function addEnemy (manager, entityToAdd, radius = null) {
+  manager.enemyGroup.add(entityToAdd)
+  if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
 }

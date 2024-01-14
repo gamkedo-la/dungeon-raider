@@ -1,9 +1,9 @@
 import Loot from "./loot.js"
-import { GoldSinglePieceImage } from "../../Keys/imageKeys.js"
+import { GoldPieceImage } from "../../Keys/imageKeys.js"
 
-export default class GoldSinglePiece extends Loot {
+export default class GoldPiece extends Loot {
   constructor (scene, config) {
-    config.image = GoldSinglePieceImage
+    config.image = GoldPieceImage
     super(scene, config)
     this.radius = config.radius || 8
     this.loot = {
