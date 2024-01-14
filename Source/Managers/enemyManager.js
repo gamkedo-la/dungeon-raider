@@ -28,7 +28,7 @@ export default class EnemyManager {
     const EnemyTypes = EntityTypes.Enemies
 
     switch (entityType) {
-      case EnemyTypes.Enemies.Ogre1:
+      case EnemyTypes.Ogre1:
         const newOgre = new Ogre1(this.scene, config)
         this.collisionManager.addEntity(newOgre, newOgre.attributes.radius)
         this.scene.add.existing(newOgre)

@@ -1,4 +1,4 @@
-import EntityTypes, { isEnemy, isLoot } from '../Globals/entityTypes.js'
+import EntityTypes, { isCharacter, isEnemy, isLoot } from '../Globals/entityTypes.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {

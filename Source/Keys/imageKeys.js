@@ -18,6 +18,15 @@ export const KeyImage = 'key'
 export const MasterTileset = 'masterTileset'
 export const MissingPlayerShadow = 'missingPlayerShadow'
 export const WeaponAxe = 'weaponAxe'
+export const WeaponBattleAxe = 'weaponBattleAxe'
+export const WeaponFlangedMace = 'weaponFlangedMace'
+export const WeaponHammer = 'weaponHammer'
+export const WeaponLongBow = 'weaponLongBow'
+export const WeaponLongSword = 'weaponLongSword'
+export const WeaponMace = 'weaponMace'
+export const WeaponShortBow = 'weaponShortBow'
+export const WeaponShortSword = 'weaponShortSword'
+export const WeaponWarHammer = 'weaponWarHammer'
 
 const ImageKeys = {
   // Including image keys here enables the Preloader to automatically load them for us
@@ -38,7 +47,17 @@ const ImageKeys = {
   InterLevelCharacterPane,
   KeyImage,
   MasterTileset,
-  MissingPlayerShadow
+  MissingPlayerShadow,
+  WeaponAxe,
+  WeaponBattleAxe,
+  WeaponFlangedMace,
+  WeaponHammer,
+  WeaponLongBow,
+  WeaponLongSword,
+  WeaponMace,
+  WeaponShortBow,
+  WeaponShortSword,
+  WeaponWarHammer
 }
 
 export default ImageKeys

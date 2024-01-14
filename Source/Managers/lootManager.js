@@ -45,13 +45,13 @@ export default class LootManager {
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break   
-      case LootTypes.GoldFivePieces:
+      case LootTypes.GoldPile:
         config.entityType = entityType
         loot = new GoldPile(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)
         this.scene.add.existing(loot)
         break   
-      case LootTypes.GoldSinglePiece:
+      case LootTypes.GoldPiece:
         config.entityType = entityType
         loot = new GoldPiece(this.scene, config)
         this.collisionManager.addEntity(loot, loot.radius)

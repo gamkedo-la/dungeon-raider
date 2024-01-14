@@ -40,7 +40,7 @@ export const Ogre1Attributes = {
 }
 
 export function getAttributesForEnemy (enemy) {
-  switch (enemy.entityType) {
+  switch (enemy.type) {
     case EntityTypes.Enemies.Ogre1: return Ogre1Attributes
     default:
       console.warn(`Unknown enemy type: ${enemy.entityType}`)
