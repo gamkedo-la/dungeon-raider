@@ -1,3 +1,5 @@
+import Weapon from '../Entities/Weapons/weapon.js'
+
 export const WeaponNames = {
   None: 'None',
   Fists: 'Fists',
@@ -36,169 +38,152 @@ const WeaponRanges = {
   Long: 'Long',
 }
 
-export const none = {
+export const none = new Weapon({
   name: WeaponNames.None,
   range: WeaponRanges.Melee,
   damage: 0, // higher is better
-  speed: 0, // lower is better
-  attack: (weaponData, weaponUser, facing) => {} // do nothing
-}
+  speed: 0 // lower is better
+})
 
-export const fists = {
+export const fists = new Weapon({
   name: WeaponNames.Fists,
   range: WeaponRanges.Melee,
   damage: 1,
-  speed: 1,
-  attack: meleeAttack
-}
+  speed: 1
+})
 
-export const dagger = {
+export const dagger = new Weapon({
   name: WeaponNames.Dagger,
   range: WeaponRanges.Melee,
   damage: 2,
-  speed: 1,
-  attack: meleeAttack
-}
+  speed: 1
+})
 
-export const shortSword = {
+export const shortSword = new Weapon({
   name: WeaponNames.ShortSword,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2,
-  attack: meleeAttack
-}
+  speed: 2
+})
 
-export const longSword = {
+export const longSword = new Weapon({
   name: WeaponNames.LongSword,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3,
-  attack: meleeAttack
-}
+  speed: 3
+})
 
-export const axe = {
+export const axe = new Weapon({
   name: WeaponNames.Axe,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2,
-  attack: meleeAttack
-}
+  speed: 2
+})
 
-export const battleAxe = {
+export const battleAxe = new Weapon({
   name: WeaponNames.BattleAxe,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3,
-  attack: meleeAttack
-}
+  speed: 3
+})
 
-export const mace = {
+export const mace = new Weapon({
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2,
-  attack: meleeAttack
-}
+  speed: 2
+})
 
-export const flangedMace = {
+export const flangedMace = new Weapon({
   name: WeaponNames.FlangedMace,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3,
-  attack: meleeAttack
-}
+  speed: 3
+})
 
-export const hammer = {
+export const hammer = new Weapon({
   name: WeaponNames.Hammer,
   range: WeaponRanges.Melee,
   damage: 3,
-  speed: 2,
-  attack: meleeAttack
-}
+  speed: 2
+})
 
-export const hammerMagic = {
+export const hammerMagic = new Weapon({
   name: WeaponNames.HammerMagic,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 2,
-  attack: meleeAttack
-}
+  speed: 2
+})
 
-export const warHammer = {
+export const warHammer = new Weapon({
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
   damage: 4,
-  speed: 3,
-  attack: meleeAttack
-}
+  speed: 3
+})
 
-export const WarHammerMagic = {
+export const WarHammerMagic = new Weapon({
   name: WeaponNames.WarHammerMagic,
   range: WeaponRanges.Melee,
   damage: 5,
-  speed: 3,
-  attack: meleeAttack
-}
+  speed: 3
+})
 
-export const shortBow = {
+export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
   damage: 2,
-  speed: 2,
-  attack: rangedAttack
-}
+  speed: 2
+})
 
-export const longBow = {
+export const longBow = new Weapon({
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
   damage: 3,
-  speed: 3,
-  attack: rangedAttack
-}
+  speed: 3
+})
 
-export const crossbow = {
+export const crossbow = new Weapon({
   name: WeaponNames.Crossbow,
   range: WeaponRanges.Long,
   damage: 4,
-  speed: 4,
-  attack: rangedAttack
-}
+  speed: 4
+})
 
-export const staff = {
+export const staff = new Weapon({
   name: WeaponNames.Staff,
   range: WeaponRanges.Melee,
   damage: 2,
-  speed: 2,
-  attack: rangedAttack
-}
+  speed: 2
+})
 
-export const normalArrows = {
+export const normalArrows = new Weapon({
   name: WeaponNames.NormalArrows,
   range: WeaponRanges.Long,
   damage: 0,
   speed: 0
-}
+})
 
-export const silverArrows = {
+export const silverArrows = new Weapon({
   name: WeaponNames.SilverArrows,
   range: WeaponRanges.Long,
   damage: 0,
   speed: 0
-}
+})
 
-export const fireArrows = {
+export const fireArrows = new Weapon({
   name: WeaponNames.FireArrows,
   range: WeaponRanges.Long,
   damage: 1,
   speed: 0
-}
+})
 
-export const magicArrows = {
+export const magicArrows = new Weapon({
   name: WeaponNames.MagicArrows,
   range: WeaponRanges.Long,
   damage: 2,
   speed: 0
-}
+})
 
 // Wand range and damage are per type of spell
 // export const wand = {
@@ -208,61 +193,61 @@ export const magicArrows = {
 //   speed: 2
 // }
 
-export const magicArrow = {
+export const magicArrow = new Weapon({
   name: WeaponNames.MagicArrow,
   range: WeaponRanges.Long,
   damage: 3,
   speed: 5,
   magicCost: 5
-}
+})
 
-export const magicQuiver = {
+export const magicQuiver = new Weapon({
   name: WeaponNames.MagicQuiver,
   range: WeaponRanges.Long,
   damage: 5,
   speed: 7,
   magicCost: 10
-}
+})
 
-export const fireBall = {
+export const fireBall = new Weapon({
   name: WeaponNames.FireBall,
   range: WeaponRanges.Long,
   damage: 10,
   speed: 10,
   magicCost: 20
-}
+})
 
-export const heal = {
+export const heal = new Weapon({
   name: WeaponNames.Heal,
   range: WeaponRanges.Melee,
   damage: -20,
   speed: 5,
   magicCost: 5
-}
+})
 
-export const healAll = {
+export const healAll = new Weapon({
   name: WeaponNames.HealAll,
   range: WeaponRanges.Melee,
   damage: -50,
   speed: 10,
   magicCost: 20
-}
+})
 
-export const turnUndead = {
+export const turnUndead = new Weapon({
   name: WeaponNames.TurnUndead,
   range: WeaponRanges.Short,
   damage: 10,
   speed: 5,
   magicCost: 10
-}
+})
 
-export const destroyUndead = {
+export const destroyUndead = new Weapon({
   name: WeaponNames.DestroyUndead,
   range: WeaponRanges.Short,
   damage: 20,
   speed: 10,
   magicCost: 20
-}
+})
 
 export function isSpell (weapon) {
   return weapon.name === WeaponNames.MagicArrow ||
@@ -456,14 +441,6 @@ export function getWeaponByName (name) {
       return none
   }
 
-}
-
-export function meleeAttack(weapon, user, facing) {
-  console.log('Melee Attack')
-}
-
-export function rangedAttack(weapon, user, facing) {
-  console.log('Ranged Attack')
 }
 
 export default {

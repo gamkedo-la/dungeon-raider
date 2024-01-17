@@ -451,7 +451,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   executeAttackWith (weapon) {
-    weapon.attack(weapon, this, this.facing)
+    weapon.attack(this)
   }
 
   serialize () {
