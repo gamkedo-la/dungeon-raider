@@ -684,6 +684,29 @@
                  "width":32,
                  "x":96,
                  "y":190.667
+                }, 
+                {
+                 "gid":1050,
+                 "height":32,
+                 "id":33,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"lootShortSword",
+                 "visible":true,
+                 "width":32,
+                 "x":287.333333333333,
+                 "y":351.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -753,7 +776,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":33,
+ "nextobjectid":34,
  "orientation":"orthogonal",
  "properties":[
         {

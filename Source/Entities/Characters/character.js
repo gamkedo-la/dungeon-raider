@@ -1,6 +1,8 @@
 import { CharacterSpriteSheets } from '../../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheet } from '../../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { Races, CharacterClasses } from '../../Globals/characterAttributes.js'
+import { getWeaponByName } from '../../Globals/weaponAttributes.js'
+import { getArmorByName } from '../../Globals/armorAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
 import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
@@ -271,18 +273,26 @@ export default class Character extends Phaser.GameObjects.Sprite {
   collectedLoot (loot) {
     if (loot.attribute === 'health') {
       this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
-      this.sfx(pickupCoinSound);
+      this.sfx(pickupCoinSound)
     } else if (loot.attribute === 'magic') {
       this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
-      this.sfx(pickupKeySound);
+      this.sfx(pickupKeySound)
+    } else if (loot.attribute === 'keys') {
+      this.attributes.loot[loot.attribute] += loot.value
+      this.sfx(pickupKeySound)
+    } else if (loot.attribute === 'weapon') {
+      this.attributes.availableEquipment.push(getWeaponByName(loot.attribute))
+      this.sfx(pickupCoinSound)
+    } else if (loot.attribute === 'armor') {
+      this.attributes.availableArmor.push(getArmorByName(loot.attribute))
+      this.sfx(pickupCoinSound)
     } else if (loot.attribute === 'arrows') {
       const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
-      arrow.quantity += loot.value;
-      this.sfx(pickupCoinSound);
+      arrow.quantity += loot.value
+      this.sfx(pickupCoinSound)
     } else {
       this.attributes.loot[loot.attribute] += loot.value
-      //console.log("loot: "+loot.attribute);
-      if (loot.attribute == 'keys') this.sfx(pickupKeySound); else this.sfx(pickupCoinSound)
+      this.sfx(pickupCoinSound)
     }
   }
 

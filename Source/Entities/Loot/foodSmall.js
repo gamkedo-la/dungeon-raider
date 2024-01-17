@@ -8,6 +8,7 @@ export default class FoodSmall extends Loot {
     this.radius = config.radius || 8
     this.loot = {
       attribute: 'health',
+      name: 'Small Food',
       value: 10
     }
   }

@@ -8,6 +8,7 @@ export default class GoldPiece extends Loot {
     this.radius = config.radius || 8
     this.loot = {
       attribute: 'gold',
+      name: 'Gold Piece',
       value: 10
     }
   }

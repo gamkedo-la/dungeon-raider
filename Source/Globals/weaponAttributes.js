@@ -1,4 +1,4 @@
-const WeaponNames = {
+export const WeaponNames = {
   None: 'None',
   Fists: 'Fists',
   Dagger: 'Dagger',
@@ -394,6 +394,70 @@ export function canCharacterClassUse (characterClass, weapon) {
   }
 }
 
+export function getWeaponByName (name) {
+  switch (name) {
+    case WeaponNames.None:
+      return none
+    case WeaponNames.Fists:
+      return fists
+    case WeaponNames.Dagger:
+      return dagger
+    case WeaponNames.ShortSword:
+      return shortSword
+    case WeaponNames.LongSword:
+      return longSword
+    case WeaponNames.Axe:
+      return axe
+    case WeaponNames.BattleAxe:
+      return battleAxe
+    case WeaponNames.Mace:
+      return mace
+    case WeaponNames.FlangedMace:
+      return flangedMace
+    case WeaponNames.Hammer:
+      return hammer
+    case WeaponNames.HammerMagic:
+      return hammerMagic
+    case WeaponNames.WarHammer:
+      return warHammer
+    case WeaponNames.WarHammerMagic:
+      return WarHammerMagic
+    case WeaponNames.ShortBow:
+      return shortBow
+    case WeaponNames.LongBow:
+      return longBow
+    case WeaponNames.Crossbow:
+      return crossbow
+    case WeaponNames.Staff:
+      return staff
+    case WeaponNames.MagicArrow:
+      return magicArrow
+    case WeaponNames.MagicQuiver:
+      return magicQuiver
+    case WeaponNames.FireBall:
+      return fireBall
+    case WeaponNames.Heal:
+      return heal
+    case WeaponNames.HealAll:
+      return healAll
+    case WeaponNames.TurnUndead:
+      return turnUndead
+    case WeaponNames.DestroyUndead:
+      return destroyUndead
+    case WeaponNames.NormalArrows:
+      return normalArrows
+    case WeaponNames.SilverArrows:
+      return silverArrows
+    case WeaponNames.FireArrows:
+      return fireArrows
+    case WeaponNames.MagicArrows:
+      return magicArrows
+    default:
+      return none
+  }
+
+}
+
 export function meleeAttack(weapon, user, facing) {
   console.log('Melee Attack')
 }
@@ -447,5 +511,6 @@ export default {
   canArcherUse,
   canMagiUse,
   canClericUse,
-  canCharacterClassUse
+  canCharacterClassUse,
+  getWeaponByName
 }

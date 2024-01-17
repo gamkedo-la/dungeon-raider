@@ -1,5 +1,6 @@
 import Loot from "./loot.js"
 import { ArrowFireMultipleImage } from "../../Keys/imageKeys.js"
+import { WeaponNames } from "../../Globals/weaponAttributes.js"
 
 export default class ArrowFireMultiple extends Loot {
   constructor (scene, config) {
@@ -9,6 +10,7 @@ export default class ArrowFireMultiple extends Loot {
     this.loot = {
       attribute: 'arrows',
       arrowType: 'Fire',
+      name: WeaponNames.FireArrow,
       value: 3
     }
   }

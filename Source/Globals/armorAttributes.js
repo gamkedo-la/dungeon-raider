@@ -1,4 +1,4 @@
-const ArmorNames = {
+export const ArmorNames = {
   PlainClothes: 'Plain Clothes',
   LeatherArmor: 'Leather Armor',
   RingMail: 'Ring Mail',
@@ -97,6 +97,26 @@ export function canCharacterClassUse (characterClass, armor) {
   }
 }
 
+
+export function getArmorByName (name) {
+  switch (name) {
+    case ArmorNames.None:
+      return none
+    case ArmorNames.Cloth:
+      return cloth
+    case ArmorNames.Leather:
+      return leather
+    case ArmorNames.ChainMail:
+      return chainMail
+    case ArmorNames.PlateMail:
+      return plateMail
+    case ArmorNames.Magical:
+      return magical
+    default:
+      return none
+  }
+}
+
 export default {
   PlainClothes: plainClothes,
   LeatherArmor: leatherArmor,
@@ -111,5 +131,6 @@ export default {
   canArcherUse,
   canMagiUse,
   canClericUse,
-  canCharacterClassUse
+  canCharacterClassUse,
+  getArmorByName
 }
