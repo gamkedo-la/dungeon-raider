@@ -422,7 +422,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":27,
+         "tilecount":29,
          "tileheight":32,
          "tiles":[
                 {
@@ -834,7 +834,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"lootHammer"
+                 "type":"lootHammerMagic"
                 }, 
                 {
                  "id":22,
@@ -852,7 +852,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"lootWarHammer"
+                 "type":"lootWarHammerMagic"
                 }, 
                 {
                  "id":23,
@@ -925,6 +925,42 @@
                          "value":16
                         }],
                  "type":"lootLongSword"
+                }, 
+                {
+                 "id":27,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/hammer.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "type":"lootHammer"
+                }, 
+                {
+                 "id":28,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/warhammer.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootWarHammer"
                 }],
          "tilewidth":32
         }],

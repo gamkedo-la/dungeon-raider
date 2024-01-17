@@ -12,7 +12,7 @@
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="27" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="32" tilecount="29" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <properties>
@@ -164,14 +164,14 @@
    </properties>
    <image width="32" height="32" source="ObjectImages/WeaponFlangedMace.png"/>
   </tile>
-  <tile id="21" type="lootHammer">
+  <tile id="21" type="lootHammerMagic">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="8"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/WeaponHammer.png"/>
   </tile>
-  <tile id="22" type="lootWarHammer">
+  <tile id="22" type="lootWarHammerMagic">
    <properties>
     <property name="minCharacterCount" type="int" value="1"/>
     <property name="radius" type="int" value="16"/>
@@ -205,6 +205,20 @@
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/WeaponLongSword.png"/>
+  </tile>
+  <tile id="27" type="lootHammer">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="8"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/hammer.png"/>
+  </tile>
+  <tile id="28" type="lootWarHammer">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/warhammer.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
