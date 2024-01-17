@@ -9,6 +9,7 @@ import { InterLevelCharacterPane, MissingPlayerShadow } from "../Keys/imageKeys.
 import FontLabel from "../UIElements/fontLabel.js"
 import HorizontalMenu from "../UIElements/horizontalMenu.js"
 import Debug from "../Globals/debug.js"
+import { getWeaponByName } from "../Globals/weaponAttributes.js"
 
 class InterLevel extends Phaser.Scene {
   constructor () {
@@ -248,8 +249,8 @@ class InterLevel extends Phaser.Scene {
     const doneMenu = this.buildDoneMenu(frame.x, frame.y, color)
 
     let deltaY = 30
-    let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-    primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+    const primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+    if (characterAttributes?.secondary.name !== 'None' && characterAttributes?.secondary.name !== 'Fists') primaryEquipment.splice(primaryEquipment.indexOf(characterAttributes?.secondary.name), 1)
     const primaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Primary', primaryEquipment, primaryEquipment.indexOf(characterAttributes?.primary.name))
 
     let arrowMenu = null
@@ -264,8 +265,8 @@ class InterLevel extends Phaser.Scene {
       arrowMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Arrows', arrowOptions)
     } else {
       // Archers have arrows, but do not have a secondary weapon
-      let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-      secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
+      const secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+      if (characterAttributes?.primary.name !== 'None' && characterAttributes?.primary.name !== 'Fists') secondaryEquipment.splice(secondaryEquipment.indexOf(characterAttributes?.primary.name), 1)
       if (secondaryEquipment) {
         deltaY += 60
         secondaryMenu = this.buildCharacterMenu(frame.x, frame.y + deltaY, color, 'Secondary', secondaryEquipment, secondaryEquipment.indexOf(characterAttributes?.secondary.name))
@@ -364,16 +365,20 @@ class InterLevel extends Phaser.Scene {
       if (this.menus[player].ActiveMenu === 'Primary') {
         // Need to update the options available in the Secondary menu
         const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
+        characterAttributes.primary = getWeaponByName(primaryActiveOption)
         const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
-        let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-        secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
+        const secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        if (primaryActiveOption !== 'None' && primaryActiveOption !== 'Fists') secondaryEquipment.splice(secondaryEquipment.indexOf(primaryActiveOption), 1)
         this.menus[player].Secondary.updateAvailableOptions(secondaryEquipment, secondaryEquipment.indexOf(secondaryActiveOption))
       } else if (this.menus[player].ActiveMenu === 'Secondary') {
         // Need to update the options available in the Primary menu
         const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
         const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
-        let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-        primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+        const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
+        characterAttributes.secondary = getWeaponByName(secondaryActiveOption)
+        const primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        if (secondaryActiveOption.name !== 'None' && secondaryActiveOption !== 'Fists') primaryEquipment.splice(primaryEquipment.indexOf(secondaryActiveOption), 1)
         this.menus[player].Primary.updateAvailableOptions(primaryEquipment, primaryEquipment.indexOf(primaryActiveOption))
       }
 
@@ -390,16 +395,20 @@ class InterLevel extends Phaser.Scene {
       if (this.menus[player].ActiveMenu === 'Primary') {
         // Need to update the options available in the Secondary menu
         const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
+        const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
+        characterAttributes.primary = getWeaponByName(primaryActiveOption)
         const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
-        let secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-        secondaryEquipment = secondaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.primary.name)
+        const secondaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        if (primaryActiveOption !== 'None' && primaryActiveOption !== 'Fists') secondaryEquipment.splice(secondaryEquipment.indexOf(primaryActiveOption), 1)
         this.menus[player].Secondary.updateAvailableOptions(secondaryEquipment, secondaryEquipment.indexOf(secondaryActiveOption))
       } else if (this.menus[player].ActiveMenu === 'Secondary') {
         // Need to update the options available in the Primary menu
         const characterAttributes = this.gameManager.getCharacterAttributesForPlayer(player)
         const primaryActiveOption = this.menus[player].Primary.getSelectedOption()
-        let primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
-        primaryEquipment = primaryEquipment.filter(equipment => equipment === 'None' || equipment === 'Fists' || equipment !== characterAttributes?.secondary.name)
+        const secondaryActiveOption = this.menus[player].Secondary.getSelectedOption()
+        characterAttributes.secondary = getWeaponByName(secondaryActiveOption)
+        const primaryEquipment = characterAttributes?.availableEquipment.map(equipment => equipment.name) || []
+        if (secondaryActiveOption !== 'None' && secondaryActiveOption !== 'Fists') primaryEquipment.splice(primaryEquipment.indexOf(secondaryActiveOption), 1)
         this.menus[player].Primary.updateAvailableOptions(primaryEquipment, primaryEquipment.indexOf(primaryActiveOption))
       }
 

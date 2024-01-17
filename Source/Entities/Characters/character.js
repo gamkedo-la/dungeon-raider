@@ -281,10 +281,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.attributes.loot[loot.attribute] += loot.value
       this.sfx(pickupKeySound)
     } else if (loot.attribute === 'weapon') {
-      this.attributes.availableEquipment.push(getWeaponByName(loot.attribute))
+      this.attributes.availableEquipment.push(getWeaponByName(loot.name))
       this.sfx(pickupCoinSound)
     } else if (loot.attribute === 'armor') {
-      this.attributes.availableArmor.push(getArmorByName(loot.attribute))
+      this.attributes.availableArmor.push(getArmorByName(loot.name))
       this.sfx(pickupCoinSound)
     } else if (loot.attribute === 'arrows') {
       const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
