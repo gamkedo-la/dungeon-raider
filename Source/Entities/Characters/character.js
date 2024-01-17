@@ -291,22 +291,16 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (EntityTypes.isEnemy(otherEntity)) {
       // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
     } else if (EntityTypes.isLoot(otherEntity)) {
-      // only pickup arrows if you're an Archer
-      if (otherEntity.loot.attribute === 'arrows') {
-        if (this.characterClass === CharacterClasses.Archer) {
-          this.collectedLoot(otherEntity.loot);
-          otherEntity.destroy();
-        }
-      } else {
-        // picked up a loot item
-        this.collectedLoot(otherEntity.loot);
-        otherEntity.destroy();
+      // Only pick up the loot you're allowed to use
+      if (this.scene.lootManager.canPickUp(otherEntity, this.characterClass)) {
+        this.collectedLoot(otherEntity.loot)
+        otherEntity.destroy()
       }
     } else if (otherEntity.entityType === EntityTypes.Tile) {
       // hit a tile
     } else if (otherEntity.entityType === EntityTypes.Character) {
       // hit another character
-    } else if (otherEntity.entityType === EntityTypes.Exit) { // FIXME: this never fires
+    } else if (otherEntity.entityType === EntityTypes.Exit) {
       // reached an exit
       this.playerMarker.destroy()
       if (!this.isExiting) this.sfx(exitSound) // play sound on 1st frame only
@@ -320,6 +314,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.attributes.health -= damage
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
+      // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
+      // add a new entity to the loot manager that represents this character's body (probably this one)
     } else {
       this.flashWhite()
     }

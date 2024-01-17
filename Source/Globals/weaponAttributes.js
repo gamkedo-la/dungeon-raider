@@ -6,9 +6,12 @@ const WeaponNames = {
   LongSword: 'Long Sword',
   Axe: 'Axe',
   BattleAxe: 'Battle Axe',
+  FlangedMace: 'Flanged Mace',
   Mace: 'Mace',
   Hammer: 'Hammer',
+  HammerMagic: 'Magic Hammer',
   WarHammer: 'War Hammer',
+  WarHammerMagic: 'Magic War Hammer',
   ShortBow: 'Short Bow',
   LongBow: 'Long Bow',
   Crossbow: 'Crossbow',
@@ -92,6 +95,14 @@ export const battleAxe = {
 export const mace = {
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
+  damage: 3,
+  speed: 2,
+  attack: meleeAttack
+}
+
+export const flangedMace = {
+  name: WeaponNames.FlangedMace,
+  range: WeaponRanges.Melee,
   damage: 4,
   speed: 3,
   attack: meleeAttack
@@ -105,10 +116,26 @@ export const hammer = {
   attack: meleeAttack
 }
 
+export const hammerMagic = {
+  name: WeaponNames.HammerMagic,
+  range: WeaponRanges.Melee,
+  damage: 4,
+  speed: 2,
+  attack: meleeAttack
+}
+
 export const warHammer = {
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
   damage: 4,
+  speed: 3,
+  attack: meleeAttack
+}
+
+export const WarHammerMagic = {
+  name: WeaponNames.WarHammerMagic,
+  range: WeaponRanges.Melee,
+  damage: 5,
   speed: 3,
   attack: meleeAttack
 }
@@ -281,8 +308,11 @@ export function isEdgedWeapon (weapon) {
 
 export function isBluntWeapon (weapon) {
   return weapon.name === WeaponNames.Mace ||
+    weapon.name === WeaponNames.FlangedMace ||
     weapon.name === WeaponNames.Hammer ||
+    weapon.name === WeaponNames.HammerMagic ||
     weapon.name === WeaponNames.WarHammer ||
+    weapon.name === WeaponNames.WarHammerMagic ||
     weapon.name === WeaponNames.Staff
 }
 
@@ -291,6 +321,8 @@ export function isTwoHanded (weapon) {
     weapon.name === WeaponNames.LongBow ||
     weapon.name === WeaponNames.Crossbow ||
     weapon.name === WeaponNames.WarHammer ||
+    weapon.name === WeaponNames.WarHammerMagic ||
+    weapon.name === WeaponNames.BattleAxe ||
     weapon.name === WeaponNames.Staff
 }
 
@@ -306,8 +338,11 @@ export function canWarriorUse (weapon) {
     weapon.name === WeaponNames.Axe ||
     weapon.name === WeaponNames.BattleAxe ||
     weapon.name === WeaponNames.Mace ||
+    weapon.name === WeaponNames.FlangedMace ||
     weapon.name === WeaponNames.Hammer ||
+    weapon.name === WeaponNames.HammerMagic ||
     weapon.name === WeaponNames.WarHammer ||
+    weapon.name === WeaponNames.WarHammerMagic ||
     weapon.name === WeaponNames.Dagger
 }
 
@@ -376,8 +411,11 @@ export default {
   Axe: axe,
   BattleAxe: battleAxe,
   Mace: mace,
+  FlangedMace: flangedMace,
   Hammer: hammer,
+  HammerMagic: hammerMagic,
   WarHammer: warHammer,
+  WarHammerMagic: WarHammerMagic,
   ShortBow: shortBow,
   LongBow: longBow,
   Crossbow: crossbow,

@@ -1,3 +1,10 @@
+export const ArmorChainMailType = 'armorChainMail'
+export const ArmorHalfPlateMailType = 'armorHalfPlateMail'
+export const ArmorHelmetType = 'armorHelmet'
+export const ArmorLeatherArmorType = 'armorLeatherArmor'
+export const ArmorPlateMailType = 'armorPlateMail'
+export const ArmorRingMailType = 'armorRingMail'
+export const ArmorShieldType = 'armorShield'
 export const CharacterType = 'character'
 export const DoorType = 'door'
 export const ExitType = 'exit'
@@ -11,17 +18,27 @@ export const LootArrowSilverMultipleType = 'lootArrowSilverMultiple'
 export const LootArrowSilverSingleType = 'lootArrowSilverSingle'
 export const LootAxeType = 'lootAxe'
 export const LootBattleAxeType = 'lootBattleAxe'
+export const LootChainMailType = 'lootChainMail'
+export const LootCharacterType = 'lootCharacter' // Character's body
 export const LootFlangedMaceType = 'lootFlangedMace'
 export const LootFoodLargeType = 'lootLargeFood'
 export const LootFoodSmallType = 'lootSmallFood'
 export const LootGoldPileType = 'lootGoldPile'
 export const LootGoldPieceType = 'lootGoldPiece'
+export const LootHalfPlateMailType = 'lootHalfPlateMail'
 export const LootHammerType = 'lootHammer'
+export const LootHammerMagicType = 'lootHammerMagic'
+export const LootHelmetType = 'lootHelmet'
+export const LootLeatherArmorType = 'lootLeatherArmor'
 export const LootLongBowType = 'lootLongBow'
 export const LootLongSwordType = 'lootLongSword'
 export const LootMaceType  = 'lootMace'
+export const LootPlateMailType = 'lootPlateMail'
+export const LootRingMailType = 'lootRingMail'
+export const LootShieldType = 'lootShield'
 export const LootShortBowType = 'lootShortBow'
 export const LootShortSwordType = 'lootShortSword'
+export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
 export const KeyType = 'key'
 export const Ogre1Type = 'ogre1'
@@ -38,14 +55,25 @@ export const WeaponAxeType = 'weaponAxe'
 export const WeaponBattleAxeType = 'weaponBattleAxe'
 export const WeaponFlangedMaceType = 'weaponFlangedMace'
 export const WeaponHammerType = 'weaponHammer'
+export const WeaponHammerMagicType = 'weaponHammerMagic'
 export const WeaponLongBowType = 'weaponLongBow'
 export const WeaponLongSwordType = 'weaponLongSword'
 export const WeaponMaceType  = 'weaponMace'
 export const WeaponShortBowType = 'weaponShortBow'
 export const WeaponShortSwordType = 'weaponShortSword'
 export const WeaponWarHammerType = 'weaponWarHammer'
+export const WeaponWarHammerMagicType = 'weaponWarHammerMagic'
 
 export default {
+  Armor: {
+    ChainMail: ArmorChainMailType,
+    HalfPlateMail: ArmorHalfPlateMailType,
+    Helmet: ArmorHelmetType,
+    LeatherArmor: ArmorLeatherArmorType,
+    PlateMail: ArmorPlateMailType,
+    RingMail: ArmorRingMailType,
+    Shield: ArmorShieldType
+  },
   Character: CharacterType,
   Door: DoorType,
   Enemies: {
@@ -63,18 +91,28 @@ export default {
     ArrowSilverSingle: LootArrowSilverSingleType,
     Axe: LootAxeType,
     BattleAxe: LootBattleAxeType,
+    ChainMail: LootChainMailType,
+    Character: LootCharacterType,
     FlangedMace: LootFlangedMaceType,
     FoodLarge: LootFoodLargeType,
     FoodSmall: LootFoodSmallType,
-    GoldPile: LootGoldPileType,
     GoldPiece: LootGoldPieceType,
+    GoldPile: LootGoldPileType,
+    HalfPlateMail: LootHalfPlateMailType,
     Hammer: LootHammerType,
+    HammerMagic: LootHammerMagicType,
+    Helmet: LootHelmetType,
     Key: KeyType,
+    LeatherArmor: LootLeatherArmorType,
     LongBow: LootLongBowType,
     LongSword: LootLongSwordType,
     Mace: LootMaceType,
+    PlateMail: LootPlateMailType,
+    RingMail: LootRingMailType,
+    Shield: LootShieldType,
     ShortBow: LootShortBowType,
     ShortSword: LootShortSwordType,
+    WarHammerMagic: LootWarHammerMagicType,
     WarHammer: LootWarHammerType
   },
   Tile: Tile,
@@ -91,12 +129,14 @@ export default {
     BattleAxe: WeaponBattleAxeType,
     FlangedMace: WeaponFlangedMaceType,
     Hammer: WeaponHammerType,
+    HammerMagic: WeaponHammerMagicType,
     LongBow: WeaponLongBowType,
     LongSword: WeaponLongSwordType,
     Mace: WeaponMaceType,
     ShortBow: WeaponShortBowType,
     ShortSword: WeaponShortSwordType,
-    WarHammer: WeaponWarHammerType
+    WarHammer: WeaponWarHammerType,
+    WarHammerMagic: WeaponWarHammerMagicType
   },
   isEnemy,
   isGold,
@@ -154,18 +194,28 @@ export function isLoot (entity) {
     case LootArrowSilverSingleType:
     case LootAxeType:
     case LootBattleAxeType:
+    case LootChainMailType:
+    case LootCharacterType:
     case LootFlangedMaceType:
     case LootFoodLargeType:
     case LootFoodSmallType:
     case LootGoldPileType:
     case LootGoldPieceType:
+    case LootHalfPlateMailType:
     case LootHammerType:
+    case LootHammerMagicType:
+    case LootHelmetType:
+    case LootLeatherArmorType:
     case LootLongBowType:
     case LootLongSwordType:
-    case LootMaceType :
+    case LootMaceType:
+    case LootPlateMailType:
+    case LootRingMailType:
+    case LootShieldType:
     case LootShortBowType:
     case LootShortSwordType:
     case LootWarHammerType:
+    case LootWarHammerMagicType:
     case KeyType:
       return true
     default:
@@ -187,12 +237,14 @@ export function isWeapon (entity) {
     case WeaponBattleAxeType:
     case WeaponFlangedMaceType:
     case WeaponHammerType:
+    case WeaponHammerMagicType:
     case WeaponLongBowType:
     case WeaponLongSwordType:
     case WeaponMaceType :
     case WeaponShortBowType:
     case WeaponShortSwordType:
     case WeaponWarHammerType:
+    case WeaponWarHammerMagicType:
       return true
     default:
       return false
