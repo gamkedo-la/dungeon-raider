@@ -113,6 +113,7 @@ function processObject (manager, object) {
     case EntityTypes.Loot.GoldPile:
     case EntityTypes.Loot.GoldPiece:
     case EntityTypes.Loot.Hammer:
+    case EntityTypes.Loot.HammerMagic:
     case EntityTypes.Loot.Key:
     case EntityTypes.Loot.LongBow:
     case EntityTypes.Loot.LongSword:
@@ -120,6 +121,7 @@ function processObject (manager, object) {
     case EntityTypes.Loot.ShortBow:
     case EntityTypes.Loot.ShortSword:
     case EntityTypes.Loot.WarHammer:
+    case EntityTypes.Loot.WarHammerMagic:
       manager.loot.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Enemies.Ogre1:

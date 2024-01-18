@@ -1,8 +1,5 @@
+import { CharacterClasses } from '../Globals/characterAttributes.js'
 import EntityTypes from '../Globals/entityTypes.js'
-import FoodLarge from '../Entities/Loot/foodLarge.js'
-import FoodSmall from '../Entities/Loot/foodSmall.js'
-import GoldPiece from '../Entities/Loot/goldPiece.js'
-import GoldPile from '../Entities/Loot/goldPile.js'
 import ArrowFireSingle from '../Entities/Loot/arrowFireSingle.js'
 import ArrowFireMultiple from '../Entities/Loot/arrowFireMultiple.js'
 import ArrowMagicSingle from '../Entities/Loot/arrowMagicSingle.js'
@@ -11,9 +8,23 @@ import ArrowNormalSingle from '../Entities/Loot/arrowNormalSingle.js'
 import ArrowNormalMultiple from '../Entities/Loot/arrowNormalMultiple.js'
 import ArrowSilverSingle from '../Entities/Loot/arrowSilverSingle.js'
 import ArrowSilverMultiple from '../Entities/Loot/arrowSilverMultiple.js'
-import ShortSword from '../Entities/Loot/shortSword.js'
+import Axe from '../Entities/Loot/axe.js'
+import BattleAxe from '../Entities/Loot/battleAxe.js'
+import FlangedMace from '../Entities/Loot/flangedMace.js'
+import FoodLarge from '../Entities/Loot/foodLarge.js'
+import FoodSmall from '../Entities/Loot/foodSmall.js'
+import GoldPile from '../Entities/Loot/goldPile.js'
+import GoldPiece from '../Entities/Loot/goldPiece.js'
+import Hammer from '../Entities/Loot/hammer.js'
+import HammerMagic from '../Entities/Loot/hammerMagic.js'
 import Key from '../Entities/Loot/key.js'
-import { CharacterClasses } from '../Globals/characterAttributes.js'
+import LongBow from '../Entities/Loot/longBow.js'
+import LongSword from '../Entities/Loot/longSword.js'
+import Mace from '../Entities/Loot/mace.js'
+import ShortBow from '../Entities/Loot/shortBow.js'
+import ShortSword from '../Entities/Loot/shortSword.js'
+import WarHammer from '../Entities/Loot/warHammer.js'
+import WarHammerMagic from '../Entities/Loot/warHammerMagic.js'
 
 let LootTypes = null
 
@@ -45,18 +56,6 @@ export default class LootManager {
     config.entityType = entityType
 
     switch (entityType) {
-      case LootTypes.FoodLarge:
-        loot = new FoodLarge(this.scene, config)
-        break   
-      case LootTypes.FoodSmall:
-        loot = new FoodSmall(this.scene, config)
-        break   
-      case LootTypes.GoldPile:
-        loot = new GoldPile(this.scene, config)
-        break   
-      case LootTypes.GoldPiece:
-        loot = new GoldPiece(this.scene, config)
-        break
       case LootTypes.ArrowFireSingle:
         loot = new ArrowFireSingle(this.scene, config)
         break
@@ -80,13 +79,85 @@ export default class LootManager {
         break
       case LootTypes.ArrowSilverMultiple:
         loot = new ArrowSilverMultiple(this.scene, config)
-        break            
+        break
+      case LootTypes.Axe:
+        loot = new Axe(this.scene, config)
+        break
+      case LootTypes.BattleAxe:
+        loot = new BattleAxe(this.scene, config)
+        break
+      case LootTypes.FlangedMace:
+        loot = new FlangedMace(this.scene, config)
+        break
+      case LootTypes.FoodLarge:
+        loot = new FoodLarge(this.scene, config)
+        break   
+      case LootTypes.FoodSmall:
+        loot = new FoodSmall(this.scene, config)
+        break   
+      case LootTypes.GoldPile:
+        loot = new GoldPile(this.scene, config)
+        break   
+      case LootTypes.GoldPiece:
+        loot = new GoldPiece(this.scene, config)
+        break
+      case LootTypes.Hammer:
+        loot = new Hammer(this.scene, config)
+        break
+      case LootTypes.HammerMagic:
+        loot = new HammerMagic(this.scene, config)
+        break
       case LootTypes.Key:
         loot = new Key(this.scene, config)
+        break
+      case LootTypes.LongBow:
+        loot = new LongBow(this.scene, config)
+        break
+      case LootTypes.LongSword:
+        loot = new LongSword(this.scene, config)
+        break
+      case LootTypes.Mace:
+        loot = new Mace(this.scene, config)
+        break
+      case LootTypes.ShortBow:
+        loot = new ShortBow(this.scene, config)
         break
       case LootTypes.ShortSword:
         loot = new ShortSword(this.scene, config)
         break
+      case LootTypes.WarHammer:
+        loot = new WarHammer(this.scene, config)
+        break
+      case LootTypes.WarHammerMagic:
+        loot = new WarHammerMagic(this.scene, config)
+        break
+      // case LootTypes.Staff:
+      //   loot = new Staff(this.scene, config)
+      //   break
+      // case LootTypes.Dagger:
+      //   loot = new Dagger(this.scene, config)
+      //   break
+      // case LootTypes.ChainMail:
+      //   loot = new ChainMail(this.scene, config)
+      //   break
+      // case LootTypes.LeatherArmor:
+      //   loot = new LeatherArmor(this.scene, config)
+      //   break
+      // case LootTypes.RingMail:
+      //   loot = new RingMail(this.scene, config)
+      //   break
+      // case LootTypes.PlateMail:
+      //   loot = new PlateMail(this.scene, config)
+      //   break
+      // case LootTypes.HalfPlateMail:
+      //   loot = new HalfPlateMail(this.scene, config)
+      //   break
+      // case LootTypes.Helmet:
+      //   loot = new Helmet(this.scene, config)
+      //   break
+      // case LootTypes.Shield:
+      //   loot = new Shield(this.scene, config)
+      //   break
     }
 
     this.collisionManager.addEntity(loot, loot.radius)

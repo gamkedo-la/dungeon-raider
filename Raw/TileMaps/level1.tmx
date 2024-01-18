@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="34">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="45">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -491,6 +491,17 @@
   </object>
   <object id="25" gid="1041" x="96" y="190.667" width="32" height="32"/>
   <object id="33" gid="1050" x="287.333" y="351.333" width="32" height="32"/>
+  <object id="34" gid="1051" x="319.333" y="352" width="32" height="32"/>
+  <object id="35" gid="1042" x="351.333" y="352" width="32" height="32"/>
+  <object id="36" gid="1043" x="384.667" y="350.667" width="32" height="32"/>
+  <object id="37" gid="1044" x="416.667" y="352" width="32" height="32"/>
+  <object id="38" gid="1045" x="446.667" y="352" width="32" height="32"/>
+  <object id="39" gid="1046" x="480" y="350.667" width="32" height="32"/>
+  <object id="40" gid="1047" x="512" y="350.667" width="32" height="32"/>
+  <object id="41" gid="1048" x="415.333" y="319.333" width="32" height="32"/>
+  <object id="42" gid="1049" x="448.667" y="320" width="32" height="32"/>
+  <object id="43" gid="1052" x="478.667" y="318.667" width="32" height="32"/>
+  <object id="44" gid="1053" x="511.333" y="320" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">
