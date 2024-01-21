@@ -53,7 +53,7 @@ class GameLevel extends Phaser.Scene {
     this.collisionManager = new CollisionManager(this, this.mapManager)
     this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.lootManager = new LootManager(this, this.mapManager, this.collisionManager, this.gameManager)
-    this.storeManager = new StoreManager(this, this.mapManager, this.collisionManager, this.gameManager)
+    this.storeManager = new StoreManager(this, this.mapManager, this.collisionManager, this.gameManager, this.lootManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
@@ -228,6 +228,11 @@ class GameLevel extends Phaser.Scene {
 
       this.shutdown()
     }
+  }
+
+  purchaseItem (character, item) {
+    const lootVersionOfStoreItem = this.storeManager.getLootForStoreItem(item)
+    character.collectedLoot(lootVersionOfStoreItem)
   }
 
   shutdown () {

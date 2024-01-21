@@ -54,114 +54,52 @@ export default class LootManager {
     let loot = null
     const LootTypes = EntityTypes.Loot
     config.entityType = entityType
-
-    switch (entityType) {
-      case LootTypes.ArrowFireSingle:
-        loot = new ArrowFireSingle(this.scene, config)
-        break
-      case LootTypes.ArrowFireMultiple:
-        loot = new ArrowFireMultiple(this.scene, config)
-        break
-      case LootTypes.ArrowMagicSingle:
-        loot = new ArrowMagicSingle(this.scene, config)
-        break
-      case LootTypes.ArrowMagicMultiple:
-        loot = new ArrowMagicMultiple(this.scene, config)
-        break
-      case LootTypes.ArrowNormalSingle:
-        loot = new ArrowNormalSingle(this.scene, config)
-        break
-      case LootTypes.ArrowNormalMultiple:
-        loot = new ArrowNormalMultiple(this.scene, config)
-        break
-      case LootTypes.ArrowSilverSingle:
-        loot = new ArrowSilverSingle(this.scene, config)
-        break
-      case LootTypes.ArrowSilverMultiple:
-        loot = new ArrowSilverMultiple(this.scene, config)
-        break
-      case LootTypes.Axe:
-        loot = new Axe(this.scene, config)
-        break
-      case LootTypes.BattleAxe:
-        loot = new BattleAxe(this.scene, config)
-        break
-      case LootTypes.FlangedMace:
-        loot = new FlangedMace(this.scene, config)
-        break
-      case LootTypes.FoodLarge:
-        loot = new FoodLarge(this.scene, config)
-        break   
-      case LootTypes.FoodSmall:
-        loot = new FoodSmall(this.scene, config)
-        break   
-      case LootTypes.GoldPile:
-        loot = new GoldPile(this.scene, config)
-        break   
-      case LootTypes.GoldPiece:
-        loot = new GoldPiece(this.scene, config)
-        break
-      case LootTypes.Hammer:
-        loot = new Hammer(this.scene, config)
-        break
-      case LootTypes.HammerMagic:
-        loot = new HammerMagic(this.scene, config)
-        break
-      case LootTypes.Key:
-        loot = new Key(this.scene, config)
-        break
-      case LootTypes.LongBow:
-        loot = new LongBow(this.scene, config)
-        break
-      case LootTypes.LongSword:
-        loot = new LongSword(this.scene, config)
-        break
-      case LootTypes.Mace:
-        loot = new Mace(this.scene, config)
-        break
-      case LootTypes.ShortBow:
-        loot = new ShortBow(this.scene, config)
-        break
-      case LootTypes.ShortSword:
-        loot = new ShortSword(this.scene, config)
-        break
-      case LootTypes.WarHammer:
-        loot = new WarHammer(this.scene, config)
-        break
-      case LootTypes.WarHammerMagic:
-        loot = new WarHammerMagic(this.scene, config)
-        break
-      // case LootTypes.Staff:
-      //   loot = new Staff(this.scene, config)
-      //   break
-      // case LootTypes.Dagger:
-      //   loot = new Dagger(this.scene, config)
-      //   break
-      // case LootTypes.ChainMail:
-      //   loot = new ChainMail(this.scene, config)
-      //   break
-      // case LootTypes.LeatherArmor:
-      //   loot = new LeatherArmor(this.scene, config)
-      //   break
-      // case LootTypes.RingMail:
-      //   loot = new RingMail(this.scene, config)
-      //   break
-      // case LootTypes.PlateMail:
-      //   loot = new PlateMail(this.scene, config)
-      //   break
-      // case LootTypes.HalfPlateMail:
-      //   loot = new HalfPlateMail(this.scene, config)
-      //   break
-      // case LootTypes.Helmet:
-      //   loot = new Helmet(this.scene, config)
-      //   break
-      // case LootTypes.Shield:
-      //   loot = new Shield(this.scene, config)
-      //   break
+    const lootClass = this.getLootClassForType(entityType)
+    if (lootClass) {
+      loot = new lootClass(this.scene, config)
     }
 
     this.collisionManager.addEntity(loot, loot.radius)
     this.scene.add.existing(loot)
+  }
+
+  getLootClassForType (lootType) {
+    switch (lootType) {
+      case LootTypes.ArrowFireSingle: return ArrowFireSingle
+      case LootTypes.ArrowFireMultiple: return ArrowFireMultiple
+      case LootTypes.ArrowMagicSingle: return ArrowMagicSingle
+      case LootTypes.ArrowMagicMultiple: return ArrowMagicMultiple
+      case LootTypes.ArrowNormalSingle: return ArrowNormalSingle
+      case LootTypes.ArrowNormalMultiple: return ArrowNormalMultiple
+      case LootTypes.ArrowSilverSingle: return ArrowSilverSingle
+      case LootTypes.ArrowSilverMultiple: return ArrowSilverMultiple
+      case LootTypes.Axe: return Axe
+      case LootTypes.BattleAxe: return BattleAxe
+      case LootTypes.FlangedMace: return FlangedMace
+      case LootTypes.FoodLarge: return FoodLarge
+      case LootTypes.FoodSmall: return FoodSmall
+      case LootTypes.GoldPile: return GoldPile
+      case LootTypes.GoldPiece: return GoldPiece
+      case LootTypes.Hammer: return Hammer
+      case LootTypes.HammerMagic: return HammerMagic
+      case LootTypes.Key: return Key
+      case LootTypes.LongBow: return LongBow
+      case LootTypes.LongSword: return LongSword
+      case LootTypes.Mace: return Mace
+      case LootTypes.ShortBow: return ShortBow
+      case LootTypes.ShortSword: return ShortSword
+      case LootTypes.WarHammer: return WarHammer
+      case LootTypes.WarHammerMagic: return WarHammerMagic
+      // case LootTypes.Staff: return Staff
+      // case LootTypes.Dagger: return Dagger
+      // case LootTypes.ChainMail: return ChainMail
+      // case LootTypes.LeatherArmor: return LeatherArmor
+      // case LootTypes.RingMail: return RingMail
+      // case LootTypes.PlateMail: return PlateMail
+      // case LootTypes.HalfPlateMail: return HalfPlateMail
+      // case LootTypes.Helmet: return Helmet
+      // case LootTypes.Shield: return Shield
+    }
   }
 
   canPickUp (loot, characterClass) {
@@ -171,7 +109,7 @@ export default class LootManager {
       case CharacterClasses.Cleric:
         return clericCanPickUp(loot)
       case CharacterClasses.Warrior:
-        return fighterCanPickUp(loot)
+        return warriorCanPickUp(loot)
       case CharacterClasses.Magi:
         return magiCanPickUp(loot)
     }
@@ -209,7 +147,7 @@ function archerCanPickUp (loot) {
   }
 }
 
-function fighterCanPickUp (loot) {
+function warriorCanPickUp (loot) {
   switch (loot.entityType) {
     case LootTypes.Axe:
     case LootTypes.BattleAxe:

@@ -4,14 +4,21 @@ import { CharacterClasses } from "../Globals/characterAttributes.js"
 import ImageKeys from "../Keys/imageKeys.js"
 
 export default class StoreManager {
-  constructor (scene, mapManager, collisionManager, gameManager) {
+  constructor (scene, mapManager, collisionManager, gameManager, lootManager) {
     this.scene = scene
     this.mapManager = mapManager
     this.collisionManager = collisionManager
     this.gameManager = gameManager
+    this.lootManager = lootManager
 
     this.characterCounts = getCharacterCounts(this.gameManager)
-    this.storeItems = buildStoreItems(this.scene, this.mapManager, this.characterCounts, this.gameManager, this.collisionManager)
+    this.storeItems = buildStoreItems(this.scene, this.mapManager, this.collisionManager, this.gameManager, this.lootManager, this.characterCounts)
+  }
+
+  getLootForStoreItem (storeItem) {
+    const lootType = storeItem.storeItemType.replace('store', 'loot')
+    const lootClass = this.lootManager.getLootClassForType(lootType)
+    return {...lootClass.Loot}
   }
 }
 
@@ -32,7 +39,7 @@ function getCharacterCounts (gameManager) {
   return counts
 }
 
-function buildStoreItems (scene, mapManager, characterCounts, gameManager, collisionManager) {
+function buildStoreItems (scene, mapManager, collisionManager, gameManager, lootManager, characterCounts) {
   const storeItems = []
 
   for (const storeItemData of mapManager.store.items) {
@@ -86,6 +93,10 @@ function buildStoreItems (scene, mapManager, characterCounts, gameManager, colli
     const index = Math.floor(Math.random() * allowedItems.length)
     config.price = mapManager.store.prices[allowedItems[index] + 'Cost']
     config.storeItemType = 'store' + allowedItems[index][0].toUpperCase() + allowedItems[index].slice(1)
+    config.warriorCanPurchase = lootManager.canPickUp({ entityType: 'loot' + allowedItems[index][0].toUpperCase() + allowedItems[index].slice(1) }, CharacterClasses.Warrior)
+    config.archerCanPurchase = lootManager.canPickUp({ entityType: 'loot' + allowedItems[index][0].toUpperCase() + allowedItems[index].slice(1) }, CharacterClasses.Archer)
+    config.magiCanPurchase = lootManager.canPickUp({ entityType: 'loot' + allowedItems[index][0].toUpperCase() + allowedItems[index].slice(1) }, CharacterClasses.Magi)
+    config.clericCanPurchase = lootManager.canPickUp({ entityType: 'loot' + allowedItems[index][0].toUpperCase() + allowedItems[index].slice(1) }, CharacterClasses.Cleric)
     config.image = getImageForStoreItemType(config.storeItemType)
 
     const storeItem = new StoreItem(scene, config)

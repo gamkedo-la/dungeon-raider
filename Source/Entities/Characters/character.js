@@ -29,6 +29,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.isExiting = false
     this.exited = false
     this.activeExit = null
+    this.storeItem = null
 
     this.facing = new Phaser.Math.Vector2(0.0, -1.0)
 
@@ -196,6 +197,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
+    if (this.storeItem) {
+      if((this.attributes.loot.gold < this.storeItem.price) || (Math.abs(this.x - this.storeItem.x) > ((this.width / 2) + (this.storeItem.width / 2)) || Math.abs(this.y - this.storeItem.y) > ((this.height / 2) + (this.storeItem.height / 2)))) {
+        this.storeItem = null
+      }
+    }
+
     if (this.shouldStartPrimaryAttack) {
       this.executePrimaryAttack()
     } else if (this.shouldStartSecondaryAttack) {
@@ -316,6 +323,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       if (!this.isExiting) this.sfx(exitSound) // play sound on 1st frame only
       this.isExiting = true
       this.activeExit = otherEntity
+    } else if (otherEntity.entityType === EntityTypes.StoreItem) {
+      if (otherEntity.classCanPurchase(this.characterClass) && otherEntity.price <= this.attributes.loot.gold) {
+        this.storeItem = otherEntity
+      }
     }
   }
 
@@ -353,6 +364,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   addLoot (loot) {
+    // This function is only called when an enemy is killed, not sure that's what we want and also not sure this will work
     const lootType = Object.keys(loot)[0]
     this.attributes.loot[lootType] += loot[lootType]
   }
@@ -417,7 +429,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
         this.primaryAttackCoolingDown = false
       })
-      this.anims.play(this.animations.primary, false)
     }
 
     if (event.secondary.isDown && !this.secondaryAttackCoolingDown && !this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
@@ -441,13 +452,26 @@ export default class Character extends Phaser.GameObjects.Sprite {
   executePrimaryAttack () {
     console.log(`Primary attack (${this.attributes.primary.name})`)
     this.shouldStartPrimaryAttack = false
-    this.executeAttackWith(this.attributes.primary)
+    if (this.storeItem) {
+      // Attempt to purchase the item
+      this.scene.purchaseItem(this, this.storeItem)
+    } else {
+      this.executeAttackWith(this.attributes.primary)
+      this.anims.play(this.animations.primary, false)
+    }
   }
 
   executeSecondaryAttack () {
     console.log(`Secondary attack (${this.attributes.secondary.name})`)
     this.shouldStartSecondaryAttack = false
-    this.executeAttackWith(this.attributes.secondary)
+    if (this.storeItem) {
+      // Attempt to purchase the item
+      this.scene.purchaseItem(this, this.storeItem)
+      this.attributes.loot.gold -= this.storeItem.price
+    } else {
+      this.executeAttackWith(this.attributes.secondary)
+      // this.anims.play(this.animations.secondary, false)
+    }
   }
 
   executeAttackWith (weapon) {

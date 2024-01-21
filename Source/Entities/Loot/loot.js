@@ -3,6 +3,7 @@ import { WeaponNames } from '../../Globals/weaponAttributes.js'
 import { ArmorNames } from '../../Globals/armorAttributes.js'
 
 export default class Loot extends Phaser.GameObjects.Sprite {
+  static Loot = {}
   constructor (scene, config) {
     super(scene, config.x, config.y, config.image)
 
