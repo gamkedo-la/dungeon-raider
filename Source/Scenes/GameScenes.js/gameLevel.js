@@ -5,6 +5,7 @@ import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
 import EnemyManager from "../../Managers/enemyManager.js"
 import LootManager from "../../Managers/lootManager.js"
+import StoreManager from "../../Managers/storeManager.js"
 import Character from "../../Entities/Characters/character.js"
 import Exit from "../../Entities/Other/exit.js"
 import Door from "../../Entities/Other/door.js"
@@ -52,6 +53,7 @@ class GameLevel extends Phaser.Scene {
     this.collisionManager = new CollisionManager(this, this.mapManager)
     this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.lootManager = new LootManager(this, this.mapManager, this.collisionManager, this.gameManager)
+    this.storeManager = new StoreManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)

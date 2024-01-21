@@ -39,6 +39,9 @@ export default class CollisionManager {
         case EntityTypes.Exit:
           this.exitGroup.add(entityToAdd)
           break
+        case EntityTypes.StoreItem:
+          this.lootGroup.add(entityToAdd)
+          break
       }
     }
   }

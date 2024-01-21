@@ -18,6 +18,7 @@ export const Player3Color = '#0000FF'
 export const Player4Color = '#FFFF00'
 export const UIFontSize = '20px'
 export const CharacterUIFontSize = '26px'
+export const InGameFontSize = '16px'
 export const UIFontFamily = FontFamilies.MedivalSharpRegular
 export const TextLineSpacing = 2
 
@@ -50,6 +51,7 @@ export default {
   UIDangerColor,
   UIFontSize,
   CharacterUIFontSize,
+  InGameFontSize,
   UIFontFamily,
   TextLineSpacing,
   TitleFontSize,

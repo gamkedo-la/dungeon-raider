@@ -35,6 +35,11 @@ export default class MapManager {
     }
 
     this.enemySpawnPoints = []
+    this.store = {
+      items: [],
+      keeper: null,
+      prices: setPrices(this.map.properties)
+    }
 
     for (const objectLayer of this.map.objects) {
       for (const object of objectLayer.objects) {
@@ -97,6 +102,15 @@ function processObject (manager, object) {
     case EntityTypes.Door:
       manager.doors.push(assignPropertiesToObject(object.properties, object))
       break
+    case EntityTypes.Enemies.Ogre1:
+      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
+      break
+    case EntityTypes.StoreItem:
+      manager.store.items.push(assignPropertiesToObject(object.properties, object))
+      break
+    case EntityTypes.StoreKeeper:
+      manager.store.keeper = assignPropertiesToObject(object.properties, object)
+      break
     case EntityTypes.Loot.ArrowFireMultiple:
     case EntityTypes.Loot.ArrowFireSingle:
     case EntityTypes.Loot.ArrowMagicMultiple:
@@ -123,9 +137,6 @@ function processObject (manager, object) {
     case EntityTypes.Loot.WarHammer:
     case EntityTypes.Loot.WarHammerMagic:
       manager.loot.push(assignPropertiesToObject(object.properties, object))
-      break
-    case EntityTypes.Enemies.Ogre1:
-      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
       break
     default:
       console.warn(`Unknown object type: ${object.type}`)
@@ -197,4 +208,15 @@ function animateTile (scene, layer, tile, frame) {
     layer.putTileAt(nextFrame.tileid, tile.x, tile.y)
     animateTile(scene, layer, tile, nextFrame)
   })
+}
+
+function setPrices (properties) {
+  const prices = {}
+  properties.forEach(property => {
+    if (property.name.endsWith('Cost')) {
+      prices[property.name] = property.value
+    }
+  })
+
+  return prices
 }

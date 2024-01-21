@@ -15,15 +15,6 @@ export default class Exit extends Phaser.GameObjects.Sprite  {
     this.entityType = EntityTypes.Exit
     this.attributes = config.attributes
     this.scene.add.existing(this)
-    // this.shouldBeDead = false
-    // this.isDead = false
-    // this.animations = {}
-    // this.canAttack = true
-
-    // this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
-
-    // Register for the 'update
-    // this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
 
   didCollideWith (otherEntity) {

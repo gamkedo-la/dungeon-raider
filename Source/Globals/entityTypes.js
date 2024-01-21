@@ -8,6 +8,7 @@ export const ArmorShieldType = 'armorShield'
 export const CharacterType = 'character'
 export const DoorType = 'door'
 export const ExitType = 'exit'
+export const KeyType = 'key'
 export const LootArrowFireMultipleType = 'lootArrowFireMultiple'
 export const LootArrowFireSingleType = 'lootArrowFireSingle'
 export const LootArrowMagicMultipleType = 'lootArrowMagicMultiple'
@@ -40,8 +41,9 @@ export const LootShortBowType = 'lootShortBow'
 export const LootShortSwordType = 'lootShortSword'
 export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
-export const KeyType = 'key'
 export const Ogre1Type = 'ogre1'
+export const StoreItemType = 'storeItem'
+export const StoreKeeperType = 'storeKeeper'
 export const Tile = 'tile'
 export const WeaponArrowFireMultipleType = 'weaponArrowFireMultiple'
 export const WeaponArrowFireSingleType = 'weaponArrowFireSingle'
@@ -115,6 +117,8 @@ export default {
     WarHammerMagic: LootWarHammerMagicType,
     WarHammer: LootWarHammerType
   },
+  StoreItem: StoreItemType,
+  StoreKeeper: StoreKeeperType,
   Tile: Tile,
   Weapons: {
     ArrowFireMultiple: WeaponArrowFireMultipleType,
