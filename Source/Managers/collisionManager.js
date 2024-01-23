@@ -17,6 +17,7 @@ export default class CollisionManager {
     this.scene.physics.add.collider(this.characterGroup, this.doorGroup, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.doorGroup, this.enemyMapCollision, this.enemyMapProcess, this)
+    this.scene.physics.add.collider(this.hitboxGroup, this.mapManager.layers.CollisionLayer, this.hitboxMapCollision, this.hitboxMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.hitboxGroup, this.characterHitboxOverlap, this.characterHitboxProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.hitboxGroup, this.enemyHitboxOverlap, this.enemyHitboxProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.characterGroup, this.characteCharacterOverlap, this.characteCharacterProcess, this)
@@ -67,6 +68,10 @@ export default class CollisionManager {
     return true
   }
 
+  hitboxMapProcess (hitbox, tile) {
+    return true
+  }
+
   characterHitboxProcess(character, hitbox) {
     return true
   }
@@ -86,6 +91,11 @@ export default class CollisionManager {
     tile.entityType = EntityTypes.Tile
     enemy.didCollideWith(tile)
     if (tile.didCollideWith) tile.didCollideWith(enemy) // tiles may not have a didCollideWith method
+  }
+
+  hitboxMapCollision(hitbox, tile) {
+    tile.entityType = EntityTypes.Tile
+    hitbox.didCollideWith(tile)
   }
 
   // Overlap Process Handlers - These are the same as Collision Process Handlers, but for Overlap events

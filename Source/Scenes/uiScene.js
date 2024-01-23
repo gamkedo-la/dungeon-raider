@@ -132,9 +132,9 @@ class UserInterface extends Phaser.Scene {
     let arrows = null
     let secondary = null
     if (characterClass === CharacterClasses.Archer) {
-      let arrowsText = `${characterAttributes.equippedArrowPrimary}: ${characterAttributes.getArrowQuantity(characterAttributes.equippedArrowPrimary, characterAttributes.availableArrows)}`
+      let arrowsText = `${characterAttributes.equippedArrowPrimary}: ${characterAttributes.getArrowQuantity(characterAttributes)}`
       if (characterAttributes.equippedArrowSecondary) {
-        arrowsText += `\n${characterAttributes.equippedArrowSecondary}: ${characterAttributes.getArrowQuantity(characterAttributes.equippedArrowSecondary, characterAttributes.availableArrows)}`
+        arrowsText += `\n${characterAttributes.equippedArrowSecondary}: ${characterAttributes.getArrowQuantity(characterAttributes)}`
       }
       arrows = new FontLabel(this, {
         x: leftPadding + playerFrame.x - (playerFrame.width / 2),
@@ -182,9 +182,9 @@ class UserInterface extends Phaser.Scene {
       playerUI.primary.updateTitle(`Primary: ${playerAttributes.primary.name}`)
 
       if (playerUI.arrows) {
-        let arrowsText = `${playerAttributes.equippedArrowPrimary}: ${playerAttributes.getArrowQuantity(playerAttributes.equippedArrowPrimary, playerAttributes.availableArrows)}`
+        let arrowsText = `${playerAttributes.equippedArrowPrimary}: ${playerAttributes.getArrowQuantity(playerAttributes)}`
         if (playerAttributes.equippedArrowSecondary) {
-            arrowsText += `\n${playerAttributes.equippedArrowSecondary}: ${playerAttributes.getArrowQuantity(playerAttributes.equippedArrowSecondary, playerAttributes.availableArrows)}`
+            arrowsText += `\n${playerAttributes.equippedArrowSecondary}: ${playerAttributes.getArrowQuantity(playerAttributes)}`
         }
 
         playerUI.arrows.updateTitle(`Arrows (${arrowsText})`)

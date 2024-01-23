@@ -1,4 +1,5 @@
-import { isMelee, isRanged } from '../../Globals/weaponAttributes.js'
+import { Arrows, isMelee, isRanged, usesArrows } from '../../Globals/weaponAttributes.js'
+import Projectile from './projectile.js'
 
 export default class Weapon {
 	constructor(config) {
@@ -9,7 +10,32 @@ export default class Weapon {
 	}
 
 	attack (user) {
-		console.log('Attacked with ', this.name)
+		if (isRanged(this)) {
+			this.rangedAttack(user)
+		}
+	}
+	
+	rangedAttack(user) {
+		if (usesArrows(this)) {
+			const scene = user.scene
+			const collisionManager = user.scene.collisionManager
+			const arrowData = Arrows[user.attributes.equippedArrowPrimary]
+
+			if (user.attributes.getArrowQuantity(user.attributes) === 0) {
+				return
+			}
+
+			const projectile = new Projectile(scene, {
+				projectileType: arrowData.name,
+				team: user.team,
+				damage: arrowData.damage
+			})
+			scene.add.existing(projectile)
+			collisionManager.addEntity(projectile, arrowData.radius)
+			
+			projectile.shoot(user.x, user.y, user.facing, arrowData.speed)
+			user.attributes.useArrow(user.attributes)
+		}
 	}
 
 	// meleeAttack(user) {
@@ -17,13 +43,5 @@ export default class Weapon {
 	// 	const hitbox = scene.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5)
 	// 	scene.physics.add.existing(hitbox)
 	// 	console.log('Melee Attack')
-	// }
-	
-	// rangedAttack(user) {
-	// 	const projectile = new Projectile(user.scene, { projectileType: 'arrowNormalSingle' })
-	// 	user.scene.add.existing(projectile)
-	// 	projectile.x = user.x + user.facing.x * 32.0
-	// 	projectile.y = user.y + user.facing.y * 32.0
-	// 	console.log('Ranged Attack')
 	// }
 }

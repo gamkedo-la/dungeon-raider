@@ -72,6 +72,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (this.attributes.health <= 0) {
       this.anims.play(this.animations.death, this)
       this.scene.enemyKilledBy(this, otherEntity)
+      this.shouldBeDead = true // temporary
     }
   }
 

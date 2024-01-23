@@ -4,6 +4,7 @@ import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
 import EnemyManager from "../../Managers/enemyManager.js"
+import { getLootForEnemy } from "../../Globals/enemyAttributes.js"
 import LootManager from "../../Managers/lootManager.js"
 import StoreManager from "../../Managers/storeManager.js"
 import Character from "../../Entities/Characters/character.js"
@@ -197,8 +198,10 @@ class GameLevel extends Phaser.Scene {
   }
 
   enemyKilledBy (enemy, otherEntity) {
-    const loot = getLootForEnemy(enemy)
-    otherEntity.addLoot(loot)
+    if (!!otherEntity) {
+			const loot = getLootForEnemy(enemy).loot
+			otherEntity.addLoot(loot)
+    }
   }
 
   characterExited (character) {
