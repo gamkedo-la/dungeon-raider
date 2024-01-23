@@ -735,7 +735,7 @@
                          "type":"int",
                          "value":8
                         }],
-                 "type":"lootSmallFood"
+                 "type":"lootFoodSmall"
                 }, 
                 {
                  "id":9,
@@ -753,7 +753,7 @@
                          "type":"int",
                          "value":16
                         }],
-                 "type":"lootLargeFood"
+                 "type":"lootFoodLarge"
                 }, 
                 {
                  "id":10,
