@@ -22,6 +22,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.depth = 10
     this.spriteSheet = spriteSheet
     this.entityType = EntityTypes.Character
+    this.team = config.player
     this.player = config.player
     this.race = config.race
     this.characterClass = config.characterClass

@@ -65,6 +65,7 @@ export const WeaponShortBowType = 'weaponShortBow'
 export const WeaponShortSwordType = 'weaponShortSword'
 export const WeaponWarHammerType = 'weaponWarHammer'
 export const WeaponWarHammerMagicType = 'weaponWarHammerMagic'
+export const Hitbox = 'hitbox'
 
 export default {
   Armor: {
@@ -142,6 +143,7 @@ export default {
     WarHammer: WeaponWarHammerType,
     WarHammerMagic: WeaponWarHammerMagicType
   },
+  Hitbox: Hitbox,
   isEnemy,
   isGold,
   isLoot,
@@ -253,4 +255,8 @@ export function isWeapon (entity) {
     default:
       return false
   }
+}
+
+export function isHitbox(entity) {
+	return entity.entityType === Hitbox
 }

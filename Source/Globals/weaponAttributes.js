@@ -25,11 +25,26 @@ export const WeaponNames = {
   Heal: 'Heal',
   HealAll: 'Heal All',
   TurnUndead: 'Turn Undead',
-  DestroyUndead: 'Destroy Undead',
+  DestroyUndead: 'Destroy Undead'
+}
+
+export const ArrowNames = {
   NormalArrows: 'Normal Arrows',
-  SilverArrows: 'Silver Arrows',
-  FireArrows: 'Fire Arrows',
-  MagicArrows: 'Magic Arrows'
+	SilverArrows: 'Silver Arrows',
+	FireArrows: 'Fire Arrows',
+	MagicArrows: 'Magic Arrows'
+}
+
+export const Arrows = {
+	'Normal': {
+		name: ArrowNames.NormalArrows,
+		damage: 1,
+		speed: 256,
+		radius: 12
+	},
+	'Silver': {},
+	'Fire': {},
+	'Magic': {}
 }
 
 const WeaponRanges = {
@@ -157,34 +172,6 @@ export const staff = new Weapon({
   speed: 2
 })
 
-export const normalArrows = new Weapon({
-  name: WeaponNames.NormalArrows,
-  range: WeaponRanges.Long,
-  damage: 0,
-  speed: 0
-})
-
-export const silverArrows = new Weapon({
-  name: WeaponNames.SilverArrows,
-  range: WeaponRanges.Long,
-  damage: 0,
-  speed: 0
-})
-
-export const fireArrows = new Weapon({
-  name: WeaponNames.FireArrows,
-  range: WeaponRanges.Long,
-  damage: 1,
-  speed: 0
-})
-
-export const magicArrows = new Weapon({
-  name: WeaponNames.MagicArrows,
-  range: WeaponRanges.Long,
-  damage: 2,
-  speed: 0
-})
-
 // Wand range and damage are per type of spell
 // export const wand = {
 //   name: WeaponNames.Wand,
@@ -259,13 +246,6 @@ export function isSpell (weapon) {
     weapon.name === WeaponNames.DestroyUndead
 }
 
-export function isArrow (weapon) {
-  return weapon.name === WeaponNames.NormalArrows ||
-    weapon.name === WeaponNames.SilverArrows ||
-    weapon.name === WeaponNames.FireArrows ||
-    weapon.name === WeaponNames.MagicArrows
-}
-
 export function isMelee (weapon) {
   return weapon.range === WeaponRanges.Melee
 }
@@ -282,13 +262,18 @@ export function isRanged (weapon) {
   return isShortRange(weapon) || isLongRange(weapon)
 }
 
+export function usesArrows (weapon) {
+	return weapon.name === WeaponNames.ShortBow ||
+		weapon.name === WeaponNames.LongBow ||
+		weapon.name === WeaponNames.Crossbow
+}
+
 export function isEdgedWeapon (weapon) {
   return weapon.name === WeaponNames.Dagger ||
     weapon.name === WeaponNames.ShortSword ||
     weapon.name === WeaponNames.LongSword ||
     weapon.name === WeaponNames.Axe ||
-    weapon.name === WeaponNames.BattleAxe ||
-    isArrow(weapon)
+    weapon.name === WeaponNames.BattleAxe
 }
 
 export function isBluntWeapon (weapon) {
@@ -336,11 +321,7 @@ export function canArcherUse (weapon) {
     weapon.name === WeaponNames.Fists ||
     weapon.name === WeaponNames.ShortBow ||
     weapon.name === WeaponNames.LongBow ||
-    weapon.name === WeaponNames.Crossbow ||
-    weapon.name === WeaponNames.NormalArrows ||
-    weapon.name === WeaponNames.SilverArrows ||
-    weapon.name === WeaponNames.FireArrows ||
-    weapon.name === WeaponNames.MagicArrows
+    weapon.name === WeaponNames.Crossbow
 }
 
 export function canMagiUse (weapon) {
@@ -429,14 +410,6 @@ export function getWeaponByName (name) {
       return turnUndead
     case WeaponNames.DestroyUndead:
       return destroyUndead
-    case WeaponNames.NormalArrows:
-      return normalArrows
-    case WeaponNames.SilverArrows:
-      return silverArrows
-    case WeaponNames.FireArrows:
-      return fireArrows
-    case WeaponNames.MagicArrows:
-      return magicArrows
     default:
       return none
   }
@@ -469,13 +442,8 @@ export default {
   HealAll: healAll,
   TurnUndead: turnUndead,
   DestroyUndead: destroyUndead,
-  NormalArrows: normalArrows,
-  SilverArrows: silverArrows,
-  FireArrows: fireArrows,
-  MagicArrows: magicArrows,
 
   isSpell,
-  isArrow,
   isMelee,
   isShortRange,
   isLongRange,

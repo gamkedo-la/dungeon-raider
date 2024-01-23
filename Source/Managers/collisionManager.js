@@ -1,4 +1,4 @@
-import EntityTypes, { isCharacter, isEnemy, isLoot } from '../Globals/entityTypes.js'
+import EntityTypes, { isCharacter, isEnemy, isLoot, isHitbox } from '../Globals/entityTypes.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -7,6 +7,7 @@ export default class CollisionManager {
 
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
+    this.hitboxGroup = this.scene.physics.add.group()
     this.doorGroup = this.scene.physics.add.staticGroup()
     this.exitGroup = this.scene.physics.add.staticGroup()
     this.lootGroup = this.scene.physics.add.staticGroup()
@@ -16,6 +17,8 @@ export default class CollisionManager {
     this.scene.physics.add.collider(this.characterGroup, this.doorGroup, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.doorGroup, this.enemyMapCollision, this.enemyMapProcess, this)
+    this.scene.physics.add.overlap(this.characterGroup, this.hitboxGroup, this.characterHitboxOverlap, this.characterHitboxProcess, this)
+    this.scene.physics.add.overlap(this.enemyGroup, this.hitboxGroup, this.enemyHitboxOverlap, this.enemyHitboxProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.characterGroup, this.characteCharacterOverlap, this.characteCharacterProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.enemyGroup, this.characterEnemyOverlap, this.characterEnemyProcess, this)
     this.scene.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.enemyEnemyOverlap, this.enemyEnemyProcess, this)
@@ -30,7 +33,9 @@ export default class CollisionManager {
       addEnemy(this, entityToAdd, radius)
     } else if (isCharacter(entityToAdd)) {
       addCharacter(this, entityToAdd, radius)
-    } else {
+    } else if (isHitbox(entityToAdd)) {
+			addHitbox(this, entityToAdd, radius)
+		} else {
       switch (entityToAdd.entityType) {
         case EntityTypes.Door:
           this.doorGroup.add(entityToAdd)
@@ -59,6 +64,14 @@ export default class CollisionManager {
   }
 
   enemyMapProcess (enemy, tile) {
+    return true
+  }
+
+  characterHitboxProcess(character, hitbox) {
+    return true
+  }
+
+  enemyHitboxProcess(enemy, hitbox) {
     return true
   }
 
@@ -97,6 +110,14 @@ export default class CollisionManager {
   }
 
   // Overlap Handlers - Phaser only notifies us that an overlap has occurred, but does not reposition entities
+  characterHitboxOverlap(character, hitbox) {
+    hitbox.didCollideWith(character)
+  }
+
+  enemyHitboxOverlap(enemy, hitbox) {
+    hitbox.didCollideWith(enemy)
+  }
+
   characteCharacterOverlap (character1, character2) {
     character1.x = character1.lastPosition.x
     character1.y = character1.lastPosition.y
@@ -149,4 +170,9 @@ function addLoot (manager, entityToAdd, radius = null) {
 function addEnemy (manager, entityToAdd, radius = null) {
   manager.enemyGroup.add(entityToAdd)
   if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+}
+
+function addHitbox(manager, entityToAdd, radius = null) {
+	manager.hitboxGroup.add(entityToAdd)
+  if (radius) entityToAdd.body.setCircle(radius, 0, 0)
 }
