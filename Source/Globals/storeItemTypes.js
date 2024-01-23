@@ -37,7 +37,7 @@ export default {
     ChainMail: StoreItemChainMailType,
     HalfPlateMail: StoreItemHalfPlateMailType,
     Helmet: StoreItemHelmetType,
-    LeatherArmor: StoreItemLeatherArmorType,
+    Leather: StoreItemLeatherArmorType,
     PlateMail: StoreItemPlateMailType,
     RingMail: StoreItemRingMailType,
     Shield: StoreItemShieldType

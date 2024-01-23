@@ -1,4 +1,11 @@
 // Exporting image keys individually allows us to reference them individually in the game
+// export const ArmorChainMailImage = 'armorChainMail'
+// export const ArmorHalfPlateMailImage = 'armorHalfPlateMail'
+// export const ArmorHelmetImage = 'armorHelmet'
+// export const ArmorLeatherImage = 'armorLeather'
+// export const ArmorPlateMailImage = 'armorPlateMail'
+// export const ArmorRingMailImage = 'armorRingMail'
+// export const ArmorShieldImage = 'armorShield'
 export const ArrowFireSingleImage = 'arrowFireSingle'
 export const ArrowFireMultipleImage = 'arrowFireMultiple'
 export const ArrowMagicSingleImage = 'arrowMagicSingle'
@@ -32,6 +39,13 @@ export const WeaponWarHammerMagicImage = 'weaponWarHammer'
 
 const ImageKeys = {
   // Including image keys here enables the Preloader to automatically load them for us
+  // ArmorChainMailImage,
+  // ArmorHalfPlateMailImage,
+  // ArmorHelmetImage,
+  // ArmorLeatherImage,
+  // ArmorPlateMailImage,
+  // ArmorRingMailImage,
+  // ArmorShieldImage,
   ArrowFireSingleImage,
   ArrowFireMultipleImage,
   ArrowMagicSingleImage,

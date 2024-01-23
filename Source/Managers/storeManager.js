@@ -115,8 +115,8 @@ function getImageForStoreItemType (storeItemType) {
       return ImageKeys.ArmorHalfPlateMailImage
     case StoreItemTypes.Armor.Helmet:
       return ImageKeys.ArmorHelmetImage
-    case StoreItemTypes.Armor.LeatherArmor:
-      return ImageKeys.ArmorLeatherArmorImage
+    case StoreItemTypes.Armor.Leather:
+      return ImageKeys.ArmorLeatherImage
     case StoreItemTypes.Armor.PlateMail:
       return ImageKeys.ArmorPlateMailImage
     case StoreItemTypes.Armor.RingMail:
