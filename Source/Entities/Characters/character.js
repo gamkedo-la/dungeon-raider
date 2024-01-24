@@ -428,7 +428,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y = 0
       this.shouldStartPrimaryAttack = true
       this.primaryAttackCoolingDown = true
-      this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
+      this.scene.time.delayedCall(this.attributes.attackCooldown + this.attributes.primary.speed, () => {
         this.primaryAttackCoolingDown = false
       })
     }
@@ -438,7 +438,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y = 0
       this.shouldStartSecondaryAttack = true
       this.secondaryAttackCoolingDown = true
-      this.scene.time.delayedCall(this.attributes.attackCooldown, () => {
+      this.scene.time.delayedCall(this.attributes.attackCooldown + this.attributes.secondary.speed, () => {
         this.secondaryAttackCoolingDown = false
       })
       // TODO: Restore this once there actually is a secondary attack animation
