@@ -334,7 +334,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   takeDamage (damage, damageType = 'normal') {
     // TODO: need to add damageType to the damage calculation (normal, silver, magic, fire, etc.)
     if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
-    this.attributes.health -= Math.max(damage - this.attributes.armor.defense, 0)
+    this.attributes.health -= Math.max(damage - this.attributes.armor.defense - (this.attributes.helmet?.defense || 0) - (this.attributes.shield?.defense || 0), 0)
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
       // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
