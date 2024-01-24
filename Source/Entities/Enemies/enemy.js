@@ -36,6 +36,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       return
     }
 
+    this.lastPosition = { x: this.x, y: this.y }
     this.pursueCharacters()
   }
 

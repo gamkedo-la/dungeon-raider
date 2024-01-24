@@ -12,57 +12,49 @@ export const ArmorNames = {
 export const plainClothes = {
   name: ArmorNames.PlainClothes,
   speedImpact: 0,
-  defense: 0,
-  cost: 0
+  defense: 0
 }
 
 export const leatherArmor = {
   name: ArmorNames.LeatherArmor,
-  speedImpact: -1,
-  defense: 1,
-  cost: 10
+  speedImpact: -5,
+  defense: 3
 }
 
 export const ringMail = {
   name: ArmorNames.RingMail,
-  speedImpact: -2,
-  defense: 2,
-  cost: 20
+  speedImpact: -10,
+  defense: 5
 }
 
 export const chainMail = {
   name: ArmorNames.ChainMail,
-  speedImpact: -3,
-  defense: 3,
-  cost: 30
+  speedImpact: -12,
+  defense: 8
 }
 
 export const halfPlate = {
   name: ArmorNames.HalfPlate,
-  speedImpact: -4,
-  defense: 4,
-  cost: 40
+  speedImpact: -15,
+  defense: 10
 }
 
 export const plateMail = {
   name: ArmorNames.PlateMail,
-  speedImpact: -5,
-  defense: 5,
-  cost: 50
+  speedImpact: -20,
+  defense: 15
 }
 
 export const shield = {
   name: ArmorNames.Shield,
   speedImpact: -1,
-  defense: 1,
-  cost: 10
+  defense: 3
 }
 
 export const helmet = {
   name: ArmorNames.Helmet,
   speedImpact: 0,
-  defense: 1,
-  cost: 10
+  defense: 1
 }
 
 export function canWarriorUse (armor) {

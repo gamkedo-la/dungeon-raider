@@ -331,9 +331,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
-  takeDamage (damage) {
+  takeDamage (damage, damageType = 'normal') {
+    // TODO: need to add damageType to the damage calculation (normal, silver, magic, fire, etc.)
     if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
-    this.attributes.health -= damage
+    this.attributes.health -= Math.max(damage - this.attributes.armor.defense, 0)
     if (this.attributes.health <= 0) {
       this.shouldBeDead = true
       // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
@@ -377,13 +378,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
       if (event.left.isDown) {
         this.body.velocity.x = 0
       } else {
-        this.body.velocity.x = this.attributes.runSpeed
+        this.body.velocity.x = this.attributes.runSpeed + this.attributes.armor.speedImpact
       }
     } else if (event.left.isDown) {
       if (event.right.isDown) {
         this.body.velocity.x = 0
       } else {
-        this.body.velocity.x = -this.attributes.runSpeed
+        this.body.velocity.x = -this.attributes.runSpeed + this.attributes.armor.speedImpact
       }
     } else {
       this.body.velocity.x = 0
@@ -393,7 +394,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       if (event.down.isDown) {
         this.body.velocity.y = 0
       } else {
-        this.body.velocity.y = -this.attributes.runSpeed
+        this.body.velocity.y = -this.attributes.runSpeed + this.attributes.armor.speedImpact
       }
     }
   
@@ -401,7 +402,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       if (event.up.isDown) {
         this.body.velocity.y = 0
       } else {
-        this.body.velocity.y = this.attributes.runSpeed
+        this.body.velocity.y = this.attributes.runSpeed + this.attributes.armor.speedImpact
       }
     }
 
