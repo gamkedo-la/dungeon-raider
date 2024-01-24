@@ -10,7 +10,6 @@ export const DoorType = 'door'
 export const EnemyOgre1Type = 'ogre1'
 export const EnemySkeleton1Type = 'skeleton1'
 export const ExitType = 'exit'
-export const Hitbox = 'hitbox'
 export const KeyType = 'key'
 export const LootArrowFireMultipleType = 'lootArrowFireMultiple'
 export const LootArrowFireSingleType = 'lootArrowFireSingle'
@@ -85,7 +84,6 @@ export default {
     Skeleton1: EnemySkeleton1Type
   },
   Exit: ExitType,
-  Hitbox: Hitbox,
   Loot: {
     ArrowFireMultiple: LootArrowFireMultipleType,
     ArrowFireSingle: LootArrowFireSingleType,
@@ -261,5 +259,13 @@ export function isWeapon (entity) {
 }
 
 export function isHitbox(entity) {
-	return entity.entityType === Hitbox
+	switch (entity.entityType) {
+		case WeaponArrowNormalSingleType:
+		case WeaponArrowFireSingleType:
+		case WeaponArrowSilverSingleType:
+		case WeaponArrowMagicSingleType:
+			return true
+		default:
+			return false
+	}
 }

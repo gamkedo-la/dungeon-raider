@@ -9,10 +9,10 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 		super(scene, 0, 0, spriteSheet, frame)
 
 		this.scene = scene
-    this.entityType = EntityTypes.Hitbox
+		this.projectileType = config.projectileType
+    this.entityType = getEntityType(config.projectileType)
 		this.team = config.team
 		this.damage = config.damage
-		this.projectileType = config.projectileType
 		this.range = config.range
 		this.distance = getDistanceForRange(this.range)
 
@@ -66,5 +66,18 @@ function getSpritesheet (type) {
 			return ArrowSilverSingleImage
 		case ArrowNames.MagicArrows:
 			return ArrowMagicSingleImage
+	}
+}
+
+function getEntityType (projectileType) {
+	switch (projectileType) {
+		case ArrowNames.NormalArrows:
+			return EntityTypes.Weapons.ArrowNormalSingle
+		case ArrowNames.FireArrows:
+			return EntityTypes.Weapons.ArrowFireSingle
+		case ArrowNames.SilverArrows:
+			return EntityTypes.Weapons.ArrowSilverSingle
+		case ArrowNames.MagicArrows:
+			return EntityTypes.Weapons.ArrowMagicSingle
 	}
 }
