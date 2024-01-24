@@ -1449,6 +1449,24 @@
                  "width":32,
                  "x":799.333333333333,
                  "y":383.333333333333
+                }, 
+                {
+                 "gid":1055,
+                 "height":32,
+                 "id":48,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"skeleton1",
+                 "visible":true,
+                 "width":32,
+                 "x":478.666666666667,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1518,7 +1536,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":48,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1833,7 +1851,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":30,
+         "tilecount":31,
          "tileheight":64,
          "tiles":[
                 {
@@ -2530,6 +2548,19 @@
                          "value":false
                         }],
                  "type":"storeItem"
+                }, 
+                {
+                 "id":30,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Skeleton1.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "type":"skeleton1"
                 }],
          "tilewidth":32
         }],

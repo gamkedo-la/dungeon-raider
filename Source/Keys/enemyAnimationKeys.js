@@ -31,8 +31,42 @@ export const Ogre1Animations = {
   }
 }
 
+export const Skeleton1Animations = {
+  idle: {
+    key: 'skeleton1-idle-animation',
+    frames: [0, 1],
+    props: { frameRate: 1, repeat: -1 }
+  },
+  walk: {
+    key: 'skeleton1-walk-animation',
+    frames: [2, 3, 4, 5],
+    props: { frameRate: 8, repeat: -1 }
+  },
+  primary: {
+    key: 'skeleton1-attack-animation',
+    frames: [6, 7, 8, 9],
+    props: { frameRate: 8, repeat: 0 }
+  },
+  injured: {
+    key: 'skeleton1-injured-animation',
+    frames: [14, 15],
+    props: { frameRate: 1, repeat: 0 }
+  },
+  death: {
+    key: 'skeleton1-death-animation',
+    frames: [16, 17, 18, 19],
+    props: { frameRate: 8, repeat: 0 }
+  },
+  dead: {
+    key: 'skeleton1-dead-animation',
+    frames: [20],
+    props: { frameRate: 1, repeat: 0 }
+  }
+}
+
 const EnemyAnimations = {
-  Ogre1: Ogre1Animations
+  Ogre1: Ogre1Animations,
+  Skeleton1: Skeleton1Animations
 }
 
 export default EnemyAnimations

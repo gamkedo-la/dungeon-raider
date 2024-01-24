@@ -105,6 +105,9 @@ function processObject (manager, object) {
     case EntityTypes.Enemies.Ogre1:
       manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
       break
+    case EntityTypes.Enemies.Skeleton1:
+      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
+      break
     case EntityTypes.StoreItem:
       manager.store.items.push(assignPropertiesToObject(object.properties, object))
       break

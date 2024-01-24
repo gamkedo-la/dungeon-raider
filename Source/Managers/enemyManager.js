@@ -1,6 +1,7 @@
 import EntityTypes from '../Globals/entityTypes.js'
 import { getAttributesForEnemy } from '../Globals/enemyAttributes.js'
 import Ogre1 from '../Entities/Enemies/ogre1.js'
+import Skeleton1 from '../Entities/Enemies/skeleton1.js'
 
 export default class EnemyManager {
   constructor (scene, mapManager, collisionManager, gameManager) {
@@ -27,16 +28,20 @@ export default class EnemyManager {
     if (config.minCharacterCount > this.characterCount) return
     const EnemyTypes = EntityTypes.Enemies
 
+    let newEnemy = null
     switch (entityType) {
       case EnemyTypes.Ogre1:
-        const newOgre = new Ogre1(this.scene, config)
-        this.collisionManager.addEntity(newOgre, newOgre.attributes.radius)
-        this.scene.add.existing(newOgre)
-        this.enemies.push(newOgre)
+        newEnemy = new Ogre1(this.scene, config)
         break
       case EnemyTypes.Skeleton1:
+        newEnemy = new Skeleton1(this.scene, config)
         break
     }
+
+    this.collisionManager.addEntity(newEnemy, newEnemy.attributes.radius)
+    this.scene.add.existing(newEnemy)
+    this.enemies.push(newEnemy)
+
   }
 
   shutdown () {

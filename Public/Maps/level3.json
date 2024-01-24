@@ -557,7 +557,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":30,
+         "tilecount":31,
          "tileheight":64,
          "tiles":[
                 {
@@ -1254,6 +1254,19 @@
                          "value":false
                         }],
                  "type":"storeItem"
+                }, 
+                {
+                 "id":30,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Skeleton1.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "type":"skeleton1"
                 }],
          "tilewidth":32
         }],
