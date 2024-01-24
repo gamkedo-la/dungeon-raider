@@ -39,9 +39,27 @@ export const Ogre1Attributes = {
   range: 32
 }
 
+export const Skeleton1Attributes = {
+  health: 50,
+  loot: {
+    probability: 0.5,
+    gold: {
+      probability: 0.55,
+      min: 1,
+      max: 100
+    }
+  },
+  damage: 10,
+  attackCooldown: 1000,
+  runSpeed: 25,
+  radius: 12,
+  range: 32
+}
+
 export function getAttributesForEnemy (enemy) {
   switch (enemy.type) {
-    case EntityTypes.Enemies.Ogre1: return Ogre1Attributes
+    case EntityTypes.Enemies.Ogre1: return Ogre1Attributes.loot
+    case EntityTypes.Enemies.Skeleton1: return Skeleton1Attributes.loot
     default:
       console.warn(`Unknown enemy type: ${enemy.entityType}`)
       return Ogre1Attributes
@@ -51,6 +69,7 @@ export function getAttributesForEnemy (enemy) {
 export function getLootForEnemy (enemy) {
   switch (enemy.entityType) {
     case EntityTypes.Enemies.Ogre1: return Ogre1Attributes
+    case EntityTypes.Enemies.Skeleton1: return Skeleton1Attributes
     default:
       console.warn(`Unknown enemy type: ${enemy.entityType}`)
       return Ogre1Attributes

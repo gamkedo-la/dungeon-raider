@@ -34,6 +34,8 @@ export default class EnemyManager {
         this.scene.add.existing(newOgre)
         this.enemies.push(newOgre)
         break
+      case EnemyTypes.Skeleton1:
+        break
     }
   }
 

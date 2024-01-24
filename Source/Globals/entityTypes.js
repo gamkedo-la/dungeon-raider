@@ -7,6 +7,8 @@ export const ArmorRingMailType = 'armorRingMail'
 export const ArmorShieldType = 'armorShield'
 export const CharacterType = 'character'
 export const DoorType = 'door'
+export const EnemyOgre1Type = 'ogre1'
+export const EnemySkeleton1Type = 'skeleton1'
 export const ExitType = 'exit'
 export const Hitbox = 'hitbox'
 export const KeyType = 'key'
@@ -42,7 +44,6 @@ export const LootShortBowType = 'lootShortBow'
 export const LootShortSwordType = 'lootShortSword'
 export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
-export const Ogre1Type = 'ogre1'
 export const StoreItemType = 'storeItem'
 export const StoreKeeperType = 'storeKeeper'
 export const Tile = 'tile'
@@ -80,7 +81,8 @@ export default {
   Character: CharacterType,
   Door: DoorType,
   Enemies: {
-    Ogre1: Ogre1Type,
+    Ogre1: EnemyOgre1Type,
+    Skeleton1: EnemySkeleton1Type
   },
   Exit: ExitType,
   Hitbox: Hitbox,
@@ -161,7 +163,8 @@ export function isCharacter (entity) {
 
 export function isEnemy (entity) {
   switch (entity.entityType) {
-    case Ogre1Type:
+    case EnemyOgre1Type:
+    case EnemySkeleton1Type:
       return true
     default:
       return false

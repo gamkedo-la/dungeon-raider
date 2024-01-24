@@ -1,13 +1,13 @@
 import Enemy from './enemy.js'
-import { Ogre1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.js'
-import { EnemyOgre1Type } from '../../Globals/entityTypes.js'
-import { Ogre1Animations } from '../../Keys/enemyAnimationKeys.js'
+import { Skeleton1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.js'
+import { EnemySkeleton1Type } from '../../Globals/entityTypes.js'
+import { Skeleton1Animations } from '../../Keys/enemyAnimationKeys.js'
 
-export default class Ogre1 extends Enemy {
+export default class Skeleton1 extends Enemy {
   constructor (scene, config) {
     const spriteSheet = getSpriteSheet()
     config.spriteSheet = spriteSheet
-    config.entityType = EnemyOgre1Type
+    config.entityType = EnemySkeleton1Type
     super(scene, config)
 
     this.buildAnimations()
@@ -15,7 +15,7 @@ export default class Ogre1 extends Enemy {
   }
 
   buildAnimations () {
-    super.buildAnimations(Ogre1Animations)
+    super.buildAnimations(Skeleton1Animations)
   }
 
   didCollideWith (otherEntity) {
@@ -25,5 +25,5 @@ export default class Ogre1 extends Enemy {
 }
 
 function getSpriteSheet () {
-  return Ogre1SpriteSheet
+  return Skeleton1SpriteSheet
 }
