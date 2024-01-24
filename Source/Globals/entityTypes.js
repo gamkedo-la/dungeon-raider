@@ -8,6 +8,7 @@ export const ArmorShieldType = 'armorShield'
 export const CharacterType = 'character'
 export const DoorType = 'door'
 export const ExitType = 'exit'
+export const Hitbox = 'hitbox'
 export const KeyType = 'key'
 export const LootArrowFireMultipleType = 'lootArrowFireMultiple'
 export const LootArrowFireSingleType = 'lootArrowFireSingle'
@@ -65,7 +66,6 @@ export const WeaponShortBowType = 'weaponShortBow'
 export const WeaponShortSwordType = 'weaponShortSword'
 export const WeaponWarHammerType = 'weaponWarHammer'
 export const WeaponWarHammerMagicType = 'weaponWarHammerMagic'
-export const Hitbox = 'hitbox'
 
 export default {
   Armor: {
@@ -83,6 +83,7 @@ export default {
     Ogre1: Ogre1Type,
   },
   Exit: ExitType,
+  Hitbox: Hitbox,
   Loot: {
     ArrowFireMultiple: LootArrowFireMultipleType,
     ArrowFireSingle: LootArrowFireSingleType,
@@ -143,7 +144,6 @@ export default {
     WarHammer: WeaponWarHammerType,
     WarHammerMagic: WeaponWarHammerMagicType
   },
-  Hitbox: Hitbox,
   isEnemy,
   isGold,
   isLoot,

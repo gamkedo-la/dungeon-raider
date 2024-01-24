@@ -172,7 +172,7 @@ function addCharacter (manager, entityToAdd, radius = null) {
 function addLoot (manager, entityToAdd, radius = null) {
   manager.lootGroup.add(entityToAdd)
   if (radius) {
-    if (entityToAdd.radius < 16) entityToAdd.body.setOffset(16 - entityToAdd.radius, 16 - entityToAdd.radius)
+    if (entityToAdd.radius < entityToAdd.width / 2) entityToAdd.body.setOffset(entityToAdd.width / 2 - entityToAdd.radius, entityToAdd.width / 2 - entityToAdd.radius)
     entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
   }
 }
@@ -184,5 +184,5 @@ function addEnemy (manager, entityToAdd, radius = null) {
 
 function addHitbox(manager, entityToAdd, radius = null) {
 	manager.hitboxGroup.add(entityToAdd)
-  if (radius) entityToAdd.body.setCircle(radius, 0, 0)
+  if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
 }
