@@ -63,113 +63,113 @@ export const none = new Weapon({
 export const fists = new Weapon({
   name: WeaponNames.Fists,
   range: WeaponRanges.Melee,
-  damage: 1,
-  speed: 1
+  damage: 10,
+  speed: 400
 })
 
 export const dagger = new Weapon({
   name: WeaponNames.Dagger,
   range: WeaponRanges.Melee,
-  damage: 2,
-  speed: 1
+  damage: 25,
+  speed: 400
 })
 
 export const shortSword = new Weapon({
   name: WeaponNames.ShortSword,
   range: WeaponRanges.Melee,
-  damage: 3,
-  speed: 2
+  damage: 30,
+  speed: 500
 })
 
 export const longSword = new Weapon({
   name: WeaponNames.LongSword,
   range: WeaponRanges.Melee,
-  damage: 4,
-  speed: 3
+  damage: 40,
+  speed: 600
 })
 
 export const axe = new Weapon({
   name: WeaponNames.Axe,
   range: WeaponRanges.Melee,
-  damage: 3,
-  speed: 2
+  damage: 30,
+  speed: 500
 })
 
 export const battleAxe = new Weapon({
   name: WeaponNames.BattleAxe,
   range: WeaponRanges.Melee,
-  damage: 4,
-  speed: 3
+  damage: 40,
+  speed: 600
 })
 
 export const mace = new Weapon({
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
-  damage: 3,
-  speed: 2
+  damage: 30,
+  speed: 500
 })
 
 export const flangedMace = new Weapon({
   name: WeaponNames.FlangedMace,
   range: WeaponRanges.Melee,
-  damage: 4,
-  speed: 3
+  damage: 40,
+  speed: 600
 })
 
 export const hammer = new Weapon({
   name: WeaponNames.Hammer,
   range: WeaponRanges.Melee,
-  damage: 3,
-  speed: 2
+  damage: 30,
+  speed: 500
 })
 
 export const hammerMagic = new Weapon({
   name: WeaponNames.HammerMagic,
   range: WeaponRanges.Melee,
-  damage: 4,
-  speed: 2
+  damage: 40,
+  speed: 400
 })
 
 export const warHammer = new Weapon({
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
-  damage: 4,
-  speed: 3
+  damage: 40,
+  speed: 600
 })
 
 export const WarHammerMagic = new Weapon({
   name: WeaponNames.WarHammerMagic,
   range: WeaponRanges.Melee,
-  damage: 5,
-  speed: 3
+  damage: 50,
+  speed: 500
 })
 
 export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
-  damage: 2,
-  speed: 2
+  damage: 0,
+  speed: 400
 })
 
 export const longBow = new Weapon({
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
-  damage: 3,
-  speed: 3
+  damage: 0,
+  speed: 600
 })
 
 export const crossbow = new Weapon({
   name: WeaponNames.Crossbow,
   range: WeaponRanges.Long,
-  damage: 4,
-  speed: 4
+  damage: 0,
+  speed: 800
 })
 
 export const staff = new Weapon({
   name: WeaponNames.Staff,
   range: WeaponRanges.Melee,
-  damage: 2,
-  speed: 2
+  damage: 20,
+  speed: 400
 })
 
 // Wand range and damage are per type of spell
@@ -183,15 +183,15 @@ export const staff = new Weapon({
 export const magicArrow = new Weapon({
   name: WeaponNames.MagicArrow,
   range: WeaponRanges.Long,
-  damage: 3,
-  speed: 5,
+  damage: 30,
+  speed: 400,
   magicCost: 5
 })
 
 export const magicQuiver = new Weapon({
   name: WeaponNames.MagicQuiver,
   range: WeaponRanges.Long,
-  damage: 5,
+  damage: 50,
   speed: 7,
   magicCost: 10
 })
@@ -199,7 +199,7 @@ export const magicQuiver = new Weapon({
 export const fireBall = new Weapon({
   name: WeaponNames.FireBall,
   range: WeaponRanges.Long,
-  damage: 10,
+  damage: 100,
   speed: 10,
   magicCost: 20
 })
@@ -207,7 +207,7 @@ export const fireBall = new Weapon({
 export const heal = new Weapon({
   name: WeaponNames.Heal,
   range: WeaponRanges.Melee,
-  damage: -20,
+  damage: -40,
   speed: 5,
   magicCost: 5
 })
@@ -215,7 +215,7 @@ export const heal = new Weapon({
 export const healAll = new Weapon({
   name: WeaponNames.HealAll,
   range: WeaponRanges.Melee,
-  damage: -50,
+  damage: -100,
   speed: 10,
   magicCost: 20
 })
@@ -223,7 +223,7 @@ export const healAll = new Weapon({
 export const turnUndead = new Weapon({
   name: WeaponNames.TurnUndead,
   range: WeaponRanges.Short,
-  damage: 10,
+  damage: 100,
   speed: 5,
   magicCost: 10
 })
@@ -231,10 +231,21 @@ export const turnUndead = new Weapon({
 export const destroyUndead = new Weapon({
   name: WeaponNames.DestroyUndead,
   range: WeaponRanges.Short,
-  damage: 20,
+  damage: 200,
   speed: 10,
   magicCost: 20
 })
+
+export function getDistanceForRange (range) {
+	switch (range) {
+		case WeaponRanges.Melee:
+			return 32
+		case WeaponRanges.Short:
+			return 320
+		case WeaponRanges.Long:
+			return 640
+	}
+}
 
 export function isSpell (weapon) {
   return weapon.name === WeaponNames.MagicArrow ||

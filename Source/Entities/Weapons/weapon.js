@@ -7,12 +7,19 @@ export default class Weapon {
 		this.range = config.range
 		this.damage = config.damage
 		this.speed = config.speed
+		this.coolingDown = false
 	}
 
 	attack (user) {
+		if (this.coolingDown) return
+
 		if (isRanged(this)) {
 			this.rangedAttack(user)
 		}
+
+		user.scene.time.delayedCall(this.speed, () => {
+			this.coolingDown = false
+		})
 	}
 	
 	rangedAttack(user) {
@@ -28,7 +35,8 @@ export default class Weapon {
 			const projectile = new Projectile(scene, {
 				projectileType: arrowData.name,
 				team: user.team,
-				damage: arrowData.damage
+				damage: arrowData.damage,
+				range: this.range
 			})
 			scene.add.existing(projectile)
 			collisionManager.addEntity(projectile, arrowData.radius)
