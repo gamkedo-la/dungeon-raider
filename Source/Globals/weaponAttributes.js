@@ -147,21 +147,21 @@ export const WarHammerMagic = new Weapon({
 export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
-  damage: 0,
+  damage: -10,
   speed: 400
 })
 
 export const longBow = new Weapon({
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
-  damage: 0,
+  damage: 10,
   speed: 600
 })
 
 export const crossbow = new Weapon({
   name: WeaponNames.Crossbow,
   range: WeaponRanges.Long,
-  damage: 0,
+  damage: 30,
   speed: 800
 })
 
