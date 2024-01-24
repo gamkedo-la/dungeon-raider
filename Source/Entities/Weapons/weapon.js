@@ -35,7 +35,7 @@ export default class Weapon {
 			const projectile = new Projectile(scene, {
 				projectileType: arrowData.name,
 				team: user.team,
-				damage: arrowData.damage,
+				damage: arrowData.damage + this.damage + user.attributes.rangedDamage,
 				range: this.range
 			})
 			scene.add.existing(projectile)
