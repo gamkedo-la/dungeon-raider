@@ -178,7 +178,8 @@ function buildPlayerMarkerAnimations (preloader, playerKey) {
       key: markerAnimationData.key,
       frames: preloader.anims.generateFrameNumbers(PlayerMarkerSpriteSheet, { frames: markerAnimationData.frames }),
       frameRate: markerAnimationData.props.frameRate,
-      repeat: markerAnimationData.props.repeat
+      repeat: markerAnimationData.props.repeat,
+      yoyo: markerAnimationData.props.yoyo
     })
   }
 

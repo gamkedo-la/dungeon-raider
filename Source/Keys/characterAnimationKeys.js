@@ -457,25 +457,25 @@ export const DwarvenMagiAnimations = {
 export const Player1Marker = {
   key: 'player-1-marker',
   frames: [0, 1, 2, 3],
-  props: { frameRate: 8, repeat: -1 }
+  props: { frameRate: 4, repeat: -1, yoyo: true}
 }
 
 export const Player2Marker = {
   key: 'player-2-marker',
   frames: [4, 5, 6, 7],
-  props: { frameRate: 8, repeat: -1 }
+  props: { frameRate: 4, repeat: -1, yoyo: true }
 }
 
 export const Player3Marker = {
   key: 'player-3-marker',
   frames: [8, 9, 10, 11],
-  props: { frameRate: 8, repeat: -1 }
+  props: { frameRate: 4, repeat: -1, yoyo: true }
 }
 
 export const Player4Marker = {
   key: 'player-4-marker',
   frames: [12, 13, 14, 15],
-  props: { frameRate: 8, repeat: -1 }
+  props: { frameRate: 4, repeat: -1, yoyo: true }
 }
 
 const CharacterAnimations = {
