@@ -54,6 +54,7 @@ export const WeaponArrowNormalMultipleType = 'weaponArrowNormalMultiple'
 export const WeaponArrowNormalSingleType = 'weaponArrowNormalSingle'
 export const WeaponArrowSilverMultipleType = 'weaponArrowSilverMultiple'
 export const WeaponArrowSilverSingleType = 'weaponArrowSilverSingle'
+export const WeaponFistsType = 'weaponFists'
 export const WeaponAxeType = 'weaponAxe'
 export const WeaponBattleAxeType = 'weaponBattleAxe'
 export const WeaponFlangedMaceType = 'weaponFlangedMace'
@@ -66,6 +67,7 @@ export const WeaponShortBowType = 'weaponShortBow'
 export const WeaponShortSwordType = 'weaponShortSword'
 export const WeaponWarHammerType = 'weaponWarHammer'
 export const WeaponWarHammerMagicType = 'weaponWarHammerMagic'
+export const WeaponDaggerType = 'weaponDagger'
 
 export default {
   Armor: {
@@ -258,12 +260,30 @@ export function isWeapon (entity) {
   }
 }
 
-export function isHitbox(entity) {
+export function isProjectile(entity) {
 	switch (entity.entityType) {
 		case WeaponArrowNormalSingleType:
 		case WeaponArrowFireSingleType:
 		case WeaponArrowSilverSingleType:
 		case WeaponArrowMagicSingleType:
+			return true
+		default:
+			return false
+	}
+}
+
+export function isHitArea(entity) {
+	switch (entity.entityType) {
+        case WeaponFistsType:
+        case WeaponDaggerType:
+		case WeaponShortSwordType:
+        case WeaponLongSwordType:
+        case WeaponAxeType:
+        case WeaponBattleAxeType:
+        case WeaponMaceType:
+        case WeaponFlangedMaceType:
+        case WeaponHammerType:
+        case WeaponWarHammerType:
 			return true
 		default:
 			return false

@@ -1,4 +1,6 @@
 import Weapon from '../Entities/Weapons/weapon.js'
+import { WeaponFistsType, WeaponDaggerType, WeaponShortSwordType, WeaponWarHammerMagicType, WeaponWarHammerType, WeaponHammerMagicType } from './entityTypes.js'
+import { WeaponHammerType, WeaponFlangedMaceType, WeaponMaceType, WeaponBattleAxeType, WeaponAxeType, WeaponLongSwordType } from './entityTypes.js'
 
 export const WeaponNames = {
   None: 'None',
@@ -55,7 +57,7 @@ const WeaponRanges = {
 
 export const none = new Weapon({
   name: WeaponNames.None,
-  range: WeaponRanges.Melee,
+  range: WeaponNames.None,
   damage: 0, // higher is better
   speed: 0 // lower is better
 })
@@ -64,84 +66,108 @@ export const fists = new Weapon({
   name: WeaponNames.Fists,
   range: WeaponRanges.Melee,
   damage: 10,
-  speed: 400
+  speed: 400,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponFistsType
 })
 
 export const dagger = new Weapon({
   name: WeaponNames.Dagger,
   range: WeaponRanges.Melee,
   damage: 25,
-  speed: 400
+  speed: 400,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponDaggerType
 })
 
 export const shortSword = new Weapon({
   name: WeaponNames.ShortSword,
   range: WeaponRanges.Melee,
   damage: 30,
-  speed: 500
+  speed: 200,
+	size: new Phaser.Math.Vector2(32, 48),
+	entityType: WeaponShortSwordType
 })
 
 export const longSword = new Weapon({
   name: WeaponNames.LongSword,
   range: WeaponRanges.Melee,
   damage: 40,
-  speed: 600
+  speed: 600,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponLongSwordType
 })
 
 export const axe = new Weapon({
   name: WeaponNames.Axe,
   range: WeaponRanges.Melee,
   damage: 30,
-  speed: 500
+  speed: 500,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponAxeType
 })
 
 export const battleAxe = new Weapon({
   name: WeaponNames.BattleAxe,
   range: WeaponRanges.Melee,
   damage: 40,
-  speed: 600
+  speed: 600,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponBattleAxeType
 })
 
 export const mace = new Weapon({
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
   damage: 30,
-  speed: 500
+  speed: 500,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponMaceType
 })
 
 export const flangedMace = new Weapon({
   name: WeaponNames.FlangedMace,
   range: WeaponRanges.Melee,
   damage: 40,
-  speed: 600
+  speed: 600,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponFlangedMaceType
 })
 
 export const hammer = new Weapon({
   name: WeaponNames.Hammer,
   range: WeaponRanges.Melee,
   damage: 30,
-  speed: 500
+  speed: 500,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponHammerType
 })
 
 export const hammerMagic = new Weapon({
   name: WeaponNames.HammerMagic,
   range: WeaponRanges.Melee,
   damage: 40,
-  speed: 400
+  speed: 400,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponHammerMagicType
 })
 
 export const warHammer = new Weapon({
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
   damage: 40,
-  speed: 600
+  speed: 600,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponWarHammerType
 })
 
 export const WarHammerMagic = new Weapon({
   name: WeaponNames.WarHammerMagic,
   range: WeaponRanges.Melee,
   damage: 50,
-  speed: 500
+  speed: 500,
+	size: new Phaser.Math.Vector2(32, 32),
+	entityType: WeaponWarHammerMagicType
 })
 
 export const shortBow = new Weapon({

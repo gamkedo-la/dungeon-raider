@@ -1,4 +1,4 @@
-import EntityTypes, { isCharacter, isEnemy, isLoot, isHitbox } from '../Globals/entityTypes.js'
+import EntityTypes, { isCharacter, isEnemy, isLoot, isProjectile, isHitArea } from '../Globals/entityTypes.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -34,8 +34,10 @@ export default class CollisionManager {
       addEnemy(this, entityToAdd, radius)
     } else if (isCharacter(entityToAdd)) {
       addCharacter(this, entityToAdd, radius)
-    } else if (isHitbox(entityToAdd)) {
-			addHitbox(this, entityToAdd, radius)
+    } else if (isProjectile(entityToAdd)) {
+			addProjectile(this, entityToAdd, radius)
+		} else if (isHitArea(entityToAdd)) {
+			addHitArea(this, entityToAdd, radius)
 		} else {
       switch (entityToAdd.entityType) {
         case EntityTypes.Door:
@@ -182,7 +184,11 @@ function addEnemy (manager, entityToAdd, radius = null) {
   if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
 }
 
-function addHitbox(manager, entityToAdd, radius = null) {
+function addProjectile(manager, entityToAdd, radius = null) {
 	manager.hitboxGroup.add(entityToAdd)
   if (radius) entityToAdd.body.setCircle(radius, (entityToAdd.width / 2) - radius, (entityToAdd.width / 2) - radius)
+}
+
+function addHitArea(manager, entityToAdd, radius = null) {
+	manager.hitboxGroup.add(entityToAdd)
 }

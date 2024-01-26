@@ -41,6 +41,7 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 		}
 
 		if (this.team != otherEntity.team) {
+			console.log('Dealt ', this.damage, ' damage')
 			otherEntity.takeDamage(this.damage)
 			this.destroy()
 		}
