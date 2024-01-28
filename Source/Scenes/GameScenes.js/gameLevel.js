@@ -1,5 +1,5 @@
 import SceneKeys from "../../Keys/sceneKeys.js"
-import AudioKeys, { AlertSound, GamePlayMusic } from "../../Keys/audioKeys.js"
+import AudioKeys, { AlertSound } from "../../Keys/audioKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
@@ -67,7 +67,6 @@ class GameLevel extends Phaser.Scene {
     this.debugGraphics = this.add.graphics()
     this.scene.launch(SceneKeys.UserInterface)
     this.mapManager.startTileAnimations()
-    this.sound.play(GamePlayMusic, { loop: AudioKeys[GamePlayMusic].loop, volume: AudioKeys[GamePlayMusic].volume })
     this.scene.bringToTop(SceneKeys.UserInterface)
   }
 

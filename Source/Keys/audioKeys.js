@@ -2,6 +2,7 @@
 export const AlertSound = 'alert_sound'
 export const DefeatTheHorde = 'defeat_the_horde'
 export const ExitInTime = 'exit_in_time'
+export const ExplorersMusic = 'music_explorers'
 export const FindTheExit = 'find_the_exit'
 export const FindTheKey = 'find_the_key'
 export const FindThePotion = 'find_the_potion'
@@ -34,6 +35,12 @@ const AudioKeys = {
     volume: 0.5,
     loop: false,
     type: 'voiceover'
+  },
+  [ExplorersMusic]: {
+    fileName: ExplorersMusic,
+    volume: 0.5,
+    loop: true,
+    type: 'music'
   },
   [FindTheExit]: {
     fileName: FindTheExit,

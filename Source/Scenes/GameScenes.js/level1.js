@@ -1,4 +1,5 @@
 import GameLevel from "./gameLevel.js"
+import AudioKeys, { GamePlayMusic } from "../../Keys/audioKeys.js"
 import { Level1Key } from "../../Keys/sceneKeys.js"
 import { Level1MapKey } from "../../Keys/mapKeys.js"
 
@@ -14,6 +15,7 @@ class Level1 extends GameLevel {
   create () {
     super.create()
     // Add any Level 1 specific stuff here, there may or may not be much since all of the levels will share most of the same functionality
+    this.sound.play(GamePlayMusic, { loop: AudioKeys[GamePlayMusic].loop, volume: AudioKeys[GamePlayMusic].volume })
   }
 
   update (time, delta) {
