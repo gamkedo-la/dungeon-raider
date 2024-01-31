@@ -59,17 +59,17 @@ export const ElvenArcherAnimations = {
   },
   injured: {
     key: 'elven-archer-injured-animation',
-    frames: [14, 15],
+    frames: [14],
     props: { frameRate: 1, repeat: 0 }
   },
   death: {
     key: 'elven-archer-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'elven-archer-dead-animation',
-    frames: [20],
+    frames: [19],
     props: { frameRate: 1, repeat: 0 }
   }
 }
