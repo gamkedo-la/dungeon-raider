@@ -204,12 +204,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (this.shouldStartPrimaryAttack) {
-      this.executePrimaryAttack()
-    } else if (this.shouldStartSecondaryAttack) {
-      this.executeSecondaryAttack()
-    }
-
     this.playerMarker.x = this.x
     this.playerMarker.y = this.y
     this.lastPosition.x = this.x
@@ -219,7 +213,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateAnimationsIfRequired () {
-    if (!this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
+    if (!this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack && !this.anims.currentAnim.key === this.animations.primary.key && !this.anims.currentAnim.key === this.animations.secondary.key) {
       if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
         this.anims.play(this.animations.walk, true)
       } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
@@ -260,9 +254,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
   animationComplete (animation, frame) {
     if (animation.key === this.animations.primary.key) {
       this.shouldStartPrimaryAttack = false
+      this.executePrimaryAttack()
       this.anims.play(this.animations.idle, true)
     } else if (animation.key === this.animations.secondary.key) {
       this.shouldStartSecondaryAttack = false
+      this.executeSecondaryAttack()
       this.anims.play(this.animations.idle, true)
     }
   }
@@ -453,7 +449,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   executePrimaryAttack () {
-    console.log(`Primary attack (${this.attributes.primary.name})`)
     this.shouldStartPrimaryAttack = false
     if (this.storeItem) {
       // Attempt to purchase the item
