@@ -35,6 +35,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 		this.currentState = CharacterStates.Moving
 
     this.facing = new Phaser.Math.Vector2(0.0, -1.0)
+		this.moveDirection = new Phaser.Math.Vector2(0.0, 0.0)
 
     this.animations = {}
 
@@ -226,11 +227,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateFacingDirectionIfRequired () {
-    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) return
+		if (this.moveDirection.x === 0 && this.moveDirection.y === 0) return
 
-    const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.body.velocity.x, this.body.velocity.y)
+    const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.moveDirection.x, this.moveDirection.y)
     this.angle = Phaser.Math.RadToDeg(angle)
-    this.facing = new Phaser.Math.Vector2(this.body.velocity.x, this.body.velocity.y).normalize()
+    this.facing = this.moveDirection.clone()
   }
 
   setInputManager (inputManager) {
@@ -368,37 +369,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
   useKeyboardInput (event) {
     if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
 
-    if (event.right.isDown) {
-      if (event.left.isDown) {
-        this.body.velocity.x = 0
-      } else {
-        this.body.velocity.x = this.attributes.runSpeed + this.attributes.armor.speedImpact
-      }
-    } else if (event.left.isDown) {
-      if (event.right.isDown) {
-        this.body.velocity.x = 0
-      } else {
-        this.body.velocity.x = -this.attributes.runSpeed + this.attributes.armor.speedImpact
-      }
-    } else {
-      this.body.velocity.x = 0
-    }
-  
-    if (event.up.isDown) {
-      if (event.down.isDown) {
-        this.body.velocity.y = 0
-      } else {
-        this.body.velocity.y = -this.attributes.runSpeed + this.attributes.armor.speedImpact
-      }
-    }
-  
-    if (event.down.isDown) {
-      if (event.up.isDown) {
-        this.body.velocity.y = 0
-      } else {
-        this.body.velocity.y = this.attributes.runSpeed + this.attributes.armor.speedImpact
-      }
-    }
+		this.moveDirection.x = event.right.isDown - event.left.isDown
+		this.moveDirection.y = event.down.isDown - event.up.isDown
+		this.moveDirection = this.moveDirection.normalize()
+
+		this.body.velocity.x = this.moveDirection.x * (this.attributes.runSpeed + this.attributes.armor.speedImpact)
+		this.body.velocity.y = this.moveDirection.y * (this.attributes.runSpeed + this.attributes.armor.speedImpact)
 
     if (this.body.velocity.x > 0 && ((this.x + (this.width / 2)) >= (this.scene.cameras.main.scrollX + this.scene.cameras.main.width))) {
       this.body.velocity.x = 0
@@ -412,11 +388,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y = 0
     }
 
-    if (this.body.velocity.x !== 0 && this.body.velocity.y !== 0) {
-      // 0.7071 is the sine/cosine of 45 degrees
-      this.body.velocity.x *= 0.7071
-      this.body.velocity.y *= 0.7071
-    }
+		if (event.primary.isDown || event.secondary.isDown) {
+			this.body.velocity.x = 0
+			this.body.velocity.y = 0
+		}
 
     if (event.primary.isDown && !this.primaryAttackCoolingDown && this.currentState === CharacterStates.Moving) {
       this.body.velocity.x = 0
