@@ -1,6 +1,6 @@
 import { CharacterSpriteSheets } from '../../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheet } from '../../Globals/playerMarkerSpriteSheetLoaderData.js'
-import { Races, CharacterClasses } from '../../Globals/characterAttributes.js'
+import { Races, CharacterClasses, CharacterStates } from '../../Globals/characterAttributes.js'
 import { getWeaponByName } from '../../Globals/weaponAttributes.js'
 import { getArmorByName } from '../../Globals/armorAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
@@ -32,6 +32,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.activeExit = null
     this.storeItem = null
 
+		this.currentState = CharacterStates.Moving
+
     this.facing = new Phaser.Math.Vector2(0.0, -1.0)
 
     this.animations = {}
@@ -53,8 +55,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.inputManager = null // input manager will be set by the Level Scene
     this.primaryAttackCoolingDown = false
     this.secondaryAttackCoolingDown = false
-    this.shouldStartPrimaryAttack = false
-    this.shouldStartSecondaryAttack = false
 
     this.attributes = config.attributes // see characterAttributes.js for the structure of this object
     if (this.characterClass !== CharacterClasses.Magi && this.characterClass !== CharacterClasses.Cleric) {
@@ -213,17 +213,15 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateAnimationsIfRequired () {
-    if (!this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack && !this.anims.currentAnim.key === this.animations.primary.key && !this.anims.currentAnim.key === this.animations.secondary.key) {
+    if (this.currentState === CharacterStates.Moving) {
       if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0)) {
         this.anims.play(this.animations.walk, true)
       } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
         this.anims.play(this.animations.idle, true)
       }
-    } else if (this.shouldStartPrimaryAttack) {
+    } else if (this.currentState === CharacterStates.Attacking) {
       this.anims.play(this.animations.primary, true)
-    } else if (this.shouldStartSecondaryAttack) {
-      // TODO: This should play the secondary attack animation, but there isn't one yet
-      this.anims.play(this.animations.primary, true)
+      // TODO: This should also play the weapon attack animation, but there isn't one yet
     }
   }
 
@@ -253,11 +251,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   animationComplete (animation, frame) {
     if (animation.key === this.animations.primary.key) {
-      this.shouldStartPrimaryAttack = false
+      this.currentState = CharacterStates.Moving
       this.executePrimaryAttack()
       this.anims.play(this.animations.idle, true)
     } else if (animation.key === this.animations.secondary.key) {
-      this.shouldStartSecondaryAttack = false
+      this.currentState = CharacterStates.Moving
       this.executeSecondaryAttack()
       this.anims.play(this.animations.idle, true)
     }
@@ -420,20 +418,20 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.body.velocity.y *= 0.7071
     }
 
-    if (event.primary.isDown && !this.primaryAttackCoolingDown && !this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
+    if (event.primary.isDown && !this.primaryAttackCoolingDown && this.currentState === CharacterStates.Moving) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
-      this.shouldStartPrimaryAttack = true
+			this.currentState = CharacterStates.Attacking
       this.primaryAttackCoolingDown = true
       this.scene.time.delayedCall(this.attributes.attackCooldown + this.attributes.primary.speed, () => {
         this.primaryAttackCoolingDown = false
       })
     }
 
-    if (event.secondary.isDown && !this.secondaryAttackCoolingDown && !this.shouldStartPrimaryAttack && !this.shouldStartSecondaryAttack) {
+    if (event.secondary.isDown && !this.secondaryAttackCoolingDown && this.currentState === CharacterStates.Moving) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
-      this.shouldStartSecondaryAttack = true
+			this.currentState = CharacterStates.Attacking
       this.secondaryAttackCoolingDown = true
       this.scene.time.delayedCall(this.attributes.attackCooldown + this.attributes.secondary.speed, () => {
         this.secondaryAttackCoolingDown = false
@@ -449,7 +447,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   executePrimaryAttack () {
-    this.shouldStartPrimaryAttack = false
     if (this.storeItem) {
       // Attempt to purchase the item
       this.scene.purchaseItem(this, this.storeItem)
@@ -461,7 +458,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   executeSecondaryAttack () {
     console.log(`Secondary attack (${this.attributes.secondary.name})`)
-    this.shouldStartSecondaryAttack = false
     if (this.storeItem) {
       // Attempt to purchase the item
       this.scene.purchaseItem(this, this.storeItem)

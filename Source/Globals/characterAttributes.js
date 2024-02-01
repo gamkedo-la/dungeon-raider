@@ -14,6 +14,11 @@ export const CharacterClasses = {
   Cleric: 'Cleric'
 }
 
+export const CharacterStates = {
+	Moving: 'moving',
+	Attacking: 'attacking'
+}
+
 export function getCharacterAttributes (race, characterClass) {
   const attributes = {
     runSpeed: 0,
