@@ -1055,7 +1055,7 @@
                         {
                          "name":"helmetAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"keyAllowed",
@@ -1065,7 +1065,7 @@
                         {
                          "name":"leatherArmorAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"longBowAllowed",
@@ -1095,7 +1095,7 @@
                         {
                          "name":"shieldAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"shortBowAllowed",
@@ -1122,7 +1122,7 @@
                  "visible":true,
                  "width":32,
                  "x":672,
-                 "y":384.667
+                 "y":385
                 }, 
                 {
                  "gid":1054,
@@ -1218,7 +1218,7 @@
                         {
                          "name":"helmetAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"keyAllowed",
@@ -1228,7 +1228,7 @@
                         {
                          "name":"leatherArmorAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"longBowAllowed",
@@ -1258,7 +1258,7 @@
                         {
                          "name":"shieldAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"shortBowAllowed",
@@ -1284,8 +1284,8 @@
                  "type":"storeItem",
                  "visible":true,
                  "width":32,
-                 "x":735.333,
-                 "y":384.667
+                 "x":736,
+                 "y":384
                 }, 
                 {
                  "gid":1054,
@@ -1381,7 +1381,7 @@
                         {
                          "name":"helmetAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"keyAllowed",
@@ -1391,7 +1391,7 @@
                         {
                          "name":"leatherArmorAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"longBowAllowed",
@@ -1421,7 +1421,7 @@
                         {
                          "name":"shieldAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"shortBowAllowed",
@@ -1447,8 +1447,8 @@
                  "type":"storeItem",
                  "visible":true,
                  "width":32,
-                 "x":799.333,
-                 "y":383.333
+                 "x":800,
+                 "y":384
                 }, 
                 {
                  "gid":1055,
@@ -1488,8 +1488,8 @@
                  "type":"lootHelmet",
                  "visible":true,
                  "width":32,
-                 "x":703.333,
-                 "y":127.333
+                 "x":704,
+                 "y":128
                 }, 
                 {
                  "gid":1057,
@@ -1511,7 +1511,7 @@
                  "type":"lootShield",
                  "visible":true,
                  "width":32,
-                 "x":766.667,
+                 "x":768,
                  "y":128
                 }, 
                 {
@@ -1534,8 +1534,8 @@
                  "type":"lootChainMail",
                  "visible":true,
                  "width":32,
-                 "x":703.333,
-                 "y":190.667
+                 "x":704,
+                 "y":192
                 }, 
                 {
                  "gid":1059,
@@ -1557,8 +1557,8 @@
                  "type":"lootLeatherArmor",
                  "visible":true,
                  "width":32,
-                 "x":767.333,
-                 "y":190
+                 "x":768,
+                 "y":192
                 }, 
                 {
                  "gid":1060,
@@ -1581,7 +1581,7 @@
                  "visible":true,
                  "width":32,
                  "x":704,
-                 "y":253.333
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2704,7 +2704,7 @@
                         {
                          "name":"helmetAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"keyAllowed",
@@ -2714,7 +2714,7 @@
                         {
                          "name":"leatherArmorAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"longBowAllowed",
@@ -2744,7 +2744,7 @@
                         {
                          "name":"shieldAllowed",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"shortBowAllowed",

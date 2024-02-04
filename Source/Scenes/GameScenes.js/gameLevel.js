@@ -177,8 +177,8 @@ class GameLevel extends Phaser.Scene {
     const minY = Math.min(...characterYs)
     const maxY = Math.max(...characterYs)
 
-    this.centerOfCharacters.x = (maxX + minX) / 2
-    this.centerOfCharacters.y = (maxY + minY) / 2
+    this.centerOfCharacters.x = Math.round((maxX + minX) / 2)
+    this.centerOfCharacters.y = Math.round((maxY + minY) / 2)
 
     if (this.cameras.main.zoom < 2) {
       if (Math.abs(maxX - minX) + this.characters[0].width <= this.cameras.main.width / this.cameras.main.zoom) {
