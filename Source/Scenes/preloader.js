@@ -181,8 +181,7 @@ function buildPlayerMarkerAnimations (preloader, playerKey) {
       repeat: markerAnimationData.props.repeat,
       yoyo: markerAnimationData.props.yoyo
     })
-  }
-
+}
 
 function buildAllEnemyAnimations (preloader) {
   for (const enemyType in EnemySpriteSheets) {

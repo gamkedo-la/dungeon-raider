@@ -5,6 +5,7 @@ import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
+import AudioKeys, { GameOverMusic } from "../Keys/audioKeys.js"
 
 class GameOver extends Phaser.Scene {
   constructor () {
@@ -31,6 +32,8 @@ class GameOver extends Phaser.Scene {
     for (const inputEvent in InputEventKeys) {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
+
+    this.sound.play(GameOverMusic, { loop: AudioKeys[GameOverMusic].loop, volume: AudioKeys[GameOverMusic].volume })
 
     new FontLabel(this, {
       x: this.game.canvas.width / 2 - 200,

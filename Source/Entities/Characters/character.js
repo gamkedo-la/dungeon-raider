@@ -7,9 +7,9 @@ import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
 import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
 import AudioKeys from '../../Keys/audioKeys.js'
-import { pickupCoinSound } from '../../Keys/audioKeys.js'
-import { pickupKeySound } from '../../Keys/audioKeys.js'
-import { exitSound } from '../../Keys/audioKeys.js'
+import { PickupCoinSound } from '../../Keys/audioKeys.js'
+import { PickupKeySound } from '../../Keys/audioKeys.js'
+import { ExitSound } from '../../Keys/audioKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -276,26 +276,26 @@ export default class Character extends Phaser.GameObjects.Sprite {
   collectedLoot (loot) {
     if (loot.attribute === 'health') {
       this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
-      this.sfx(pickupCoinSound)
+      this.sfx(PickupCoinSound)
     } else if (loot.attribute === 'magic') {
       this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
-      this.sfx(pickupKeySound)
+      this.sfx(PickupKeySound)
     } else if (loot.attribute === 'keys') {
       this.attributes.loot[loot.attribute] += loot.value
-      this.sfx(pickupKeySound)
+      this.sfx(PickupKeySound)
     } else if (loot.attribute === 'weapon') {
       this.attributes.availableEquipment.push(getWeaponByName(loot.name))
-      this.sfx(pickupCoinSound)
+      this.sfx(PickupCoinSound)
     } else if (loot.attribute === 'armor') {
       this.attributes.availableArmor.push(getArmorByName(loot.name))
-      this.sfx(pickupCoinSound)
+      this.sfx(PickupCoinSound)
     } else if (loot.attribute === 'arrows') {
       const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
       arrow.quantity += loot.value
-      this.sfx(pickupCoinSound)
+      this.sfx(PickupCoinSound)
     } else {
       this.attributes.loot[loot.attribute] += loot.value
-      this.sfx(pickupCoinSound)
+      this.sfx(PickupCoinSound)
     }
   }
 
@@ -316,7 +316,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else if (otherEntity.entityType === EntityTypes.Exit) {
       // reached an exit
       this.playerMarker.destroy()
-      if (!this.isExiting) this.sfx(exitSound) // play sound on 1st frame only
+      if (!this.isExiting) this.sfx(ExitSound) // play sound on 1st frame only
       this.isExiting = true
       this.activeExit = otherEntity
     } else if (otherEntity.entityType === EntityTypes.StoreItem) {
