@@ -10,7 +10,8 @@ const collisionTiles = [
   160, 161, 162, 163, 164, 165,
   192, 193, 194, 195,
   // 225, 257, 289, 321, 353, // animated vertical water tiles
-  
+  // 226, 258, 290, 322, 354, 386, 418, 450 // animated vertical acid tiles
+  // 227, 259, 291, 323, 355, 387, 419, 451, 483, 515, 547, 579, 611, 643, 675, 707 // animated vertical lava tiles
   40, // exit (so we get the collision event)
   72, // door
 
