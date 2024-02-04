@@ -93,18 +93,17 @@ export function canCharacterClassUse (characterClass, armor) {
 export function getArmorByName (name) {
   switch (name) {
     case ArmorNames.None:
-      return none
+      return plainClothes
     case ArmorNames.Cloth:
-      return cloth
-    case ArmorNames.Leather:
-      return leather
+      return plainClothes
+    case ArmorNames.LeatherArmor:
+      return leatherArmor
     case ArmorNames.ChainMail:
       return chainMail
     case ArmorNames.PlateMail:
       return plateMail
-    case ArmorNames.Magical:
-      return magical
     default:
+      console.warn(`Unknown armor name: ${name}`)
       return none
   }
 }

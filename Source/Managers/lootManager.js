@@ -1,5 +1,12 @@
 import { CharacterClasses } from '../Globals/characterAttributes.js'
 import EntityTypes from '../Globals/entityTypes.js'
+import ArmorChainMail from '../Entities/Loot/armorChainMail.js'
+// import ArmorHalfPlateMail from '../Entities/Loot/armorHalfPlateMail.js'
+import ArmorHelmet from '../Entities/Loot/armorHelmet.js'
+import ArmorLeather from '../Entities/Loot/armorLeather.js'
+// import ArmorPlateMail from '../Entities/Loot/armorPlateMail.js'
+import ArmorRingMail from '../Entities/Loot/armorRingMail.js'
+import ArmorShield from '../Entities/Loot/armorShield.js'
 import ArrowFireSingle from '../Entities/Loot/arrowFireSingle.js'
 import ArrowFireMultiple from '../Entities/Loot/arrowFireMultiple.js'
 import ArrowMagicSingle from '../Entities/Loot/arrowMagicSingle.js'
@@ -75,17 +82,24 @@ export default class LootManager {
       case LootTypes.ArrowSilverMultiple: return ArrowSilverMultiple
       case LootTypes.Axe: return Axe
       case LootTypes.BattleAxe: return BattleAxe
+      case LootTypes.ChainMail: return ArmorChainMail
       case LootTypes.FlangedMace: return FlangedMace
       case LootTypes.FoodLarge: return FoodLarge
       case LootTypes.FoodSmall: return FoodSmall
       case LootTypes.GoldPile: return GoldPile
       case LootTypes.GoldPiece: return GoldPiece
+      // case LootTypes.HalfPlateMail: return ArmorHalfPlateMail
       case LootTypes.Hammer: return Hammer
       case LootTypes.HammerMagic: return HammerMagic
+      case LootTypes.Helmet: return ArmorHelmet
       case LootTypes.Key: return Key
+      case LootTypes.LeatherArmor: return ArmorLeather
       case LootTypes.LongBow: return LongBow
       case LootTypes.LongSword: return LongSword
       case LootTypes.Mace: return Mace
+      // case LootTypes.PlateMail: return ArmorPlateMail
+      case LootTypes.RingMail: return ArmorRingMail
+      case LootTypes.Shield: return ArmorShield
       case LootTypes.ShortBow: return ShortBow
       case LootTypes.ShortSword: return ShortSword
       case LootTypes.WarHammer: return WarHammer
@@ -99,6 +113,9 @@ export default class LootManager {
       // case LootTypes.HalfPlateMail: return HalfPlateMail
       // case LootTypes.Helmet: return Helmet
       // case LootTypes.Shield: return Shield
+      default:
+        console.warn(`Unknown loot type: ${lootType}`)
+        break
     }
   }
 
@@ -138,6 +155,7 @@ function archerCanPickUp (loot) {
     case LootTypes.GoldPiece:
     case LootTypes.GoldPile:
     case LootTypes.Key:
+    case LootTypes.LeatherArmor:
     case LootTypes.LongBow:
     case LootTypes.ShortBow:
     case LootTypes.Character: // Any character can pick up a character's body

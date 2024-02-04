@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="49">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="54">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -116,7 +116,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="31" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="36" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -368,6 +368,41 @@
    </properties>
    <image width="32" height="32" source="ObjectImages/Skeleton1.png"/>
   </tile>
+  <tile id="31" type="lootHelmet">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorHelmet.png"/>
+  </tile>
+  <tile id="32" type="lootShield">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorShield.png"/>
+  </tile>
+  <tile id="33" type="lootChainMail">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorChainMail.png"/>
+  </tile>
+  <tile id="34" type="lootLeatherArmor">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorLeather.png"/>
+  </tile>
+  <tile id="35" type="lootRingMail">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorRingMail.png"/>
+  </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
   <data encoding="csv">
@@ -606,6 +641,11 @@
   <object id="46" gid="1054" x="735.333" y="384.667" width="32" height="64"/>
   <object id="47" gid="1054" x="799.333" y="383.333" width="32" height="64"/>
   <object id="48" gid="1055" x="478.667" y="544" width="32" height="32"/>
+  <object id="49" gid="1056" x="703.333" y="127.333" width="32" height="32"/>
+  <object id="50" gid="1057" x="766.667" y="128" width="32" height="32"/>
+  <object id="51" gid="1058" x="703.333" y="190.667" width="32" height="32"/>
+  <object id="52" gid="1059" x="767.333" y="190" width="32" height="32"/>
+  <object id="53" gid="1060" x="704" y="253.333" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

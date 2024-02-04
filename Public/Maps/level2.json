@@ -557,7 +557,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":31,
+         "tilecount":36,
          "tileheight":64,
          "tiles":[
                 {
@@ -1267,6 +1267,96 @@
                          "value":1
                         }],
                  "type":"skeleton1"
+                }, 
+                {
+                 "id":31,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorHelmet.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootHelmet"
+                }, 
+                {
+                 "id":32,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorShield.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootShield"
+                }, 
+                {
+                 "id":33,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorChainMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootChainMail"
+                }, 
+                {
+                 "id":34,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorLeather.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootLeatherArmor"
+                }, 
+                {
+                 "id":35,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorRingMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootRingMail"
                 }],
          "tilewidth":32
         }],

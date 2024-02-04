@@ -39,7 +39,7 @@
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="31" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="36" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <properties>
@@ -287,6 +287,41 @@
     <property name="minCharacterCount" type="int" value="1"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/Skeleton1.png"/>
+  </tile>
+  <tile id="31" type="lootHelmet">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorHelmet.png"/>
+  </tile>
+  <tile id="32" type="lootShield">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorShield.png"/>
+  </tile>
+  <tile id="33" type="lootChainMail">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorChainMail.png"/>
+  </tile>
+  <tile id="34" type="lootLeatherArmor">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorLeather.png"/>
+  </tile>
+  <tile id="35" type="lootRingMail">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorRingMail.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

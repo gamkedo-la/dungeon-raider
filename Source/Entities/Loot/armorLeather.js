@@ -5,7 +5,7 @@ import { ArmorNames } from '../../Globals/armorAttributes.js'
 export default class ArmorLeather extends Loot {
   static Loot = {
     attribute: 'armor',
-    name: ArmorNames.Leather,
+    name: ArmorNames.LeatherArmor,
     value: 1
   }
   constructor (scene, config) {

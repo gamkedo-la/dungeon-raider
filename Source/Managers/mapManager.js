@@ -124,17 +124,24 @@ function processObject (manager, object) {
     case EntityTypes.Loot.ArrowSilverSingle:
     case EntityTypes.Loot.Axe:
     case EntityTypes.Loot.BattleAxe:
+    case EntityTypes.Loot.ChainMail:
     case EntityTypes.Loot.FlangedMace:
     case EntityTypes.Loot.FoodLarge:
     case EntityTypes.Loot.FoodSmall:
     case EntityTypes.Loot.GoldPile:
     case EntityTypes.Loot.GoldPiece:
+    case EntityTypes.Loot.HalfPlateMail:
     case EntityTypes.Loot.Hammer:
     case EntityTypes.Loot.HammerMagic:
+    case EntityTypes.Loot.Helmet:
     case EntityTypes.Loot.Key:
+    case EntityTypes.Loot.LeatherArmor:
     case EntityTypes.Loot.LongBow:
     case EntityTypes.Loot.LongSword:
     case EntityTypes.Loot.Mace:
+    case EntityTypes.Loot.PlateMail:
+    case EntityTypes.Loot.RingMail:
+    case EntityTypes.Loot.Shield:
     case EntityTypes.Loot.ShortBow:
     case EntityTypes.Loot.ShortSword:
     case EntityTypes.Loot.WarHammer:
@@ -142,7 +149,7 @@ function processObject (manager, object) {
       manager.loot.push(assignPropertiesToObject(object.properties, object))
       break
     default:
-      console.warn(`Unknown object type: ${object.type}`)
+      console.warn(`Unknown Loot type: ${object.type}`)
       break
   }
 }
