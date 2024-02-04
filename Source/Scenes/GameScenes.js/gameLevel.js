@@ -22,6 +22,7 @@ class GameLevel extends Phaser.Scene {
     this.mapManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
     this.characters = []
+    this.centerOfCharacters = null
     this.deadCharacterCount = 0
     this.exitedCharacterCount = 0
     this.debugGraphics = null
@@ -58,6 +59,7 @@ class GameLevel extends Phaser.Scene {
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
     this.inputManager.registerForEvent(onPause, this.togglePause, this)
+    this.centerOfCharacters = new Phaser.GameObjects.GameObject(this, 0, 0)
 
     this.createCharacters()
     this.createExits()
@@ -126,6 +128,7 @@ class GameLevel extends Phaser.Scene {
       duration: 2000,
       ease: Phaser.Math.Easing.Quadratic.InOut,
       onComplete: () => {
+        this.cameras.main.startFollow(this.centerOfCharacters, true, 0.1, 0.1)
         for (const character of this.characters) {
           character.setInputManager(this.inputManager)
           character.levelDidStart()
@@ -161,19 +164,30 @@ class GameLevel extends Phaser.Scene {
       this.debugGraphics.clear()
     }
 
-    const characterXs = this.characters.map(character => character.x)
-    const characterYs = this.characters.map(character => character.y)
+    let characterXs = []
+    let characterYs = []
+    for (const character of this.characters) {
+      if (character.isDead) continue
+      characterXs.push(character.x)
+      characterYs.push(character.y)
+    }
+
     const minX = Math.min(...characterXs)
     const maxX = Math.max(...characterXs)
     const minY = Math.min(...characterYs)
     const maxY = Math.max(...characterYs)
 
-    if (Math.abs(maxX - minX) + this.characters[0].width <= this.cameras.main.width / this.cameras.main.zoom) {
-      this.cameras.main.centerOnX((maxX + minX) / 2)
-    }
+    this.centerOfCharacters.x = (maxX + minX) / 2
+    this.centerOfCharacters.y = (maxY + minY) / 2
 
-    if (Math.abs(maxY - minY) + this.characters[0].height <= this.cameras.main.height / this.cameras.main.zoom) {
-      this.cameras.main.centerOnY((maxY + minY) / 2)
+    if (this.cameras.main.zoom < 2) {
+      if (Math.abs(maxX - minX) + this.characters[0].width <= this.cameras.main.width / this.cameras.main.zoom) {
+        this.cameras.main.centerOnX((maxX + minX) / 2)
+      }
+
+      if (Math.abs(maxY - minY) + this.characters[0].height <= this.cameras.main.height / this.cameras.main.zoom) {
+        this.cameras.main.centerOnY((maxY + minY) / 2)
+      }
     }
 
     if (this.cameras.main.worldView.right !== 0 && this.cameras.main.worldView.bottom !== 0) {
