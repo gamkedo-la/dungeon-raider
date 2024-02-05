@@ -227,7 +227,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateFacingDirectionIfRequired () {
-		if (this.moveDirection.x === 0 && this.moveDirection.y === 0) return
+		if (this.isExiting || (this.moveDirection.x === 0 && this.moveDirection.y === 0)) return
 
     const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.moveDirection.x, this.moveDirection.y)
     this.angle = Phaser.Math.RadToDeg(angle)
