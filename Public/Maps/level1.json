@@ -1582,6 +1582,29 @@
                  "width":32,
                  "x":704,
                  "y":256
+                }, 
+                {
+                 "gid":1061,
+                 "height":32,
+                 "id":54,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"lootPlateMail",
+                 "visible":true,
+                 "width":32,
+                 "x":768.666666666667,
+                 "y":254.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1651,7 +1674,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":54,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -2070,7 +2093,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":36,
+         "tilecount":37,
          "tileheight":64,
          "tiles":[
                 {
@@ -2870,6 +2893,24 @@
                          "value":16
                         }],
                  "type":"lootRingMail"
+                }, 
+                {
+                 "id":36,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorPlateMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootPlateMail"
                 }],
          "tilewidth":32
         }],

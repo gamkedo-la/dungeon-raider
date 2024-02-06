@@ -4,7 +4,7 @@ import ArmorChainMail from '../Entities/Loot/armorChainMail.js'
 // import ArmorHalfPlateMail from '../Entities/Loot/armorHalfPlateMail.js'
 import ArmorHelmet from '../Entities/Loot/armorHelmet.js'
 import ArmorLeather from '../Entities/Loot/armorLeather.js'
-// import ArmorPlateMail from '../Entities/Loot/armorPlateMail.js'
+import ArmorPlateMail from '../Entities/Loot/armorPlateMail.js'
 import ArmorRingMail from '../Entities/Loot/armorRingMail.js'
 import ArmorShield from '../Entities/Loot/armorShield.js'
 import ArrowFireSingle from '../Entities/Loot/arrowFireSingle.js'
@@ -97,7 +97,7 @@ export default class LootManager {
       case LootTypes.LongBow: return LongBow
       case LootTypes.LongSword: return LongSword
       case LootTypes.Mace: return Mace
-      // case LootTypes.PlateMail: return ArmorPlateMail
+      case LootTypes.PlateMail: return ArmorPlateMail
       case LootTypes.RingMail: return ArmorRingMail
       case LootTypes.Shield: return ArmorShield
       case LootTypes.ShortBow: return ShortBow

@@ -3,7 +3,7 @@ export const ArmorChainMailImage = 'armorChainMail'
 // export const ArmorHalfPlateMailImage = 'armorHalfPlateMail'
 export const ArmorHelmetImage = 'armorHelmet'
 export const ArmorLeatherImage = 'armorLeather'
-// export const ArmorPlateMailImage = 'armorPlateMail'
+export const ArmorPlateMailImage = 'armorPlateMail'
 export const ArmorRingMailImage = 'armorRingMail'
 export const ArmorShieldImage = 'armorShield'
 export const ArrowFireSingleImage = 'arrowFireSingle'
@@ -43,7 +43,7 @@ const ImageKeys = {
   // ArmorHalfPlateMailImage,
   ArmorHelmetImage,
   ArmorLeatherImage,
-  // ArmorPlateMailImage,
+  ArmorPlateMailImage,
   ArmorRingMailImage,
   ArmorShieldImage,
   ArrowFireSingleImage,

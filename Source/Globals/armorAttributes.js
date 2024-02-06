@@ -100,8 +100,16 @@ export function getArmorByName (name) {
       return leatherArmor
     case ArmorNames.ChainMail:
       return chainMail
+    case ArmorNames.RingMail:
+      return ringMail
     case ArmorNames.PlateMail:
       return plateMail
+    case ArmorNames.HalfPlate:
+      return halfPlate
+    case ArmorNames.Shield:
+      return shield
+    case ArmorNames.Helmet:
+      return helmet
     default:
       console.warn(`Unknown armor name: ${name}`)
       return none

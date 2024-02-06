@@ -116,7 +116,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="36" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="37" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -402,6 +402,13 @@
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/armorRingMail.png"/>
+  </tile>
+  <tile id="36" type="lootPlateMail">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/armorPlateMail.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
