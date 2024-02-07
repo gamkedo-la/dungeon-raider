@@ -174,7 +174,8 @@ export const WarHammerMagic = new Weapon({
 export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
-  avatarSprite: ImageKeys.WeaponShortBowImage,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponShortBowImage, // bah! null here?
   damage: -10,
   speed: 100
 })

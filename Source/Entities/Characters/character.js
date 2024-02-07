@@ -46,7 +46,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
     this.buildPlayerMarker()
-    this.buildVisibleWeapon()
 
     // Set Input properties
     this.inputEvent = config.inputEvent
@@ -64,6 +63,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.characterClass !== CharacterClasses.Magi && this.characterClass !== CharacterClasses.Cleric) {
       this.attributes.magic = 0
     }
+
+    this.buildVisibleWeapon()
 
     this.maxHealth = this.attributes.maxHealth
     this.maxMagic = this.attributes.maxMagic
@@ -106,13 +107,21 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   // a sprite drawn on top of avatar (for swords, bows etc)
   buildVisibleWeapon () {
-    //console.log("creating visible weapon for player");
 
-    // FIXME this should use:
-    // this.attributes.primary.visibleWeaponSprite;
-    // but this.attributes is null at this exact moment
-    // todo: defer init or update sprite on weapon switch
-    let weaponSprite = ImageKeys.WeaponShortBowImage; 
+    console.log("buildVisibleWeapon");
+
+    // default in case there is missing data
+    let weaponSprite = ImageKeys.WeaponShortBowImage 
+
+    // do we have weapon data? FIXME: not found
+    if (this.attributes && this.attributes.primary &&
+        this.attributes.primary.visibleWeaponSprite) {
+        console.log("got weapon data!");
+        weaponSprite = this.attributes.primary.visibleWeaponSprite
+    } else {
+        console.log("player is missing weapon data: attributes.primary")
+        console.log(this.attributes.primary) // wtf????
+    }
 
     this.visibleWeapon = this.scene.add.sprite(this.x, this.y, weaponSprite)
     
