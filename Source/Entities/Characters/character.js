@@ -107,20 +107,19 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   // a sprite drawn on top of avatar (for swords, bows etc)
   buildVisibleWeapon () {
-
-    console.log("buildVisibleWeapon");
+    //console.log("buildVisibleWeapon");
 
     // default in case there is missing data
     let weaponSprite = ImageKeys.WeaponShortBowImage 
 
-    // do we have weapon data? FIXME: not found
+    // do we have weapon data?
     if (this.attributes && this.attributes.primary &&
         this.attributes.primary.visibleWeaponSprite) {
-        console.log("got weapon data!");
+        //console.log("got weapon data!"); // FINALLY! that was soooo hard to find! =(
         weaponSprite = this.attributes.primary.visibleWeaponSprite
     } else {
         console.log("player is missing weapon data: attributes.primary")
-        console.log(this.attributes.primary) // wtf????
+        console.log(this.attributes.primary) // ???? so frustrated
     }
 
     this.visibleWeapon = this.scene.add.sprite(this.x, this.y, weaponSprite)

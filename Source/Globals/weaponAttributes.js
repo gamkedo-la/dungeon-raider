@@ -175,7 +175,8 @@ export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
   // see character.js buildVisibleWeapon() function:
-  visibleWeaponSprite: ImageKeys.WeaponShortBowImage, // bah! null here?
+  // NOTE - new properties added here must be added to weapon constructor code too lol
+  visibleWeaponSprite: ImageKeys.WeaponShortBowImage,
   damage: -10,
   speed: 100
 })

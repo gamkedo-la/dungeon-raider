@@ -11,6 +11,7 @@ export default class Weapon {
 		this.speed = config.speed
 		this.size = config.size
 		this.entityType = config.entityType
+        this.visibleWeaponSprite = config.visibleWeaponSprite
 		this.coolingDown = false
 	}
 
