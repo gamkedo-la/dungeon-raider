@@ -1,6 +1,7 @@
 import Weapon from '../Entities/Weapons/weapon.js'
 import { WeaponFistsType, WeaponDaggerType, WeaponShortSwordType, WeaponWarHammerMagicType, WeaponWarHammerType, WeaponHammerMagicType } from './entityTypes.js'
 import { WeaponHammerType, WeaponFlangedMaceType, WeaponMaceType, WeaponBattleAxeType, WeaponAxeType, WeaponLongSwordType } from './entityTypes.js'
+import ImageKeys from "../Keys/imageKeys.js"
 
 export const WeaponNames = {
   None: 'None',
@@ -173,6 +174,7 @@ export const WarHammerMagic = new Weapon({
 export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
+  avatarSprite: ImageKeys.WeaponShortBowImage,
   damage: -10,
   speed: 100
 })

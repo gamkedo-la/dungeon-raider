@@ -10,6 +10,8 @@ import AudioKeys from '../../Keys/audioKeys.js'
 import { PickupCoinSound } from '../../Keys/audioKeys.js'
 import { PickupKeySound } from '../../Keys/audioKeys.js'
 import { ExitSound } from '../../Keys/audioKeys.js'
+import ImageKeys from "../../Keys/imageKeys.js"
+
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -35,7 +37,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 		this.currentState = CharacterStates.Moving
 
     this.facing = new Phaser.Math.Vector2(0.0, -1.0)
-		this.moveDirection = new Phaser.Math.Vector2(0.0, 0.0)
+	this.moveDirection = new Phaser.Math.Vector2(0.0, 0.0)
 
     this.animations = {}
 
@@ -44,6 +46,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
     this.buildPlayerMarker()
+    this.buildVisibleWeapon()
 
     // Set Input properties
     this.inputEvent = config.inputEvent
@@ -99,6 +102,26 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else {
       this.attributes.magic = 0
     }
+  }
+
+  // a sprite drawn on top of avatar (for swords, bows etc)
+  buildVisibleWeapon () {
+    //console.log("creating visible weapon for player");
+
+    // FIXME this should use:
+    // this.attributes.primary.visibleWeaponSprite;
+    // but this.attributes is null at this exact moment
+    // todo: defer init or update sprite on weapon switch
+    let weaponSprite = ImageKeys.WeaponShortBowImage; 
+
+    this.visibleWeapon = this.scene.add.sprite(this.x, this.y, weaponSprite)
+    
+    // idea: maybe we can parent to player? might avoid needing any logic in update()
+    // this.visibleWeapon = this.add.sprite(this.x, this.y, weaponSprite)
+    
+    // change to + 1 for above player sprite
+    this.visibleWeapon.depth = this.depth - 1 
+    
   }
 
   buildPlayerMarker () {
@@ -209,6 +232,27 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.playerMarker.y = this.y
     this.lastPosition.x = this.x
     this.lastPosition.y = this.y
+
+    if (this.visibleWeapon) {
+        // offset the weapon depending on facing direction 
+        // todo: (could a math.cos(facing.x) etc do it better?
+        let ofx = this.facing.x * 6
+        let ofy = this.facing.y * 6
+
+        // looks better not quite centered
+        if (this.facing.x>0) ofy -= 4
+        if (this.facing.x<0) ofy += 4
+        if (this.facing.y>0) ofx += 4
+        if (this.facing.y<0) ofx -= 4
+
+        this.visibleWeapon.x = this.x + ofx
+        this.visibleWeapon.y = this.y + ofy
+
+        // tilted a little (225 = straight ahead, 240 or 210 = nice little tilts)
+        // if we want a nice tilt, it needs to be inversed at times:
+        // needs +/- angle offset depending on facing dir
+        this.visibleWeapon.angle = this.angle + 225
+    }
 
     this.body.setVelocity(0, 0)
   }
