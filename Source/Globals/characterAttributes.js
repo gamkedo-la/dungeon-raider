@@ -94,7 +94,7 @@ const human = {
 
 const elf = {
   runSpeed: 200,
-  attackCooldown: 300,
+  attackCooldown: 400,
   health: 80,
   healthLossRate: 800,
   maxHealth: 80,
@@ -102,7 +102,7 @@ const elf = {
   magicRegen: 800,
   maxMagic: 20,
   meleeDamage: -3,
-  rangedDamage: 10,
+  rangedDamage: 5,
   armor: Armor.PlainClothes,
   availableArmor: [],
   primary: Weapons.Fists,
@@ -113,7 +113,7 @@ const elf = {
 
 const dwarven = {
   runSpeed: 70,
-  attackCooldown: 700,
+  attackCooldown: 600,
   health: 120,
   healthLossRate: 1200,
   maxHealth: 120,
@@ -121,7 +121,7 @@ const dwarven = {
   magicRegen: 1200,
   maxMagic: -20,
   meleeDamage: 3,
-  rangedDamage: -10,
+  rangedDamage: -5,
   armor: Armor.PlainClothes,
   availableArmor: [Armor.HalfPlate],
   primary: Weapons.Axe,

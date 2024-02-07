@@ -50,12 +50,12 @@ export const ElvenArcherAnimations = {
   primary: {
     key: 'elven-archer-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'elven-archer-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'elven-archer-injured-animation',
@@ -202,12 +202,12 @@ export const HumanArcherAnimations = {
   primary: {
     key: 'human-archer-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'human-archer-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'human-archer-injured-animation',
@@ -354,12 +354,12 @@ export const DwarvenArcherAnimations = {
   primary: {
     key: 'dwarven-archer-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'dwarven-archer-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'dwarven-archer-injured-animation',

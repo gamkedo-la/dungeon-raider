@@ -174,14 +174,14 @@ export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
   damage: -10,
-  speed: 400
+  speed: 100
 })
 
 export const longBow = new Weapon({
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
   damage: 10,
-  speed: 600
+  speed: 200
 })
 
 export const crossbow = new Weapon({
