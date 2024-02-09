@@ -1,8 +1,8 @@
-import { GameCompleteKey } from "../Keys/sceneKeys.js"
+import SceneKeys from '../Keys/sceneKeys.js'
 
 class GameComplete extends Phaser.Scene {
   constructor () {
-    super(GameCompleteKey)
+    super(SceneKeys.GameComplete)
   }
 
   preload () {

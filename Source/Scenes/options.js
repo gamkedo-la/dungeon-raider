@@ -1,4 +1,4 @@
-import { OptionsKey, TitleKey } from "../Keys/sceneKeys.js"
+import SceneKeys from "../Keys/sceneKeys.js"
 import Title from "./title.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
@@ -8,7 +8,7 @@ import UIAttributes from "../Globals/uiAttributes.js"
 
 class Options extends Phaser.Scene {
   constructor () {
-    super(OptionsKey)
+    super(SceneKeys.Options)
   }
 
   preload () {
@@ -51,7 +51,7 @@ class Options extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
-        this.scene.add(TitleKey, new Title(), true)
+        this.scene.add(SceneKeys.Title, new Title(), true)
         this.scene.stop(this.scene.key)
       }
     }

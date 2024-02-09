@@ -1,4 +1,4 @@
-import { GameOverKey, TitleKey } from "../Keys/sceneKeys.js"
+import SceneKeys from '../Keys/sceneKeys.js'
 import Title from "./title.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
@@ -9,7 +9,7 @@ import AudioKeys, { GameOverMusic } from "../Keys/audioKeys.js"
 
 class GameOver extends Phaser.Scene {
   constructor () {
-    super(GameOverKey)
+    super(SceneKeys.GameOver)
   }
 
   preload () {
@@ -62,7 +62,7 @@ class GameOver extends Phaser.Scene {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
         // TODO: We need to clear all the Player & Character data so a new game can be started
-        this.scene.add(TitleKey, new Title(), true)
+        this.scene.add(SceneKeys.Title, new Title(), true)
         this.scene.stop(this.scene.key)
       }
     }

@@ -1,4 +1,4 @@
-import { CreditsKey, TitleKey } from "../Keys/sceneKeys.js"
+import SceneKeys from '../Keys/sceneKeys.js'
 import Title from "./title.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
@@ -9,7 +9,7 @@ import { CreditsFileKey } from "../Keys/fileKeys.js"
 
 class Credits extends Phaser.Scene {
   constructor () {
-    super(CreditsKey)
+    super(SceneKeys.Credits)
 
     this.creditsData = null
   }
@@ -63,7 +63,7 @@ class Credits extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
-        this.scene.add(TitleKey, new Title(), true)
+        this.scene.add(SceneKeys.Title, new Title(), true)
         this.scene.stop(this.scene.key)
       }
     }
