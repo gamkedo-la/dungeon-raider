@@ -9,6 +9,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.spriteSheet = config.spriteSheet
     this.entityType = config.entityType
     this.attributes = config.attributes
+    console.log("config.attributes.speed: " + config.attributes.speed);
     this.shouldBeDead = false
     this.isDead = false
     this.animations = {}
@@ -50,7 +51,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
     if (closestCharacter === null) {
       this.anims.play(this.animations.idle, this)
-      this.body.setVelocity(0, 0)
+      this.body.setVelocity(0,0)
     } else if (distance <= this.attributes.range) {
       this.anims.play(this.animations.primary, this)
     } else {

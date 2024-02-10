@@ -34,7 +34,7 @@ export const Ogre1Attributes = {
   },
   damage: 20,
   attackCooldown: 1000,
-  runSpeed: 50,
+  runSpeed: 0,
   radius: 12,
   range: 32
 }
@@ -51,7 +51,7 @@ export const Skeleton1Attributes = {
   },
   damage: 10,
   attackCooldown: 1000,
-  runSpeed: 25,
+  runSpeed: 0,
   radius: 12,
   range: 32
 }
