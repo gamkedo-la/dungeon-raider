@@ -186,12 +186,12 @@ const archerModifiers = {
     }
   ],
   getArrowQuantity: (attributes) => {
-    const result = attributes.availableArrows.find((arrow) => arrow.name === attributes.equippedArrowPrimary)
+    const result = attributes.availableArrows.find(arrow => arrow.name === attributes.equippedArrowPrimary)
     return result?.quantity
   },
   useArrow: (attributes) => {
-    const result = attributes.availableArrows.find((arrow) => arrow.name === attributes.equippedArrowPrimary)
-    result.quantity -= 1
+    const result = attributes.availableArrows.find(arrow => arrow.name === attributes.equippedArrowPrimary)
+    if (result) result.quantity -= 1
   },
   radius: -1
 }

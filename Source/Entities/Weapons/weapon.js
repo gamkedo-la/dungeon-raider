@@ -34,6 +34,8 @@ export default class Weapon {
 			}
 
 			const projectile = new Projectile(scene, {
+				x: user.x,
+				y: user.y,
 				projectileType: arrowData.name,
 				team: user.team,
 				damage: arrowData.damage + this.damage + user.attributes.rangedDamage,

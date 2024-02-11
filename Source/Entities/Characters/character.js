@@ -227,17 +227,17 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.visibleWeapon) {
         // offset the weapon depending on facing direction 
         // todo: (could a math.cos(facing.x) etc do it better?
-        let ofx = this.facing.x * 6
-        let ofy = this.facing.y * 6
+        let offsetX = this.facing.x * 6
+        let offsetY = this.facing.y * 6
 
-        // looks better not quite centered
-        if (this.facing.x>0) ofy -= 4
-        if (this.facing.x<0) ofy += 4
-        if (this.facing.y>0) ofx += 4
-        if (this.facing.y<0) ofx -= 4
+        // looks better not quite centered, may want to use a variable vice a hard-coded number and may want to adjust based on weapon type
+        if (this.facing.x > 0) offsetY -= 4
+        if (this.facing.x < 0) offsetY += 4
+        if (this.facing.y > 0) offsetX += 4
+        if (this.facing.y < 0) offsetX -= 4
 
-        this.visibleWeapon.x = this.x + ofx
-        this.visibleWeapon.y = this.y + ofy
+        this.visibleWeapon.x = this.x + offsetX
+        this.visibleWeapon.y = this.y + offsetY
 
         // tilted a little (225 = straight ahead, 240 or 210 = nice little tilts)
         // if we want a nice tilt, it needs to be inversed at times:
@@ -257,7 +257,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       }
     } else if (this.currentState === CharacterStates.Attacking) {
       this.anims.play(this.animations.primary, true)
-      // TODO: This should also play the weapon attack animation, but there isn't one yet
+      // TODO: This should also play the attack animation of the visible weapon, but there isn't one yet
     }
   }
 

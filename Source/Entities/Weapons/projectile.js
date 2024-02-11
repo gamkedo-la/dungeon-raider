@@ -6,7 +6,7 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 	constructor(scene, config) {
 		const spriteSheet = getSpritesheet(config.projectileType)
 		const frame = 0
-		super(scene, 0, 0, spriteSheet, frame)
+		super(scene, config.x, config.y, spriteSheet, frame)
 
 		this.scene = scene
 		this.depth = 10
@@ -35,8 +35,6 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 
 		this.dropShadow.x = this.x + 4
 		this.dropShadow.y = this.y + 4
-
-		this.updateFacingDirection()
 	}
 
 	updateFacingDirection() {
@@ -60,12 +58,10 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 
 	shoot(x, y, direction, speed) {
 		this.direction = direction
-		this.x = x + direction.x * 16
-		this.y = y + direction.y * 16
 		this.startX = this.x
 		this.startY = this.y
 		this.body.setVelocity(speed * direction.x, speed * direction.y)
-		this.body.setCollideWorldBounds(true)
+		this.updateFacingDirection()
 	}
 
 	shutdown() {
