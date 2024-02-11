@@ -41,7 +41,7 @@ export const ArrowNames = {
 export const Arrows = {
 	'Normal': {
 		name: ArrowNames.NormalArrows,
-		damage: 25,
+		damage: 200,
 		speed: 400,
 		radius: 12
 	},

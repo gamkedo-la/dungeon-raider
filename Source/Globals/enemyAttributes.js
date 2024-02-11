@@ -1,7 +1,7 @@
 import EntityTypes from './entityTypes.js'
 
 export const Ogre1Attributes = {
-  health: 100,
+  health: 200,
   loot: {
     probability: 0.5,
     gold: {
@@ -34,7 +34,7 @@ export const Ogre1Attributes = {
   },
   damage: 20,
   attackCooldown: 1000,
-  speed: 50,
+  speed: 125,
   radius: 12,
   range: 32
 }
@@ -51,7 +51,7 @@ export const Skeleton1Attributes = {
   },
   damage: 10,
   attackCooldown: 1000,
-  speed: 50,
+  speed: 150,
   radius: 12,
   range: 32
 }
