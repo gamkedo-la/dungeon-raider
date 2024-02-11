@@ -529,7 +529,7 @@
                  "type":"skeleton1",
                  "visible":true,
                  "width":32,
-                 "x":445.333333333333,
+                 "x":445.333,
                  "y":768
                 }, 
                 {
@@ -566,7 +566,7 @@
                  "visible":true,
                  "width":32,
                  "x":988,
-                 "y":990.666666666667
+                 "y":990.667
                 }, 
                 {
                  "gid":1025,
@@ -583,8 +583,8 @@
                  "type":"ogre1",
                  "visible":true,
                  "width":32,
-                 "x":1313.33333333333,
-                 "y":1310.66666666667
+                 "x":1313.33,
+                 "y":1310.67
                 }, 
                 {
                  "gid":1025,
@@ -601,7 +601,7 @@
                  "type":"ogre1",
                  "visible":true,
                  "width":32,
-                 "x":1154.66666666667,
+                 "x":1154.67,
                  "y":384
                 }, 
                 {
@@ -619,8 +619,8 @@
                  "type":"skeleton1",
                  "visible":true,
                  "width":32,
-                 "x":609.333333333333,
-                 "y":481.333333333333
+                 "x":609.333,
+                 "y":481.333
                 }, 
                 {
                  "gid":1025,
@@ -637,8 +637,8 @@
                  "type":"ogre1",
                  "visible":true,
                  "width":32,
-                 "x":798.666666666667,
-                 "y":129.333333333333
+                 "x":798.667,
+                 "y":129.333
                 }, 
                 {
                  "gid":1055,
@@ -655,7 +655,7 @@
                  "type":"skeleton1",
                  "visible":true,
                  "width":32,
-                 "x":221.333333333333,
+                 "x":221.333,
                  "y":356
                 }],
          "opacity":1,
@@ -726,7 +726,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":62,
+ "nextobjectid":63,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1145,7 +1145,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":37,
+         "tilecount":38,
          "tileheight":64,
          "tiles":[
                 {
@@ -1949,6 +1949,24 @@
                 {
                  "id":36,
                  "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorPlateMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootPlateMail"
+                }, 
+                {
+                 "id":37,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorFullPlateMail.png",
                  "imageheight":32,
                  "imagewidth":32,
                  "properties":[

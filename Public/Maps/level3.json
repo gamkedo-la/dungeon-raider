@@ -557,7 +557,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":36,
+         "tilecount":38,
          "tileheight":64,
          "tiles":[
                 {
@@ -1357,6 +1357,42 @@
                          "value":16
                         }],
                  "type":"lootRingMail"
+                }, 
+                {
+                 "id":36,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorPlateMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootPlateMail"
+                }, 
+                {
+                 "id":37,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/armorFullPlateMail.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "type":"lootPlateMail"
                 }],
          "tilewidth":32
         }],
