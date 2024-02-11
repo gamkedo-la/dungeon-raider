@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="69">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="76">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -586,10 +586,10 @@
     <property name="radius" type="int" value="16"/>
    </properties>
   </object>
-  <object id="10" gid="1026" x="224" y="160" width="32" height="32"/>
-  <object id="11" gid="1027" x="288" y="160" width="32" height="32"/>
-  <object id="12" gid="1028" x="352" y="160" width="32" height="32"/>
-  <object id="13" gid="1029" x="416" y="160" width="32" height="32"/>
+  <object id="10" gid="1026" x="68" y="98.6667" width="32" height="32"/>
+  <object id="11" gid="1027" x="256" y="94.6667" width="32" height="32"/>
+  <object id="12" gid="1028" x="64" y="353.333" width="32" height="32"/>
+  <object id="13" gid="1029" x="256" y="352" width="32" height="32"/>
   <object id="14" name="Exit1" gid="1030" x="160" y="224" width="32" height="32">
    <properties>
     <property name="destinationLevelKey" value="level-1-scene"/>
@@ -629,6 +629,10 @@
   <object id="66" gid="1055" x="446.667" y="1118.67" width="32" height="32"/>
   <object id="67" gid="1055" x="605.333" y="1506.67" width="32" height="32"/>
   <object id="68" gid="1025" x="1116" y="1185.33" width="32" height="32"/>
+  <object id="72" gid="1033" x="1284" y="1494.67" width="16" height="16"/>
+  <object id="73" gid="1033" x="1317.33" y="89.3333" width="16" height="16"/>
+  <object id="74" gid="1033" x="1480" y="1365.33" width="16" height="16"/>
+  <object id="75" gid="1033" x="132" y="1520" width="16" height="16"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">
