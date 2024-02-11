@@ -59,6 +59,8 @@ const WeaponRanges = {
 export const none = new Weapon({
   name: WeaponNames.None,
   range: WeaponNames.None,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: null,
   damage: 0, // higher is better
   speed: 0 // lower is better
 })
@@ -66,6 +68,8 @@ export const none = new Weapon({
 export const fists = new Weapon({
   name: WeaponNames.Fists,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponFistsImage,
   damage: 10,
   speed: 400,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -75,6 +79,8 @@ export const fists = new Weapon({
 export const dagger = new Weapon({
   name: WeaponNames.Dagger,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponDaggerImage,
   damage: 25,
   speed: 400,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -84,6 +90,8 @@ export const dagger = new Weapon({
 export const shortSword = new Weapon({
   name: WeaponNames.ShortSword,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponShortSwordImage,
   damage: 30,
   speed: 200,
 	size: new Phaser.Math.Vector2(32, 48),
@@ -93,6 +101,8 @@ export const shortSword = new Weapon({
 export const longSword = new Weapon({
   name: WeaponNames.LongSword,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponLongSwordImage,
   damage: 40,
   speed: 600,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -102,6 +112,8 @@ export const longSword = new Weapon({
 export const axe = new Weapon({
   name: WeaponNames.Axe,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponAxeImage,
   damage: 30,
   speed: 500,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -111,6 +123,8 @@ export const axe = new Weapon({
 export const battleAxe = new Weapon({
   name: WeaponNames.BattleAxe,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponBattleAxeImage,
   damage: 40,
   speed: 600,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -120,6 +134,8 @@ export const battleAxe = new Weapon({
 export const mace = new Weapon({
   name: WeaponNames.Mace,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponMaceImage,
   damage: 30,
   speed: 500,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -129,6 +145,8 @@ export const mace = new Weapon({
 export const flangedMace = new Weapon({
   name: WeaponNames.FlangedMace,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponFlangedMaceImage,
   damage: 40,
   speed: 600,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -138,6 +156,8 @@ export const flangedMace = new Weapon({
 export const hammer = new Weapon({
   name: WeaponNames.Hammer,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponHammerImage,
   damage: 30,
   speed: 500,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -147,6 +167,8 @@ export const hammer = new Weapon({
 export const hammerMagic = new Weapon({
   name: WeaponNames.HammerMagic,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponHammerMagicImage,
   damage: 40,
   speed: 400,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -156,6 +178,8 @@ export const hammerMagic = new Weapon({
 export const warHammer = new Weapon({
   name: WeaponNames.WarHammer,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponWarHammerImage,
   damage: 40,
   speed: 600,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -165,6 +189,8 @@ export const warHammer = new Weapon({
 export const WarHammerMagic = new Weapon({
   name: WeaponNames.WarHammerMagic,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponWarHammerMagicImage,
   damage: 50,
   speed: 500,
 	size: new Phaser.Math.Vector2(32, 32),
@@ -175,7 +201,6 @@ export const shortBow = new Weapon({
   name: WeaponNames.ShortBow,
   range: WeaponRanges.Short,
   // see character.js buildVisibleWeapon() function:
-  // NOTE - new properties added here must be added to weapon constructor code too lol
   visibleWeaponSprite: ImageKeys.WeaponShortBowImage,
   damage: -10,
   speed: 100
@@ -184,6 +209,8 @@ export const shortBow = new Weapon({
 export const longBow = new Weapon({
   name: WeaponNames.LongBow,
   range: WeaponRanges.Long,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponLongBowImage,
   damage: 10,
   speed: 200
 })
@@ -191,6 +218,8 @@ export const longBow = new Weapon({
 export const crossbow = new Weapon({
   name: WeaponNames.Crossbow,
   range: WeaponRanges.Long,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponCrossbowImage,
   damage: 30,
   speed: 800
 })
@@ -198,6 +227,8 @@ export const crossbow = new Weapon({
 export const staff = new Weapon({
   name: WeaponNames.Staff,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponStaffImage,
   damage: 20,
   speed: 400
 })
@@ -213,6 +244,8 @@ export const staff = new Weapon({
 export const magicArrow = new Weapon({
   name: WeaponNames.MagicArrow,
   range: WeaponRanges.Long,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponArrowMagicSingleImage,
   damage: 30,
   speed: 400,
   magicCost: 5
@@ -221,6 +254,8 @@ export const magicArrow = new Weapon({
 export const magicQuiver = new Weapon({
   name: WeaponNames.MagicQuiver,
   range: WeaponRanges.Long,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.WeaponArrowMagicMultipleImage,
   damage: 50,
   speed: 7,
   magicCost: 10
@@ -229,6 +264,8 @@ export const magicQuiver = new Weapon({
 export const fireBall = new Weapon({
   name: WeaponNames.FireBall,
   range: WeaponRanges.Long,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.SpellFireBallImage,
   damage: 100,
   speed: 10,
   magicCost: 20
@@ -237,6 +274,8 @@ export const fireBall = new Weapon({
 export const heal = new Weapon({
   name: WeaponNames.Heal,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.SpellHealImage,
   damage: -40,
   speed: 5,
   magicCost: 5
@@ -245,6 +284,8 @@ export const heal = new Weapon({
 export const healAll = new Weapon({
   name: WeaponNames.HealAll,
   range: WeaponRanges.Melee,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.SpellHealAllImage,
   damage: -100,
   speed: 10,
   magicCost: 20
@@ -253,6 +294,8 @@ export const healAll = new Weapon({
 export const turnUndead = new Weapon({
   name: WeaponNames.TurnUndead,
   range: WeaponRanges.Short,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.SpellTurnUndeadImage,
   damage: 100,
   speed: 5,
   magicCost: 10
@@ -261,6 +304,8 @@ export const turnUndead = new Weapon({
 export const destroyUndead = new Weapon({
   name: WeaponNames.DestroyUndead,
   range: WeaponRanges.Short,
+  // see character.js buildVisibleWeapon() function:
+  visibleWeaponSprite: ImageKeys.SpellDestroyUndeadImage,
   damage: 200,
   speed: 10,
   magicCost: 20

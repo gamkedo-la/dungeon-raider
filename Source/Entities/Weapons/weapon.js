@@ -5,13 +5,7 @@ import EntityTypes from '../../Globals/entityTypes.js'
 
 export default class Weapon {
 	constructor(config) {
-		this.name = config.name
-		this.range = config.range
-		this.damage = config.damage
-		this.speed = config.speed
-		this.size = config.size
-		this.entityType = config.entityType
-        this.visibleWeaponSprite = config.visibleWeaponSprite
+		Object.assign(this, config)
 		this.coolingDown = false
 	}
 
