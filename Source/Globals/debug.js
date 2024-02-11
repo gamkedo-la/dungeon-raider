@@ -3,16 +3,16 @@ import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import SceneKeys from "../Keys/sceneKeys.js"
 
 // Skip the title scene and character create scene
-export const SkipTitleScene = false
+export const SkipTitleScene = true
 export const SkipCharacterCreateScene = true
 
 // How many characters to create if skipping the character create scene
-export const DefaultCharacterCount = 1
+export const DefaultCharacterCount = 2
 
 // Character attributes if skipping the character create scene
 export const Player1Race  = Races.Elven
 export const Player1Class = CharacterClasses.Archer
-export const Player1Input = InputOptionsKeys.WASD
+export const Player1Input = InputOptionsKeys.Arrows
 
 export const Player2Race = Races.Human
 export const Player2Class = CharacterClasses.Archer
