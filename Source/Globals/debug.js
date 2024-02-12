@@ -11,7 +11,7 @@ export const DefaultCharacterCount = 2
 
 // Character attributes if skipping the character create scene
 export const Player1Race  = Races.Elven
-export const Player1Class = CharacterClasses.Archer
+export const Player1Class = CharacterClasses.Cleric
 export const Player1Input = InputOptionsKeys.WASD
 
 export const Player2Race = Races.Human
