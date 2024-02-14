@@ -5,6 +5,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     const frame = 0
     super(scene, config.x, config.y, config.spriteSheet, frame) // actual position will be set by the Level Scene
 
+    this.id = config.id
+    this.gameManager = config.gameManager
     this.scene = scene
     this.spriteSheet = config.spriteSheet
     this.entityType = config.entityType
@@ -86,5 +88,6 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
 function enemyDied (enemy) {
   enemy.isDead = true
+  enemy.gameManager.destroyObject(enemy.scene.levelKey, enemy.id)
   enemy.destroy()
 }

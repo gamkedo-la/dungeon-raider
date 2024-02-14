@@ -17,6 +17,7 @@ import Debug from "../../Globals/debug.js"
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
     super(sceneKey || SceneKeys.GameLevel)
+    this.levelKey = sceneKey
     this.mapKey = mapKey
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.mapManager = null // can't create this until the scene is initialized => in create()
@@ -51,7 +52,7 @@ class GameLevel extends Phaser.Scene {
         this.gameManager.addGamepad(pad)
       })
     }
-    this.mapManager = new MapManager(this, this.mapKey)
+    this.mapManager = new MapManager(this, this.mapKey, this.gameManager)
     this.collisionManager = new CollisionManager(this, this.mapManager)
     this.enemyManager = new EnemyManager(this, this.mapManager, this.collisionManager, this.gameManager)
     this.lootManager = new LootManager(this, this.mapManager, this.collisionManager, this.gameManager)

@@ -31,4 +31,10 @@ const SceneKeys = {
   UserInterface: UserInterfaceKey
 }
 
+export const LevelKeys = {
+	Level1: Level1Key,
+	Level2: Level2Key,
+	Level3: Level3Key
+}
+
 export default SceneKeys

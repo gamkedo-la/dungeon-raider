@@ -8,6 +8,7 @@ export default class Loot extends Phaser.GameObjects.Sprite {
     super(scene, config.x, config.y, config.image)
 
     this.scene = scene
+    this.id = config.id
     this.entityType = config.entityType
     this.name = getNameForEntityType(this.entityType)
 

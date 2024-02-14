@@ -342,6 +342,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       // Only pick up the loot you're allowed to use
       if (this.scene.lootManager.canPickUp(otherEntity, this.characterClass)) {
         this.collectedLoot(otherEntity.loot)
+        this.gameManager.destroyObject(this.scene.levelKey, otherEntity.id)
         otherEntity.destroy()
       }
     } else if (otherEntity.entityType === EntityTypes.Tile) {
