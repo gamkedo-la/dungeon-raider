@@ -329,7 +329,7 @@
                         {
                          "name":"destinationLevelKey",
                          "type":"string",
-                         "value":"level-1-scene"
+                         "value":"level-2-scene"
                         }, 
                         {
                          "name":"exitId",
