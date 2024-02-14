@@ -9,7 +9,6 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.spriteSheet = config.spriteSheet
     this.entityType = config.entityType
     this.attributes = config.attributes
-    console.log("config.attributes.speed: " + config.attributes.speed);
     this.shouldBeDead = false
     this.isDead = false
     this.animations = {}
@@ -19,7 +18,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
-    // Register for the 'update
+    // Register for the 'update' event
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
 

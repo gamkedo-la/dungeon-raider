@@ -12,7 +12,7 @@ export const ElvenWarriorAnimations = {
   primary: {
     key: 'elven-warrior-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'elven-warrior-secondary-animation',
