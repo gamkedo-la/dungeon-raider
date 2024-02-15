@@ -7,11 +7,11 @@ export const SkipTitleScene = true
 export const SkipCharacterCreateScene = true
 
 // How many characters to create if skipping the character create scene
-export const DefaultCharacterCount = 2
+export const DefaultCharacterCount = 1
 
 // Character attributes if skipping the character create scene
 export const Player1Race  = Races.Elven
-export const Player1Class = CharacterClasses.Archer
+export const Player1Class = CharacterClasses.Warrior
 export const Player1Input = InputOptionsKeys.Arrows
 
 export const Player2Race = Races.Human

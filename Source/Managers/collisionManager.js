@@ -140,6 +140,8 @@ export default class CollisionManager {
   }
 
   characterEnemyOverlap (character, enemy) {
+    enemy.x = enemy.lastPosition.x
+    enemy.y = enemy.lastPosition.y
     character.x = character.lastPosition.x
     character.y = character.lastPosition.y
     character.didCollideWith(enemy)

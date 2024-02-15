@@ -33,6 +33,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.exited = false
     this.activeExit = null
     this.storeItem = null
+    this.executingAttack = false
 
 		this.currentState = CharacterStates.Moving
 
@@ -210,6 +211,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       return
     }
 
+    this.executeAttackOnRequiredFrame()
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
@@ -255,7 +257,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
         this.anims.play(this.animations.idle, true)
       }
-    } else if (this.currentState === CharacterStates.Attacking) {
+    } else if (this.currentState === CharacterStates.Attacking && this.anims.currentAnim.key !== this.animations.primary.key) {
       this.anims.play(this.animations.primary, true)
       // TODO: This should also play the attack animation of the visible weapon, but there isn't one yet
     }
@@ -288,11 +290,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
   animationComplete (animation, frame) {
     if (animation.key === this.animations.primary.key) {
       this.currentState = CharacterStates.Moving
-      this.executePrimaryAttack()
+      this.executingAttack = false
       this.anims.play(this.animations.idle, true)
     } else if (animation.key === this.animations.secondary.key) {
       this.currentState = CharacterStates.Moving
-      this.executeSecondaryAttack()
+      this.executingAttack = false
       this.anims.play(this.animations.idle, true)
     }
   }
@@ -456,13 +458,22 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.useKeyboardInput(event)
   }
 
+  executeAttackOnRequiredFrame () {
+    let attackFrameIndex = 3
+    if (this.characterClass === CharacterClasses.Warrior) attackFrameIndex = 1
+    if (!this.executingAttack && this.anims.currentAnim.key === this.animations.primary.key && this.anims.currentFrame.index === attackFrameIndex) {
+      this.executePrimaryAttack()
+    } else if (this.anims.currentAnim.key === this.animations.secondary.key && this.anims.currentFrame.index === attackFrameIndex) {
+      this.executeSecondaryAttack()
+    }
+  }
+
   executePrimaryAttack () {
     if (this.storeItem) {
       // Attempt to purchase the item
       this.scene.purchaseItem(this, this.storeItem)
     } else {
       this.executeAttackWith(this.attributes.primary)
-      this.anims.play(this.animations.primary, false)
     }
   }
 
@@ -474,11 +485,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.attributes.loot.gold -= this.storeItem.price
     } else {
       this.executeAttackWith(this.attributes.secondary)
-      // this.anims.play(this.animations.secondary, false)
     }
   }
 
   executeAttackWith (weapon) {
+    this.executingAttack = true
     weapon.attack(this)
   }
 
