@@ -592,7 +592,7 @@
   <object id="13" gid="1029" x="256" y="352" width="32" height="32"/>
   <object id="14" name="Exit1" gid="1030" x="160" y="224" width="32" height="32">
    <properties>
-    <property name="destinationLevelKey" value="level-1-scene"/>
+    <property name="destinationLevelKey" value="level-2-scene"/>
     <property name="exitId" value="level1_exit1"/>
    </properties>
   </object>

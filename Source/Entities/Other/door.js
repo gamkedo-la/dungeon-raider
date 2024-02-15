@@ -6,6 +6,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
     super(scene, config.x, config.y, TileSpriteSheet, TileFrames.Door)
 
     this.scene = scene
+    this.id = config.id
     this.entityType = EntityTypes.Door
     this.gameManager = config.gameManager
     this.name = config.name
@@ -16,6 +17,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
     if (otherEntity.entityType === EntityTypes.Character) {
       if (otherEntity.attributes.loot.keys > 0) {
         otherEntity.attributes.loot.keys--
+        this.gameManager.destroyObject(this.scene.levelKey, this.id)
         this.destroy()
       }
     }

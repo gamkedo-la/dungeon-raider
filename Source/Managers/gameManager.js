@@ -6,17 +6,29 @@ import SceneKeys from "../Keys/sceneKeys.js"
 import Level1 from "../Scenes/GameScenes.js/level1.js"
 import Level2 from "../Scenes/GameScenes.js/level2.js"
 import Level3 from "../Scenes/GameScenes.js/level3.js"
+import { LevelKeys } from "../Keys/sceneKeys.js"
 
 export const GameManagerKey = 'game-manager'
 export const PlayerCountKey = 'player-count'
 export const CharacterCountKey = 'character-count'
 export const ActiveExitKey = 'active-exit'
+export const MapChangesKey = 'map-changes'
+
+export const DestroyedKey = 'destroyed'
 
 const gamepads = {}
 
 export default class GameManager {
   constructor (game) {
     this.game = game
+
+		const mapChanges = {}
+    for (const key in LevelKeys) {
+			mapChanges[LevelKeys[key]] = {
+				[DestroyedKey]: []
+			}
+    }
+		this.setMapChanges(mapChanges)
   }
 
   getPlayerCount () {
@@ -319,6 +331,24 @@ export default class GameManager {
   goToLevel (levelKey) {
     this.game.scene.add(levelKey, buildLevelForKey(levelKey), true)
   }
+
+	getMapChanges() {
+		return this.game.registry.get(MapChangesKey)
+	}
+
+	setMapChanges(value) {
+		this.game.registry.set(MapChangesKey, value)
+	}
+	
+	destroyObject(levelKey, objectId) {
+		let mapChanges = this.getMapChanges()
+		mapChanges[levelKey][DestroyedKey].push(objectId)
+		this.setMapChanges(mapChanges)
+	}
+
+	isObjectDestroyed(levelKey, objectId) {
+		return this.getMapChanges()[levelKey][DestroyedKey].includes(objectId)
+	}
 }
 
 function buildLevelForKey (key) {

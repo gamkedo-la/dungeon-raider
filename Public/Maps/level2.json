@@ -301,6 +301,29 @@
                  "width":32,
                  "x":512,
                  "y":160
+                }, 
+                {
+                 "gid":1030,
+                 "height":32,
+                 "id":10,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destinationLevelKey",
+                         "type":"string",
+                         "value":"level-1-scene"
+                        }, 
+                        {
+                         "name":"exitId",
+                         "type":"string",
+                         "value":"level2_exit1"
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -370,7 +393,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "properties":[
         {

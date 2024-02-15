@@ -5,9 +5,10 @@ import CollidableGIDs from "../Globals/collisionTiles.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
 export default class MapManager {
-  constructor (scene, tilemapKey) {
+  constructor (scene, tilemapKey, gameManager) {
     this.scene = scene
     this.tilemapKey = tilemapKey
+    this.gameManager = gameManager
     this.map = scene.make.tilemap({ key: tilemapKey })
     this.tileAnimations = extractTileAnimations(this.map)
     this.tileset = this.map.addTilesetImage(MasterTileset, MasterTileset)
@@ -46,7 +47,7 @@ export default class MapManager {
         // Tiled uses Upper Left as the origin/anchor, Phaser uses Center
         object.x += object.width / 2
         object.y -= object.height / 2
-        processObject(this, object)
+        processObject(this, object, gameManager)
       }
     }
   }
@@ -90,7 +91,7 @@ export default class MapManager {
   }
 }
 
-function processObject (manager, object) {
+function processObject (manager, object, gameManager) {
   switch (object.type) {
     case EntityTypes.Character:
       object = assignPropertiesToObject(object.properties, object)
@@ -100,13 +101,15 @@ function processObject (manager, object) {
       manager.exits.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Door:
-      manager.doors.push(assignPropertiesToObject(object.properties, object))
+			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
+				manager.doors.push(assignPropertiesToObject(object.properties, object))
+			}
       break
     case EntityTypes.Enemies.Ogre1:
-      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
-      break
     case EntityTypes.Enemies.Skeleton1:
-      manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
+			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
+				manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
+			}
       break
     case EntityTypes.StoreItem:
       manager.store.items.push(assignPropertiesToObject(object.properties, object))
@@ -146,7 +149,9 @@ function processObject (manager, object) {
     case EntityTypes.Loot.ShortSword:
     case EntityTypes.Loot.WarHammer:
     case EntityTypes.Loot.WarHammerMagic:
-      manager.loot.push(assignPropertiesToObject(object.properties, object))
+			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
+				manager.loot.push(assignPropertiesToObject(object.properties, object))
+			}
       break
     default:
       console.warn(`Unknown Loot type: ${object.type}`)

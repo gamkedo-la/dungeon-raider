@@ -20,6 +20,7 @@ export default class EnemyManager {
       const config = {}
       Object.assign(config, enemySpawnPoint)
       config.attributes = attributes
+      config.gameManager = this.gameManager
       this.addEnemy(enemySpawnPoint.type, config)
     }
   }
