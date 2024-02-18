@@ -45,6 +45,9 @@
     <frame tileid="289" duration="200"/>
     <frame tileid="321" duration="200"/>
     <frame tileid="353" duration="200"/>
+    <frame tileid="385" duration="200"/>
+    <frame tileid="417" duration="200"/>
+    <frame tileid="449" duration="200"/>
    </animation>
   </tile>
   <tile id="226">
@@ -79,40 +82,72 @@
     <frame tileid="707" duration="200"/>
    </animation>
   </tile>
-  <tile id="257">
+  <tile id="228">
    <animation>
-    <frame tileid="257" duration="200"/>
-    <frame tileid="289" duration="200"/>
-    <frame tileid="321" duration="200"/>
+    <frame tileid="228" duration="200"/>
+    <frame tileid="260" duration="200"/>
+    <frame tileid="292" duration="200"/>
+    <frame tileid="324" duration="200"/>
+    <frame tileid="356" duration="200"/>
+    <frame tileid="388" duration="200"/>
+    <frame tileid="420" duration="200"/>
+    <frame tileid="452" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="449">
+   <animation>
+    <frame tileid="449" duration="200"/>
+    <frame tileid="417" duration="200"/>
+    <frame tileid="385" duration="200"/>
     <frame tileid="353" duration="200"/>
+    <frame tileid="321" duration="200"/>
+    <frame tileid="289" duration="200"/>
+    <frame tileid="257" duration="200"/>
     <frame tileid="225" duration="200"/>
    </animation>
   </tile>
-  <tile id="289">
+  <tile id="450">
    <animation>
-    <frame tileid="289" duration="200"/>
-    <frame tileid="321" duration="200"/>
-    <frame tileid="353" duration="200"/>
-    <frame tileid="225" duration="200"/>
-    <frame tileid="257" duration="200"/>
+    <frame tileid="450" duration="200"/>
+    <frame tileid="418" duration="200"/>
+    <frame tileid="386" duration="200"/>
+    <frame tileid="354" duration="200"/>
+    <frame tileid="322" duration="200"/>
+    <frame tileid="290" duration="200"/>
+    <frame tileid="258" duration="200"/>
+    <frame tileid="226" duration="200"/>
    </animation>
   </tile>
-  <tile id="321">
+  <tile id="452">
    <animation>
-    <frame tileid="321" duration="200"/>
-    <frame tileid="353" duration="200"/>
-    <frame tileid="225" duration="200"/>
-    <frame tileid="257" duration="200"/>
-    <frame tileid="289" duration="200"/>
+    <frame tileid="452" duration="200"/>
+    <frame tileid="420" duration="200"/>
+    <frame tileid="388" duration="200"/>
+    <frame tileid="356" duration="200"/>
+    <frame tileid="324" duration="200"/>
+    <frame tileid="292" duration="200"/>
+    <frame tileid="260" duration="200"/>
+    <frame tileid="228" duration="200"/>
    </animation>
   </tile>
-  <tile id="353">
+  <tile id="707">
    <animation>
-    <frame tileid="353" duration="200"/>
-    <frame tileid="225" duration="200"/>
-    <frame tileid="257" duration="200"/>
-    <frame tileid="289" duration="200"/>
-    <frame tileid="321" duration="200"/>
+    <frame tileid="707" duration="200"/>
+    <frame tileid="675" duration="200"/>
+    <frame tileid="643" duration="200"/>
+    <frame tileid="611" duration="200"/>
+    <frame tileid="579" duration="200"/>
+    <frame tileid="547" duration="200"/>
+    <frame tileid="515" duration="200"/>
+    <frame tileid="483" duration="200"/>
+    <frame tileid="451" duration="200"/>
+    <frame tileid="419" duration="200"/>
+    <frame tileid="387" duration="200"/>
+    <frame tileid="355" duration="200"/>
+    <frame tileid="323" duration="200"/>
+    <frame tileid="291" duration="200"/>
+    <frame tileid="259" duration="200"/>
+    <frame tileid="227" duration="200"/>
    </animation>
   </tile>
  </tileset>
@@ -480,9 +515,9 @@
 1,1,1,1,6,1,1,1,1,1,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,6,1,1,1,1,1,6,1,1,1,1,6,1,1,1,1,1,3,1,1,1,1,1,
 1,1,1,1,1,8,1,1,8,1,1,1,6,1,1,1,1,7,8,1,1,1,2,1,1,1,8,1,1,1,1,1,1,1,1,1,1,2,1,1,5,1,1,4,4,1,1,2,1,1,
 1,1,1,1,1,3,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,8,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,1,1,1,1,
-1,1,3,1,1,1,1,1,1,1,1,1,1,1,6,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,3,1,1,1,1,1,2,8,1,1,1,1,1,1,1,
+1,1,3,1,1,1,1,1,1,1,1,1,5,1,6,3,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,3,1,1,1,1,1,2,8,1,1,1,1,1,1,1,
 1,1,1,2,1,1,1,7,1,1,1,1,1,1,1,6,7,4,1,1,8,1,1,1,1,3,1,8,1,1,1,1,1,4,1,1,1,1,1,8,1,1,1,4,1,1,1,1,6,5,
-1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,5,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,3,1,1,1,
+1,1,1,1,1,1,1,1,1,1,7,1,6,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,5,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,3,1,1,1,
 1,1,1,1,1,8,1,1,1,3,1,1,1,1,1,1,1,1,1,1,3,1,1,2,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,5,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,8,1,
 1,1,1,7,1,1,1,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,1,3,1,1,1,1,8,1,1,4,3,1,1,1,3,6,1,1,1,

@@ -38,6 +38,118 @@
  </properties>
  <tileset firstgid="1" name="masterTileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
   <image source="../../Public/Images/masterTileset.png" width="1024" height="1024"/>
+  <tile id="225">
+   <animation>
+    <frame tileid="225" duration="200"/>
+    <frame tileid="257" duration="200"/>
+    <frame tileid="289" duration="200"/>
+    <frame tileid="321" duration="200"/>
+    <frame tileid="353" duration="200"/>
+    <frame tileid="385" duration="200"/>
+    <frame tileid="417" duration="200"/>
+    <frame tileid="449" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="226">
+   <animation>
+    <frame tileid="226" duration="200"/>
+    <frame tileid="258" duration="200"/>
+    <frame tileid="290" duration="200"/>
+    <frame tileid="322" duration="200"/>
+    <frame tileid="354" duration="200"/>
+    <frame tileid="386" duration="200"/>
+    <frame tileid="418" duration="200"/>
+    <frame tileid="450" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="227">
+   <animation>
+    <frame tileid="227" duration="200"/>
+    <frame tileid="259" duration="200"/>
+    <frame tileid="291" duration="200"/>
+    <frame tileid="323" duration="200"/>
+    <frame tileid="355" duration="200"/>
+    <frame tileid="387" duration="200"/>
+    <frame tileid="419" duration="200"/>
+    <frame tileid="451" duration="200"/>
+    <frame tileid="483" duration="200"/>
+    <frame tileid="515" duration="200"/>
+    <frame tileid="547" duration="200"/>
+    <frame tileid="579" duration="200"/>
+    <frame tileid="611" duration="200"/>
+    <frame tileid="643" duration="200"/>
+    <frame tileid="675" duration="200"/>
+    <frame tileid="707" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="228">
+   <animation>
+    <frame tileid="228" duration="200"/>
+    <frame tileid="260" duration="200"/>
+    <frame tileid="292" duration="200"/>
+    <frame tileid="324" duration="200"/>
+    <frame tileid="356" duration="200"/>
+    <frame tileid="388" duration="200"/>
+    <frame tileid="420" duration="200"/>
+    <frame tileid="452" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="449">
+   <animation>
+    <frame tileid="449" duration="200"/>
+    <frame tileid="417" duration="200"/>
+    <frame tileid="385" duration="200"/>
+    <frame tileid="353" duration="200"/>
+    <frame tileid="321" duration="200"/>
+    <frame tileid="289" duration="200"/>
+    <frame tileid="257" duration="200"/>
+    <frame tileid="225" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="450">
+   <animation>
+    <frame tileid="450" duration="200"/>
+    <frame tileid="418" duration="200"/>
+    <frame tileid="386" duration="200"/>
+    <frame tileid="354" duration="200"/>
+    <frame tileid="322" duration="200"/>
+    <frame tileid="290" duration="200"/>
+    <frame tileid="258" duration="200"/>
+    <frame tileid="226" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="452">
+   <animation>
+    <frame tileid="452" duration="200"/>
+    <frame tileid="420" duration="200"/>
+    <frame tileid="388" duration="200"/>
+    <frame tileid="356" duration="200"/>
+    <frame tileid="324" duration="200"/>
+    <frame tileid="292" duration="200"/>
+    <frame tileid="260" duration="200"/>
+    <frame tileid="228" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="707">
+   <animation>
+    <frame tileid="707" duration="200"/>
+    <frame tileid="675" duration="200"/>
+    <frame tileid="643" duration="200"/>
+    <frame tileid="611" duration="200"/>
+    <frame tileid="579" duration="200"/>
+    <frame tileid="547" duration="200"/>
+    <frame tileid="515" duration="200"/>
+    <frame tileid="483" duration="200"/>
+    <frame tileid="451" duration="200"/>
+    <frame tileid="419" duration="200"/>
+    <frame tileid="387" duration="200"/>
+    <frame tileid="355" duration="200"/>
+    <frame tileid="323" duration="200"/>
+    <frame tileid="291" duration="200"/>
+    <frame tileid="259" duration="200"/>
+    <frame tileid="227" duration="200"/>
+   </animation>
+  </tile>
  </tileset>
  <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="38" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
