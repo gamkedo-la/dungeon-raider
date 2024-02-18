@@ -15,8 +15,14 @@ export const CharacterClasses = {
 }
 
 export const CharacterStates = {
+  Idle: 'idle',
 	Moving: 'moving',
-	Attacking: 'attacking'
+	Attacking: 'attacking',
+  Injured: 'injured',
+  Dying: 'dying',
+  Dead: 'dead',
+  Exiting: 'exiting',
+  Exited: 'exited'
 }
 
 export function getCharacterAttributes (race, characterClass) {

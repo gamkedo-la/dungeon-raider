@@ -29,16 +29,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.race = config.race
     this.characterClass = config.characterClass
     this.gameManager = config.gameManager
-    this.isExiting = false
-    this.exited = false
     this.activeExit = null
     this.storeItem = null
-    this.executingAttack = false
 
-		this.currentState = CharacterStates.Moving
+		this.currentState = CharacterStates.Idle
 
     this.facing = new Phaser.Math.Vector2(0.0, -1.0)
-	this.moveDirection = new Phaser.Math.Vector2(0.0, 0.0)
+  	this.moveDirection = new Phaser.Math.Vector2(0.0, 0.0)
 
     this.animations = {}
 
@@ -70,19 +67,16 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.maxHealth = this.attributes.maxHealth
     this.maxMagic = this.attributes.maxMagic
 
-    this.shouldBeDead = false
-    this.isDead = false
-
     // Register for the 'update
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
 
   healthLoss () {
-    if (!this.scene || this.exited || this.isExiting || this.isDead) return
+    if (!this.scene || this.currentState === CharacterStates.Exited || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Dead) return
 
     this.attributes.health--
     if (this.attributes.health <= 0) {
-      this.shouldBeDead = true
+      this.currentState = CharacterStates.Dying
       this.attributes.health = 0
     } else {
       this.scene.time.delayedCall(this.attributes.healthLossRate, () => {
@@ -92,7 +86,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   magicRegen () {
-    if (!this.scene || this.exited || this.isExiting || this.isDead) return
+    if (!this.scene || this.currentState === CharacterStates.Exited || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Dead) return
 
     if (this.characterClass === CharacterClasses.Magi || this.characterClass === CharacterClasses.Cleric) {
       if (this.attributes.magic < this.maxMagic) {
@@ -168,21 +162,19 @@ export default class Character extends Phaser.GameObjects.Sprite {
     
     // finally, actually exit
     if (this.scaleX < 0) {
-        console.log("character finished the exit animation!");
-        this.isExiting = false
+        this.currentState = CharacterStates.Exited
         this.scaleX = 1
         this.scaleY = 1
         this.setTint(Phaser.Display.Color.GetColor(255,255,255))
         this.serialize()
-        this.exited = true
     }
   }
 
   update (time, delta) {
     // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
-    if (!this.scene || this.exited || this.isDead) return
+    if (!this.scene || this.currentState === CharacterStates.Exited || this.currentState === CharacterStates.Dead) return
 
-    if (this.isExiting) {
+    if (this.currentState === CharacterStates.Exiting) {
       this.exitAnimation(time, delta)
       if (this.activeExit) {
         const maxDelta  = 1
@@ -200,13 +192,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (this.exited) {
+    if (this.currentState === CharacterStates.Exited) {
       this.scene.characterExited(this)
       this.destroy()
       return
     }
 
-    if (this.shouldBeDead) {
+    if (this.currentState === CharacterStates.Dying) {
       characterDied(this)
       return
     }
@@ -264,7 +256,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   updateFacingDirectionIfRequired () {
-		if (this.isExiting || (this.moveDirection.x === 0 && this.moveDirection.y === 0)) return
+		if (this.currentState === CharacterStates.Exiting || (this.moveDirection.x === 0 && this.moveDirection.y === 0)) return
 
     const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(0, 0, this.moveDirection.x, this.moveDirection.y)
     this.angle = Phaser.Math.RadToDeg(angle)
@@ -288,19 +280,23 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   animationComplete (animation, frame) {
-    if (animation.key === this.animations.primary.key) {
-      this.currentState = CharacterStates.Moving
-      this.executingAttack = false
+    if (animation.key === this.animations.primary.key || animation.key === this.animations.secondary.key) {
+      this.currentState = CharacterStates.Idle
       this.anims.play(this.animations.idle, true)
-    } else if (animation.key === this.animations.secondary.key) {
-      this.currentState = CharacterStates.Moving
-      this.executingAttack = false
+    } else if (animation.key === this.animations.injured.key) {
+      this.currentState = CharacterStates.Idle
       this.anims.play(this.animations.idle, true)
+    } else if (animation.key === this.animations.death.key) {
+      this.currentState = CharacterStates.Dead
+      this.anims.play(this.animations.dead, true)
+      this.scene.characterDied(this)
+      // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
+      // add a new entity to the loot manager that represents this character's body (probably this one)
     }
   }
 
   canBePursued () {
-    return !this.isDead && !this.shouldBeDead && !this.isExiting && !this.exited
+    return this.currentState !== CharacterStates.Dead && this.currentState !== CharacterStates.Dying && this.currentState !== CharacterStates.Exiting && this.currentState !== CharacterStates.Exited
   }
 
   sfx(soundId) {
@@ -337,7 +333,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   didCollideWith (otherEntity) {
-    // Don't call destroy() here. Instead, set the "this.shouldBeDead" flag that will be checked in the update() function
     if (EntityTypes.isEnemy(otherEntity)) {
       // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
     } else if (EntityTypes.isLoot(otherEntity)) {
@@ -354,8 +349,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else if (otherEntity.entityType === EntityTypes.Exit) {
       // reached an exit
       this.playerMarker.destroy()
-      if (!this.isExiting) this.sfx(ExitSound) // play sound on 1st frame only
-      this.isExiting = true
+      if (this.currentState !== CharacterStates.Exiting) this.sfx(ExitSound) // play sound on 1st frame only
+      this.currentState = CharacterStates.Exiting
       this.activeExit = otherEntity
     } else if (otherEntity.entityType === EntityTypes.StoreItem) {
       if (otherEntity.classCanPurchase(this.characterClass) && otherEntity.price <= this.attributes.loot.gold) {
@@ -366,20 +361,21 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   takeDamage (damage, damageType = 'normal') {
     // TODO: need to add damageType to the damage calculation (normal, silver, magic, fire, etc.)
-    if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
+    if (this.currentState === CharacterStates.Dying || this.currentState === CharacterStates.Dead || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Exited) return
     this.attributes.health -= Math.max(damage - this.attributes.armor.defense - (this.attributes.helmet?.defense || 0) - (this.attributes.shield?.defense || 0), 0)
     if (this.attributes.health <= 0) {
-      this.shouldBeDead = true
-      // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
-      // add a new entity to the loot manager that represents this character's body (probably this one)
+      this.currentState = CharacterStates.Dying
+      this.anims.play(this.animations.death, true)
     } else {
+      this.currentState = CharacterStates.Injured
       this.flashWhite()
+      this.anims.play(this.animations.injured, true)
     }
   }
 
   flashWhite (counter = 0) {
     this.scene.time.delayedCall(30, (counter) => {
-      if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) {
+      if (this.currentState === CharacterStates.Dying || this.currentState === CharacterStates.Dead || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Exited) {
         this.clearTint()
         return
       }
@@ -405,7 +401,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   useKeyboardInput (event) {
-    if (this.shouldBeDead || this.isDead || this.isExiting || this.exited) return
+    if (this.currentState === CharacterStates.Dying || this.currentState === CharacterStates.Dead || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Exited) return
 
 		this.moveDirection.x = event.right.isDown - event.left.isDown
 		this.moveDirection.y = event.down.isDown - event.up.isDown
@@ -452,6 +448,12 @@ export default class Character extends Phaser.GameObjects.Sprite {
       // TODO: Restore this once there actually is a secondary attack animation
       // this.anims.play(this.animations.secondary, false)
     }
+
+    if ((this.body.velocity.x !== 0 || this.body.velocity.y !== 0) && this.currentState !== CharacterStates.Attacking && this.currentState !== CharacterStates.Injured) {
+      this.currentState = CharacterStates.Moving
+    } else if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && this.currentState !== CharacterStates.Attacking) {
+      this.currentState = CharacterStates.Idle
+    }
   }
   
   useGamepadInput (event) {
@@ -462,7 +464,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   executeAttackOnRequiredFrame () {
     let attackFrameIndex = 3
     if (this.characterClass === CharacterClasses.Warrior) attackFrameIndex = 1
-    if (!this.executingAttack && this.anims.currentAnim.key === this.animations.primary.key && this.anims.currentFrame.index === attackFrameIndex) {
+    if (this.currentState !== CharacterStates.Attacking && this.anims.currentAnim.key === this.animations.primary.key && this.anims.currentFrame.index === attackFrameIndex) {
       this.executePrimaryAttack()
     } else if (this.anims.currentAnim.key === this.animations.secondary.key && this.anims.currentFrame.index === attackFrameIndex) {
       this.executeSecondaryAttack()
@@ -490,7 +492,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   executeAttackWith (weapon) {
-    this.executingAttack = true
+    this.currentState = CharacterStates.Attacking
     weapon.attack(this)
   }
 
@@ -553,11 +555,9 @@ function getSpriteSheet (race, characterClass) {
 function characterDied (character) {
   console.log(`${character.player} died!`)
   character.clearTint()
-  character.isDead = true
+  character.currentState = CharacterStates.Dead
   character.attributes.health = 0
   character.attributes.magic = 0
   character.serialize()
-  character.scene.characterDied(character)
   character.playerMarker.destroy()
-  character.destroy() // when destroy() returns, this GameObject no longer has a scene (character.scene === null) and many things will be broken if we try to do anything else with this GameObject
 }

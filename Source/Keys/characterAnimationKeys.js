@@ -17,22 +17,22 @@ export const ElvenWarriorAnimations = {
   secondary: {
     key: 'elven-warrior-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'elven-warrior-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'elven-warrior-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'elven-warrior-dead-animation',
-    frames: [20],
-    props: { frameRate: 1, repeat: 0 }
+    frames: [18],
+    props: { frameRate: 1, repeat: -1 }
   }
 }
 
@@ -59,8 +59,8 @@ export const ElvenArcherAnimations = {
   },
   injured: {
     key: 'elven-archer-injured-animation',
-    frames: [14],
-    props: { frameRate: 1, repeat: 0 }
+    frames: [14, 15],
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'elven-archer-death-animation',
@@ -69,7 +69,7 @@ export const ElvenArcherAnimations = {
   },
   dead: {
     key: 'elven-archer-dead-animation',
-    frames: [19],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -88,26 +88,26 @@ export const ElvenClericAnimations = {
   primary: {
     key: 'elven-cleric-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'elven-cleric-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'elven-cleric-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'elven-cleric-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'elven-cleric-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -126,26 +126,26 @@ export const ElvenMagiAnimations = {
   primary: {
     key: 'elven-magi-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'elven-magi-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'elven-magi-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'elven-magi-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'elven-magi-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -164,26 +164,26 @@ export const HumanWarriorAnimations = {
   primary: {
     key: 'human-warrior-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'human-warrior-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'human-warrior-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'human-warrior-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'human-warrior-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -211,8 +211,8 @@ export const HumanArcherAnimations = {
   },
   injured: {
     key: 'human-archer-injured-animation',
-    frames: [14],
-    props: { frameRate: 1, repeat: 0 }
+    frames: [14, 15],
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'human-archer-death-animation',
@@ -221,7 +221,7 @@ export const HumanArcherAnimations = {
   },
   dead: {
     key: 'human-archer-dead-animation',
-    frames: [19],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -240,26 +240,26 @@ export const HumanClericAnimations = {
   primary: {
     key: 'human-cleric-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'human-cleric-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'human-cleric-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'human-cleric-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'human-cleric-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -278,26 +278,26 @@ export const HumanMagiAnimations = {
   primary: {
     key: 'human-magi-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'human-magi-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'human-magi-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'human-magi-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'human-magi-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -316,26 +316,26 @@ export const DwarvenWarriorAnimations = {
   primary: {
     key: 'dwarven-warrior-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'dwarven-warrior-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'dwarven-warrior-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'dwarven-warrior-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'dwarven-warrior-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -363,8 +363,8 @@ export const DwarvenArcherAnimations = {
   },
   injured: {
     key: 'dwarven-archer-injured-animation',
-    frames: [14],
-    props: { frameRate: 1, repeat: 0 }
+    frames: [14, 15],
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'dwarven-archer-death-animation',
@@ -373,7 +373,7 @@ export const DwarvenArcherAnimations = {
   },
   dead: {
     key: 'dwarven-archer-dead-animation',
-    frames: [19],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -392,26 +392,26 @@ export const DwarvenClericAnimations = {
   primary: {
     key: 'dwarven-cleric-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'dwarven-cleric-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'dwarven-cleric-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'dwarven-cleric-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'dwarven-cleric-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
@@ -430,26 +430,26 @@ export const DwarvenMagiAnimations = {
   primary: {
     key: 'dwarven-magi-primary-animation',
     frames: [6, 7, 8, 9],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   secondary: {
     key: 'dwarven-magi-secondary-animation',
     frames: [10, 11, 12, 13],
-    props: { frameRate: 8, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   injured: {
     key: 'dwarven-magi-injured-animation',
     frames: [14, 15],
-    props: { frameRate: 1, repeat: 0 }
+    props: { frameRate: 16, repeat: 0 }
   },
   death: {
     key: 'dwarven-magi-death-animation',
-    frames: [16, 17, 18, 19],
+    frames: [15, 16, 17, 18],
     props: { frameRate: 8, repeat: 0 }
   },
   dead: {
     key: 'dwarven-magi-dead-animation',
-    frames: [20],
+    frames: [18],
     props: { frameRate: 1, repeat: 0 }
   }
 }
