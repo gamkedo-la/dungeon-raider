@@ -17,6 +17,7 @@ export default class MapManager {
     for (const layerKey in TileLayerKeys) {
       this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset).layer.tilemapLayer
       if (TileLayerKeys[layerKey] === TileLayerKeys.CollisionLayer) this.map.setCollision(CollidableGIDs, true)
+      if (TileLayerKeys[layerKey] === TileLayerKeys.BelowGroundLayer) this.map.setCollision(CollidableGIDs, true)
       this.layers[layerKey].animatedTiles = findAnimatedTiles(this.tileAnimations, this.layers[layerKey].layer.data)
     }
 

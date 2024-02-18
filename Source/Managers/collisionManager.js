@@ -14,8 +14,10 @@ export default class CollisionManager {
     this.groups = [this.characterGroup, this.enemyGroup, this.doorGroup, this.exitGroup, this.lootGroup]
 
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
+    this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.BelowGroundLayer, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.characterGroup, this.doorGroup, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
+    this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.BelowGroundLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.doorGroup, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.hitboxGroup, this.mapManager.layers.CollisionLayer, this.hitboxMapCollision, this.hitboxMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.hitboxGroup, this.characterHitboxOverlap, this.characterHitboxProcess, this)
@@ -42,7 +44,6 @@ export default class CollisionManager {
       switch (entityToAdd.entityType) {
         case EntityTypes.Door:
           this.doorGroup.add(entityToAdd)
-          entityToAdd.body.setCircle(16, 0, 0)
           break
         case EntityTypes.Exit:
           this.exitGroup.add(entityToAdd)
@@ -60,7 +61,7 @@ export default class CollisionManager {
     }
   }
 
-  // Collision Process Handlers - Process handlers allow us to return tsrue if a collision should occur, or false if it should not.
+  // Collision Process Handlers - Process handlers allow us to return true if a collision should occur, or false if it should not.
   // Returning false saves processing time since the collision won't be checked.
   characterMapProcess (character, tile) {
     return true
