@@ -581,7 +581,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="32" name="Door1" type="door" gid="73" x="124" y="225.333" width="32" height="32">
+  <object id="32" name="Door1" type="door" gid="73" x="128" y="224" width="32" height="32">
    <properties>
     <property name="radius" type="int" value="16"/>
    </properties>
