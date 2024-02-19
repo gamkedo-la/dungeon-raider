@@ -1,4 +1,4 @@
-import EntityTypes, { isCharacter, isEnemy, isLoot, isProjectile, isHitArea } from '../Globals/entityTypes.js'
+import EntityTypes, { isCharacter, isEnemy, isLoot, isProjectile, isHitArea, isSpawner } from '../Globals/entityTypes.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -32,7 +32,7 @@ export default class CollisionManager {
   addEntity (entityToAdd, radius = null) {
     if (isLoot(entityToAdd)) {
       addLoot(this, entityToAdd, radius)
-    } else if (isEnemy(entityToAdd)) {
+    } else if (isEnemy(entityToAdd) || isSpawner(entityToAdd)) {
       addEnemy(this, entityToAdd, radius)
     } else if (isCharacter(entityToAdd)) {
       addCharacter(this, entityToAdd, radius)
@@ -111,6 +111,8 @@ export default class CollisionManager {
   }
 
   enemyEnemyProcess (enemy1, enemy2) {
+    if (enemy1.spawner && enemy1.spawner === enemy2 || enemy2.spawner && enemy2.spawner === enemy1) return false
+
     return true
   }
 

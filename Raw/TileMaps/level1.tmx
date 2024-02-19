@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="77">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="79">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -151,7 +151,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="38" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="40" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -452,6 +452,22 @@
    </properties>
    <image width="32" height="32" source="ObjectImages/armorFullPlateMail.png"/>
   </tile>
+  <tile id="38" type="ogre1Spawner">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+    <property name="spawnRate" type="int" value="500"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/OgrePitSpawnerTile.png"/>
+  </tile>
+  <tile id="39" type="skeleton1Spawner">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+    <property name="spawnRate" type="int" value="500"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/SkeletonSpawnerTileImage.png"/>
+  </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
   <data encoding="csv">
@@ -459,9 +475,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,226,0,227,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,228,0,261,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,73,0,0,0,0,0,0,0,0,0,0,0,0,73,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -662,6 +678,8 @@
   <object id="74" gid="1033" x="1480" y="1365.33" width="16" height="16"/>
   <object id="75" gid="1033" x="132" y="1520" width="16" height="16"/>
   <object id="76" gid="1055" x="990.667" y="1344" width="32" height="32"/>
+  <object id="77" gid="1063" x="416" y="128" width="32" height="32"/>
+  <object id="78" gid="1064" x="448" y="288" width="32" height="32"/>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

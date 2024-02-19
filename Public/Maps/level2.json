@@ -933,7 +933,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":38,
+         "tilecount":40,
          "tileheight":64,
          "tiles":[
                 {
@@ -1769,6 +1769,52 @@
                          "value":16
                         }],
                  "type":"lootPlateMail"
+                }, 
+                {
+                 "id":38,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/OgrePitSpawnerTile.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "type":"ogre1Spawner"
+                }, 
+                {
+                 "id":39,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/SkeletonSpawnerTileImage.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "type":"skeleton1Spawner"
                 }],
          "tilewidth":32
         }],

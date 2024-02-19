@@ -37,6 +37,7 @@ export default class MapManager {
     }
 
     this.enemySpawnPoints = []
+    this.spawners = []
     this.store = {
       items: [],
       keeper: null,
@@ -111,6 +112,12 @@ function processObject (manager, object, gameManager) {
 			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
 				manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
 			}
+      break
+    case EntityTypes.Spawners.Ogre1:
+    case EntityTypes.Spawners.Skeleton1:
+      if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
+        manager.spawners.push(assignPropertiesToObject(object.properties, object))
+      }
       break
     case EntityTypes.StoreItem:
       manager.store.items.push(assignPropertiesToObject(object.properties, object))

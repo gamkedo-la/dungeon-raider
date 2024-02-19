@@ -5,12 +5,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     const frame = 0
     super(scene, config.x, config.y, config.spriteSheet, frame) // actual position will be set by the Level Scene
 
-    this.id = config.id
-    this.gameManager = config.gameManager
     this.scene = scene
-    this.spriteSheet = config.spriteSheet
-    this.entityType = config.entityType
-    this.attributes = config.attributes
+    Object.assign(this, config)
+    this.lastPosition = { x: this.x, y: this.y }
     this.shouldBeDead = false
     this.isDead = false
     this.animations = {}
@@ -42,7 +39,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.pursueCharacters()
   }
 
-  levelDidStart() {
+  levelDidStart () {
     this.canMove = true
   }
 

@@ -605,6 +605,62 @@
                  "width":32,
                  "x":990.667,
                  "y":1344
+                }, 
+                {
+                 "gid":1063,
+                 "height":32,
+                 "id":77,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "rotation":0,
+                 "type":"ogre1Spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":416,
+                 "y":128
+                }, 
+                {
+                 "gid":1064,
+                 "height":32,
+                 "id":78,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "rotation":0,
+                 "type":"skeleton1Spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":448,
+                 "y":288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -674,7 +730,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":77,
+ "nextobjectid":79,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1221,7 +1277,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":38,
+         "tilecount":40,
          "tileheight":64,
          "tiles":[
                 {
@@ -2057,6 +2113,52 @@
                          "value":16
                         }],
                  "type":"lootPlateMail"
+                }, 
+                {
+                 "id":38,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/OgrePitSpawnerTile.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "type":"ogre1Spawner"
+                }, 
+                {
+                 "id":39,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/SkeletonSpawnerTileImage.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":500
+                        }],
+                 "type":"skeleton1Spawner"
                 }],
          "tilewidth":32
         }],

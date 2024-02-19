@@ -151,7 +151,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="38" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="40" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <properties>
@@ -448,6 +448,22 @@
     <property name="radius" type="int" value="16"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/armorFullPlateMail.png"/>
+  </tile>
+  <tile id="38" type="ogre1Spawner">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+    <property name="spawnRate" type="int" value="500"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/OgrePitSpawnerTile.png"/>
+  </tile>
+  <tile id="39" type="skeleton1Spawner">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+    <property name="spawnRate" type="int" value="500"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/SkeletonSpawnerTileImage.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

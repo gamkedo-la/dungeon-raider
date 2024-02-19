@@ -213,7 +213,7 @@ class GameLevel extends Phaser.Scene {
 
   enemyKilledBy (enemy, otherEntity) {
     if (!!otherEntity) {
-			const loot = getLootForEnemy(enemy).loot
+			const loot = getLootForEnemy(enemy)
 			otherEntity.addLoot(loot)
     }
   }

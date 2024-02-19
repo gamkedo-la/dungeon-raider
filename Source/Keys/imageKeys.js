@@ -24,6 +24,8 @@ export const InterLevelCharacterPane = 'interlevelCharacterPane'
 export const KeyImage = 'key'
 export const MasterTileset = 'masterTileset'
 export const MissingPlayerShadow = 'missingPlayerShadow'
+export const SpawnerOgre1 = 'spawnerOgrePit'
+export const SpawnerSkeleton1 = 'spawnerSkeleton'
 export const WeaponAxeImage = 'weaponAxe'
 export const WeaponBattleAxeImage = 'weaponBattleAxe'
 export const WeaponFlangedMaceImage = 'weaponFlangedMace'
@@ -64,6 +66,8 @@ const ImageKeys = {
   KeyImage,
   MasterTileset,
   MissingPlayerShadow,
+  SpawnerOgre1,
+  SpawnerSkeleton1,
   WeaponAxeImage,
   WeaponBattleAxeImage,
   WeaponFlangedMaceImage,

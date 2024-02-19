@@ -43,6 +43,8 @@ export const LootShortBowType = 'lootShortBow'
 export const LootShortSwordType = 'lootShortSword'
 export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
+export const SpawnerOgre1Type = 'ogre1Spawner'
+export const SpawnerSkeleton1Type = 'skeleton1Spawner'
 export const StoreItemType = 'storeItem'
 export const StoreKeeperType = 'storeKeeper'
 export const Tile = 'tile'
@@ -121,6 +123,10 @@ export default {
     WarHammerMagic: LootWarHammerMagicType,
     WarHammer: LootWarHammerType
   },
+  Spawners: {
+    Ogre1: SpawnerOgre1Type,
+    Skeleton1: SpawnerSkeleton1Type
+  },
   StoreItem: StoreItemType,
   StoreKeeper: StoreKeeperType,
   Tile: Tile,
@@ -147,6 +153,7 @@ export default {
     WarHammerMagic: WeaponWarHammerMagicType
   },
   isEnemy,
+  isSpawner,
   isGold,
   isLoot,
   isWeapon
@@ -226,6 +233,16 @@ export function isLoot (entity) {
     case LootWarHammerType:
     case LootWarHammerMagicType:
     case KeyType:
+      return true
+    default:
+      return false
+  }
+}
+
+export function isSpawner (entity) {
+  switch (entity.entityType) {
+    case SpawnerOgre1Type:
+    case SpawnerSkeleton1Type:
       return true
     default:
       return false

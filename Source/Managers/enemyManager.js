@@ -1,5 +1,6 @@
 import EntityTypes from '../Globals/entityTypes.js'
 import { getAttributesForEnemy } from '../Globals/enemyAttributes.js'
+import Spawner from '../Entities/Enemies/spawner.js'
 import Ogre1 from '../Entities/Enemies/ogre1.js'
 import Skeleton1 from '../Entities/Enemies/skeleton1.js'
 
@@ -23,6 +24,13 @@ export default class EnemyManager {
       config.gameManager = this.gameManager
       this.addEnemy(enemySpawnPoint.type, config)
     }
+
+    for (const spawners of this.mapManager.spawners) {
+      const config = {}
+      Object.assign(config, spawners)
+      config.gameManager = this.gameManager
+      this.addSpawner(spawners.type, config)
+    }
   }
 
   addEnemy (entityType, config) {
@@ -43,6 +51,20 @@ export default class EnemyManager {
     this.scene.add.existing(newEnemy)
     this.enemies.push(newEnemy)
 
+    return newEnemy
+  }
+
+  addSpawner (entityType, config) {
+    if (config.minCharacterCount > this.characterCount) return
+
+    config.manager = this
+    const newSpawner = new Spawner(this.scene, config)
+
+    this.collisionManager.addEntity(newSpawner, config.radius)
+    this.scene.add.existing(newSpawner)
+    this.enemies.push(newSpawner)
+
+    return newSpawner
   }
 
   shutdown () {
