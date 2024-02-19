@@ -42,6 +42,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
+    this.on(Phaser.Animations.Events.ANIMATION_UPDATE, this.animationUpdate, this)
 
     this.buildPlayerMarker()
 
@@ -203,7 +204,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
       return
     }
 
-    this.executeAttackOnRequiredFrame()
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
@@ -292,6 +292,20 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.scene.characterDied(this)
       // TODO: need to either change this.entityType to EntityTypes.Loot.Character or
       // add a new entity to the loot manager that represents this character's body (probably this one)
+    }
+  }
+
+  animationUpdate (animation, frame) {
+    if (animation.key === this.animations.primary.key) {
+      const criticalFrame = getCriticalFrameForAnimation('primary', this.characterClass)
+      if (frame.index === criticalFrame) {
+        this.executePrimaryAttack()
+      }
+    } else if (animation.key === this.animations.secondary.key) {
+      const criticalFrame = getCriticalFrameForAnimation('secondary', this.characterClass)
+      if (frame.index === criticalFrame) {
+        this.executeSecondaryAttack()
+      }
     }
   }
 
@@ -427,7 +441,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 			this.body.velocity.y = 0
 		}
 
-    if (event.primary.isDown && !this.primaryAttackCoolingDown && this.currentState === CharacterStates.Moving) {
+    if (event.primary.isDown && !this.primaryAttackCoolingDown) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
 			this.currentState = CharacterStates.Attacking
@@ -437,7 +451,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       })
     }
 
-    if (event.secondary.isDown && !this.secondaryAttackCoolingDown && this.currentState === CharacterStates.Moving) {
+    if (event.secondary.isDown && !this.secondaryAttackCoolingDown) {
       this.body.velocity.x = 0
       this.body.velocity.y = 0
 			this.currentState = CharacterStates.Attacking
@@ -459,16 +473,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
   useGamepadInput (event) {
     // TODO: Need to implement this, analog stick and allow movement along angles other than 45 degrees?
     this.useKeyboardInput(event)
-  }
-
-  executeAttackOnRequiredFrame () {
-    let attackFrameIndex = 3
-    if (this.characterClass === CharacterClasses.Warrior) attackFrameIndex = 1
-    if (this.currentState !== CharacterStates.Attacking && this.anims.currentAnim.key === this.animations.primary.key && this.anims.currentFrame.index === attackFrameIndex) {
-      this.executePrimaryAttack()
-    } else if (this.anims.currentAnim.key === this.animations.secondary.key && this.anims.currentFrame.index === attackFrameIndex) {
-      this.executeSecondaryAttack()
-    }
   }
 
   executePrimaryAttack () {
@@ -560,4 +564,31 @@ function characterDied (character) {
   character.attributes.magic = 0
   character.serialize()
   character.playerMarker.destroy()
+}
+
+function getCriticalFrameForAnimation (animationType, characterClass) {
+  switch (animationType) {
+    case 'primary':
+      switch (characterClass) {
+        case CharacterClasses.Warrior:
+          return 2
+        case CharacterClasses.Archer:
+          return 3
+        case CharacterClasses.Magi:
+          return 3
+        case CharacterClasses.Cleric:
+          return 3
+      }
+    case 'secondary':
+      switch (characterClass) {
+        case CharacterClasses.Warrior:
+          return 2
+        case CharacterClasses.Archer:
+          return 3
+        case CharacterClasses.Magi:
+          return 3
+        case CharacterClasses.Cleric:
+          return 3
+      }
+  }
 }
