@@ -36,9 +36,15 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
   }
 
   levelDidStart () {
-    this.scene.time.delayedCall(this.spawnRate, () => {
-      spawnEnemy(this)
-    })
+    //this.scene.time.delayedCall(this.spawnRate, () => {
+      //spawnEnemy(this)
+    //})
+    this.spawnEvent = this.scene.time.addEvent({
+      delay: this.spawnRate,
+      callback: () => spawnEnemy(this),
+      callbackScope: this,
+      loop: true
+    });
   }
 
   didCollideWith (entity) {
