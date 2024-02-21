@@ -103,11 +103,21 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   // a sprite drawn on top of (or below) avatar (for swords, bows etc)
   buildVisibleWeapon () {
+    
+    // used for rudimentary animation to make the
+    // sprite swing back and forth when attacking
+    this.visibleWeaponSwingFrames = 20;
+    this.visibleWeaponSwingRemaining = 0;
+    this.visibleWeaponSwingAngle = 90;
+
     if (this.attributes?.primary?.visibleWeaponSprite) {
         this.visibleWeapon = this.scene.add.sprite(this.x, this.y, this.attributes.primary.visibleWeaponSprite)
     
         // change to + 1 for above player sprite
         this.visibleWeapon.depth = this.depth - 1 
+
+        // so it pivots at the handle
+        this.visibleWeapon.setOrigin(0.1,0.9);
     }    
   }
 
@@ -221,14 +231,15 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.visibleWeapon) {
         // offset the weapon depending on facing direction 
         // todo: (could a math.cos(facing.x) etc do it better?
-        let offsetX = this.facing.x * 6
-        let offsetY = this.facing.y * 6
+        let offsetX = this.facing.x * 7
+        let offsetY = this.facing.y * 7
 
         // looks better not quite centered, may want to use a variable vice a hard-coded number and may want to adjust based on weapon type
-        if (this.facing.x > 0) offsetY -= 4
-        if (this.facing.x < 0) offsetY += 4
-        if (this.facing.y > 0) offsetX += 4
-        if (this.facing.y < 0) offsetX -= 4
+        const pivotFix = -16;
+        if (this.facing.x > 0) offsetY -= 4 + pivotFix
+        if (this.facing.x < 0) offsetY += 4 + pivotFix
+        if (this.facing.y > 0) offsetX += 4 + pivotFix
+        if (this.facing.y < 0) offsetX -= 4 + pivotFix
 
         this.visibleWeapon.x = this.x + offsetX
         this.visibleWeapon.y = this.y + offsetY
@@ -237,6 +248,13 @@ export default class Character extends Phaser.GameObjects.Sprite {
         // if we want a nice tilt, it needs to be inversed at times:
         // needs +/- angle offset depending on facing dir
         this.visibleWeapon.angle = this.angle + 225
+
+        // "swing" the sword
+        if (this.visibleWeaponSwingRemaining) {
+            this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining/this.visibleWeaponSwingFrames)*(Math.PI)))*this.visibleWeaponSwingAngle;
+            this.visibleWeaponSwingRemaining--;
+        }
+    
     }
 
     this.body.setVelocity(0, 0)
@@ -252,6 +270,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     } else if (this.currentState === CharacterStates.Attacking && this.anims.currentAnim.key !== this.animations.primary.key) {
       this.anims.play(this.animations.primary, true)
       // TODO: This should also play the attack animation of the visible weapon, but there isn't one yet
+      // for now, we add to a weapon swing inertia that fades over time
+      this.visibleWeaponSwingRemaining = this.visibleWeaponSwingFrames;
     }
   }
 
