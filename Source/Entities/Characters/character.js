@@ -106,7 +106,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
     
     // used for rudimentary animation to make the
     // sprite swing back and forth when attacking
-    this.visibleWeaponSwingFrames = 20;
+    this.visibleWeaponSwingFrames = this.attributes.attackCooldown;
+    console.log(this.attributes.attackCooldown);
     this.visibleWeaponSwingRemaining = 0;
     this.visibleWeaponSwingAngle = 90;
 

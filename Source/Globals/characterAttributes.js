@@ -63,7 +63,7 @@ export function getCharacterAttributes (race, characterClass) {
 
   switch (characterClass) {
     case CharacterClasses.Warrior:
-      addWarriorModifiers(attributes)
+      addWarriorModifiers(attributes);
       break
     case CharacterClasses.Archer:
       addArcherModifiers(attributes)
@@ -100,7 +100,7 @@ const human = {
 
 const elf = {
   runSpeed: 250,
-  attackCooldown: 400,
+  attackCooldown: 10,
   health: 80,
   healthLossRate: 800,
   maxHealth: 80,
@@ -138,7 +138,7 @@ const dwarven = {
 
 const warriorModifiers = {
   runSpeed: -2,
-  attackCooldown: 100,
+  attackCooldown: 10,
   health: 20,
   healthLossRate: 300,
   maxHealth: 20,
