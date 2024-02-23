@@ -20,7 +20,7 @@ export default class EnemyManager {
       const attributes = getAttributesForEnemy(enemySpawnPoint)
       const config = {}
       Object.assign(config, enemySpawnPoint)
-      config.attributes = attributes
+      config.attributes = Phaser.Utils.Objects.DeepCopy(attributes)
       config.gameManager = this.gameManager
       this.addEnemy(enemySpawnPoint.type, config)
     }

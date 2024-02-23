@@ -101,7 +101,7 @@ function spawnOgre1 (spawner) {
     entityType: EntityTypes.Enemies.Ogre1,
     x: spawner.x,
     y: spawner.y,
-    attributes: Ogre1Attributes,
+    attributes: Phaser.Utils.Objects.DeepCopy(Ogre1Attributes),
     spawner: spawner
   })
 
@@ -115,7 +115,7 @@ function spawnSkeleton1 (spawner) {
     entityType: EntityTypes.Enemies.Skeleton1,
     x: spawner.x,
     y: spawner.y,
-    attributes: Skeleton1Attributes,
+    attributes: Phaser.Utils.Objects.DeepCopy(Skeleton1Attributes),
     spawner: spawner
   })
 
