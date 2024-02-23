@@ -12,6 +12,7 @@ export default class EnemyManager {
     this.gameManager = gameManager
     this.characterCount = this.gameManager.getCharacterCount()
     this.enemies = []
+    this.occupiedTiles = {}
     this.addEnemies()
   }
 
@@ -20,6 +21,7 @@ export default class EnemyManager {
       const attributes = getAttributesForEnemy(enemySpawnPoint)
       const config = {}
       Object.assign(config, enemySpawnPoint)
+      config.manager = this      
       config.attributes = Phaser.Utils.Objects.DeepCopy(attributes)
       config.gameManager = this.gameManager
       this.addEnemy(enemySpawnPoint.type, config)
@@ -38,6 +40,7 @@ export default class EnemyManager {
     const EnemyTypes = EntityTypes.Enemies
 
     let newEnemy = null
+    config.manager = this
     switch (entityType) {
       case EnemyTypes.Ogre1:
         newEnemy = new Ogre1(this.scene, config)
@@ -52,6 +55,18 @@ export default class EnemyManager {
     this.enemies.push(newEnemy)
 
     return newEnemy
+  }
+
+  update () {
+    this.occupiedTiles = {}
+    for (const enemy of this.enemies) {
+      if (!this.occupiedTiles[Math.floor(enemy.x / 32)]) this.occupiedTiles[Math.floor(enemy.x / 32)] = {}
+      this.occupiedTiles[Math.floor(enemy.x / 32)][Math.round(enemy.y % 32)] = true
+    }
+  }
+
+  isLocationOccupied (x, y) {
+    return this.occupiedTiles[x] ? this.occupiedTiles[x][y] : false
   }
 
   addSpawner (entityType, config) {
