@@ -10,7 +10,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.scene = scene
     Object.assign(this, config)
     this.lastPosition = { x: this.x, y: this.y }
-    this.targetPostion = null
+    this.targetPosition = null
     this.shouldBeDead = false
     this.isDead = false
     this.animations = {}
@@ -52,23 +52,23 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
     if (!closestCharacter) return
 
-    const targetDistance = this.targetPostion ? Phaser.Math.Distance.Between(this.targetPostion.x, this.targetPostion.y, this.x, this.y) : null
+    const targetDistance = this.targetPosition ? Phaser.Math.Distance.Between(this.targetPosition.x, this.targetPosition.y, this.x, this.y) : null
 
     if (distance <= this.attributes.range) {
-      this.targetPostion = null
+      this.targetPosition = null
       this.body.setVelocity(0,0)
       this.anims.play(this.animations.primary, this)
     } else if (distance <= 32) {
-      this.targetPostion = null
+      this.targetPosition = null
       this.scene.physics.moveToObject(this, closestCharacter, this.attributes.speed)
-    } else if (!this.targetPostion || (targetDistance && targetDistance <= 8)) {
+    } else if (!this.targetPosition || (targetDistance && targetDistance <= 8)) {
       const groundLayer = this.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
       const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false)
       const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false)
       const pathToFollow = pathToClosestCharacter(this, myTile, closestCharacterTile)
-      this.targetPostion = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
-    } else if (this.targetPostion) {
-      this.scene.physics.moveTo(this, this.targetPostion.x, this.targetPostion.y, this.attributes.speed)
+      this.targetPosition = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
+    } else if (this.targetPosition) {
+      this.scene.physics.moveTo(this, this.targetPosition.x, this.targetPosition.y, this.attributes.speed)
     }
   }
 

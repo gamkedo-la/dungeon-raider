@@ -60,8 +60,46 @@ export default class EnemyManager {
   update () {
     this.occupiedTiles = {}
     for (const enemy of this.enemies) {
+      // need to account for enemies that are near the edge of a tile
       if (!this.occupiedTiles[Math.floor(enemy.x / 32)]) this.occupiedTiles[Math.floor(enemy.x / 32)] = {}
       this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32)] = true
+
+      if (enemy.x % 32 < 6) {
+        // enemy is near the left edge of a tile, so add the left tile to the occupied tiles
+        if (!this.occupiedTiles[Math.floor(enemy.x / 32) - 1]) this.occupiedTiles[Math.floor(enemy.x / 32) - 1] = {}
+        this.occupiedTiles[Math.floor(enemy.x / 32) - 1][Math.floor(enemy.y / 32)] = true
+
+        // check upper left and lower left tiles
+        if (enemy.y % 32 < 6) {
+          if (!this.occupiedTiles[Math.floor(enemy.x / 32) - 1][Math.floor(enemy.y / 32) - 1]) this.occupiedTiles[Math.floor(enemy.x / 32) - 1][Math.floor(enemy.y / 32) - 1] = true
+        } else if (enemy.y % 32 > 26) {
+          if (!this.occupiedTiles[Math.floor(enemy.x / 32) - 1][Math.floor(enemy.y / 32) + 1]) this.occupiedTiles[Math.floor(enemy.x / 32) - 1][Math.floor(enemy.y / 32) + 1] = true
+        }
+      } else if (this.x % 32 > 26) {
+        // enemy is near the right edge of a tile, so add the right tile to the occupied tiles
+        if (!this.occupiedTiles[Math.floor(enemy.x / 32) + 1]) this.occupiedTiles[Math.floor(enemy.x / 32) + 1] = {}
+        this.occupiedTiles[Math.floor(enemy.x / 32) + 1][Math.floor(enemy.y / 32)] = true
+
+        // check upper right and lower right tiles
+        if (enemy.y % 32 < 6) {
+          if (!this.occupiedTiles[Math.floor(enemy.x / 32) + 1][Math.floor(enemy.y / 32) - 1]) this.occupiedTiles[Math.floor(enemy.x / 32) + 1][Math.floor(enemy.y / 32) - 1] = true
+        } else if (enemy.y % 32 > 26) {
+          if (!this.occupiedTiles[Math.floor(enemy.x / 32) + 1][Math.floor(enemy.y / 32) + 1]) this.occupiedTiles[Math.floor(enemy.x / 32) + 1][Math.floor(enemy.y / 32) + 1] = true
+        }
+      }
+      
+      if (enemy.y % 32 < 6) {
+        // enemy is near the top edge of a tile, so add the top tile to the occupied tiles
+        if (!this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32) - 1]) this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32) - 1] = true
+      } else if (enemy.y % 32 > 26) {
+        // enemy is near the bottom edge of a tile, so add the bottom tile to the occupied tiles
+        if (!this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32) + 1]) this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32) + 1] = true
+      }
+
+      if (enemy.targetPosition) {
+        if (!this.occupiedTiles[Math.floor(enemy.targetPosition.x / 32)]) this.occupiedTiles[Math.floor(enemy.targetPosition.x / 32)] = {}
+        this.occupiedTiles[Math.floor(enemy.targetPosition.x / 32)][Math.floor(enemy.targetPosition.y / 32)] = true
+      }
     }
   }
 
