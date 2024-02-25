@@ -14,6 +14,7 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
     this.entityType = config.type
     this.scene = scene
     this.lastPosition = { x: this.x, y: this.y } // Spawners don't move, but this simplifies the Collision Manager's job
+    this.health = 100
     this.damage = 10
     this.damageCooldown = 1000
     this.canDealDamage = true
@@ -78,6 +79,7 @@ function getSpriteSheet (entityType) {
 }
 
 function enemyDied (enemy) {
+	enemy.spawnEvent.remove()
   enemy.isDead = true
   enemy.gameManager.destroyObject(enemy.scene.levelKey, enemy.id)
   enemy.destroy()
