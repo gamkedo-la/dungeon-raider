@@ -171,6 +171,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
     let darker = Math.round(255*this.scaleX)
     let rgb = Phaser.Display.Color.GetColor(darker,darker,darker)
     this.setTint(rgb)
+
+    // hide weapon
+    this.visibleWeapon.setAlpha(0.0)
     
     // finally, actually exit
     if (this.scaleX < 0) {
