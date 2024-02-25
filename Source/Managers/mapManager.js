@@ -70,6 +70,8 @@ export default class MapManager {
         processObject(this, object, gameManager)
       }
     }
+
+    this.tileCosts = buildTileCosts(this)
   }
 
   getPlayerSpawn (player, targetingExitId = null) {
@@ -108,6 +110,19 @@ export default class MapManager {
         })
       }
     }
+  }
+
+  getNeighboringTiles (x, y) {
+    const neighbors = []
+    if (this.tileCosts[y - 1] && this.tileCosts[y - 1][x]) neighbors.push(this.tileCosts[y - 1][x])
+    if (this.tileCosts[y + 1] && this.tileCosts[y + 1][x]) neighbors.push(this.tileCosts[y + 1][x])
+    if (this.tileCosts[y][x - 1]) neighbors.push(this.tileCosts[y][x - 1])
+    if (this.tileCosts[y][x + 1]) neighbors.push(this.tileCosts[y][x + 1])
+    return neighbors
+  }
+
+  getTileCost (x, y) {
+    return this.tileCosts[y][x].cost
   }
 }
 
@@ -260,4 +275,34 @@ function setPrices (properties) {
   })
 
   return prices
+}
+
+function buildTileCosts (manager) {
+  const tileCosts = {}
+  const collisionLayer =  manager.map.layers.find(layer => layer.name === TileLayerKeys.CollisionLayer).tilemapLayer
+  const groundLayer = manager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
+  const belowGroundLayer =  manager.map.layers.find(layer => layer.name === TileLayerKeys.BelowGroundLayer).tilemapLayer 
+
+  for (let row = 0; row < manager.map.height; row++) {
+    for (let col = 0; col < manager.map.width; col++) {
+      let tile = collisionLayer.getTileAt(col, row, false)
+      if (!tile || !CollidableGIDs.includes(tile.index)) {
+        tile = belowGroundLayer.getTileAt(col, row, false)
+        if (tile && !CollidableGIDs.includes(tile.index)) tile = null
+      }
+
+      if (tile) {
+        if (!tileCosts[row]) tileCosts[row] = {}
+        tile.cost = Number.MAX_SAFE_INTEGER
+        tileCosts[row][col] = tile
+      } else {
+        tile = groundLayer.getTileAt(col, row, false)
+        if (!tileCosts[row]) tileCosts[row] = {}
+        tile.cost = 1
+        tileCosts[row][col] = tile
+      }
+    }
+  }
+
+  return tileCosts
 }

@@ -120,7 +120,7 @@ function pathToClosestCharacter (enemy, start, goal) {
 
     openList = openList.filter(node => node !== current)
 
-    for (let neighbor of getNeighbors(enemy, current)) {
+    for (let neighbor of enemy.scene.mapManager.getNeighboringTiles(current.x, current.y)) {
       let tentativeGScore = gScore.get(current) + distBetween(enemy, current, neighbor)
 
       if (!gScore.has(neighbor) || tentativeGScore < gScore.get(neighbor)) {
@@ -143,49 +143,9 @@ function heuristicCostEstimate(start, goal) {
 }
 
 function distBetween(enemy, start, goal) {
-  if (collisionTiles.includes(goal.index)) return Number.MAX_SAFE_INTEGER
-
   if (enemy.manager.isLocationOccupied(goal.x, goal.y)) return Number.MAX_SAFE_INTEGER
 
-  return 1
-}
-
-function getNeighbors(enemy, node) {
-  const collisionLayer =  enemy.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.CollisionLayer).tilemapLayer
-  const groundLayer = enemy.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
-  const belowGroundLayer =  enemy.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.BelowGroundLayer).tilemapLayer 
-
-  let west = collisionLayer.getTileAt(node.x - 1, node.y, false)
-  if (!west || !collisionTiles.includes(west.index)) {
-    west = belowGroundLayer.getTileAt(node.x - 1, node.y, false)
-    if (!west || !collisionTiles.includes(west.index)) west = groundLayer.getTileAt(node.x - 1, node.y, false)
-  }
-
-  let east = collisionLayer.getTileAt(node.x + 1, node.y, false)
-  if (!east || !collisionTiles.includes(east.index)) {
-    east = belowGroundLayer.getTileAt(node.x + 1, node.y, false)
-    if (!east || !collisionTiles.includes(east.index)) east = groundLayer.getTileAt(node.x + 1, node.y, false)
-  }
-
-  let north = collisionLayer.getTileAt(node.x, node.y - 1, false)
-  if (!north || !collisionTiles.includes(north.index)) {
-    north = belowGroundLayer.getTileAt(node.x, node.y - 1, false)
-    if (!north || !collisionTiles.includes(north.index)) north = groundLayer.getTileAt(node.x, node.y - 1, false)
-  }
-
-  let south = collisionLayer.getTileAt(node.x, node.y + 1, false)
-  if (!south || !collisionTiles.includes(south.index)) {
-    south = belowGroundLayer.getTileAt(node.x, node.y + 1, false)
-    if (!south || !collisionTiles.includes(south.index)) south = groundLayer.getTileAt(node.x, node.y + 1, false)
-  }
-
-  const result = []
-  if (west) result.push(west)
-  if (east) result.push(east)
-  if (north) result.push(north)
-  if (south) result.push(south)
-
-  return result
+  return enemy.scene.mapManager.getTileCost(goal.x, goal.y)
 }
 
 function reconstructPath(cameFrom, current) {
