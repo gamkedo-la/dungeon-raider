@@ -159,6 +159,7 @@ class GameLevel extends Phaser.Scene {
     }
 
     this.inputManager.update(time, delta)
+    this.enemyManager.update(time, delta)
     if (this.physics.world.debugGraphic.visible) {
       this.drawDebug()
     } else {

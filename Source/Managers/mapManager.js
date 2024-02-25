@@ -14,16 +14,34 @@ export default class MapManager {
     this.tileset = this.map.addTilesetImage(MasterTileset, MasterTileset)
 
     this.layers = {}
+    const collisionTileSet = new Set()
     for (const layerKey in TileLayerKeys) {
       this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset).layer.tilemapLayer
-      if (TileLayerKeys[layerKey] === TileLayerKeys.CollisionLayer) this.map.setCollision(CollidableGIDs, true)
-      if (TileLayerKeys[layerKey] === TileLayerKeys.BelowGroundLayer) this.map.setCollision(CollidableGIDs, true)
+      if (TileLayerKeys[layerKey] === TileLayerKeys.CollisionLayer) {
+        this.map.setCollision(CollidableGIDs, true)
+        for (let row = 0; row < this.layers[layerKey].layer.data.length; row++) {
+          for (let col = 0; col < this.layers[layerKey].layer.data[row].length; col++) {
+            const tile = this.layers[layerKey].layer.data[row][col]
+            if (CollidableGIDs.includes(tile.index)) collisionTileSet.add({ x: tile.x, y: tile.y })
+          }
+        }
+      }
+      if (TileLayerKeys[layerKey] === TileLayerKeys.BelowGroundLayer) {
+        this.map.setCollision(CollidableGIDs, true)
+        for (let row = 0; row < this.layers[layerKey].layer.data.length; row++) {
+          for (let col = 0; col < this.layers[layerKey].layer.data[row].length; col++) {
+            const tile = this.layers[layerKey].layer.data[row][col]
+            if (CollidableGIDs.includes(tile.index)) collisionTileSet.add({ x: tile.x, y: tile.y })
+          }
+        }
+      }
       this.layers[layerKey].animatedTiles = findAnimatedTiles(this.tileAnimations, this.layers[layerKey].layer.data)
     }
 
     this.exits = []
     this.doors = []
     this.loot = []
+    this.collisionTileIndexes = Array.from(collisionTileSet)
 
     this.player1Spawns = []
     this.player2Spawns = []

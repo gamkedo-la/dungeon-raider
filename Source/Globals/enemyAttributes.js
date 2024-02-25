@@ -36,7 +36,7 @@ export const Ogre1Attributes = {
   attackCooldown: 1000,
   speed: 125,
   radius: 12,
-  range: 32
+  range: 16
 }
 
 export const Skeleton1Attributes = {
@@ -53,7 +53,7 @@ export const Skeleton1Attributes = {
   attackCooldown: 1000,
   speed: 150,
   radius: 12,
-  range: 32
+  range: 16
 }
 
 export function getAttributesForEnemy (enemy) {
