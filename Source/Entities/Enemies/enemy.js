@@ -145,7 +145,7 @@ function heuristicCostEstimate(start, goal) {
 function distBetween(enemy, start, goal) {
   if (collisionTiles.includes(goal.index)) return Number.MAX_SAFE_INTEGER
 
-  // if (enemy.manager.isLocationOccupied(goal.x, goal.y)) return Number.MAX_SAFE_INTEGER
+  if (enemy.manager.isLocationOccupied(goal.x, goal.y)) return Number.MAX_SAFE_INTEGER
 
   return 1
 }

@@ -61,7 +61,7 @@ export default class EnemyManager {
     this.occupiedTiles = {}
     for (const enemy of this.enemies) {
       if (!this.occupiedTiles[Math.floor(enemy.x / 32)]) this.occupiedTiles[Math.floor(enemy.x / 32)] = {}
-      this.occupiedTiles[Math.floor(enemy.x / 32)][Math.round(enemy.y % 32)] = true
+      this.occupiedTiles[Math.floor(enemy.x / 32)][Math.floor(enemy.y / 32)] = true
     }
   }
 
