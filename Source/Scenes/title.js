@@ -2,14 +2,12 @@ import SceneKeys from "../Keys/sceneKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
+import OptionMenu from "../UIElements/optionMenu.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import AudioKeys, { TitleMusic } from "../Keys/audioKeys.js"
 import { Races, CharacterClasses, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
-import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
-import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
-import { GoldPieceImage } from "../Keys/imageKeys.js"
 import Debug from "../Globals/debug.js"
 
 const selections = {
@@ -27,12 +25,6 @@ class Title extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
-
-    this.menuSelectionCoolingDown = false
-    this.menuTop = null // can't create this until the scene is initialized => in create()
-    this.activeMarker = null // can't create this until the scene is initialized => in create()
-    this.activeSelection = selections.OnePlayer
-    this.markerPositions = [{ x: 0, y: 0 }] // will never use position 0, but it makes the math easier
   }
 
   preload () {
@@ -44,15 +36,19 @@ class Title extends Phaser.Scene {
     this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
       this.gameManager.addGamepad(pad)
     })
-    this.inputManager = new InputManager(this, this.gameManager)
 
+    this.inputManager = new InputManager(this, this.gameManager)
     for (const inputEvent in InputEventKeys) {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    this.menuTop = 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
-    this.activeMarker = null
-    this.activeSelection = selections.OnePlayer
+    this.optionMenu = new OptionMenu(this, {
+        gameManager: this.gameManager,
+        inputManager: this.inputManager,
+        selections: selections,
+				selected: selections.OnePlayer,
+				onSelectCallback: this.onMenuSelectOption.bind(this)
+    })
 
     this.buildMenu()
 
@@ -65,115 +61,54 @@ class Title extends Phaser.Scene {
   }
 
   buildMenu () {
-    this.buildMenuOption('1 Player Game', 1, UIAttributes.Player1Color, true)
-    this.buildMenuOption('2 Player Game', 2, UIAttributes.Player2Color)
-    this.buildMenuOption('3 Player Game', 3, UIAttributes.Player3Color)
-    this.buildMenuOption('4 Player Game', 4, UIAttributes.Player4Color)
-    this.buildMenuOption('Options', 5)
-    this.buildMenuOption('Credits', 6)
-  }
-
-  buildMenuOption (optionName, optionNumber, color = UIAttributes.UIColor, active = false) {
-    const label = new FontLabel(this, {
-      x: (this.game.canvas.width / 2),
-      y: this.menuTop + (optionNumber - 1) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
-      title: optionName,
-      align: UIAttributes.CenterAlign,
-      fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.TitleFontSize,
-      color,
-      activeCallback: () => {
-        if (active) {
-          this.activeMarker = this.add.image(
-            (this.game.canvas.width / 2) - label.width / 2,
-            this.menuTop + (optionNumber - 0.5) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize),
-            GoldPieceImage
-          )
-    
-          const scale = 2.0
-          this.activeMarker.setScale(scale)
-          this.activeMarker.x -= ((scale * (this.activeMarker.width / 2)) + 10) // 10 is the padding between the marker and the text
-        }
-
-        this.markerPositions.push({
-          x: (this.game.canvas.width / 2) - label.width / 2,
-          y: this.menuTop + (optionNumber - 0.5) * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
-        })
-      }
-    })
+    this.optionMenu.buildMenuOption('1 Player Game', 1, UIAttributes.Player1Color, true)
+    this.optionMenu.buildMenuOption('2 Player Game', 2, UIAttributes.Player2Color)
+    this.optionMenu.buildMenuOption('3 Player Game', 3, UIAttributes.Player3Color)
+    this.optionMenu.buildMenuOption('4 Player Game', 4, UIAttributes.Player4Color)
+    this.optionMenu.buildMenuOption('Options', 5)
+    this.optionMenu.buildMenuOption('Credits', 6)
   }
 
   update (time, delta) {
     this.inputManager.update(time, delta)
   }
 
-  processInput (event) {
-    if (event.up?.isDown) {
-      if (this.menuSelectionCoolingDown) return
-
-      this.activeSelection--
-      if (this.activeSelection < selections.OnePlayer) {
-        this.activeSelection = selections.Credits
-      }
-      this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
-      this.activeMarker.y = this.markerPositions[this.activeSelection].y
-      this.menuSelectionCoolingDown = true
-      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
-        this.menuSelectionCoolingDown = false
-      })
-    }
-  
-    if (event.down?.isDown) {
-      if (this.menuSelectionCoolingDown) return
-
-      this.activeSelection++
-      if (this.activeSelection > selections.Credits) {
-        this.activeSelection = selections.OnePlayer
-      }
-      this.activeMarker.x = this.markerPositions[this.activeSelection].x - ((this.activeMarker.scaleX * (this.activeMarker.width / 2)) + 10)
-      this.activeMarker.y = this.markerPositions[this.activeSelection].y
-      this.menuSelectionCoolingDown = true
-      this.time.delayedCall(UIAttributes.MenuSelectionCooldown, () => {
-        this.menuSelectionCoolingDown = false
-      })
-    } 
-    
-    if (event.primary?.isDown || event.secondary?.isDown || event.select1?.isDown || event.select2?.isDown) {
-      if (this.activeSelection === selections.Options) {
-        this.scene.start(SceneKeys.Options)
-        this.scene.remove(SceneKeys.Title)
-      } else if (this.activeSelection === selections.Credits) {
-        this.scene.start(SceneKeys.Credits)
-        this.scene.remove(SceneKeys.Title)
-      } else {
-        this.gameManager.setPlayerCount(this.activeSelection || selections.OnePlayer)
-        this.gameManager.setCharacterCount(this.activeSelection || selections.OnePlayer)
-        if (Debug.SkipCharacterCreateScene) {
-          loadDebugDefaults(this, this.gameManager)
-        } else {
-          this.scene.start(SceneKeys.CharacterCreate)
-        }
-        this.scene.remove(SceneKeys.Title)
-      }
-    }
+  onMenuSelectOption (option) {
+		if (option === selections.Options) {
+			this.scene.start(SceneKeys.Options)
+			this.scene.remove(SceneKeys.Title)
+		} else if (option === selections.Credits) {
+			this.scene.start(SceneKeys.Credits)
+			this.scene.remove(SceneKeys.Title)
+		} else {
+			this.gameManager.setPlayerCount(option || selections.OnePlayer)
+			this.gameManager.setCharacterCount(option || selections.OnePlayer)
+			if (Debug.SkipCharacterCreateScene) {
+				loadDebugDefaults(this, this.gameManager, option)
+			} else {
+				this.scene.start(SceneKeys.CharacterCreate)
+			}
+			this.scene.remove(SceneKeys.Title)
+		}
   }
 }
 
-function loadDebugDefaults (scene, gameManager) {
+function loadDebugDefaults (scene, gameManager, selected) {
+	console.log(selected)
   createPlayer1Character(scene, gameManager)
   gameManager.setActivePlayer(Player1Keys.Player, Debug.Player1Input, true)        
 
-  if (scene.activeSelection > selections.OnePlayer) {
+  if (selected > selections.OnePlayer) {
     createPlayer2Character(scene, gameManager)
     gameManager.setActivePlayer(Player2Keys.Player, Debug.Player2Input, true)
   }
 
-  if (scene.activeSelection > selections.TwoPlayer) {
+  if (selected > selections.TwoPlayer) {
     createPlayer3Character(scene, gameManager)
     gameManager.setActivePlayer(Player3Keys.Player, Debug.Player3Input, true)
   }
 
-  if (scene.activeSelection > selections.ThreePlayer) {
+  if (selected > selections.ThreePlayer) {
     createPlayer4Character(scene, gameManager)
     gameManager.setActivePlayer(Player4Keys.Player, Debug.Player4Input, true)
   }
