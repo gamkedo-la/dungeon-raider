@@ -16,6 +16,7 @@ export const PickupCoinSound = 'pickup_coin'
 export const PickupKeySound = 'pickup_key'
 export const Welcome = 'welcome'
 export const WelcomeMusicBody = 'music_welcome_body'
+export const PickUpFoodSound = 'gulp1'
 
 const AudioKeys = {
   // Including audio keys here enables the Preloader to automatically load them for us
@@ -104,6 +105,12 @@ const AudioKeys = {
   },
   [PickupKeySound]: {
     fileName: PickupKeySound,
+    volume: 0.5,
+    loop: false,
+    type: 'sfx'
+  },
+  [PickUpFoodSound]: {
+    fileName: PickUpFoodSound,
     volume: 0.5,
     loop: false,
     type: 'sfx'
