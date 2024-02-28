@@ -6,12 +6,8 @@ import { getArmorByName } from '../../Globals/armorAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
 import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
-import AudioKeys from '../../Keys/audioKeys.js'
-import { PickupCoinSound } from '../../Keys/audioKeys.js'
-import { PickupKeySound } from '../../Keys/audioKeys.js'
+import AudioKeys, { PickUpFoodSound, PickupCoinSound, PickupKeySound } from '../../Keys/audioKeys.js'
 import { ExitSound } from '../../Keys/audioKeys.js'
-import ImageKeys from "../../Keys/imageKeys.js"
-
 
 export default class Character extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -106,10 +102,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
     
     // used for rudimentary animation to make the
     // sprite swing back and forth when attacking
-    this.visibleWeaponSwingFrames = this.attributes.attackCooldown;
-    console.log(this.attributes.attackCooldown);
-    this.visibleWeaponSwingRemaining = 0;
-    this.visibleWeaponSwingAngle = 90;
+    this.visibleWeaponSwingFrames = this.attributes.attackCooldown
+    this.visibleWeaponSwingRemaining = 0
+    this.visibleWeaponSwingAngle = 90
 
     if (this.attributes?.primary?.visibleWeaponSprite) {
         this.visibleWeapon = this.scene.add.sprite(this.x, this.y, this.attributes.primary.visibleWeaponSprite)
@@ -118,7 +113,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
         this.visibleWeapon.depth = this.depth - 1 
 
         // so it pivots at the handle
-        this.visibleWeapon.setOrigin(0.1,0.9);
+        this.visibleWeapon.setOrigin(0.1,0.9)
     }    
   }
 
@@ -239,7 +234,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
         let offsetY = this.facing.y * 7
 
         // looks better not quite centered, may want to use a variable vice a hard-coded number and may want to adjust based on weapon type
-        const pivotFix = -16;
+        const pivotFix = -16
         if (this.facing.x > 0) offsetY -= 4 + pivotFix
         if (this.facing.x < 0) offsetY += 4 + pivotFix
         if (this.facing.y > 0) offsetX += 4 + pivotFix
@@ -255,8 +250,8 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
         // "swing" the sword
         if (this.visibleWeaponSwingRemaining) {
-            this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining/this.visibleWeaponSwingFrames)*(Math.PI)))*this.visibleWeaponSwingAngle;
-            this.visibleWeaponSwingRemaining--;
+            this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining/this.visibleWeaponSwingFrames)*(Math.PI)))*this.visibleWeaponSwingAngle
+            this.visibleWeaponSwingRemaining--
         }
     
     }
@@ -275,7 +270,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.primary, true)
       // TODO: This should also play the attack animation of the visible weapon, but there isn't one yet
       // for now, we add to a weapon swing inertia that fades over time
-      this.visibleWeaponSwingRemaining = this.visibleWeaponSwingFrames;
+      this.visibleWeaponSwingRemaining = this.visibleWeaponSwingFrames
     }
   }
 
@@ -338,16 +333,14 @@ export default class Character extends Phaser.GameObjects.Sprite {
   }
 
   sfx(soundId) {
-    if (!soundId) return;
-    if (!this.scene.sound) return;
-    if (!AudioKeys[soundId]) return;
+    if (!soundId || !this.scene.sound || !AudioKeys[soundId]) return
     this.scene.sound.play(soundId, { loop: AudioKeys[soundId].loop, volume: AudioKeys[soundId].volume })  
   }
 
   collectedLoot (loot) {
     if (loot.attribute === 'health') {
       this.attributes.health = Math.min(this.attributes.maxHealth, this.attributes.health + loot.value)
-      this.sfx(PickupCoinSound)
+      this.sfx(PickUpFoodSound)
     } else if (loot.attribute === 'magic') {
       this.attributes.magic = Math.min(this.attributes.maxMagic, this.attributes.magic + loot.value)
       this.sfx(PickupKeySound)
@@ -361,7 +354,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.attributes.availableArmor.push(getArmorByName(loot.name))
       this.sfx(PickupCoinSound)
     } else if (loot.attribute === 'arrows') {
-      const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType);
+      const arrow = this.attributes.availableArrows.find((element) => element.name === loot.arrowType)
       arrow.quantity += loot.value
       this.sfx(PickupCoinSound)
     } else {

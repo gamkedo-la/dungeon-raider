@@ -63,7 +63,7 @@ export function getCharacterAttributes (race, characterClass) {
 
   switch (characterClass) {
     case CharacterClasses.Warrior:
-      addWarriorModifiers(attributes);
+      addWarriorModifiers(attributes)
       break
     case CharacterClasses.Archer:
       addArcherModifiers(attributes)
@@ -283,7 +283,7 @@ function addArcherModifiers (attributes) {
   attributes.equippedArrowSecondary = archerModifiers.equippedArrowSecondary
   attributes.getArrowQuantity = archerModifiers.getArrowQuantity
   attributes.useArrow = archerModifiers.useArrow
-  attributes.availableArrows = JSON.parse(JSON.stringify(archerModifiers.availableArrows)); // there was a bug where Player 2's arrows were increased whenever Player 1 also collected arrows, this fixes it
+  attributes.availableArrows = Phaser.Utils.Objects.DeepCopy(archerModifiers.availableArrows)
   attributes.radius += archerModifiers.radius
 }
 

@@ -136,7 +136,7 @@ class GameLevel extends Phaser.Scene {
         }
 
         for (const enemy of this.enemyManager.enemies) {
-          enemy.levelDidStart();
+          enemy.levelDidStart()
         }
       },
       onCompleteScope: this
@@ -147,9 +147,9 @@ class GameLevel extends Phaser.Scene {
 
     if (!this.hasWelcomedPlayers) {
         // play a random welcome message (for now)
-        this.alertSound.play();
-        this.voiceoverWelcomeSounds[Math.floor(Math.random()*this.voiceoverWelcomeSounds.length)].play();
-        this.hasWelcomedPlayers = true;
+        this.alertSound.play()
+        this.voiceoverWelcomeSounds[Math.floor(Math.random()*this.voiceoverWelcomeSounds.length)].play()
+        this.hasWelcomedPlayers = true
     }
 
 
