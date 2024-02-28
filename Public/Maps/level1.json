@@ -651,6 +651,11 @@
                          "value":16
                         }, 
                         {
+                         "name":"spawnLimit",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"spawnRate",
                          "type":"int",
                          "value":4000

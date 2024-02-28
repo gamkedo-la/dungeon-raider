@@ -685,6 +685,7 @@
   </object>
   <object id="78" gid="1064" x="448" y="288" width="32" height="32">
    <properties>
+    <property name="spawnLimit" type="int" value="2"/>
     <property name="spawnRate" type="int" value="4000"/>
    </properties>
   </object>

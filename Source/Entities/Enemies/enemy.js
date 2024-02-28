@@ -17,6 +17,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.canMove = false
     this.canAttack = true
     this.depth = 8
+    this.spawner = config.spawner
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
@@ -98,6 +99,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 }
 
 function enemyDied (enemy) {
+	enemy.spawner?.enemyDied(enemy)
   enemy.isDead = true
   enemy.gameManager.destroyObject(enemy.scene.levelKey, enemy.id)
   enemy.destroy()

@@ -23,6 +23,9 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
     this.depth = 8
     this.nextId = 0
 
+    this.currentlySpawned = 0
+		this.spawnLimit = config.spawnLimit || 3 // maximum number of spawned entities (set to -1 for unlimited spawns)
+
     // Register for the 'update' event
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
   }
@@ -31,7 +34,7 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
     if (!this.scene || this.isDead) return
 
     if (this.shouldBeDead) {
-      enemyDied(this)
+      spawnerDestroyed(this)
       return
     }
   }
@@ -67,6 +70,10 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
       this.shouldBeDead = true
     }
   }
+
+	enemyDied (enemy) {
+		this.currentlySpawned -= 1
+	}
 }
 
 function getSpriteSheet (entityType) {
@@ -78,14 +85,19 @@ function getSpriteSheet (entityType) {
   }
 }
 
-function enemyDied (enemy) {
-	enemy.spawnEvent.remove()
-  enemy.isDead = true
-  enemy.gameManager.destroyObject(enemy.scene.levelKey, enemy.id)
-  enemy.destroy()
+function spawnerDestroyed (spawner) {
+	spawner.spawnEvent.remove()
+  spawner.isDead = true
+  spawner.gameManager.destroyObject(spawner.scene.levelKey, spawner.id)
+  spawner.destroy()
 }
 
 function spawnEnemy (spawner) {
+	if (spawner.spawnLimit > 0 && spawner.currentlySpawned >= spawner.spawnLimit) {
+		return
+	}
+
+	spawner.currentlySpawned += 1
   switch (spawner.entityType) {
     case EntityTypes.Spawners.Ogre1:
       spawnOgre1(spawner)
