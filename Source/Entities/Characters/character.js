@@ -400,9 +400,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.currentState = CharacterStates.Dying
       this.anims.play(this.animations.death, true)
     } else {
-      this.currentState = CharacterStates.Injured
       this.flashWhite()
-      this.anims.play(this.animations.injured, true)
+      if (this.currentState !== CharacterStates.Attacking) {
+        this.currentState = CharacterStates.Injured
+        this.anims.play(this.animations.injured, true)
+      }
     }
   }
 
