@@ -168,7 +168,9 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.setTint(rgb)
 
     // hide weapon
-    this.visibleWeapon.setAlpha(0.0)
+    if(this.visibleWeapon !== undefined){
+      this.visibleWeapon.setAlpha(0.0)
+    }
     
     // finally, actually exit
     if (this.scaleX < 0) {
