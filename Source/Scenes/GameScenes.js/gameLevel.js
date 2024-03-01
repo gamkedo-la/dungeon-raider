@@ -71,6 +71,9 @@ class GameLevel extends Phaser.Scene {
     this.scene.launch(SceneKeys.UserInterface)
     this.mapManager.startTileAnimations()
     this.scene.bringToTop(SceneKeys.UserInterface)
+
+    this.cameras.main.fadeIn(2000, 0,0,0);
+
   }
 
   createCharacters () {
@@ -238,13 +241,20 @@ class GameLevel extends Phaser.Scene {
 
   processCharacterOutOfPlay (character) {
     if (this.exitedCharacterCount + this.deadCharacterCount >= this.characters.length) {
-      if (this.key === SceneKeys.FinalLevel) {
-        this.scene.start(SceneKeys.GameComplete)
-      } else {
-        this.gameManager.goToInterLevelScene()
-      }
 
-      this.shutdown()
+      this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+
+        if (this.key === SceneKeys.FinalLevel) {
+          this.scene.start(SceneKeys.GameComplete)
+        } else {
+          this.gameManager.goToInterLevelScene()
+        }
+  
+        this.shutdown()
+
+      }, this);
+
+      this.cameras.main.fadeOut(2000);
     }
   }
 
