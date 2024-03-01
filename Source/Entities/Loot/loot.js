@@ -84,6 +84,8 @@ function getNameForEntityType (entityType) {
       return WeaponNames.ShortBow
     case LootTypes.ShortSword:
       return WeaponNames.ShortSword
+    case LootTypes.Staff:
+      return WeaponNames.Staff
     case LootTypes.WarHammerMagic:
       return WeaponNames.WarHammerMagic
     case LootTypes.WarHammer:

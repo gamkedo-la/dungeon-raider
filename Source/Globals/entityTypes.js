@@ -41,6 +41,7 @@ export const LootRingMailType = 'lootRingMail'
 export const LootShieldType = 'lootShield'
 export const LootShortBowType = 'lootShortBow'
 export const LootShortSwordType = 'lootShortSword'
+export const LootStaffType = "lootStaff"
 export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
 export const SpawnerOgre1Type = 'ogre1Spawner'
@@ -67,6 +68,7 @@ export const WeaponLongSwordType = 'weaponLongSword'
 export const WeaponMaceType  = 'weaponMace'
 export const WeaponShortBowType = 'weaponShortBow'
 export const WeaponShortSwordType = 'weaponShortSword'
+export const WeaponStaffType = "weaponStaff"
 export const WeaponWarHammerType = 'weaponWarHammer'
 export const WeaponWarHammerMagicType = 'weaponWarHammerMagic'
 export const WeaponDaggerType = 'weaponDagger'
@@ -120,6 +122,7 @@ export default {
     Shield: LootShieldType,
     ShortBow: LootShortBowType,
     ShortSword: LootShortSwordType,
+    Staff: LootStaffType,
     WarHammerMagic: LootWarHammerMagicType,
     WarHammer: LootWarHammerType
   },
@@ -149,6 +152,7 @@ export default {
     Mace: WeaponMaceType,
     ShortBow: WeaponShortBowType,
     ShortSword: WeaponShortSwordType,
+    Staff: WeaponStaffType,
     WarHammer: WeaponWarHammerType,
     WarHammerMagic: WeaponWarHammerMagicType
   },
@@ -230,6 +234,7 @@ export function isLoot (entity) {
     case LootShieldType:
     case LootShortBowType:
     case LootShortSwordType:
+    case LootStaffType:
     case LootWarHammerType:
     case LootWarHammerMagicType:
     case KeyType:
@@ -269,6 +274,7 @@ export function isWeapon (entity) {
     case WeaponMaceType :
     case WeaponShortBowType:
     case WeaponShortSwordType:
+    case WeaponStaffType:
     case WeaponWarHammerType:
     case WeaponWarHammerMagicType:
       return true
@@ -300,6 +306,7 @@ export function isHitArea(entity) {
         case WeaponMaceType:
         case WeaponFlangedMaceType:
         case WeaponHammerType:
+        case WeaponStaffType:
         case WeaponWarHammerType:
 			return true
 		default:

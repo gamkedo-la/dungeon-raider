@@ -36,6 +36,7 @@ export const WeaponLongSwordImage = 'weaponLongSword'
 export const WeaponMaceImage = 'weaponMace'
 export const WeaponShortBowImage = 'weaponShortBow'
 export const WeaponShortSwordImage = 'weaponShortSword'
+export const WeaponStaffImage = 'weaponStaff'
 export const WeaponWarHammerImage = 'warhammer'
 export const WeaponWarHammerMagicImage = 'weaponWarHammer'
 
@@ -78,6 +79,7 @@ const ImageKeys = {
   WeaponMaceImage,
   WeaponShortBowImage,
   WeaponShortSwordImage,
+  WeaponStaffImage,
   WeaponWarHammerImage,
   WeaponWarHammerMagicImage
 }

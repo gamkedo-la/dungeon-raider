@@ -204,7 +204,7 @@ const archerModifiers = {
 
 const magiModifiers = {
   runSpeed: 0,
-  attackCooldown: 300,
+  attackCooldown: 30,
   health: -20,
   healthLossRate: -200,
   maxHealth: -20,

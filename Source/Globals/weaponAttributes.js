@@ -1,6 +1,6 @@
 import Weapon from '../Entities/Weapons/weapon.js'
 import { WeaponFistsType, WeaponDaggerType, WeaponShortSwordType, WeaponWarHammerMagicType, WeaponWarHammerType, WeaponHammerMagicType } from './entityTypes.js'
-import { WeaponHammerType, WeaponFlangedMaceType, WeaponMaceType, WeaponBattleAxeType, WeaponAxeType, WeaponLongSwordType } from './entityTypes.js'
+import { WeaponHammerType, WeaponFlangedMaceType, WeaponMaceType, WeaponBattleAxeType, WeaponAxeType, WeaponLongSwordType, WeaponStaffType } from './entityTypes.js'
 import ImageKeys from "../Keys/imageKeys.js"
 
 export const WeaponNames = {
@@ -229,8 +229,10 @@ export const staff = new Weapon({
   range: WeaponRanges.Melee,
   // see character.js buildVisibleWeapon() function:
   visibleWeaponSprite: ImageKeys.WeaponStaffImage,
+  size: new Phaser.Math.Vector2(32, 48),
   damage: 20,
-  speed: 400
+  speed: 400,
+	entityType: WeaponStaffType
 })
 
 // Wand range and damage are per type of spell
