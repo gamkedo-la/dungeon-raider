@@ -145,8 +145,12 @@ export default class CollisionManager {
   characterEnemyOverlap (character, enemy) {
     enemy.x = enemy.lastPosition.x
     enemy.y = enemy.lastPosition.y
-    character.x = character.lastPosition.x
-    character.y = character.lastPosition.y
+    const characterFacing = new Phaser.Math.Vector2(character.facing.x, character.facing.y)
+    const directionToEnemy = new Phaser.Math.Vector2(enemy.x - character.x, enemy.y - character.y)
+    if (characterFacing.dot(directionToEnemy) > 0.25) {
+      character.x = character.lastPosition.x
+      character.y = character.lastPosition.y  
+    }
     character.didCollideWith(enemy)
     enemy.didCollideWith(character)
   }
