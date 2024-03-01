@@ -41,13 +41,28 @@ export const ArrowNames = {
 export const Arrows = {
 	'Normal': {
 		name: ArrowNames.NormalArrows,
-		damage: 200,
+		damage: 25,
 		speed: 400,
 		radius: 12
 	},
-	'Silver': {},
-	'Fire': {},
-	'Magic': {}
+	'Silver': {
+    name: ArrowNames.NormalArrows,
+		damage: 30,
+		speed: 600,
+		radius: 12
+  },
+	'Fire': {
+    name: ArrowNames.NormalArrows,
+		damage: 40,
+		speed: 400,
+		radius: 12
+  },
+	'Magic': {
+    name: ArrowNames.NormalArrows,
+		damage: 50,
+		speed: 600,
+		radius: 12
+  }
 }
 
 const WeaponRanges = {
