@@ -1,5 +1,4 @@
 import EntityTypes from '../../Globals/entityTypes.js'
-import collisionTiles from '../../Globals/collisionTiles.js'
 import { TileLayerKeys } from '../../Keys/mapLayerKeys.js'
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
@@ -105,6 +104,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.canAttack = false
       otherEntity.takeDamage(this.attributes.damage)
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
+    } else if (otherEntity.entityType === EntityTypes.Tile) {
+      if (this.targetPosition) {
+        this.targetPosition = null
+      }
     }
   }
 
@@ -114,6 +117,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.attributes.health -= damage
     if (this.attributes.health <= 0) {
       this.anims.play(this.animations.death, this)
+      this.body.setVelocity(0,0)
       this.scene.enemyKilledBy(this, otherEntity)
     }
   }

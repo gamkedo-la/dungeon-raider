@@ -34,7 +34,7 @@ export const Ogre1Attributes = {
   },
   damage: 10,
   attackCooldown: 1000,
-  speed: 125,
+  speed: 85,
   radius: 12,
   range: 16
 }
@@ -51,7 +51,24 @@ export const Skeleton1Attributes = {
   },
   damage: 5,
   attackCooldown: 1000,
-  speed: 150,
+  speed: 65,
+  radius: 12,
+  range: 16
+}
+
+export const Demon1Attributes = {
+  health: 150,
+  loot: {
+    probability: 0.5,
+    gold: {
+      probability: 0.55,
+      min: 10,
+      max: 500
+    }
+  },
+  damage: 15,
+  attackCooldown: 750,
+  speed: 100,
   radius: 12,
   range: 16
 }

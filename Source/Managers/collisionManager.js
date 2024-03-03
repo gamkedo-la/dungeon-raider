@@ -156,10 +156,20 @@ export default class CollisionManager {
   }
 
   enemyEnemyOverlap (enemy1, enemy2) {
-    enemy1.x = enemy1.lastPosition.x
-    enemy1.y = enemy1.lastPosition.y
-    enemy2.x = enemy2.lastPosition.x
-    enemy2.y = enemy2.lastPosition.y
+    const enemy1Facing = new Phaser.Math.Vector2(Math.cos(enemy1.rotation), Math.sin(enemy1.rotation))
+    const directionToEnemy2 = new Phaser.Math.Vector2(enemy2.x - enemy1.x, enemy2.y - enemy1.y)
+    if (enemy1Facing.dot(directionToEnemy2) > 0.25) {
+      enemy1.x = enemy1.lastPosition.x
+      enemy1.y = enemy1.lastPosition.y
+    }
+
+    const enemy2Facing = new Phaser.Math.Vector2(Math.cos(enemy2.rotation), Math.sin(enemy2.rotation))
+    const directionToEnemy1 = new Phaser.Math.Vector2(enemy1.x - enemy2.x, enemy1.y - enemy2.y)
+    if (enemy2Facing.dot(directionToEnemy1) > 0.25) {
+      enemy2.x = enemy2.lastPosition.x
+      enemy2.y = enemy2.lastPosition.y
+    }
+
     enemy1.didCollideWith(enemy2)
     enemy2.didCollideWith(enemy1)
   }

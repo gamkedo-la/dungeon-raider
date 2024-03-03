@@ -1,7 +1,7 @@
 import { CharacterSpriteSheets } from '../../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheet } from '../../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { Races, CharacterClasses, CharacterStates } from '../../Globals/characterAttributes.js'
-import { getWeaponByName } from '../../Globals/weaponAttributes.js'
+import { getWeaponByName, isMelee } from '../../Globals/weaponAttributes.js'
 import { getArmorByName } from '../../Globals/armorAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
@@ -272,7 +272,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.primary, true)
       // TODO: This should also play the attack animation of the visible weapon, but there isn't one yet
       // for now, we add to a weapon swing inertia that fades over time
-      this.visibleWeaponSwingRemaining = this.visibleWeaponSwingFrames
+      if (isMelee(this.attributes.primary)) this.visibleWeaponSwingRemaining = this.visibleWeaponSwingFrames
     }
   }
 
