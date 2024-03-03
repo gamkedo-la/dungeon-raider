@@ -48,7 +48,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   }
 
   pursueCharacters () {
-    if (!this.canMove) return
+    if (!this.canMove || this.anims.currentAnim.key === this.animations.death.key || this.anims.currentAnim.key === this.animations.dead.key) return
 
     const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
     if (!closestCharacter) return
@@ -58,19 +58,45 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (distance <= this.attributes.range) {
       this.targetPosition = null
       this.body.setVelocity(0,0)
-      this.anims.play(this.animations.primary, this)
+
+      if (this.anims.currentAnim.key !== this.animations.primary.key) {
+        this.anims.play(this.animations.primary, this)
+        const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(this.x, this.y, closestCharacter.x, closestCharacter.y)
+        this.angle = Phaser.Math.RadToDeg(angle)  
+      }
     } else if (distance <= 32) {
       this.targetPosition = null
       this.scene.physics.moveToObject(this, closestCharacter, this.attributes.speed)
+
+      if (this.anims.currentAnim.key !== this.animations.primary.key) {
+        this.anims.play(this.animations.primary, this)
+        const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(this.x, this.y, closestCharacter.x, closestCharacter.y)
+        this.angle = Phaser.Math.RadToDeg(angle)  
+      }
     } else if (!this.targetPosition || (targetDistance && targetDistance <= 8)) {
       const groundLayer = this.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
       const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false)
       const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false)
       const pathToFollow = pathToClosestCharacter(this, myTile, closestCharacterTile)
       this.targetPosition = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
+      this.updateFacingDirectionIfRequired()
+      if (this.anims.currentAnim.key !== this.animations.walk.key) {
+        this.anims.play(this.animations.walk, this)
+      }
     } else if (this.targetPosition) {
       this.scene.physics.moveTo(this, this.targetPosition.x, this.targetPosition.y, this.attributes.speed)
+      this.updateFacingDirectionIfRequired()
+      if (this.anims.currentAnim.key !== this.animations.walk.key) {
+        this.anims.play(this.animations.walk, this)
+      }
     }
+  }
+
+  updateFacingDirectionIfRequired () {
+		if (!this.scene || this.shouldBeDead || !this.targetPosition) return
+
+    const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(this.x, this.y, this.targetPosition.x, this.targetPosition.y)
+    this.angle = Phaser.Math.RadToDeg(angle)
   }
 
   didCollideWith (otherEntity) {
@@ -83,11 +109,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   }
 
   takeDamage (damage, otherEntity) {
+    if (this.anims.currentAnim.key === this.animations.death.key) return
+
     this.attributes.health -= damage
     if (this.attributes.health <= 0) {
       this.anims.play(this.animations.death, this)
       this.scene.enemyKilledBy(this, otherEntity)
-      this.shouldBeDead = true // temporary
     }
   }
 
