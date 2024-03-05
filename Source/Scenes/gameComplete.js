@@ -10,7 +10,7 @@ class GameComplete extends Phaser.Scene {
   }
 
   create () {
-
+    this.cameras.main.fadeIn(2000, 0,0,0);
   }
 
   update (time, delta) {

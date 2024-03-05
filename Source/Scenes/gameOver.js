@@ -52,6 +52,8 @@ class GameOver extends Phaser.Scene {
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor
     })
+
+    this.cameras.main.fadeIn(2000, 0,0,0);
   }
 
   update (time, delta) {

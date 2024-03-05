@@ -54,6 +54,8 @@ class Title extends Phaser.Scene {
 
     this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
 
+    this.cameras.main.fadeIn(2000, 0,0,0);
+
     //TODO: Build the Menu, including:
     // 1. Title
     // 2. Menu Options (1 Player Game, 2 Player Game, 3 Player Game, 4 Player Game, Credits)

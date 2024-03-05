@@ -113,6 +113,8 @@ class CharacterCreate extends Phaser.Scene {
 
     const allSounds = this.sound.getAll()
     this.music = allSounds.find(sound => sound.key === TitleMusic && sound.isPlaying)
+
+    this.cameras.main.fadeIn(2000, 0,0,0);
   }
 
   registerSceneForInputEvents () {

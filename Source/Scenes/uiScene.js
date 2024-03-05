@@ -32,6 +32,8 @@ class UserInterface extends Phaser.Scene {
       this.activePlayerUIs[player] = labels
       originX += 400
     }
+
+    this.cameras.main.fadeIn(2000, 0,0,0);
   }
 
   createCharacterUI (player, frameX, frameY) {
