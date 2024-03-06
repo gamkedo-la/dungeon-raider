@@ -18,14 +18,6 @@ export default class Ogre1 extends Enemy {
   buildAnimations () {
     super.buildAnimations(Ogre1Animations)
   }
-
-  didCollideWith (otherEntity) {
-    // Do something special here like check if the other entity is a character weapon and if so, take damage
-    super.didCollideWith(otherEntity)
-    if (otherEntity.entityType === EntityTypes.Tile && this.anims.currentAnim.key !== this.animations.idle.key && this.anims.currentAnim.key !== this.animations.death.key && this.anims.currentAnim.key !== this.animations.dead.key) {
-      this.anims.play(this.animations.idle, this)
-    }
-  }
 }
 
 function getSpriteSheet () {

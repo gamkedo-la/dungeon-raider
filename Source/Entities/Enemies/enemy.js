@@ -1,4 +1,4 @@
-import EntityTypes from '../../Globals/entityTypes.js'
+import EntityTypes, { isEnemy } from '../../Globals/entityTypes.js'
 import { TileLayerKeys } from '../../Keys/mapLayerKeys.js'
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
@@ -105,8 +105,32 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       otherEntity.takeDamage(this.attributes.damage)
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
     } else if (otherEntity.entityType === EntityTypes.Tile) {
-      if (this.targetPosition) {
-        this.targetPosition = null
+      if (otherEntity.x < this.x) {
+        // hit a tile to the left, change target to be up
+        this.targetPosition = getTilePositionInDirection(this, 'up')
+      } else if (otherEntity.x > this.x) {
+        // hit a tile to the right, change target to be down
+        this.targetPosition = getTilePositionInDirection(this, 'down')
+      } else if (otherEntity.y < this.y) {
+        // hit a tile above, change target to be right
+        this.targetPosition = getTilePositionInDirection(this, 'right')
+      } else if (otherEntity.y > this.y) {
+        // hit a tile below, change target to be left
+        this.targetPosition = getTilePositionInDirection(this, 'left')
+      }
+    } else if (isEnemy(otherEntity)) {
+      if (this.targetPosition?.x < this.x && otherEntity.x < this.x) {
+        // hit an enemy to the left, change target to be up
+        this.targetPosition = getTilePositionInDirection(this, 'up')
+      } else if (this.targetPosition?.x > this.x && otherEntity.x > this.x) {
+        // hit an enemy to the right, change target to be down
+        this.targetPosition = getTilePositionInDirection(this, 'down')
+      } else if (this.targetPosition?.y < this.y && otherEntity.y < this.y) {
+        // hit an enemy above, change target to be right
+        this.targetPosition = getTilePositionInDirection(this, 'right')
+      } else if (this.targetPosition?.y > this.y && otherEntity.y > this.y) {
+        // hit an enemy below, change target to be left
+        this.targetPosition = getTilePositionInDirection(this, 'left')
       }
     }
   }
@@ -190,4 +214,17 @@ function reconstructPath(cameFrom, current) {
   }
 
   return totalPath
+}
+
+function getTilePositionInDirection (enemy, direction) {
+  switch (direction) {
+    case 'up':
+      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 - 16 }
+    case 'down':
+      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 + 48 }
+    case 'left':
+      return { x: Math.floor(enemy.x / 32) * 32 - 16, y: Math.floor(enemy.x / 32) * 32 + 16 }
+    case 'right':
+      return { x: Math.floor(enemy.x / 32) * 32 + 48, y: Math.floor(enemy.x / 32) * 32 + 16 }
+  }
 }
