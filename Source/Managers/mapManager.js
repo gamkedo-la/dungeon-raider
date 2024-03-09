@@ -1,7 +1,7 @@
 import { MasterTileset } from "../Keys/imageKeys.js"
 import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
 import EntityTypes from "../Globals/entityTypes.js"
-import CollidableGIDs from "../Globals/collisionTiles.js"
+import CollidableGIDs, { BridgeIndex } from "../Globals/collisionTiles.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
 export default class MapManager {
@@ -27,7 +27,6 @@ export default class MapManager {
         }
       }
       if (TileLayerKeys[layerKey] === TileLayerKeys.BelowGroundLayer) {
-        this.map.setCollision(CollidableGIDs, true)
         for (let row = 0; row < this.layers[layerKey].layer.data.length; row++) {
           for (let col = 0; col < this.layers[layerKey].layer.data[row].length; col++) {
             const tile = this.layers[layerKey].layer.data[row][col]
@@ -288,7 +287,13 @@ function buildTileCosts (manager) {
       let tile = collisionLayer.getTileAt(col, row, false)
       if (!tile || !CollidableGIDs.includes(tile.index)) {
         tile = belowGroundLayer.getTileAt(col, row, false)
-        if (tile && !CollidableGIDs.includes(tile.index)) tile = null
+        if (tile) {
+          if (groundLayer.getTileAt(col, row)?.index === BridgeIndex) {
+            tile = null
+          } else if (!CollidableGIDs.includes(tile.index)) {
+            tile = null
+          }
+        }
       }
 
       if (tile) {

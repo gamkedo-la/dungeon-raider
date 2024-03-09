@@ -17,4 +17,6 @@ const collisionTiles = [
   72 // door
 ]
 
+export const BridgeIndex = 483
+
 export default collisionTiles
