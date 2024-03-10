@@ -38,6 +38,7 @@ export default class MapManager {
     }
 
     this.exits = []
+    this.drawbridges = []
     this.doors = []
     this.loot = []
     this.collisionTileIndexes = Array.from(collisionTileSet)
@@ -133,6 +134,9 @@ function processObject (manager, object, gameManager) {
       break
     case EntityTypes.Exit:
       manager.exits.push(assignPropertiesToObject(object.properties, object))
+      break
+    case EntityTypes.Drawbridge:
+      manager.drawbridges.push(assignPropertiesToObject(object.properties, object))
       break
     case EntityTypes.Door:
 			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {

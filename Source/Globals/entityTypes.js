@@ -6,6 +6,7 @@ export const ArmorPlateMailType = 'lootPlateMail'
 export const ArmorRingMailType = 'lootRingMail'
 export const ArmorShieldType = 'lootShield'
 export const CharacterType = 'character'
+export const DrawbridgeType = 'drawbridge'
 export const DoorType = 'door'
 export const EnemyOgre1Type = 'ogre1'
 export const EnemySkeleton1Type = 'skeleton1'
@@ -85,6 +86,7 @@ export default {
   },
   Character: CharacterType,
   Door: DoorType,
+  Drawbridge: DrawbridgeType,
   Enemies: {
     Ogre1: EnemyOgre1Type,
     Skeleton1: EnemySkeleton1Type
@@ -297,17 +299,17 @@ export function isProjectile(entity) {
 
 export function isHitArea(entity) {
 	switch (entity.entityType) {
-        case WeaponFistsType:
-        case WeaponDaggerType:
-		case WeaponShortSwordType:
-        case WeaponLongSwordType:
-        case WeaponAxeType:
-        case WeaponBattleAxeType:
-        case WeaponMaceType:
-        case WeaponFlangedMaceType:
-        case WeaponHammerType:
-        case WeaponStaffType:
-        case WeaponWarHammerType:
+    case WeaponFistsType:
+    case WeaponDaggerType:
+    case WeaponShortSwordType:
+    case WeaponLongSwordType:
+    case WeaponAxeType:
+    case WeaponBattleAxeType:
+    case WeaponMaceType:
+    case WeaponFlangedMaceType:
+    case WeaponHammerType:
+    case WeaponStaffType:
+    case WeaponWarHammerType:
 			return true
 		default:
 			return false

@@ -9,6 +9,7 @@ import LootManager from "../../Managers/lootManager.js"
 import StoreManager from "../../Managers/storeManager.js"
 import Character from "../../Entities/Characters/character.js"
 import Exit from "../../Entities/Other/exit.js"
+import Drawbridge from "../../Entities/Other/drawbridge.js"
 import Door from "../../Entities/Other/door.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
@@ -64,6 +65,7 @@ class GameLevel extends Phaser.Scene {
 
     this.createCharacters()
     this.createExits()
+    this.createDrawbridges()
     this.createDoors()
     this.setupCamera()
 
@@ -105,6 +107,13 @@ class GameLevel extends Phaser.Scene {
     for (const exit of this.mapManager.exits) {
       exit.gameManager = this.gameManager
       this.collisionManager.addEntity(new Exit(this, exit)) // add the exit to the physics simulation and enable collisions
+    }
+  }
+
+  createDrawbridges () {
+    for (const drawbridge of this.mapManager.drawbridges) {
+      drawbridge.gameManager = this.gameManager
+      this.collisionManager.addEntity(new Drawbridge(this, drawbridge))
     }
   }
 

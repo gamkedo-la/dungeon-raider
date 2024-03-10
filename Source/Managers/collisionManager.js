@@ -8,6 +8,7 @@ export default class CollisionManager {
     this.characterGroup = this.scene.physics.add.group()
     this.enemyGroup = this.scene.physics.add.group()
     this.hitboxGroup = this.scene.physics.add.group()
+    this.drawbridgeGroup = this.scene.physics.add.staticGroup()
     this.doorGroup = this.scene.physics.add.staticGroup()
     this.exitGroup = this.scene.physics.add.staticGroup()
     this.lootGroup = this.scene.physics.add.staticGroup()
@@ -15,9 +16,11 @@ export default class CollisionManager {
 
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.CollisionLayer, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.characterGroup, this.mapManager.layers.BelowGroundLayer, this.characterMapCollision, this.characterMapProcess, this)
+    this.scene.physics.add.collider(this.characterGroup, this.drawbridgeGroup, this.characterBridgeCollision, this.characterBridgeProcess, this)
     this.scene.physics.add.collider(this.characterGroup, this.doorGroup, this.characterMapCollision, this.characterMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.CollisionLayer, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.mapManager.layers.BelowGroundLayer, this.enemyMapCollision, this.enemyMapProcess, this)
+    this.scene.physics.add.collider(this.enemyGroup, this.drawbridgeGroup, this.enemyBridgeCollision, this.enemyBridgeProcess, this)
     this.scene.physics.add.collider(this.enemyGroup, this.doorGroup, this.enemyMapCollision, this.enemyMapProcess, this)
     this.scene.physics.add.collider(this.hitboxGroup, this.mapManager.layers.CollisionLayer, this.hitboxMapCollision, this.hitboxMapProcess, this)
     this.scene.physics.add.overlap(this.characterGroup, this.hitboxGroup, this.characterHitboxOverlap, this.characterHitboxProcess, this)
@@ -42,6 +45,9 @@ export default class CollisionManager {
 			addHitArea(this, entityToAdd, radius)
 		} else {
       switch (entityToAdd.entityType) {
+        case EntityTypes.Drawbridge:
+          this.drawbridgeGroup.add(entityToAdd)
+          break
         case EntityTypes.Door:
           this.doorGroup.add(entityToAdd)
           break
@@ -67,8 +73,16 @@ export default class CollisionManager {
     return true
   }
 
+  characterBridgeProcess (character, bridge) {
+    return bridge.triggered()
+  }
+
   enemyMapProcess (enemy, tile) {
     return true
+  }
+
+  enemyBridgeProcess (enemy, bridge) {
+    return bridge.triggered()
   }
 
   hitboxMapProcess (hitbox, tile) {
@@ -90,10 +104,20 @@ export default class CollisionManager {
     if (tile.didCollideWith) tile.didCollideWith(character) // tiles may not have a didCollideWith method
   }
 
+  characterBridgeCollision (character, bridge) {
+    character.didCollideWith(bridge)
+    bridge.didCollideWith(character)
+  }
+
   enemyMapCollision (enemy, tile) {
     tile.entityType = EntityTypes.Tile
     enemy.didCollideWith(tile)
     if (tile.didCollideWith) tile.didCollideWith(enemy) // tiles may not have a didCollideWith method
+  }
+
+  enemyBridgeCollision (enemy, bridge) {
+    enemy.didCollideWith(bridge)
+    bridge.didCollideWith(enemy)
   }
 
   hitboxMapCollision(hitbox, tile) {

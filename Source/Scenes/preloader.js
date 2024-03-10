@@ -5,6 +5,7 @@ import ImageKeys from '../Keys/imageKeys.js'
 import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Globals/characterSpriteSheetLoaderData.js'
 import { PlayerMarkerSpriteSheetLoaderData, PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
+import { AnimatedObjectSpriteSheetLoaderData, AnimatedObjectSpriteSheets } from '../Globals/animatedObjectSpriteSheetLoaderData.js'
 import { TileSpriteSheetLoaderData } from '../Globals/tileSpriteSheetLoaderData.js'
 import AudioKeys from '../Keys/audioKeys.js'
 import MapKeys from '../Keys/mapKeys.js'
@@ -12,6 +13,7 @@ import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
 import CharacterAnimations from '../Keys/characterAnimationKeys.js'
 import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
+import AnimatedObjectAnimations from '../Keys/animatedObjectsAnimationKeys.js'
 import InputOptionsKeys from '../Keys/inputOptionsKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
@@ -64,6 +66,7 @@ class Preloader extends Phaser.Scene {
     this.load.spritesheet(PlayerMarkerSpriteSheetLoaderData)
     this.load.spritesheet(EnemySpriteSheetLoaderData)
     this.load.spritesheet(TileSpriteSheetLoaderData)
+    this.load.spritesheet(AnimatedObjectSpriteSheetLoaderData)
 
     // Load the webfont script. This is needed to load custom fonts.
     this.load.script('webfont', `../../Public/Fonts/webfont_loader.js`)
@@ -121,6 +124,7 @@ function buildAllAnimations (preloader) {
   buildAllCharacterAnimations(preloader)
   buildAllPlayerMarkerAnimations(preloader)
   buildAllEnemyAnimations(preloader)
+  buildAllAnimatedObjectAnimations(preloader)
 }
 
 function buildAllCharacterAnimations (preloader) {
@@ -203,6 +207,32 @@ function buildEnemyAnimations (preloader, enemyType) {
     preloader.anims.create({
       key: `${animation.key}`,
       frames: preloader.anims.generateFrameNumbers(EnemySpriteSheets[`${enemyType}`], { frames }),
+      frameRate: animation.props.frameRate,
+      repeat: animation.props.repeat
+    })
+  }
+}
+
+function buildAllAnimatedObjectAnimations (preloader) {
+  for (const animatedObjectType in AnimatedObjectAnimations) {
+    buildAnimatedObjectAnimations(preloader, animatedObjectType)
+  }
+}
+
+function buildAnimatedObjectAnimations (preloader, animatedObjectType) {
+  // This function builds all of the animations for a single animated object type
+  const frameCount = preloader.textures.get(AnimatedObjectSpriteSheets[`${animatedObjectType}`]).frameTotal
+
+  for (const animationKey in AnimatedObjectAnimations[animatedObjectType]) {
+    const animation = AnimatedObjectAnimations[animatedObjectType][animationKey]
+    const frames = []
+    for (const frame of animation.frames) {
+      frames.push(frame)
+    }
+
+    preloader.anims.create({
+      key: `${animation.key}`,
+      frames: preloader.anims.generateFrameNumbers(AnimatedObjectSpriteSheets[`${animatedObjectType}`], { frames }),
       frameRate: animation.props.frameRate,
       repeat: animation.props.repeat
     })
