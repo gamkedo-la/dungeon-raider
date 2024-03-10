@@ -10,6 +10,7 @@ export const DrawbridgeType = 'drawbridge'
 export const DoorType = 'door'
 export const EnemyOgre1Type = 'ogre1'
 export const EnemySkeleton1Type = 'skeleton1'
+export const EnemyDemon1Type = 'demon1'
 export const ExitType = 'exit'
 export const KeyType = 'key'
 export const LootArrowFireMultipleType = 'lootArrowFireMultiple'
@@ -47,6 +48,7 @@ export const LootWarHammerMagicType = 'lootWarHammerMagic'
 export const LootWarHammerType = 'lootWarHammer'
 export const SpawnerOgre1Type = 'ogre1Spawner'
 export const SpawnerSkeleton1Type = 'skeleton1Spawner'
+export const SpawnerDemon1Type = 'demon1Spawner'
 export const StoreItemType = 'storeItem'
 export const StoreKeeperType = 'storeKeeper'
 export const Tile = 'tile'
@@ -89,7 +91,8 @@ export default {
   Drawbridge: DrawbridgeType,
   Enemies: {
     Ogre1: EnemyOgre1Type,
-    Skeleton1: EnemySkeleton1Type
+    Skeleton1: EnemySkeleton1Type,
+    Demon1: EnemyDemon1Type
   },
   Exit: ExitType,
   Loot: {
@@ -130,7 +133,8 @@ export default {
   },
   Spawners: {
     Ogre1: SpawnerOgre1Type,
-    Skeleton1: SpawnerSkeleton1Type
+    Skeleton1: SpawnerSkeleton1Type,
+    Demon1: SpawnerDemon1Type
   },
   StoreItem: StoreItemType,
   StoreKeeper: StoreKeeperType,
@@ -178,6 +182,7 @@ export function isEnemy (entity) {
   switch (entity.entityType) {
     case EnemyOgre1Type:
     case EnemySkeleton1Type:
+    case EnemyDemon1Type:
       return true
     default:
       return false
@@ -250,6 +255,7 @@ export function isSpawner (entity) {
   switch (entity.entityType) {
     case SpawnerOgre1Type:
     case SpawnerSkeleton1Type:
+    case SpawnerDemon1Type:
       return true
     default:
       return false

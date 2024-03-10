@@ -175,7 +175,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="42" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="43" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -503,6 +503,14 @@
     <property name="status" value="closed"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/closedDrawbridge.png"/>
+  </tile>
+  <tile id="42" type="demon1Spawner">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+    <property name="radius" type="int" value="16"/>
+    <property name="spawnRate" type="int" value="5000"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/demonPortalSpawner.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

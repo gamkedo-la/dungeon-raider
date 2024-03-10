@@ -2125,7 +2125,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":42,
+         "tilecount":43,
          "tileheight":64,
          "tiles":[
                 {
@@ -3033,6 +3033,29 @@
                          "value":"closed"
                         }],
                  "type":"drawbridge"
+                }, 
+                {
+                 "id":42,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/demonPortalSpawner.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"spawnRate",
+                         "type":"int",
+                         "value":5000
+                        }],
+                 "type":"demon1Spawner"
                 }],
          "tilewidth":32
         }],
