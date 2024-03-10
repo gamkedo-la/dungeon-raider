@@ -26,6 +26,7 @@ export const MasterTileset = 'masterTileset'
 export const MissingPlayerShadow = 'missingPlayerShadow'
 export const SpawnerOgre1 = 'spawnerOgrePit'
 export const SpawnerSkeleton1 = 'spawnerSkeleton'
+export const SpawnerDemon1 = 'spawnerDemonPortal'
 export const WeaponAxeImage = 'weaponAxe'
 export const WeaponBattleAxeImage = 'weaponBattleAxe'
 export const WeaponFlangedMaceImage = 'weaponFlangedMace'
@@ -69,6 +70,7 @@ const ImageKeys = {
   MissingPlayerShadow,
   SpawnerOgre1,
   SpawnerSkeleton1,
+  SpawnerDemon1,
   WeaponAxeImage,
   WeaponBattleAxeImage,
   WeaponFlangedMaceImage,

@@ -3,6 +3,7 @@ import { getAttributesForEnemy } from '../Globals/enemyAttributes.js'
 import Spawner from '../Entities/Enemies/spawner.js'
 import Ogre1 from '../Entities/Enemies/ogre1.js'
 import Skeleton1 from '../Entities/Enemies/skeleton1.js'
+import Demon1 from '../Entities/Enemies/demon1.js'
 
 export default class EnemyManager {
   constructor (scene, mapManager, collisionManager, gameManager) {
@@ -47,6 +48,9 @@ export default class EnemyManager {
         break
       case EnemyTypes.Skeleton1:
         newEnemy = new Skeleton1(this.scene, config)
+        break
+      case EnemyTypes.Demon1:
+        newEnemy = new Demon1(this.scene, config)
         break
     }
 

@@ -1506,7 +1506,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":116,
+ "nextobjectid":118,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -2125,7 +2125,7 @@
                  "value":1
                 }],
          "spacing":0,
-         "tilecount":43,
+         "tilecount":44,
          "tileheight":64,
          "tiles":[
                 {
@@ -3056,6 +3056,19 @@
                          "value":5000
                         }],
                  "type":"demon1Spawner"
+                }, 
+                {
+                 "id":43,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Demon1.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "properties":[
+                        {
+                         "name":"minCharacterCount",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "type":"demon1"
                 }],
          "tilewidth":32
         }],

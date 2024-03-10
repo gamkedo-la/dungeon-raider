@@ -1,6 +1,6 @@
 import EntityTypes from '../../Globals/entityTypes.js'
-import { SpawnerOgre1, SpawnerSkeleton1 } from '../../Keys/imageKeys.js'
-import { Ogre1Attributes, Skeleton1Attributes } from '../../Globals/enemyAttributes.js'
+import { SpawnerOgre1, SpawnerSkeleton1, SpawnerDemon1 } from '../../Keys/imageKeys.js'
+import { Ogre1Attributes, Skeleton1Attributes, Demon1Attributes } from '../../Globals/enemyAttributes.js'
 
 export default class Spawner extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -77,6 +77,8 @@ function getSpriteSheet (entityType) {
       return SpawnerOgre1
     case EntityTypes.Spawners.Skeleton1:
       return SpawnerSkeleton1
+    case EntityTypes.Spawners.Demon1:
+      return SpawnerDemon1
   }
 }
 
@@ -99,6 +101,9 @@ function spawnEnemy (spawner) {
       break
     case EntityTypes.Spawners.Skeleton1:
       spawnSkeleton1(spawner)
+      break
+    case EntityTypes.Spawners.Demon1:
+      spawnDemon1(spawner)
       break
   }
 }
@@ -129,4 +134,18 @@ function spawnSkeleton1 (spawner) {
   })
 
   newSkeleton.levelDidStart()
+}
+
+function spawnDemon1 (spawner) {
+  const newDemon = spawner.manager.addEnemy(EntityTypes.Enemies.Demon1, {
+    id: `spawner${spawner.id}demon1${spawner.nextId++}`,
+    gameManager: spawner.gameManager,
+    entityType: EntityTypes.Enemies.Demon1,
+    x: spawner.x,
+    y: spawner.y,
+    attributes: Phaser.Utils.Objects.DeepCopy(Demon1Attributes),
+    spawner: spawner
+  })
+
+  newDemon.levelDidStart()
 }

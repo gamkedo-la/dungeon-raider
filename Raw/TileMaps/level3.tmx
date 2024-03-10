@@ -151,7 +151,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="43" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="44" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <properties>
@@ -484,6 +484,12 @@
     <property name="spawnRate" type="int" value="5000"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/demonPortalSpawner.png"/>
+  </tile>
+  <tile id="43" type="demon1">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Demon1.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

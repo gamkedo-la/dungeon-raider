@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="116">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="118">
  <editorsettings>
   <export target="../../Public/Maps/level1.json" format="json"/>
  </editorsettings>
@@ -175,7 +175,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="43" columns="0">
+ <tileset firstgid="1025" name="Objects" class="singleGoldPiece" tilewidth="32" tileheight="64" tilecount="44" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <properties>
    <property name="minPlayerCount" type="int" value="1"/>
@@ -511,6 +511,12 @@
     <property name="spawnRate" type="int" value="5000"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/demonPortalSpawner.png"/>
+  </tile>
+  <tile id="43" type="demon1">
+   <properties>
+    <property name="minCharacterCount" type="int" value="1"/>
+   </properties>
+   <image width="32" height="32" source="ObjectImages/Demon1.png"/>
   </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">

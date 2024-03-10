@@ -145,12 +145,14 @@ function processObject (manager, object, gameManager) {
       break
     case EntityTypes.Enemies.Ogre1:
     case EntityTypes.Enemies.Skeleton1:
+    case EntityTypes.Enemies.Demon1:
 			if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
 				manager.enemySpawnPoints.push(assignPropertiesToObject(object.properties, object))
 			}
       break
     case EntityTypes.Spawners.Ogre1:
     case EntityTypes.Spawners.Skeleton1:
+    case EntityTypes.Spawners.Demon1:
       if (!gameManager.isObjectDestroyed(manager.scene.levelKey, object.id)) {
         manager.spawners.push(assignPropertiesToObject(object.properties, object))
       }
