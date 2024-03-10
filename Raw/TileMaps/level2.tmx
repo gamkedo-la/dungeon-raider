@@ -467,13 +467,17 @@
   </tile>
   <tile id="40" type="drawbridge">
    <properties>
-    <property name="status" value="open"/>
+    <property name="activatedTime" type="int" value="5000"/>
+    <property name="activationDelay" type="int" value="500"/>
+    <property name="status" value="closed"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/openDrawbridge.png"/>
   </tile>
   <tile id="41" type="drawbridge">
    <properties>
-    <property name="status" value="closed"/>
+    <property name="activatedTime" type="int" value="5000"/>
+    <property name="activationDelay" type="int" value="500"/>
+    <property name="status" value="open"/>
    </properties>
    <image width="32" height="32" source="ObjectImages/closedDrawbridge.png"/>
   </tile>

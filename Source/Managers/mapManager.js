@@ -307,7 +307,7 @@ function buildTileCosts (manager) {
         tile.cost = Number.MAX_SAFE_INTEGER
         tileCosts[row][col] = tile
       } else {
-        tile = groundLayer.getTileAt(col, row, false)
+        tile = groundLayer.getTileAt(col, row, false) || { x: col, y: row, pixelX: col * 32, pixelY: row * 32, cost: 1 }
         if (!tileCosts[row]) tileCosts[row] = {}
         tile.cost = 1
         tileCosts[row][col] = tile

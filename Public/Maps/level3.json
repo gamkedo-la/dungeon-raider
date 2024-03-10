@@ -1800,9 +1800,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"activatedTime",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"activationDelay",
+                         "type":"int",
+                         "value":500
+                        }, 
+                        {
                          "name":"status",
                          "type":"string",
-                         "value":"open"
+                         "value":"closed"
                         }],
                  "type":"drawbridge"
                 }, 
@@ -1813,9 +1823,19 @@
                  "imagewidth":32,
                  "properties":[
                         {
+                         "name":"activatedTime",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"activationDelay",
+                         "type":"int",
+                         "value":500
+                        }, 
+                        {
                          "name":"status",
                          "type":"string",
-                         "value":"closed"
+                         "value":"open"
                         }],
                  "type":"drawbridge"
                 }, 

@@ -74,9 +74,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       }
     } else if (!this.targetPosition || (targetDistance && targetDistance <= 8)) {
       const groundLayer = this.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
-      const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false)
-      const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false)
+      const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
+      const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
       const pathToFollow = pathToClosestCharacter(this, myTile, closestCharacterTile)
+      if (!pathToFollow || pathToFollow.length < 2) return
       this.targetPosition = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
       this.updateFacingDirectionIfRequired()
       if (this.anims.currentAnim.key !== this.animations.walk.key) {
@@ -177,7 +178,8 @@ function pathToClosestCharacter (enemy, start, goal) {
 
     openList = openList.filter(node => node !== current)
 
-    for (let neighbor of enemy.scene.mapManager.getNeighboringTiles(current.x, current.y)) {
+    const neighbors = enemy.scene.mapManager.getNeighboringTiles(current.x, current.y)
+    for (const neighbor of neighbors) {
       let tentativeGScore = gScore.get(current) + distBetween(enemy, current, neighbor)
 
       if (!gScore.has(neighbor) || tentativeGScore < gScore.get(neighbor)) {
