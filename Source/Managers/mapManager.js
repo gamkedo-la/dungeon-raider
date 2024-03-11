@@ -12,11 +12,21 @@ export default class MapManager {
     this.map = scene.make.tilemap({ key: tilemapKey })
     this.tileAnimations = extractTileAnimations(this.map)
     this.tileset = this.map.addTilesetImage(MasterTileset, MasterTileset)
+    
+    // optional map RGB color tint - fixme: process this.map.properties data
+    this.mapTintRGB = 0xFFFFFF // default to pure white tint
+    let rgbData = this.map.properties.find(o => o.name === 'mapTintRGB')
+    if (rgbData != undefined) {
+        let rgbstring = rgbData.value
+        console.log("Tinting the map this color: "+rgbstring)
+        this.mapTintRGB = parseInt(rgbstring,16)
+    }
 
     this.layers = {}
     const collisionTileSet = new Set()
     for (const layerKey in TileLayerKeys) {
       this.layers[layerKey] = this.map.createLayer(TileLayerKeys[layerKey], this.tileset).layer.tilemapLayer
+      this.layers[layerKey].setTint(this.mapTintRGB)
       if (TileLayerKeys[layerKey] === TileLayerKeys.CollisionLayer) {
         this.map.setCollision(CollidableGIDs, true)
         for (let row = 0; row < this.layers[layerKey].layer.data.length; row++) {
