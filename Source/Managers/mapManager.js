@@ -20,6 +20,8 @@ export default class MapManager {
         let rgbstring = rgbData.value
         console.log("Tinting the map this color: "+rgbstring)
         this.mapTintRGB = parseInt(rgbstring,16)
+        // safeguard against invalid input data like a typo
+        if (isNaN(this.mapTintRGB)) this.mapTintRGB = 0xFFFFFF
     }
 
     this.layers = {}
