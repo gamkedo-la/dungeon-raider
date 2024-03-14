@@ -261,9 +261,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
     // flash red if low health
     if (this.attributes.health<=20) {
         if (Math.round(performance.now()/250)%2)
-            this.setTint(0xFF0000) // tinted red
+            this.setTint(0xFF0000) // red but darker
+            //this.setTintFill(0xFF0000) // bright red but opaque
         else 
-            this.setTint(0xFFFFFF)  // untinted
+            this.clearTint()
     }
 
     this.body.setVelocity(0, 0)

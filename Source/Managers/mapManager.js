@@ -13,7 +13,7 @@ export default class MapManager {
     this.tileAnimations = extractTileAnimations(this.map)
     this.tileset = this.map.addTilesetImage(MasterTileset, MasterTileset)
     
-    // optional map RGB color tint - fixme: process this.map.properties data
+    // optional map RGB color tint
     this.mapTintRGB = 0xFFFFFF // default to pure white tint
     let rgbData = this.map.properties.find(o => o.name === 'mapTintRGB')
     if (rgbData != undefined) {
