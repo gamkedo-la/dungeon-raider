@@ -1,5 +1,6 @@
 import EntityTypes, { isEnemy } from '../../Globals/entityTypes.js'
 import { TileLayerKeys } from '../../Keys/mapLayerKeys.js'
+import AudioKeys, { CharacterDead, EnemyHurt } from '../../Keys/audioKeys.js'
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -99,6 +100,11 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.angle = Phaser.Math.RadToDeg(angle)
   }
 
+  sfx (soundId) {
+    if (!soundId || !this.scene.sound || !AudioKeys[soundId]) return
+    this.scene.sound.play(soundId, { loop: AudioKeys[soundId].loop, volume: AudioKeys[soundId].volume })  
+  }
+
   didCollideWith (otherEntity) {
     // This function will be overridden by the subclasses
     if (otherEntity.entityType === EntityTypes.Character && this.canAttack) {
@@ -144,6 +150,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.death, this)
       this.body.setVelocity(0,0)
       this.scene.enemyKilledBy(this, otherEntity)
+      this.sfx(CharacterDead)
+    } else {
+      this.sfx(EnemyHurt)
     }
   }
 
