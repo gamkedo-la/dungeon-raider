@@ -19,6 +19,7 @@ export default class HorizontalMenu {
     this.activeOption = config.initialOption
     this.optionLabels = []
     this.totalWidth = 0
+    this.bkgdImage = null
 
     this.menuSelectionCoolingDown = false
 
@@ -28,8 +29,9 @@ export default class HorizontalMenu {
   build () {
     this.buildTitle()
     if (this.options?.length > 0) {
-      const bkgdImage = this.scene.add.image(this.x, this.optionsY, HorizontalMenuBackgrund)
-      bkgdImage.y = this.optionsY + bkgdImage.height / 2  
+      this.bkgdImage = this.scene.add.image(this.x, this.optionsY, HorizontalMenuBackgrund)
+      this.bkgdImage.y = this.optionsY + this.bkgdImage.height / 2
+      this.bkgdImage.visible = this.isActive
     }
     this.buildOptions()
   }
@@ -125,6 +127,10 @@ export default class HorizontalMenu {
   setActive (newValue) {
     this.isActive = newValue
     this.title.updateColor(newValue ? this.config.titleColor : UIAttributes.UIColor)
+    this.optionLabels.forEach(label => {
+      label.updateColor(newValue ? this.config.activeColor : this.config.inactiveColor)
+    })
+    if (this.bkgdImage) this.bkgdImage.visible = newValue
   }
 
   getSelectedOption () {

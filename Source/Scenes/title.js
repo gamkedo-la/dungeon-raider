@@ -38,9 +38,6 @@ class Title extends Phaser.Scene {
     })
 
     this.inputManager = new InputManager(this, this.gameManager)
-    for (const inputEvent in InputEventKeys) {
-      this.inputManager.registerForEvent(inputEvent, this.processInput, this)
-    }
 
     this.optionMenu = new OptionMenu(this, {
         gameManager: this.gameManager,
