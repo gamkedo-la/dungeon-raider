@@ -112,16 +112,17 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       otherEntity.takeDamage(this.attributes.damage)
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
     } else if (otherEntity.entityType === EntityTypes.Tile) {
-      if (otherEntity.x < this.x) {
+      const thisTilePos = { x: Math.floor(this.x / 32), y: Math.floor(this.y / 32) }
+      if (otherEntity.x < thisTilePos.x) {
         // hit a tile to the left, change target to be up
         this.targetPosition = getTilePositionInDirection(this, 'up')
-      } else if (otherEntity.x > this.x) {
+      } else if (otherEntity.x > thisTilePos.x) {
         // hit a tile to the right, change target to be down
         this.targetPosition = getTilePositionInDirection(this, 'down')
-      } else if (otherEntity.y < this.y) {
+      } else if (otherEntity.y < thisTilePos.y) {
         // hit a tile above, change target to be right
         this.targetPosition = getTilePositionInDirection(this, 'right')
-      } else if (otherEntity.y > this.y) {
+      } else if (otherEntity.y > thisTilePos.y) {
         // hit a tile below, change target to be left
         this.targetPosition = getTilePositionInDirection(this, 'left')
       }
@@ -228,14 +229,15 @@ function reconstructPath(cameFrom, current) {
 }
 
 function getTilePositionInDirection (enemy, direction) {
+  const tileCount = 3 + Math.floor(Math.random() * 5)
   switch (direction) {
     case 'up':
-      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 - 16 }
+      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 - 16 - (tileCount * 32) }
     case 'down':
-      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 + 48 }
+      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 + 48 + (tileCount * 32)}
     case 'left':
-      return { x: Math.floor(enemy.x / 32) * 32 - 16, y: Math.floor(enemy.x / 32) * 32 + 16 }
+      return { x: Math.floor(enemy.x / 32) * 32 - 16 - (tileCount * 32), y: Math.floor(enemy.x / 32) * 32 + 16 }
     case 'right':
-      return { x: Math.floor(enemy.x / 32) * 32 + 48, y: Math.floor(enemy.x / 32) * 32 + 16 }
+      return { x: Math.floor(enemy.x / 32) * 32 + 48 + (tileCount * 32), y: Math.floor(enemy.x / 32) * 32 + 16 }
   }
 }
