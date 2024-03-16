@@ -1,3 +1,5 @@
+import AudioKeys, { AttackMiss, SwordClang } from "../../Keys/audioKeys.js"
+
 export default class HitArea extends Phaser.GameObjects.Rectangle {
 	constructor(scene, config) {
 		const debugColor = 0xff0000
@@ -11,7 +13,8 @@ export default class HitArea extends Phaser.GameObjects.Rectangle {
 
 		this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
 
-		this.scene.time.delayedCall(config.speed, () => {
+		this.timeout = this.scene.time.delayedCall(config.speed, () => {
+			this.scene.sound.play(AttackMiss, { loop: AudioKeys[AttackMiss].loop, volume: AudioKeys[AttackMiss].volume })
 			this.destroy()
 		})
 	}
@@ -24,6 +27,8 @@ export default class HitArea extends Phaser.GameObjects.Rectangle {
 		if (this.team != otherEntity.team) {
 			console.log('Dealt ', this.damage, ' damage')
 			otherEntity.takeDamage(this.damage)
+			this.scene.sound.play(SwordClang, { loop: AudioKeys[SwordClang].loop, volume: AudioKeys[SwordClang].volume })
+			this.timeout.remove()
 			this.destroy()
 		}
 	}

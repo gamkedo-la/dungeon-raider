@@ -1,5 +1,7 @@
 // Exporting audio keys individually allows us to reference them individually in the game
 export const AlertSound = 'alert_sound'
+export const ArrowHit = 'arrow_attack'
+export const AttackMiss = 'attack_miss'
 export const CharacterDead = 'player_hurt_3'
 export const CharacterHurt = 'player_hurt_4'
 export const DefeatTheHorde = 'defeat_the_horde'
@@ -30,6 +32,18 @@ const AudioKeys = {
     volume: 0.2,
     loop: false,
     type: 'voiceover'
+  },
+  [ArrowHit]: {
+    fileName: ArrowHit,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [AttackMiss]: {
+    fileName: AttackMiss,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
   },
   [CharacterHurt]: {
     fileName: CharacterHurt,

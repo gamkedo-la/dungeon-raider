@@ -343,7 +343,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     return this.currentState !== CharacterStates.Dead && this.currentState !== CharacterStates.Dying && this.currentState !== CharacterStates.Exiting && this.currentState !== CharacterStates.Exited
   }
 
-  sfx(soundId) {
+  sfx (soundId) {
     if (!soundId || !this.scene.sound || !AudioKeys[soundId]) return
     this.scene.sound.play(soundId, { loop: AudioKeys[soundId].loop, volume: AudioKeys[soundId].volume })  
   }

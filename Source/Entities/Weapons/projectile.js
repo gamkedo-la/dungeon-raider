@@ -1,6 +1,7 @@
 import EntityTypes from '../../Globals/entityTypes.js'
 import { ArrowNames, getDistanceForRange } from '../../Globals/weaponAttributes.js'
 import { ArrowNormalSingleImage, ArrowFireSingleImage, ArrowSilverSingleImage, ArrowMagicSingleImage } from '../../Keys/imageKeys.js'
+import AudioKeys, { ArrowHit } from "../../Keys/audioKeys.js"
 
 export default class Projectile extends Phaser.GameObjects.Sprite {
 	constructor(scene, config) {
@@ -52,6 +53,7 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 		if (this.team != otherEntity.team) {
 			console.log('Dealt ', this.damage, ' damage')
 			otherEntity.takeDamage(this.damage)
+			this.scene.sound.play(ArrowHit, { loop: AudioKeys[ArrowHit].loop, volume: AudioKeys[ArrowHit].volume })
 			this.shutdown()
 		}
 	}
