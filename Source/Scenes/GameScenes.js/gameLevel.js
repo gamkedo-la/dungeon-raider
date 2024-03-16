@@ -1,5 +1,5 @@
 import SceneKeys from "../../Keys/sceneKeys.js"
-import AudioKeys, { AlertSound } from "../../Keys/audioKeys.js"
+import AudioKeys, { AlertSound, PauseSound } from "../../Keys/audioKeys.js"
 import MapManager from "../../Managers/mapManager.js"
 import InputManager from '../../Managers/inputManager.js'
 import CollisionManager from "../../Managers/collisionManager.js"
@@ -12,7 +12,7 @@ import Exit from "../../Entities/Other/exit.js"
 import Drawbridge from "../../Entities/Other/drawbridge.js"
 import Door from "../../Entities/Other/door.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
-import { onDebug, onPause } from "../../Keys/inputEventKeys.js"
+import { onDebug } from "../../Keys/inputEventKeys.js"
 import Debug from "../../Globals/debug.js"
 
 class GameLevel extends Phaser.Scene {
@@ -30,6 +30,7 @@ class GameLevel extends Phaser.Scene {
     this.debugGraphics = null
     this.alertSound = null
     this.voiceoverWelcomeSounds = []
+    this.backgroundMusic = null
   }
 
   preload () {
@@ -60,7 +61,6 @@ class GameLevel extends Phaser.Scene {
     this.storeManager = new StoreManager(this, this.mapManager, this.collisionManager, this.gameManager, this.lootManager)
     this.inputManager = new InputManager(this, this.gameManager)
     this.inputManager.registerForEvent(onDebug, this.toggleDebug, this)
-    this.inputManager.registerForEvent(onPause, this.togglePause, this)
     this.centerOfCharacters = new Phaser.GameObjects.GameObject(this, 0, 0)
 
     this.createCharacters()
@@ -70,12 +70,14 @@ class GameLevel extends Phaser.Scene {
     this.setupCamera()
 
     this.debugGraphics = this.add.graphics()
-    this.scene.launch(SceneKeys.UserInterface)
+    this.scene.launch(SceneKeys.UserInterface, this)
     this.mapManager.startTileAnimations()
     this.scene.bringToTop(SceneKeys.UserInterface)
 
-    this.cameras.main.fadeIn(2000, 0,0,0);
+    this.cameras.main.fadeIn(2000, 0,0,0)
 
+    this.events.on(Phaser.Scenes.Events.PAUSE, this.togglePause, this)
+    this.events.on(Phaser.Scenes.Events.RESUME, this.togglePause, this)
   }
 
   createCharacters () {
@@ -286,6 +288,15 @@ class GameLevel extends Phaser.Scene {
     this.physics.world.debugGraphic.visible = !this.physics.world.debugGraphic.visible
   }
 
+  togglePause () {
+    this.sound.play(PauseSound, { loop: AudioKeys[PauseSound].loop, volume: AudioKeys[PauseSound].volume })
+    if (this.scene.isPaused(this)) {
+      this.sound.pauseAll()
+    } else {
+      this.sound.resumeAll()
+    }
+  }
+
   drawDebug () {
     this.debugGraphics.clear()
     this.mapManager.map.renderDebugFull(this.debugGraphics, {
@@ -293,10 +304,6 @@ class GameLevel extends Phaser.Scene {
       collidingTileColor: new Phaser.Display.Color(255, 0, 0, 100),
       faceColor: new Phaser.Display.Color(40, 39, 37, 255)
     })
-  }
-
-  togglePause () {
-    console.log('GameLevel.togglePause')
   }
 }
 

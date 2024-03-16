@@ -1,20 +1,29 @@
 import SceneKeys from '../Keys/sceneKeys.js'
 import { GameManagerKey } from "../Managers/gameManager.js"
+import InputManager from '../Managers/inputManager.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterUIPane } from "../Keys/imageKeys.js"
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import { CharacterClasses } from "../Globals/characterAttributes.js"
+import { onPause } from "../Keys/inputEventKeys.js"
 
 class UserInterface extends Phaser.Scene {
   constructor () {
     super(SceneKeys.UserInterface)
     this.gameManager = null
+    this.inputManager = null // can't create this until the scene is initialized => in create()
+    this.gameScene = null
     this.activePlayerUIs = {}
+    this.canTogglePause = true
   }
 
   preload () {
     // May not need to preload anything here since we have a Preloader scene
+  }
+
+  init (data) {
+    this.gameScene = data
   }
 
   create () {
@@ -33,7 +42,10 @@ class UserInterface extends Phaser.Scene {
       originX += 400
     }
 
-    this.cameras.main.fadeIn(2000, 0,0,0);
+    this.inputManager = new InputManager(this, this.gameManager)
+    this.inputManager.registerForEvent(onPause, this.togglePause, this)
+
+    this.cameras.main.fadeIn(2000, 0,0,0)
   }
 
   createCharacterUI (player, frameX, frameY) {
@@ -161,6 +173,8 @@ class UserInterface extends Phaser.Scene {
   }
 
   update (time, delta) {
+    this.inputManager.update(time, delta)
+
     // get player health, weapons, armor, equipment, etc. from Game Manager
     for (const activePlayer in this.activePlayerUIs) {
       const playerAttributes = this.gameManager.getCharacterAttributesForPlayer(activePlayer)
@@ -194,6 +208,18 @@ class UserInterface extends Phaser.Scene {
 
       if (playerUI.secondary) {
         playerUI.secondary.updateTitle(`Secondary: ${playerAttributes.secondary.name}`)
+      }
+    }
+  }
+
+  togglePause () {
+    if (this.canTogglePause) {
+      this.canTogglePause = false
+      this.time.delayedCall(250, () => this.canTogglePause = true)
+      if (this.scene.isPaused(this.gameScene)) {
+        this.scene.resume(this.gameScene)
+      } else {
+        this.scene.pause(this.gameScene)
       }
     }
   }
