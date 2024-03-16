@@ -158,14 +158,12 @@ class GameLevel extends Phaser.Scene {
   }
 
   update (time, delta) {
-
     if (!this.hasWelcomedPlayers) {
         // play a random welcome message (for now)
         this.alertSound.play()
         this.voiceoverWelcomeSounds[Math.floor(Math.random()*this.voiceoverWelcomeSounds.length)].play()
         this.hasWelcomedPlayers = true
     }
-
 
     if (this.characters.length === 0) {
       this.createCharacters()
@@ -180,13 +178,19 @@ class GameLevel extends Phaser.Scene {
       this.debugGraphics.clear()
     }
 
+    this.setCameraPosition()
+  }
+
+  setCameraPosition () {
     let characterXs = []
     let characterYs = []
     for (const character of this.characters) {
-      if (character.isDead) continue
+      if (!character.canBePursued()) continue
       characterXs.push(character.x)
       characterYs.push(character.y)
     }
+
+    if (characterXs.length === 0) return
 
     const minX = Math.min(...characterXs)
     const maxX = Math.max(...characterXs)
@@ -241,31 +245,26 @@ class GameLevel extends Phaser.Scene {
 
   characterDied (character) {
     this.deadCharacterCount++
-    if (this.deadCharacterCount >= this.characters.length) {
-      this.scene.start(SceneKeys.GameOver)
-      this.shutdown()
-      return
-    } else {
-      this.processCharacterOutOfPlay(character)
-    }
+    character.characterDied()
+    this.processCharacterOutOfPlay(character)
   }
 
   processCharacterOutOfPlay (character) {
     if (this.exitedCharacterCount + this.deadCharacterCount >= this.characters.length) {
 
-      this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, function (camera) {
 
         if (this.key === SceneKeys.FinalLevel) {
           this.scene.start(SceneKeys.GameComplete)
         } else {
-          this.gameManager.goToInterLevelScene()
+          this.deadCharacterCount >= this.characters.length ? this.scene.start(SceneKeys.GameOver) : this.gameManager.goToInterLevelScene()
         }
   
         this.shutdown()
 
-      }, this);
+      }, this)
 
-      this.cameras.main.fadeOut(2000);
+      this.cameras.main.fadeOut(2000)
     }
   }
 

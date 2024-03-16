@@ -210,11 +210,6 @@ export default class Character extends Phaser.GameObjects.Sprite {
       return
     }
 
-    if (this.currentState === CharacterStates.Dying) {
-      characterDied(this)
-      return
-    }
-
     this.updateAnimationsIfRequired()
     this.updateFacingDirectionIfRequired()
 
@@ -548,6 +543,18 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.playerMarker.destroy()
     this.destroy()
   }
+
+  characterDied () {
+    console.log(`${this.player} died!`)
+    this.clearTint()
+    this.currentState = CharacterStates.Dead
+    this.attributes.health = 0
+    this.attributes.magic = 0
+    this.serialize()
+    this.visibleWeapon?.destroy()
+    this.playerMarker.destroy()
+    this.destroy()
+  }
 }
 
 function getSpriteSheet (race, characterClass) {
@@ -586,16 +593,6 @@ function getSpriteSheet (race, characterClass) {
           return CharacterSpriteSheets.DwarvenCleric
       }
   }
-}
-
-function characterDied (character) {
-  console.log(`${character.player} died!`)
-  character.clearTint()
-  character.currentState = CharacterStates.Dead
-  character.attributes.health = 0
-  character.attributes.magic = 0
-  character.serialize()
-  character.playerMarker.destroy()
 }
 
 function getCriticalFrameForAnimation (animationType, characterClass) {
