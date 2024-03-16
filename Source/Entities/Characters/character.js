@@ -6,7 +6,7 @@ import { getArmorByName } from '../../Globals/armorAttributes.js'
 import EntityTypes from '../../Globals/entityTypes.js'
 import InputEventKeys from '../../Keys/inputEventKeys.js'
 import CharacterAnimations from '../../Keys/characterAnimationKeys.js'
-import AudioKeys, { PickUpFoodSound, PickupCoinSound, PickupKeySound } from '../../Keys/audioKeys.js'
+import AudioKeys, { CharacterDead, CharacterHurt, PickUpFoodSound, PickupCoinSound, PickupKeySound } from '../../Keys/audioKeys.js'
 import { ExitSound } from '../../Keys/audioKeys.js'
 
 export default class Character extends Phaser.GameObjects.Sprite {
@@ -407,9 +407,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.attributes.health -= Math.max(damage - this.attributes.armor.defense - (this.attributes.helmet?.defense || 0) - (this.attributes.shield?.defense || 0), 0)
     if (this.attributes.health <= 0) {
       this.currentState = CharacterStates.Dying
+      this.sfx(CharacterDead)
       this.anims.play(this.animations.death, true)
     } else {
       this.flashWhite()
+      this.sfx(CharacterHurt)
       if (this.currentState !== CharacterStates.Attacking) {
         this.currentState = CharacterStates.Injured
         this.anims.play(this.animations.injured, true)

@@ -1,6 +1,9 @@
 // Exporting audio keys individually allows us to reference them individually in the game
 export const AlertSound = 'alert_sound'
+export const CharacterDead = 'player_hurt_3'
+export const CharacterHurt = 'player_hurt_4'
 export const DefeatTheHorde = 'defeat_the_horde'
+export const EnemyHurt = 'enemy_hit_1'
 export const ExitInTime = 'exit_in_time'
 export const ExitSound = 'exit_sound'
 export const ExplorersMusic = 'music_explorers'
@@ -12,8 +15,10 @@ export const GameOverMusic = 'game_over'
 export const GamePlayMusic = 'title_music'
 export const ImportantEventSound = 'important_event'
 export const TitleMusic = 'music_welcome_intro'
+export const PauseSound = 'pause'
 export const PickupCoinSound = 'pickup_coin'
 export const PickupKeySound = 'pickup_key'
+export const SwordClang = 'sword_clang_3'
 export const Welcome = 'welcome'
 export const WelcomeMusicBody = 'music_welcome_body'
 export const PickUpFoodSound = 'gulp1'
@@ -26,11 +31,29 @@ const AudioKeys = {
     loop: false,
     type: 'voiceover'
   },
+  [CharacterHurt]: {
+    fileName: CharacterHurt,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [CharacterDead]: {
+    fileName: CharacterDead,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
   [DefeatTheHorde]: {
     fileName: DefeatTheHorde,
     volume: 0.5,
     loop: false,
     type: 'voiceover'
+  },
+  [EnemyHurt]: {
+    fileName: EnemyHurt,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
   },
   [ExitInTime]: {
     fileName: ExitInTime,
@@ -91,11 +114,11 @@ const AudioKeys = {
     loop: false,
     type: 'sfx'
   },
-  [TitleMusic]: {
-    fileName: TitleMusic,
-    volume: 0.5,
-    loop: true,
-    type: 'music'
+  [PauseSound]: {
+    fileName: PauseSound,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
   },
   [PickupCoinSound]: {
     fileName: PickupCoinSound,
@@ -114,6 +137,18 @@ const AudioKeys = {
     volume: 0.5,
     loop: false,
     type: 'sfx'
+  },
+  [SwordClang]: {
+    fileName: SwordClang,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [TitleMusic]: {
+    fileName: TitleMusic,
+    volume: 0.5,
+    loop: true,
+    type: 'music'
   },
   [Welcome]: {
     fileName: Welcome,
