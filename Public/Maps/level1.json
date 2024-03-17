@@ -261,8 +261,8 @@
                  "type":"character",
                  "visible":true,
                  "width":32,
-                 "x":256,
-                 "y":94.6667
+                 "x":128,
+                 "y":96.0000333333333
                 }, 
                 {
                  "gid":1028,
@@ -289,8 +289,8 @@
                  "type":"character",
                  "visible":true,
                  "width":32,
-                 "x":64,
-                 "y":353.333
+                 "x":62.6666666666667,
+                 "y":161.333
                 }, 
                 {
                  "gid":1029,
@@ -317,8 +317,8 @@
                  "type":"character",
                  "visible":true,
                  "width":32,
-                 "x":256,
-                 "y":352
+                 "x":125.333333333333,
+                 "y":161.333333333333
                 }, 
                 {
                  "gid":1030,
@@ -1526,7 +1526,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":118,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1648,6 +1648,11 @@
          "name":"mapKey",
          "type":"string",
          "value":"level1"
+        }, 
+        {
+         "name":"mapTintRGB",
+         "type":"string",
+         "value":"0xFFFFFF"
         }, 
         {
          "name":"plateMailCost",
