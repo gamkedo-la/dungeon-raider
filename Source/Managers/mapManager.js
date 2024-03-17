@@ -1,7 +1,7 @@
 import { MasterTileset } from "../Keys/imageKeys.js"
 import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
 import EntityTypes from "../Globals/entityTypes.js"
-import CollidableGIDs, { BridgeIndex } from "../Globals/collisionTiles.js"
+import CollidableGIDs, { BridgeIndex, Lava, Liquids, Water } from "../Globals/collisionTiles.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
 export default class MapManager {
@@ -133,8 +133,35 @@ export default class MapManager {
     return neighbors
   }
 
-  getTileCost (x, y) {
-    return this.tileCosts[y][x].cost
+  getTileAt (x, y) {
+    return this.tileCosts[y][x]
+  }
+
+  getTileCost (x, y, entity) {
+    const tile = this.tileCosts[y][x]
+    if (tile.cost > 1) {
+      if (entity.entityType === EntityTypes.Enemies.Skeleton1) {
+        if (Liquids.includes(tile.index)) {
+          return 2
+        } else {
+          return Number.MAX_SAFE_INTEGER
+        }
+      } else if (entity.entityType === EntityTypes.Enemies.Ogre1) {
+        if (Water.includes(tile.index)) {
+          return 2
+        } else {
+          return Number.MAX_SAFE_INTEGER
+        }
+      } else if (entity.entityType === EntityTypes.Enemies.Demon1) {
+        if (Lava.includes(tile.index)) {
+          return 2
+        } else {
+          return Number.MAX_SAFE_INTEGER
+        }
+      }      
+    } else {
+      return tile.cost
+    }
   }
 }
 

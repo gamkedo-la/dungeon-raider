@@ -76,9 +76,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     } else if (!this.targetPosition || (targetDistance && targetDistance <= 8)) {
       const groundLayer = this.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
       const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
-      const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
+      const myTile = this.scene.mapManager.getTileAt(Math.floor(this.x / 32), Math.floor(this.y / 32))
+      // const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
       const pathToFollow = pathToClosestCharacter(this, myTile, closestCharacterTile)
       if (!pathToFollow || pathToFollow.length < 2) return
+      if (pathToFollow[1].pixelX + 16 === 400 && pathToFollow[1].pixelY + 16 === 528) {
+        console.log(pathToFollow)
+      }
       this.targetPosition = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
       this.updateFacingDirectionIfRequired()
       if (this.anims.currentAnim.key !== this.animations.walk.key) {
@@ -111,34 +115,19 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.canAttack = false
       otherEntity.takeDamage(this.attributes.damage)
       this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
-    } else if (otherEntity.entityType === EntityTypes.Tile) {
-      const thisTilePos = { x: Math.floor(this.x / 32), y: Math.floor(this.y / 32) }
-      if (otherEntity.x < thisTilePos.x) {
-        // hit a tile to the left, change target to be up
-        this.targetPosition = getTilePositionInDirection(this, 'up')
-      } else if (otherEntity.x > thisTilePos.x) {
-        // hit a tile to the right, change target to be down
-        this.targetPosition = getTilePositionInDirection(this, 'down')
-      } else if (otherEntity.y < thisTilePos.y) {
-        // hit a tile above, change target to be right
-        this.targetPosition = getTilePositionInDirection(this, 'right')
-      } else if (otherEntity.y > thisTilePos.y) {
-        // hit a tile below, change target to be left
-        this.targetPosition = getTilePositionInDirection(this, 'left')
-      }
     } else if (isEnemy(otherEntity)) {
       if (this.targetPosition?.x < this.x && otherEntity.x < this.x) {
         // hit an enemy to the left, change target to be up
-        this.targetPosition = getTilePositionInDirection(this, 'up')
+        this.targetPosition = this.getTilePositionInDirection('up')
       } else if (this.targetPosition?.x > this.x && otherEntity.x > this.x) {
         // hit an enemy to the right, change target to be down
-        this.targetPosition = getTilePositionInDirection(this, 'down')
+        this.targetPosition = this.getTilePositionInDirection('down')
       } else if (this.targetPosition?.y < this.y && otherEntity.y < this.y) {
         // hit an enemy above, change target to be right
-        this.targetPosition = getTilePositionInDirection(this, 'right')
+        this.targetPosition = this.getTilePositionInDirection('right')
       } else if (this.targetPosition?.y > this.y && otherEntity.y > this.y) {
         // hit an enemy below, change target to be left
-        this.targetPosition = getTilePositionInDirection(this, 'left')
+        this.targetPosition = this.getTilePositionInDirection('left')
       }
     }
   }
@@ -160,6 +149,20 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   animationComplete (animation, frame, gameObject) {
     if (animation.key === this.animations.death.key) {
       this.shouldBeDead = true
+    }
+  }
+
+  getTilePositionInDirection (direction) {
+    const tileCount = 3 + Math.floor(Math.random() * 5)
+    switch (direction) {
+      case 'up':
+        return { x: Math.floor(this.x / 32) * 32 + 16, y: Math.floor(this.y / 32) * 32 - 16 - (tileCount * 32) }
+      case 'down':
+        return { x: Math.floor(this.x / 32) * 32 + 16, y: Math.floor(this.y / 32) * 32 + 48 + (tileCount * 32)}
+      case 'left':
+        return { x: Math.floor(this.x / 32) * 32 - 16 - (tileCount * 32), y: Math.floor(this.x / 32) * 32 + 16 }
+      case 'right':
+        return { x: Math.floor(this.x / 32) * 32 + 48 + (tileCount * 32), y: Math.floor(this.x / 32) * 32 + 16 }
     }
   }
 }
@@ -190,8 +193,15 @@ function pathToClosestCharacter (enemy, start, goal) {
 
     const neighbors = enemy.scene.mapManager.getNeighboringTiles(current.x, current.y)
     for (const neighbor of neighbors) {
+      
       let tentativeGScore = gScore.get(current) + distBetween(enemy, current, neighbor)
+      // if (tentativeGScore > 2) {
+      //   console.log('tentativeGScore', tentativeGScore)
+      // }
 
+      // if (neighbor.x === 12 && neighbor.y === 15) {
+      //   console.log(distBetween(enemy, current, neighbor))
+      // }
       if (!gScore.has(neighbor) || tentativeGScore < gScore.get(neighbor)) {
         cameFrom.set(neighbor, current)
         gScore.set(neighbor, tentativeGScore)
@@ -212,9 +222,11 @@ function heuristicCostEstimate(start, goal) {
 }
 
 function distBetween(enemy, start, goal) {
-  if (enemy.manager.isLocationOccupied(goal.x, goal.y)) return Number.MAX_SAFE_INTEGER
+  if (Math.floor(enemy.x / 32) !== goal.x || Math.floor(enemy.y / 32) !== goal.y) {
+    if (enemy.manager.isLocationOccupied(goal.x, goal.y)) return Number.MAX_SAFE_INTEGER
+  }
 
-  return enemy.scene.mapManager.getTileCost(goal.x, goal.y)
+  return enemy.scene.mapManager.getTileCost(goal.x, goal.y, enemy)
 }
 
 function reconstructPath(cameFrom, current) {
@@ -226,18 +238,4 @@ function reconstructPath(cameFrom, current) {
   }
 
   return totalPath
-}
-
-function getTilePositionInDirection (enemy, direction) {
-  const tileCount = 3 + Math.floor(Math.random() * 5)
-  switch (direction) {
-    case 'up':
-      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 - 16 - (tileCount * 32) }
-    case 'down':
-      return { x: Math.floor(enemy.x / 32) * 32 + 16, y: Math.floor(enemy.y / 32) * 32 + 48 + (tileCount * 32)}
-    case 'left':
-      return { x: Math.floor(enemy.x / 32) * 32 - 16 - (tileCount * 32), y: Math.floor(enemy.x / 32) * 32 + 16 }
-    case 'right':
-      return { x: Math.floor(enemy.x / 32) * 32 + 48 + (tileCount * 32), y: Math.floor(enemy.x / 32) * 32 + 16 }
-  }
 }

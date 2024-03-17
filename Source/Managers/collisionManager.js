@@ -1,4 +1,5 @@
 import EntityTypes, { isCharacter, isEnemy, isLoot, isProjectile, isHitArea, isSpawner } from '../Globals/entityTypes.js'
+import collisionTiles, { Lava, Liquids, Water } from '../Globals/collisionTiles.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -78,6 +79,17 @@ export default class CollisionManager {
   }
 
   enemyMapProcess (enemy, tile) {
+    tile.entityType = EntityTypes.Tile
+
+    if (enemy.entityType === EntityTypes.Enemies.Skeleton1 && Liquids.includes(tile.index)) {
+      enemy.didCollideWith(tile)
+      return false
+    } else if (enemy.entityType === EntityTypes.Enemies.Ogre1 && Water.includes(tile.index)) {
+      return false
+    } else if (enemy.entityType === EntityTypes.Enemies.Demon1 && Lava.includes(tile.index)) {
+      return false
+    }
+
     return true
   }
 
