@@ -71,6 +71,17 @@ export default class CollisionManager {
   // Collision Process Handlers - Process handlers allow us to return true if a collision should occur, or false if it should not.
   // Returning false saves processing time since the collision won't be checked.
   characterMapProcess (character, tile) {
+    if (Liquids.includes(tile.index))
+    {
+      var arrayOfNeighbors = this.mapManager.getNeighboringTiles(tile.x, tile.y);
+      for (var i = 0; i < arrayOfNeighbors.length; i++)
+      {
+        if (arrayOfNeighbors[i].index === 483)
+        {
+          return false;
+        }
+      }
+    }    
     return true
   }
 
