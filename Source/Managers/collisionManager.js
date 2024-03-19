@@ -200,6 +200,10 @@ export default class CollisionManager {
   }
 
   enemyEnemyOverlap (enemy1, enemy2) {
+    if (enemy1.isDead || enemy2.isDead || enemy1.shouldBeDead || enemy2.shouldBeDead)
+    {
+      return;
+    }
     enemy1.didCollideWith(enemy2)
     enemy2.didCollideWith(enemy1)
   }

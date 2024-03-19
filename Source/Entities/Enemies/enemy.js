@@ -121,6 +121,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       }
       
     } else if (isEnemy(otherEntity)) {
+      if (otherEntity.isDead || otherEntity.shouldBeDead)
+      {
+        return;
+      }
       if (this.targetPosition?.x < this.x && otherEntity.x < this.x) {
         // hit an enemy to the left, change target to be up
         this.targetPosition = this.getTilePositionInDirection('up')
