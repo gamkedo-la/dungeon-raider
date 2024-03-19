@@ -81,6 +81,7 @@ export default class CollisionManager {
   enemyMapProcess (enemy, tile) {
     tile.entityType = EntityTypes.Tile
 
+    
     if (enemy.entityType === EntityTypes.Enemies.Skeleton1 && Liquids.includes(tile.index)) {
       enemy.didCollideWith(tile)
       return false
@@ -106,6 +107,7 @@ export default class CollisionManager {
   }
 
   enemyHitboxProcess(enemy, hitbox) {
+    
     return true
   }
 
@@ -179,6 +181,11 @@ export default class CollisionManager {
   }
 
   characterEnemyOverlap (character, enemy) {
+    
+    if (enemy.isDead || enemy.shouldBeDead)
+    {
+      return;
+    };
     enemy.x = enemy.lastPosition.x
     enemy.y = enemy.lastPosition.y
     const characterFacing = new Phaser.Math.Vector2(character.facing.x, character.facing.y)
@@ -187,6 +194,7 @@ export default class CollisionManager {
       character.x = character.lastPosition.x
       character.y = character.lastPosition.y  
     }
+    
     character.didCollideWith(enemy)
     enemy.didCollideWith(character)
   }

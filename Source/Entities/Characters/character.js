@@ -371,6 +371,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
 
   didCollideWith (otherEntity) {
     if (EntityTypes.isEnemy(otherEntity) || EntityTypes.isSpawner(otherEntity)) {
+      
       // If we can hurt this enemy with our body, then do that here. The enemy will call "takeDamage" on us if it can hurt us with its body
     } else if (EntityTypes.isLoot(otherEntity)) {
       // Only pick up the loot you're allowed to use
