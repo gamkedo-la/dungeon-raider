@@ -11,6 +11,7 @@ export default class Skeleton1 extends Enemy {
     config.entityType = EnemySkeleton1Type
     super(scene, config)
 
+    this.pathResetIndex = 3
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
   }
@@ -25,6 +26,10 @@ export default class Skeleton1 extends Enemy {
     if (otherEntity.entityType === entityTypes.Tile) {
       if (Acid.includes(otherEntity.index) || Lava.includes(otherEntity.index)) {
         this.takeDamage(2)
+      } else if (this.anims.currentAnim.key !== this.animations.idle.key) {
+        this.anims.play(this.animations.idle, this)
+        this.body.setVelocity(0)
+        this.didCollideWithWall = true
       }
     }
   }

@@ -18,6 +18,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.canAttack = true
     this.depth = 8
     this.spawner = config.spawner
+    this.path = null
+    this.pathResetIndex = 1
+    this.currentPathIndex = 1
+    this.didCollideWithWall = false
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
@@ -34,6 +38,19 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   update (time, delta) {
     if (!this.scene || this.isDead) return
     if (!this.scene.cameras.main.worldView.contains(this.x, this.y)) return
+
+    if (this.didCollideWithWall) {
+      const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
+      const directionToClosestCharacter = closestCharacter ? Phaser.Math.Angle.Between(this.x, this.y, closestCharacter.x, closestCharacter.y) : null
+      if (directionToClosestCharacter && Math.abs(this.angle - Phaser.Math.RadToDeg(directionToClosestCharacter)) > 45) {
+        this.didCollideWithWall = false
+        this.targetPosition = null
+        this.path = null
+        this.currentPathIndex = 1
+      } else {
+        return
+      }
+    }
 
     if (this.shouldBeDead) {
       enemyDied(this)
@@ -74,21 +91,30 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         const angle = (Math.PI / 2) + Phaser.Math.Angle.Between(this.x, this.y, closestCharacter.x, closestCharacter.y)
         this.angle = Phaser.Math.RadToDeg(angle)  
       }
-    } else if (!this.targetPosition || (targetDistance && targetDistance <= 8)) {
+    } else if (!this.targetPosition) {
       const groundLayer = this.scene.mapManager.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
       const closestCharacterTile = groundLayer.getTileAtWorldXY(closestCharacter.x, closestCharacter.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
       const myTile = this.scene.mapManager.getTileAt(Math.floor(this.x / 32), Math.floor(this.y / 32))
-      // const myTile = groundLayer.getTileAtWorldXY(this.x, this.y, false) || { x: Math.floor(closestCharacter.x / 32), y: Math.floor(closestCharacter.y / 32), pixelX: this.x * 32, pixelY: this.x * 32, cost: 1 }
-      const pathToFollow = pathToClosestCharacter(this, myTile, closestCharacterTile)
-      if (!pathToFollow || pathToFollow.length < 2) return
-      if (pathToFollow[1].pixelX + 16 === 400 && pathToFollow[1].pixelY + 16 === 528) {
-        console.log(pathToFollow)
-      }
-      this.targetPosition = { x: pathToFollow[1].pixelX + 16, y: pathToFollow[1].pixelY + 16 }
+      this.path = pathToClosestCharacter(this, myTile, closestCharacterTile)
+      if (!this.path || this.path.length < this.pathResetIndex + 1) return
+
+      this.currentPathIndex = 1
+      this.targetPosition = { x: this.path[this.currentPathIndex].pixelX + 16, y: this.path[this.currentPathIndex].pixelY + 16 }
       this.updateFacingDirectionIfRequired()
       if (this.anims.currentAnim.key !== this.animations.walk.key) {
         this.anims.play(this.animations.walk, this)
       }
+    } else if (this.path && this.currentPathIndex < this.path.length && targetDistance && targetDistance <= 8) {
+      this.targetPosition = { x: this.path[this.currentPathIndex].pixelX + 16, y: this.path[this.currentPathIndex].pixelY + 16 }
+      this.currentPathIndex++
+      this.updateFacingDirectionIfRequired()
+      if (this.anims.currentAnim.key !== this.animations.walk.key) {
+        this.anims.play(this.animations.walk, this)
+      }
+    } else if (!this.path || this.currentPathIndex >= this.path.length && targetDistance && targetDistance <= 8) {
+      this.targetPosition = null
+      this.body.setVelocity(0,0)
+      this.currentPathIndex = 1
     } else if (this.targetPosition) {
       this.scene.physics.moveTo(this, this.targetPosition.x, this.targetPosition.y, this.attributes.speed)
       this.updateFacingDirectionIfRequired()

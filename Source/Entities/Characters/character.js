@@ -174,17 +174,22 @@ export default class Character extends Phaser.GameObjects.Sprite {
     
     // finally, actually exit
     if (this.scaleX < 0) {
-        this.currentState = CharacterStates.Exited
-        this.scaleX = 1
-        this.scaleY = 1
-        this.setTint(Phaser.Display.Color.GetColor(255,255,255))
-        this.serialize()
+      this.currentState = CharacterStates.Exited
+
+      this.scaleX = 1
+      this.scaleY = 1
+      this.setTint(Phaser.Display.Color.GetColor(255,255,255))
+      this.serialize()
     }
   }
 
   update (time, delta) {
     // There is no guarantee regarding whether the physics/collision simulation has occurred before or after this update function is called
     if (!this.scene || this.currentState === CharacterStates.Exited || this.currentState === CharacterStates.Dead) return
+
+    if (this.currentState === CharacterStates.Dying && this.anims.currentAnim.key !== this.animations.death.key) {
+      this.anims.play(this.animations.death, true)
+    }
 
     if (this.currentState === CharacterStates.Exiting) {
       this.exitAnimation(time, delta)
@@ -214,7 +219,10 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.updateFacingDirectionIfRequired()
 
     if (this.storeItem) {
-      if((this.attributes.loot.gold < this.storeItem.price) || (Math.abs(this.x - this.storeItem.x) > ((this.width / 2) + (this.storeItem.width / 2)) || Math.abs(this.y - this.storeItem.y) > ((this.height / 2) + (this.storeItem.height / 2)))) {
+      if((this.attributes.loot.gold < this.storeItem.price) ||
+         (Math.abs(this.x - this.storeItem.x) > ((this.width / 2) + (this.storeItem.width / 2)) ||
+          Math.abs(this.y - this.storeItem.y) > ((this.height / 2) + (this.storeItem.height / 2)))
+      ) {
         this.storeItem = null
       }
     }
@@ -225,41 +233,39 @@ export default class Character extends Phaser.GameObjects.Sprite {
     this.lastPosition.y = this.y
 
     if (this.visibleWeapon) {
-        // offset the weapon depending on facing direction 
-        // todo: (could a math.cos(facing.x) etc do it better?
-        let offsetX = this.facing.x * 7
-        let offsetY = this.facing.y * 7
+      // offset the weapon depending on facing direction 
+      let offsetX = this.facing.x * 7
+      let offsetY = this.facing.y * 7
 
-        // looks better not quite centered, may want to use a variable vice a hard-coded number and may want to adjust based on weapon type
-        const pivotFix = -16
-        if (this.facing.x > 0) offsetY -= 4 + pivotFix
-        if (this.facing.x < 0) offsetY += 4 + pivotFix
-        if (this.facing.y > 0) offsetX += 4 + pivotFix
-        if (this.facing.y < 0) offsetX -= 4 + pivotFix
+      // looks better not quite centered, may want to use a variable vice a hard-coded number and may want to adjust based on weapon type
+      const pivotFix = -16
+      if (this.facing.x > 0) offsetY -= 4 + pivotFix
+      if (this.facing.x < 0) offsetY += 4 + pivotFix
+      if (this.facing.y > 0) offsetX += 4 + pivotFix
+      if (this.facing.y < 0) offsetX -= 4 + pivotFix
 
-        this.visibleWeapon.x = this.x + offsetX
-        this.visibleWeapon.y = this.y + offsetY
+      this.visibleWeapon.x = this.x + offsetX
+      this.visibleWeapon.y = this.y + offsetY
 
-        // tilted a little (225 = straight ahead, 240 or 210 = nice little tilts)
-        // if we want a nice tilt, it needs to be inversed at times:
-        // needs +/- angle offset depending on facing dir
-        this.visibleWeapon.angle = this.angle + 225
+      // tilted a little (225 = straight ahead, 240 or 210 = nice little tilts)
+      // if we want a nice tilt, it needs to be inversed at times:
+      // needs +/- angle offset depending on facing dir
+      this.visibleWeapon.angle = this.angle + 225
 
-        // "swing" the sword
-        if (this.visibleWeaponSwingRemaining) {
-            this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining/this.visibleWeaponSwingFrames)*(Math.PI)))*this.visibleWeaponSwingAngle
-            this.visibleWeaponSwingRemaining--
-        }
-    
+      // "swing" the sword
+      if (this.visibleWeaponSwingRemaining) {
+        this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining / this.visibleWeaponSwingFrames) * (Math.PI))) * this.visibleWeaponSwingAngle
+        this.visibleWeaponSwingRemaining--
+      }
     }
 
     // flash red if low health
-    if (this.attributes.health<=20) {
-        if (Math.round(performance.now()/250)%2)
-            this.setTint(0xFF0000) // red but darker
-            //this.setTintFill(0xFF0000) // bright red but opaque
-        else 
-            this.clearTint()
+    if (this.attributes.health <= 20) {
+      if (Math.round(performance.now() / 250) % 2) {
+        this.setTint(0xFF0000) // red but darker
+      } else{
+        this.clearTint()
+      }
     }
 
     this.body.setVelocity(0, 0)

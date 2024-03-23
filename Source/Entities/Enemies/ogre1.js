@@ -11,6 +11,7 @@ export default class Ogre1 extends Enemy {
     config.entityType = EnemyOgre1Type
     super(scene, config)
 
+    this.pathResetIndex = 2
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
   }
