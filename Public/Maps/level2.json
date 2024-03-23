@@ -209,7 +209,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -237,7 +237,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -265,7 +265,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"exit1"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -293,7 +293,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"exit1"
                         }],
                  "rotation":0,
                  "type":"character",

@@ -1,10 +1,10 @@
 import EntityTypes from '../../Globals/entityTypes.js'
-import { TileSpriteSheet, TileFrames } from '../../Globals/tileSpriteSheetLoaderData.js'
+import { ExitImage } from '../../Keys/imageKeys.js'
 
 export default class Exit extends Phaser.GameObjects.Sprite  {
   constructor (scene, config) {
     const frame = 0
-    super(scene, config.x, config.y, TileSpriteSheet, TileFrames.Exit)
+    super(scene, config.x, config.y, ExitImage)
 
     this.scene = scene
     this.gameManager = config.gameManager

@@ -289,9 +289,7 @@ function processPlayerSpawnObject (manager, object) {
 
 function assignPropertiesToObject (properties, object) {
   const objectProperties = {}
-  properties.forEach(property => {
-    objectProperties[property.name] = property.value
-  })
+  if (properties) properties.forEach(property => objectProperties[property.name] = property.value)
   return { ...object, ...objectProperties }
 }
 

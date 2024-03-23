@@ -660,10 +660,26 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="6" gid="1026" x="320" y="160" width="32" height="32"/>
-  <object id="7" gid="1027" x="384" y="160" width="32" height="32"/>
-  <object id="8" gid="1028" x="448" y="160" width="32" height="32"/>
-  <object id="9" gid="1029" x="512" y="160" width="32" height="32"/>
+  <object id="6" gid="1026" x="320" y="160" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="exit1"/>
+   </properties>
+  </object>
+  <object id="7" gid="1027" x="384" y="160" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="exit1"/>
+   </properties>
+  </object>
+  <object id="8" gid="1028" x="448" y="160" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="exit1"/>
+   </properties>
+  </object>
+  <object id="9" gid="1029" x="512" y="160" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="exit1"/>
+   </properties>
+  </object>
   <object id="10" gid="1030" x="416" y="384" width="32" height="32">
    <properties>
     <property name="destinationLevelKey" value="level-1-scene"/>

@@ -15,6 +15,8 @@ export const ArrowNormalMultipleImage = 'arrowNormalMultiple'
 export const ArrowSilverSingleImage = 'arrowSilverSingle'
 export const ArrowSilverMultipleImage = 'arrowSilverMultiple'
 export const CharacterUIPane = 'characterUIPane'
+export const DoorImage = 'door'
+export const ExitImage = 'exit'
 export const FoodLargeImage = 'foodLarge'
 export const FoodSmallImage = 'foodSmall'
 export const GoldPileImage = 'goldPile'
@@ -59,6 +61,8 @@ const ImageKeys = {
   ArrowSilverSingleImage,
   ArrowSilverMultipleImage,
   CharacterUIPane,
+  DoorImage,
+  ExitImage,
   FoodLargeImage,
   FoodSmallImage,
   GoldPileImage,

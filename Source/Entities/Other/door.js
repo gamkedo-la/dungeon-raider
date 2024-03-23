@@ -1,9 +1,9 @@
 import EntityTypes from '../../Globals/entityTypes.js'
-import { TileSpriteSheet, TileFrames } from '../../Globals/tileSpriteSheetLoaderData.js'
+import { DoorImage } from '../../Keys/imageKeys.js'
 
 export default class Door extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
-    super(scene, config.x, config.y, TileSpriteSheet, TileFrames.Door)
+    super(scene, config.x, config.y, DoorImage)
 
     this.scene = scene
     this.id = config.id
