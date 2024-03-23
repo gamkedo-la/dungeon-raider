@@ -45,18 +45,13 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
 	}
 
 	didCollideWith(otherEntity) {
-		if (otherEntity.entityType === EntityTypes.Tile) {
-			this.shutdown()
-			return
-		}
+		if (!this.scene || this.team === otherEntity.team) return
 
-		if (this.team != otherEntity.team) {
-			console.log('Dealt ', this.damage, ' damage')
-			otherEntity.takeDamage(this.damage)
-			this.scene.sound.play(ArrowHit, { loop: AudioKeys[ArrowHit].loop, volume: AudioKeys[ArrowHit].volume })
-			this.shutdown()
-		}
-	}
+		if (otherEntity.entityType !== EntityTypes.Tile) otherEntity.takeDamage(this.damage)
+
+		this.scene.sound.play(ArrowHit, { loop: AudioKeys[ArrowHit].loop, volume: AudioKeys[ArrowHit].volume })
+		this.shutdown()
+}
 
 	shoot(x, y, direction, speed) {
 		this.direction = direction

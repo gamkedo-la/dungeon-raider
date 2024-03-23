@@ -20,6 +20,7 @@ export const TitleMusic = 'music_welcome_intro'
 export const PauseSound = 'pause'
 export const PickupCoinSound = 'pickup_coin'
 export const PickupKeySound = 'pickup_key'
+export const RangedAttack = 'attack_ranged_4'
 export const SwordClang = 'sword_clang_3'
 export const Welcome = 'welcome'
 export const WelcomeMusicBody = 'music_welcome_body'
@@ -149,6 +150,12 @@ const AudioKeys = {
   [PickUpFoodSound]: {
     fileName: PickUpFoodSound,
     volume: 0.5,
+    loop: false,
+    type: 'sfx'
+  },
+  [RangedAttack]: {
+    fileName: RangedAttack,
+    volume: 0.25,
     loop: false,
     type: 'sfx'
   },

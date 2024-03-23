@@ -1,6 +1,7 @@
 import { Arrows, isMelee, isRanged, usesArrows } from '../../Globals/weaponAttributes.js'
 import Projectile from './projectile.js'
 import HitArea from './hitarea.js'
+import AudioKeys, { RangedAttack } from "../../Keys/audioKeys.js"
 import EntityTypes from '../../Globals/entityTypes.js'
 
 export default class Weapon {
@@ -32,6 +33,8 @@ export default class Weapon {
 			if (user.attributes.getArrowQuantity(user.attributes) === 0) {
 				return
 			}
+
+			user.scene.sound.play(RangedAttack, { loop: AudioKeys[RangedAttack].loop, volume: AudioKeys[RangedAttack].volume })
 
 			const projectile = new Projectile(scene, {
 				x: user.x,
