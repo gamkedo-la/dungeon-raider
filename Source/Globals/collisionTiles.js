@@ -1,4 +1,4 @@
-export const Walls = [
+export const IndestructibleWalls = [
 // GIDs for tiles that should be collidable.  GIDs start at 1, not 0.
 // The Master Tile sheet has a large number of empty tiles with their GID drawn on them
 // In Tiled, clicking on a tile in the tile sheet (right side) will show its GID
@@ -8,10 +8,30 @@ export const Walls = [
 96, 97, 98, 99, 100, 101, 102, 103, 104,
 128, 129, 130, 131, 132, 133, 134,
 160, 161, 162, 163, 164, 165,
-192, 193, 194, 195,
-40, // exit (so we get the collision event)
-72 // door
+192, 193, 194, 195
 ]
+
+export const DestructibleWalls1 = [
+  42, 43, 44, 45, 46, 47, 48, 49,
+  74, 75, 76, 77, 78, 79, 80, 81,
+  106, 107, 108, 109, 110, 111, 112, 113, 114,
+  138, 139, 140, 141, 142, 143, 144,
+  170, 171, 172, 173, 174, 175,
+  202, 203, 204, 205
+]
+
+export const DestructibleWalls2 = [
+  52, 53, 54, 55, 56, 57, 58, 59,
+  84, 85, 86, 87, 88, 89, 90, 91,
+  116, 117, 118, 119, 120, 121, 122, 123, 124,
+  148, 149, 150, 151, 152, 153, 154,
+  180, 181, 182, 183, 184, 185,
+  212, 213, 214, 215
+]
+
+export const DestructibleWalls = [...DestructibleWalls1, ...DestructibleWalls2]
+
+export const Walls = [...IndestructibleWalls, ...DestructibleWalls]
 
 export const Water = [
   226, 258, 290, 322, 354, 386, 418, 450, // animated vertical water tiles
@@ -28,7 +48,9 @@ export const Lava = [
 
 export const Liquids = [...Acid, ...Lava, ...Water]
 
+export const Exit = 40
+export const Door = 72
 export const BridgeIndex = 483
 
-const collisionTiles = [...Walls, ...Liquids]
+const collisionTiles = [Exit, Door, ...Walls, ...Liquids]
 export default collisionTiles

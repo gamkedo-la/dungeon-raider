@@ -273,6 +273,10 @@ class GameLevel extends Phaser.Scene {
     character.collectedLoot(lootVersionOfStoreItem)
   }
 
+  destructibleWallHit (wallTile, weapon) {
+    this.mapManager.damageDestructibleWall(wallTile)
+  }
+
   shutdown () {
     for (const sound of this.sound.sounds) sound.stop()
     for (const character of this.characters) character.shutdown()

@@ -1,7 +1,7 @@
 import { MasterTileset } from "../Keys/imageKeys.js"
 import { TileLayerKeys } from "../Keys/mapLayerKeys.js"
 import EntityTypes from "../Globals/entityTypes.js"
-import CollidableGIDs, { BridgeIndex, Lava, Liquids, Water } from "../Globals/collisionTiles.js"
+import CollidableGIDs, { BridgeIndex, Lava, Liquids, Water, DestructibleWalls1, DestructibleWalls2 } from "../Globals/collisionTiles.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 
 export default class MapManager {
@@ -161,6 +161,16 @@ export default class MapManager {
       }      
     } else {
       return tile.cost
+    }
+  }
+
+  damageDestructibleWall (tile) {
+    if(DestructibleWalls1.includes(tile.index)) {
+      const collisionLayer = this.layers.CollisionLayer
+      collisionLayer.putTileAt(tile.index += 10, tile.x, tile.y)
+    } else if (DestructibleWalls2.includes(tile.index)) {
+      const collisionLayer = this.layers.CollisionLayer
+      collisionLayer.removeTileAt(tile.x, tile.y, false, true)
     }
   }
 }

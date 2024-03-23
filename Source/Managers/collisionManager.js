@@ -1,5 +1,5 @@
 import EntityTypes, { isCharacter, isEnemy, isLoot, isProjectile, isHitArea, isSpawner } from '../Globals/entityTypes.js'
-import collisionTiles, { Lava, Liquids, Water } from '../Globals/collisionTiles.js'
+import collisionTiles, { Lava, Liquids, Water, DestructibleWalls } from '../Globals/collisionTiles.js'
 
 export default class CollisionManager {
   constructor (scene, mapManager) {
@@ -118,7 +118,6 @@ export default class CollisionManager {
   }
 
   enemyHitboxProcess(enemy, hitbox) {
-    
     return true
   }
 
@@ -148,6 +147,9 @@ export default class CollisionManager {
   hitboxMapCollision(hitbox, tile) {
     tile.entityType = EntityTypes.Tile
     hitbox.didCollideWith(tile)
+    if (DestructibleWalls.includes(tile.index)) {
+      this.scene.destructibleWallHit(tile, hitbox)
+    }
   }
 
   // Overlap Process Handlers - These are the same as Collision Process Handlers, but for Overlap events
