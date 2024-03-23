@@ -690,7 +690,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="10" gid="1026" x="68" y="98.6667" width="32" height="32"/>
+  <object id="10" gid="1026" x="65.3333" y="94.6667" width="32" height="32"/>
   <object id="11" gid="1027" x="128" y="96" width="32" height="32"/>
   <object id="12" gid="1028" x="62.6667" y="161.333" width="32" height="32"/>
   <object id="13" gid="1029" x="125.333" y="161.333" width="32" height="32"/>
