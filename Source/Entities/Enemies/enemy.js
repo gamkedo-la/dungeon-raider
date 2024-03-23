@@ -33,6 +33,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
   update (time, delta) {
     if (!this.scene || this.isDead) return
+    if (!this.scene.cameras.main.worldView.contains(this.x, this.y)) return
 
     if (this.shouldBeDead) {
       enemyDied(this)
