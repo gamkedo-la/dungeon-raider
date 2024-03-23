@@ -30,6 +30,12 @@ export default class Skeleton1 extends Enemy {
         this.anims.play(this.animations.idle, this)
         this.body.setVelocity(0)
         this.didCollideWithWall = true
+        this.scene.time.delayedCall(5000, () => {
+          this.didCollideWithWall = false
+          this.targetPosition = null
+          this.path = null
+          this.currentPathIndex = 1
+        })
       }
     }
   }

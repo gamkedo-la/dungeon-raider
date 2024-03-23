@@ -39,26 +39,14 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (!this.scene || this.isDead) return
     if (!this.scene.cameras.main.worldView.contains(this.x, this.y)) return
 
-    if (this.didCollideWithWall) {
-      const { closestCharacter, distance } = this.scene.getClosestCharacter(this)
-      const directionToClosestCharacter = closestCharacter ? Phaser.Math.Angle.Between(this.x, this.y, closestCharacter.x, closestCharacter.y) : null
-      if (directionToClosestCharacter && Math.abs(this.angle - Phaser.Math.RadToDeg(directionToClosestCharacter)) > 45) {
-        this.didCollideWithWall = false
-        this.targetPosition = null
-        this.path = null
-        this.currentPathIndex = 1
-      } else {
-        return
-      }
-    }
-
     if (this.shouldBeDead) {
       enemyDied(this)
       return
     }
 
     this.lastPosition = { x: this.x, y: this.y }
-    this.pursueCharacters()
+
+    if (!this.didCollideWithWall) this.pursueCharacters()
   }
 
   levelDidStart () {

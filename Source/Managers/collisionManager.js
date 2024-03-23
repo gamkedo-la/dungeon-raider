@@ -158,6 +158,7 @@ export default class CollisionManager {
   }
 
   characterEnemyProcess (character, enemy) {
+    if (enemy.isDead || enemy.shouldBeDead) return false
     return true
   }
 
