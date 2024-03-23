@@ -110,21 +110,15 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   }
 
   didCollideWith (otherEntity) {
-    
     // This function will be overridden by the subclasses
     if (otherEntity.entityType === EntityTypes.Character && this.canAttack) {
       this.canAttack = false
-      if (!this.isDead || !this.shouldBeDead)
-      {
+      if (!this.isDead && !this.shouldBeDead) {
         otherEntity.takeDamage(this.attributes.damage)
         this.scene.time.delayedCall(this.attributes.attackCooldown, () => { this.canAttack = true })
       }
       
     } else if (isEnemy(otherEntity)) {
-      if (otherEntity.isDead || otherEntity.shouldBeDead)
-      {
-        return;
-      }
       if (this.targetPosition?.x < this.x && otherEntity.x < this.x) {
         // hit an enemy to the left, change target to be up
         this.targetPosition = this.getTilePositionInDirection('up')
@@ -149,9 +143,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.death, this)
       this.body.setVelocity(0,0)
       this.scene.enemyKilledBy(this, otherEntity)
-      this.sfx(CharacterDead)
-      this.isDead = true;
-      
+      this.sfx(CharacterDead)      
     } else {
       this.sfx(EnemyHurt)
     }
