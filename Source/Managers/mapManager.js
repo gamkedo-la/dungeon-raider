@@ -171,6 +171,18 @@ export default class MapManager {
     } else if (DestructibleWalls2.includes(tile.index)) {
       const collisionLayer = this.layers.CollisionLayer
       collisionLayer.removeTileAt(tile.x, tile.y, false, true)
+
+      const belowGroundLayer =  this.map.layers.find(layer => layer.name === TileLayerKeys.BelowGroundLayer).tilemapLayer 
+      const belowGroundTile = belowGroundLayer.getTileAt(tile.x, tile.y)
+      if (belowGroundTile && CollidableGIDs.includes(belowGroundTile.index)) {
+        belowGroundTile.cost = Number.MAX_SAFE_INTEGER
+        this.tileCosts[tile.y][tile.x] = belowGroundTile
+      } else {
+        const groundLayer = this.map.layers.find(layer => layer.name === TileLayerKeys.GroundLayer).tilemapLayer
+        const groundTile = groundLayer.getTileAt(tile.x, tile.y)
+        groundTile.cost = 1
+        this.tileCosts[tile.y][tile.x] = groundTile
+      }
     }
   }
 }
