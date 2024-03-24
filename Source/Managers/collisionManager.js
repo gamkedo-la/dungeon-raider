@@ -158,7 +158,7 @@ export default class CollisionManager {
   }
 
   characterEnemyProcess (character, enemy) {
-    if (enemy.isDead || enemy.shouldBeDead || enemy.anims.currentAnim.key === enemy.animations.death.key) return false
+    if (enemy.isDead || enemy.shouldBeDead || enemy.anims.currentAnim?.key === enemy.animations?.death?.key) return false
     return true
   }
 
