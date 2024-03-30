@@ -53,7 +53,7 @@ class Options extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
-        this.scene.add(SceneKeys.Title, new Title(), true)
+        this.scene.start(SceneKeys.Title)
         this.scene.stop(this.scene.key)
       }
     }

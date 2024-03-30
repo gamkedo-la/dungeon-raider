@@ -75,10 +75,10 @@ class Title extends Phaser.Scene {
   onMenuSelectOption (option) {
 		if (option === selections.Options) {
 			this.scene.start(SceneKeys.Options)
-			this.scene.remove(SceneKeys.Title)
+      this.scene.stop(SceneKeys.Title)
 		} else if (option === selections.Credits) {
 			this.scene.start(SceneKeys.Credits)
-			this.scene.remove(SceneKeys.Title)
+      this.scene.stop(SceneKeys.Title)
 		} else {
 			this.gameManager.setPlayerCount(option || selections.OnePlayer)
 			this.gameManager.setCharacterCount(option || selections.OnePlayer)

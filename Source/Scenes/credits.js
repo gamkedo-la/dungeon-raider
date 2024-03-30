@@ -12,6 +12,9 @@ class Credits extends Phaser.Scene {
     super(SceneKeys.Credits)
 
     this.creditsData = null
+    this.fontLabels = []
+    this.shouldScroll = false
+    this.scrollSpeed = 1
   }
 
   preload () {
@@ -31,7 +34,7 @@ class Credits extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    new FontLabel(this, {
+    this.fontLabels.push(new FontLabel(this, {
       x: this.game.canvas.width / 2,
       y: 10,
       title: 'Credits',
@@ -39,9 +42,9 @@ class Credits extends Phaser.Scene {
       fontSize: UIAttributes.TitleFontSize,
       color: UIAttributes.UIColor,
       align: UIAttributes.CenterAlign
-    })
+    }))
 
-    new FontLabel(this, {
+    this.fontLabels.push(new FontLabel(this, {
       x: this.game.canvas.width / 2,
       y: this.game.canvas.height / 2,
       title: 'Press Any Control Key (WASD or Arrows) to Return to Title Screen',
@@ -49,13 +52,21 @@ class Credits extends Phaser.Scene {
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor,
       align: UIAttributes.CenterAlign
-    })
+    }))
 
-    this.cameras.main.fadeIn(2000, 0,0,0);
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, this.fadeInComplete, this)
+    this.cameras.main.fadeIn(2000, 0, 0, 0)
+  }
+
+  fadeInComplete () {
+    this.shouldScroll = true
   }
 
   update (time, delta) {
     this.inputManager.update(time, delta)
+    if (this.shouldScroll) {
+      this.scrollCredits(delta)
+    }
 
     // TODO: Update the vertical position of the credits text so that it scrolls up the screen
     // TODO: Allow the user to accelerate, reverse, and pause the credits text
@@ -64,11 +75,29 @@ class Credits extends Phaser.Scene {
 
   processInput (event) {
     for (const eventKey in event) {
-      if (event[eventKey].isDown) {
-        this.scene.add(SceneKeys.Title, new Title(), true)
+      if (!event[eventKey].isDown) continue
+
+      if (eventKey === 'up') {
+        this.scrollSpeed = 1
+      } else if (eventKey === 'down') {
+        this.scrollSpeed = -1
+      } else if (eventKey === 'primary' || eventKey === 'secondary' || eventKey === 'left' || eventKey === 'right') {
+        this.scrollSpeed = 0
+      } else if (eventKey === 'select1' || eventKey === 'select2') {
+        this.scene.start(SceneKeys.Title)
         this.scene.stop(this.scene.key)
+      } else {
+        this.scrollSpeed = 0.5
       }
     }
+  }
+
+  scrollCredits (delta) {
+    if (this.scrollSpeed === 0) return
+
+    this.fontLabels.forEach(label => {
+      label.setPosition(label.x, label.y - (this.game.canvas.height * (delta / (this.scrollSpeed * 1000))))
+    })
   }
 }
 
