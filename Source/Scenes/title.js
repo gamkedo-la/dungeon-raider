@@ -15,7 +15,7 @@ const selections = {
   TwoPlayer: 2,
   ThreePlayer: 3,
   FourPlayer: 4,
-  Options: 5,
+  Controls: 5,
   Credits: 6
 }
 
@@ -64,7 +64,7 @@ class Title extends Phaser.Scene {
     this.optionMenu.buildMenuOption('2 Player Game', 2, UIAttributes.Player2Color)
     this.optionMenu.buildMenuOption('3 Player Game', 3, UIAttributes.Player3Color)
     this.optionMenu.buildMenuOption('4 Player Game', 4, UIAttributes.Player4Color)
-    this.optionMenu.buildMenuOption('Options', 5)
+    this.optionMenu.buildMenuOption('Controls', 5)
     this.optionMenu.buildMenuOption('Credits', 6)
   }
 
@@ -73,7 +73,7 @@ class Title extends Phaser.Scene {
   }
 
   onMenuSelectOption (option) {
-		if (option === selections.Options) {
+		if (option === selections.Controls) {
 			this.scene.start(SceneKeys.Options)
       this.scene.stop(SceneKeys.Title)
 		} else if (option === selections.Credits) {

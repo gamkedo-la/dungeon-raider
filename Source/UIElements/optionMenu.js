@@ -18,7 +18,7 @@ export default class OptionMenu {
 		this.onSelectCallback = config.onSelectCallback
 
 		this.menuSelectionCoolingDown = false
-		this.menuTop = 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
+		this.menuTop = config.top || 100 + (this.game.canvas.height / 2) - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
 		this.activeMarker = null
 		this.activeSelection = config.selected
 		this.markerPositions = [{ x: 0, y: 0 }]
