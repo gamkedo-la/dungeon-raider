@@ -6,6 +6,7 @@ import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import { CreditsFileKey } from "../Keys/fileKeys.js"
+import AudioKeys, { AlertSound } from "../Keys/audioKeys.js"
 
 class Credits extends Phaser.Scene {
   constructor () {
@@ -14,7 +15,8 @@ class Credits extends Phaser.Scene {
     this.creditsData = null
     this.fontLabels = []
     this.shouldScroll = false
-    this.scrollSpeed = 1
+    this.scrollSpeed = 0.5
+    this.alertSound = null
   }
 
   preload () {
@@ -33,6 +35,8 @@ class Credits extends Phaser.Scene {
     for (const inputEvent in InputEventKeys) {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
+
+    this.alertSound = this.sound.add(AlertSound, { loop: AudioKeys[AlertSound].loop, volume: AudioKeys[AlertSound].volume })
 
     this.buildCredits()
 
@@ -126,6 +130,7 @@ class Credits extends Phaser.Scene {
       } else if (eventKey === 'primary' || eventKey === 'secondary' || eventKey === 'left' || eventKey === 'right') {
         this.scrollSpeed = 0
       } else if (eventKey === 'select1' || eventKey === 'select2') {
+        // this.alertSound.play()
         this.scene.start(SceneKeys.Title)
         this.scene.stop(this.scene.key)
       } else {

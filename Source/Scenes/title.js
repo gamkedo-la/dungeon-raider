@@ -4,7 +4,7 @@ import InputManager from '../Managers/inputManager.js'
 import InputEventKeys from '../Keys/inputEventKeys.js'
 import OptionMenu from "../UIElements/optionMenu.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
-import AudioKeys, { TitleMusic } from "../Keys/audioKeys.js"
+import AudioKeys, { TitleMusic, AlertSound, MenuChanged } from "../Keys/audioKeys.js"
 import { Races, CharacterClasses, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
 import UIAttributes from "../Globals/uiAttributes.js"
@@ -25,6 +25,8 @@ class Title extends Phaser.Scene {
 
     this.gameManager = null // can't create this until the scene is initialized => in create()
     this.inputManager = null // can't create this until the scene is initialized => in create()
+
+    this.alertSound = null
   }
 
   preload () {
@@ -48,6 +50,8 @@ class Title extends Phaser.Scene {
     })
 
     this.buildMenu()
+    this.alertSound = this.sound.add(AlertSound, { loop: AudioKeys[AlertSound].loop, volume: AudioKeys[AlertSound].volume })
+    this.alertSound = this.sound.add(MenuChanged, { loop: AudioKeys[MenuChanged].loop, volume: AudioKeys[MenuChanged].volume })
 
     this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
 
@@ -73,6 +77,7 @@ class Title extends Phaser.Scene {
   }
 
   onMenuSelectOption (option) {
+    // this.alertSound.play()
 		if (option === selections.Controls) {
 			this.scene.start(SceneKeys.Options)
       this.scene.stop(SceneKeys.Title)

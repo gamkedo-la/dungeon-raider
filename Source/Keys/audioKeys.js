@@ -16,15 +16,16 @@ export const GetTheTreasure = 'get_the_treasure'
 export const GameOverMusic = 'game_over'
 export const GamePlayMusic = 'title_music'
 export const ImportantEventSound = 'important_event'
-export const TitleMusic = 'music_welcome_intro'
+export const MenuChanged = 'drop_item'
 export const PauseSound = 'pause'
 export const PickupCoinSound = 'pickup_coin'
+export const PickUpFoodSound = 'gulp1'
 export const PickupKeySound = 'pickup_key'
 export const RangedAttack = 'attack_ranged_4'
 export const SwordClang = 'sword_clang_3'
+export const TitleMusic = 'music_welcome_intro'
 export const Welcome = 'welcome'
 export const WelcomeMusicBody = 'music_welcome_body'
-export const PickUpFoodSound = 'gulp1'
 
 const AudioKeys = {
   // Including audio keys here enables the Preloader to automatically load them for us
@@ -126,6 +127,12 @@ const AudioKeys = {
   [ImportantEventSound]: {
     fileName: ImportantEventSound,
     volume: 0.5,
+    loop: false,
+    type: 'sfx'
+  },
+  [MenuChanged]: {
+    fileName: MenuChanged,
+    volume: 1,
     loop: false,
     type: 'sfx'
   },

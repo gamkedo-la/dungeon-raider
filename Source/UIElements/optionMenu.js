@@ -2,6 +2,7 @@ import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import { GoldPieceImage } from "../Keys/imageKeys.js"
+import AudioKeys, { AlertSound, MenuChanged } from "../Keys/audioKeys.js"
 
 export default class OptionMenu {
 	constructor(scene, config) {
@@ -28,6 +29,8 @@ export default class OptionMenu {
 		if (event.up?.isDown) {
 			if (this.menuSelectionCoolingDown) return
 
+			this.scene.sound.play(MenuChanged, { loop: AudioKeys[MenuChanged].loop, volume: AudioKeys[MenuChanged].volume })
+
 			this.activeSelection--
 			if (this.activeSelection < this.firstOption) {
 				this.activeSelection = this.lastOption
@@ -43,6 +46,8 @@ export default class OptionMenu {
 		if (event.down?.isDown) {
 			if (this.menuSelectionCoolingDown) return
 
+			this.scene.sound.play(MenuChanged, { loop: AudioKeys[MenuChanged].loop, volume: AudioKeys[MenuChanged].volume })
+
 			this.activeSelection++
 			if (this.activeSelection > this.lastOption) {
 				this.activeSelection = this.firstOption
@@ -56,6 +61,7 @@ export default class OptionMenu {
 		}
 
 		if (event.primary?.isDown || event.secondary?.isDown || event.select1?.isDown || event.select2?.isDown) {
+			this.scene.sound.play(AlertSound, { loop: AudioKeys[AlertSound].loop, volume: AudioKeys[AlertSound].volume })
 			this.onSelectCallback(this.activeSelection)
 		}
 	}

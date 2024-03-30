@@ -6,6 +6,7 @@ import InputEventKeys from '../Keys/inputEventKeys.js'
 import FontLabel from "../UIElements/fontLabel.js"
 import UIAttributes from "../Globals/uiAttributes.js"
 import OptionMenu from "../UIElements/optionMenu.js"
+import AudioKeys, { AlertSound } from "../Keys/audioKeys.js"
 
 const selections = {
   Back: 1
@@ -15,6 +16,7 @@ class Options extends Phaser.Scene {
   constructor () {
     super(SceneKeys.Options)
     this.optionMenu = null
+    this.alertSound = null
   }
 
   preload () {
@@ -29,11 +31,13 @@ class Options extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
+    this.alertSound = this.sound.add(AlertSound, { loop: AudioKeys[AlertSound].loop, volume: AudioKeys[AlertSound].volume })
+
     this.optionMenu = new OptionMenu(this, {
       gameManager: this.gameManager,
       inputManager: this.inputManager,
       selections: selections,
-      selected: selections.OnePlayer,
+      selected: selections.Back,
       onSelectCallback: this.onMenuSelectOption.bind(this),
       top: this.game.canvas.height - 2 * UIAttributes.getFontSizeNumber(UIAttributes.TitleFontSize)
     })
@@ -205,6 +209,7 @@ class Options extends Phaser.Scene {
   }
 
   onMenuSelectOption (option) {
+    // this.alertSound.play()
     this.scene.start(SceneKeys.Title)
     this.scene.stop(SceneKeys.Options)
   }
