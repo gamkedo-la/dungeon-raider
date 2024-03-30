@@ -34,6 +34,8 @@ class Credits extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
+    this.buildCredits()
+
     this.fontLabels.push(new FontLabel(this, {
       x: this.game.canvas.width / 2,
       y: 10,
@@ -46,8 +48,8 @@ class Credits extends Phaser.Scene {
 
     this.fontLabels.push(new FontLabel(this, {
       x: this.game.canvas.width / 2,
-      y: this.game.canvas.height / 2,
-      title: 'Press Any Control Key (WASD or Arrows) to Return to Title Screen',
+      y: this.game.canvas.height / 4,
+      title: 'Press Enter (Return), Primary or Secondary action button to Return to Title Screen',
       fontFamily: UIAttributes.UIFontFamily,
       fontSize: UIAttributes.UIFontSize,
       color: UIAttributes.UIColor,
@@ -56,6 +58,46 @@ class Credits extends Phaser.Scene {
 
     this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, this.fadeInComplete, this)
     this.cameras.main.fadeIn(2000, 0, 0, 0)
+  }
+
+  buildCredits () {
+    const colors = [UIAttributes.Player1Color, UIAttributes.Player2Color, UIAttributes.Player3Color, UIAttributes.Player4Color]
+    let y = this.game.canvas.height / 2
+    this.creditsData.forEach((credit, index) => {
+      this.fontLabels.push(new FontLabel(this, {
+        x: this.game.canvas.width / 2,
+        y: y,
+        title: credit.Contributor,
+        fontFamily: UIAttributes.UIFontFamily,
+        fontSize: UIAttributes.TitleFontSize,
+        color: colors[index % colors.length],
+        align: UIAttributes.CenterAlign
+      }))
+      y += 50
+      credit.Contributions.forEach(contribution => {
+        this.fontLabels.push(new FontLabel(this, {
+          x: this.game.canvas.width / 2,
+          y: y,
+          title: contribution,
+          fontFamily: UIAttributes.UIFontFamily,
+          fontSize: UIAttributes.UIFontSize,
+          color: UIAttributes.UIColor,
+          align: UIAttributes.CenterAlign
+        }))
+        y += 20
+      })
+      y += 30
+    })
+
+    this.fontLabels.push(new FontLabel(this, {
+      x: this.game.canvas.width / 2,
+      y: y + this.game.canvas.height / 4,
+      title: 'Press Enter (Return), Primary or Secondary action button to Return to Title Screen',
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.UIFontSize,
+      color: UIAttributes.UIColor,
+      align: UIAttributes.CenterAlign
+    }))
   }
 
   fadeInComplete () {
