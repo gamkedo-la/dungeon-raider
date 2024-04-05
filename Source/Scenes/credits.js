@@ -15,7 +15,7 @@ class Credits extends Phaser.Scene {
     this.creditsData = null
     this.fontLabels = []
     this.shouldScroll = false
-    this.scrollSpeed = 0.5
+    this.scrollSpeed = 0.075
     this.alertSound = null
   }
 
@@ -124,9 +124,9 @@ class Credits extends Phaser.Scene {
       if (!event[eventKey].isDown) continue
 
       if (eventKey === 'up') {
-        this.scrollSpeed = 1
+        this.scrollSpeed = 0.15
       } else if (eventKey === 'down') {
-        this.scrollSpeed = -1
+        this.scrollSpeed = -0.15
       } else if (eventKey === 'primary' || eventKey === 'secondary' || eventKey === 'left' || eventKey === 'right') {
         this.scrollSpeed = 0
       } else if (eventKey === 'select1' || eventKey === 'select2') {
@@ -134,7 +134,7 @@ class Credits extends Phaser.Scene {
         this.scene.start(SceneKeys.Title)
         this.scene.stop(this.scene.key)
       } else {
-        this.scrollSpeed = 0.5
+        this.scrollSpeed = 0.075
       }
     }
   }
@@ -143,7 +143,7 @@ class Credits extends Phaser.Scene {
     if (this.scrollSpeed === 0) return
 
     this.fontLabels.forEach(label => {
-      label.setPosition(label.x, label.y - (this.game.canvas.height * (delta / (this.scrollSpeed * 1000))))
+      label.setPosition(label.x, label.y - (this.game.canvas.height * (this.scrollSpeed * delta / 1000)))
     })
   }
 }

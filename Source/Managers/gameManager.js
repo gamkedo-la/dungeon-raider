@@ -325,7 +325,12 @@ export default class GameManager {
   }
 
   goToInterLevelScene () {
-    this.game.scene.add(SceneKeys.InterLevel, new InterLevel(), true)
+    console.log('active exit', this.getActiveExit().destinationLevelKey)
+    if (this.getActiveExit().destinationLevelKey === 'credits') {
+      this.game.scene.start(SceneKeys.Credits)
+    } else {
+      this.game.scene.add(SceneKeys.InterLevel, new InterLevel(), true)
+    }
   }
 
   goToLevel (levelKey) {
