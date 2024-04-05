@@ -182,7 +182,7 @@ class UserInterface extends Phaser.Scene {
       if (playerAttributes.health <= 10) {
         playerUI.health.updateColor(UIAttributes.UIDangerColor)
       }
-      playerUI.health.updateTitle(`Health: ${playerAttributes.health}`)
+      playerUI.health.updateTitle(`Health: ${Math.floor(playerAttributes.health)}`)
       playerUI.gold.updateTitle(`Gold: ${formatGold(playerAttributes.loot.gold)}`)
       playerUI.keys.updateTitle(`Keys: ${playerAttributes.loot.keys}`)
 

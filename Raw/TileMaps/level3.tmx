@@ -152,7 +152,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="44" columns="0">
+ <tileset firstgid="1025" name="Objects" tilewidth="32" tileheight="64" tilecount="45" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0" type="ogre1">
    <properties>
@@ -496,6 +496,9 @@
    </properties>
    <image width="32" height="32" source="ObjectImages/Demon1.png"/>
   </tile>
+  <tile id="44" type="door">
+   <image width="32" height="32" source="ObjectImages/Door.png"/>
+  </tile>
  </tileset>
  <layer id="1" name="belowGround" width="50" height="50">
   <data encoding="csv">
@@ -660,10 +663,26 @@
 </data>
  </layer>
  <objectgroup id="4" name="interactive">
-  <object id="5" gid="1026" x="192" y="128" width="32" height="32"/>
-  <object id="6" gid="1027" x="256" y="128" width="32" height="32"/>
-  <object id="7" gid="1028" x="320" y="128" width="32" height="32"/>
-  <object id="8" gid="1029" x="384" y="128" width="32" height="32"/>
+  <object id="5" gid="1026" x="192" y="128" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="level2_exit2"/>
+   </properties>
+  </object>
+  <object id="6" gid="1027" x="256" y="128" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="level2_exit2"/>
+   </properties>
+  </object>
+  <object id="7" gid="1028" x="320" y="128" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="level2_exit2"/>
+   </properties>
+  </object>
+  <object id="8" gid="1029" x="384" y="128" width="32" height="32">
+   <properties>
+    <property name="targetingExitId" value="level2_exit2s"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="5" name="roof" width="50" height="50">
   <data encoding="csv">

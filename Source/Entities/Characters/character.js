@@ -71,7 +71,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
   healthLoss () {
     if (!this.scene || this.currentState === CharacterStates.Exited || this.currentState === CharacterStates.Exiting || this.currentState === CharacterStates.Dead) return
 
-    this.attributes.health--
+    this.attributes.health -= 0.2
     if (this.attributes.health <= 0) {
       this.currentState = CharacterStates.Dying
       this.attributes.health = 0

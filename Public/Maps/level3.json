@@ -209,7 +209,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"level2_exit2"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -237,7 +237,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"level2_exit2"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -265,7 +265,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"level2_exit2"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -293,7 +293,7 @@
                         {
                          "name":"targetingExitId",
                          "type":"string",
-                         "value":""
+                         "value":"level2_exit2s"
                         }],
                  "rotation":0,
                  "type":"character",
@@ -915,7 +915,7 @@
          "margin":0,
          "name":"Objects",
          "spacing":0,
-         "tilecount":44,
+         "tilecount":45,
          "tileheight":64,
          "tiles":[
                 {
@@ -1879,6 +1879,13 @@
                          "value":1
                         }],
                  "type":"demon1"
+                }, 
+                {
+                 "id":44,
+                 "image":"..\/..\/Raw\/TileMaps\/ObjectImages\/Door.png",
+                 "imageheight":32,
+                 "imagewidth":32,
+                 "type":"door"
                 }],
          "tilewidth":32
         }],
