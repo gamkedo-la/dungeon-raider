@@ -519,7 +519,7 @@
         {
          "name":"mapTintRGB",
          "type":"string",
-         "value":"0xFFFFFF"
+         "value":"0x1F2719"
         }, 
         {
          "name":"plateMailCost",

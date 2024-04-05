@@ -3,6 +3,7 @@ import { Skeleton1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.j
 import entityTypes, { EnemySkeleton1Type } from '../../Globals/entityTypes.js'
 import { Skeleton1Animations } from '../../Keys/enemyAnimationKeys.js'
 import { Acid, Lava, Water } from '../../Globals/collisionTiles.js'
+import { SkeletonDied, SkeletonHurt, SkeletonSpawned } from '../../Keys/audioKeys.js'
 
 export default class Skeleton1 extends Enemy {
   constructor (scene, config) {
@@ -10,10 +11,13 @@ export default class Skeleton1 extends Enemy {
     config.spriteSheet = spriteSheet
     config.entityType = EnemySkeleton1Type
     super(scene, config)
-
+    this.diedSound = SkeletonDied
+    this.hurtSound = SkeletonHurt
+    this.diedSound = 
     this.pathResetIndex = 3
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
+    this.sfx(SkeletonSpawned)
   }
 
   buildAnimations () {
@@ -23,6 +27,7 @@ export default class Skeleton1 extends Enemy {
   didCollideWith (otherEntity) {
     // Do something special here like check if the other entity is a character weapon and if so, take damage
     super.didCollideWith(otherEntity)
+    this.sfx()
     if (otherEntity.entityType === entityTypes.Tile) {
       if (Acid.includes(otherEntity.index) || Lava.includes(otherEntity.index)) {
         this.takeDamage(2)

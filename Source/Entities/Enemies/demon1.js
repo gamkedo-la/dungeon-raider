@@ -2,6 +2,7 @@ import Enemy from './enemy.js'
 import { Demon1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.js'
 import EntityTypes, { EnemyDemon1Type } from '../../Globals/entityTypes.js'
 import { Demon1Animations } from '../../Keys/enemyAnimationKeys.js'
+import { DemonDied, DemonHurt, DemonSpawned } from '../../Keys/audioKeys.js'
 
 export default class Demon1 extends Enemy {
   constructor (scene, config) {
@@ -10,8 +11,11 @@ export default class Demon1 extends Enemy {
     config.entityType = EnemyDemon1Type
     super(scene, config)
 
+    this.diedSound = DemonDied
+    this.hurtSound = DemonHurt
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
+    this.sfx(DemonSpawned)
   }
 
   buildAnimations () {

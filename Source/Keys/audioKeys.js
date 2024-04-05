@@ -5,7 +5,9 @@ export const AttackMiss = 'attack_miss'
 export const CharacterDead = 'player_hurt_3'
 export const CharacterHurt = 'player_hurt_4'
 export const DefeatTheHorde = 'defeat_the_horde'
-export const EnemyHurt = 'enemy_hit_1'
+export const DemonDied = 'enemy_die_cry'
+export const DemonHurt = 'enemy_hit_3'
+export const DemonSpawned = 'enemy_spawn_1'
 export const ExitInTime = 'exit_in_time'
 export const ExitSound = 'exit_sound'
 export const ExplorersMusic = 'music_explorers'
@@ -17,11 +19,17 @@ export const GameOverMusic = 'game_over'
 export const GamePlayMusic = 'title_music'
 export const ImportantEventSound = 'important_event'
 export const MenuChanged = 'drop_item'
+export const OgreDied = 'enemy_die_creature'
+export const OgreHurt = 'enemy_hit_2'
+export const OgreSpawned = 'enemy_spawn_2'
 export const PauseSound = 'pause'
 export const PickupCoinSound = 'pickup_coin'
 export const PickUpFoodSound = 'gulp1'
 export const PickupKeySound = 'pickup_key'
 export const RangedAttack = 'attack_ranged_4'
+export const SkeletonDied = 'enemy_die_fade'
+export const SkeletonHurt = 'enemy_hit_1'
+export const SkeletonSpawned = 'enemy_spawn_3'
 export const SwordClang = 'sword_clang_3'
 export const TitleMusic = 'music_welcome_intro'
 export const Welcome = 'welcome'
@@ -65,8 +73,20 @@ const AudioKeys = {
     loop: false,
     type: 'voiceover'
   },
-  [EnemyHurt]: {
-    fileName: EnemyHurt,
+  [DemonDied]: {
+    fileName: DemonDied,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [DemonHurt]: {
+    fileName: DemonHurt,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [DemonSpawned]: {
+    fileName: DemonSpawned,
     volume: 0.25,
     loop: false,
     type: 'sfx'
@@ -136,6 +156,24 @@ const AudioKeys = {
     loop: false,
     type: 'sfx'
   },
+  [OgreDied]: {
+    fileName: OgreDied,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [OgreHurt]: {
+    fileName: OgreHurt,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [OgreSpawned]: {
+    fileName: OgreSpawned,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
   [PauseSound]: {
     fileName: PauseSound,
     volume: 0.25,
@@ -162,6 +200,24 @@ const AudioKeys = {
   },
   [RangedAttack]: {
     fileName: RangedAttack,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [SkeletonDied]: {
+    fileName: SkeletonDied,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [SkeletonHurt]: {
+    fileName: SkeletonHurt,
+    volume: 0.25,
+    loop: false,
+    type: 'sfx'
+  },
+  [SkeletonSpawned]: {
+    fileName: SkeletonSpawned,
     volume: 0.25,
     loop: false,
     type: 'sfx'

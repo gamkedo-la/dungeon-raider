@@ -1,6 +1,6 @@
 import EntityTypes, { isEnemy } from '../../Globals/entityTypes.js'
 import { TileLayerKeys } from '../../Keys/mapLayerKeys.js'
-import AudioKeys, { CharacterDead, EnemyHurt } from '../../Keys/audioKeys.js'
+import AudioKeys from '../../Keys/audioKeys.js'
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
   constructor (scene, config) {
@@ -22,6 +22,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.pathResetIndex = 1
     this.currentPathIndex = 1
     this.didCollideWithWall = false
+    this.diedSound = null
+    this.hurtSound = null
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 
@@ -158,9 +160,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       this.anims.play(this.animations.death, this)
       this.body.setVelocity(0,0)
       this.scene.enemyKilledBy(this, otherEntity)
-      this.sfx(CharacterDead)      
+      this.sfx(this.diedSound)      
     } else {
-      this.sfx(EnemyHurt)
+      this.sfx(this.hurtSound)
     }
   }
 

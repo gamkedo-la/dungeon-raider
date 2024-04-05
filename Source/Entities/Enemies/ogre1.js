@@ -3,6 +3,7 @@ import { Ogre1SpriteSheet } from '../../Globals/enemySpriteSheetLoaderData.js'
 import EntityTypes, { EnemyOgre1Type } from '../../Globals/entityTypes.js'
 import { Ogre1Animations } from '../../Keys/enemyAnimationKeys.js'
 import { Water } from '../../Globals/collisionTiles.js'
+import { OgreDied, OgreHurt, OgreSpawned } from '../../Keys/audioKeys.js'
 
 export default class Ogre1 extends Enemy {
   constructor (scene, config) {
@@ -10,10 +11,13 @@ export default class Ogre1 extends Enemy {
     config.spriteSheet = spriteSheet
     config.entityType = EnemyOgre1Type
     super(scene, config)
-
+    
+    this.diedSound = OgreDied
+    this.hurtSound = OgreHurt
     this.pathResetIndex = 2
     this.buildAnimations()
     this.anims.play(this.animations.idle, this)
+    this.sfx(OgreSpawned)
   }
 
   buildAnimations () {
