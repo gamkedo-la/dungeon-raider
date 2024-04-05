@@ -92,7 +92,7 @@ class Title extends Phaser.Scene {
 			} else {
 				this.scene.start(SceneKeys.CharacterCreate)
 			}
-			this.scene.remove(SceneKeys.Title)
+			this.scene.stop(SceneKeys.Title)
 		}
   }
 }

@@ -130,7 +130,6 @@ class Credits extends Phaser.Scene {
       } else if (eventKey === 'primary' || eventKey === 'secondary' || eventKey === 'left' || eventKey === 'right') {
         this.scrollSpeed = 0
       } else if (eventKey === 'select1' || eventKey === 'select2') {
-        // this.alertSound.play()
         this.scene.start(SceneKeys.Title)
         this.scene.stop(this.scene.key)
       } else {
