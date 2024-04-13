@@ -71,17 +71,15 @@ export default class CollisionManager {
   // Collision Process Handlers - Process handlers allow us to return true if a collision should occur, or false if it should not.
   // Returning false saves processing time since the collision won't be checked.
   characterMapProcess (character, tile) {
-    if (Liquids.includes(tile.index))
-    {
+    if (Liquids.includes(tile.index)) {
       var arrayOfNeighbors = this.mapManager.getNeighboringTiles(tile.x, tile.y);
-      for (var i = 0; i < arrayOfNeighbors.length; i++)
-      {
-        if (arrayOfNeighbors[i].index === 483)
-        {
-          return false;
+      for (var i = 0; i < arrayOfNeighbors.length; i++) {
+        if (arrayOfNeighbors[i].index === 483) {
+          return false
         }
       }
-    }    
+    }
+
     return true
   }
 
@@ -110,7 +108,11 @@ export default class CollisionManager {
   }
 
   hitboxMapProcess (hitbox, tile) {
-    return true
+    tile.entityType = EntityTypes.Tile
+    hitbox.didCollideWith(tile)
+    if (DestructibleWalls.includes(tile.index)) {
+      this.scene.destructibleWallHit(tile, hitbox)
+    }
   }
 
   characterHitboxProcess(character, hitbox) {
@@ -145,11 +147,11 @@ export default class CollisionManager {
   }
 
   hitboxMapCollision(hitbox, tile) {
-    tile.entityType = EntityTypes.Tile
-    hitbox.didCollideWith(tile)
-    if (DestructibleWalls.includes(tile.index)) {
-      this.scene.destructibleWallHit(tile, hitbox)
-    }
+    // tile.entityType = EntityTypes.Tile
+    // hitbox.didCollideWith(tile)
+    // if (DestructibleWalls.includes(tile.index)) {
+    //   this.scene.destructibleWallHit(tile, hitbox)
+    // }
   }
 
   // Overlap Process Handlers - These are the same as Collision Process Handlers, but for Overlap events

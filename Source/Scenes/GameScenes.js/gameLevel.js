@@ -14,6 +14,7 @@ import Door from "../../Entities/Other/door.js"
 import { GameManagerKey } from "../../Managers/gameManager.js"
 import { onDebug } from "../../Keys/inputEventKeys.js"
 import Debug from "../../Globals/debug.js"
+import { isMelee } from "../../Globals/weaponAttributes.js"
 
 class GameLevel extends Phaser.Scene {
   constructor (sceneKey, mapKey) {
@@ -275,6 +276,9 @@ class GameLevel extends Phaser.Scene {
 
   destructibleWallHit (wallTile, weapon) {
     this.mapManager.damageDestructibleWall(wallTile)
+    if (isMelee(weapon)) {
+      this.mapManager.damageDestructibleWall(wallTile)
+    }
   }
 
   shutdown () {

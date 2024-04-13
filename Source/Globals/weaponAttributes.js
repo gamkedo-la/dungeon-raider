@@ -350,7 +350,20 @@ export function isSpell (weapon) {
 }
 
 export function isMelee (weapon) {
-  return weapon.range === WeaponRanges.Melee
+  return ((weapon.range && weapon.range === WeaponRanges.Melee) ||
+    weapon.entityType === WeaponFistsType ||
+    weapon.entityType === WeaponDaggerType ||
+    weapon.entityType === WeaponShortSwordType ||
+    weapon.entityType === WeaponWarHammerMagicType ||
+    weapon.entityType === WeaponWarHammerType ||
+    weapon.entityType === WeaponHammerMagicType ||
+    weapon.entityType === WeaponHammerType ||
+    weapon.entityType === WeaponFlangedMaceType ||
+    weapon.entityType === WeaponMaceType ||
+    weapon.entityType === WeaponBattleAxeType ||
+    weapon.entityType === WeaponAxeType ||
+    weapon.entityType === WeaponLongSwordType ||
+    weapon.entityType === WeaponStaffType)
 }
 
 export function isShortRange (weapon) {

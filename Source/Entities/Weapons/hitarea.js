@@ -24,9 +24,10 @@ export default class HitArea extends Phaser.GameObjects.Rectangle {
 	}
 
 	didCollideWith(otherEntity) {
-		if (this.team != otherEntity.team) {
-			console.log('Dealt ', this.damage, ' damage')
-			otherEntity.takeDamage(this.damage)
+		if (!this.scene) return
+
+		if (this.team !== otherEntity.team) {
+			if (otherEntity.takeDamage) otherEntity.takeDamage(this.damage)
 			this.scene.sound.play(SwordClang, { loop: AudioKeys[SwordClang].loop, volume: AudioKeys[SwordClang].volume })
 			this.timeout.remove()
 			this.destroy()
