@@ -113,7 +113,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
         this.visibleWeapon.depth = this.depth - 1 
 
         // so it pivots at the handle
-        this.visibleWeapon.setOrigin(0.1,0.9)
+        this.visibleWeapon.setOrigin(0.1, 0.9)
     }    
   }
 
@@ -253,9 +253,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
       this.visibleWeapon.angle = this.angle + 225
 
       // "swing" the sword
-      if (this.visibleWeaponSwingRemaining) {
+      if (this.visibleWeaponSwingRemaining > 0) {
         this.visibleWeapon.angle += Math.sin(((this.visibleWeaponSwingRemaining / this.visibleWeaponSwingFrames) * (Math.PI))) * this.visibleWeaponSwingAngle
-        this.visibleWeaponSwingRemaining--
+        this.visibleWeaponSwingRemaining -= delta
+      } else {
+        this.visibleWeaponSwingRemaining = 0
       }
     }
 
