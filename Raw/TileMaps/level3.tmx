@@ -709,7 +709,7 @@
   <object id="518" gid="1067" x="1438" y="128" width="32" height="32"/>
   <object id="519" gid="1067" x="126" y="254" width="32" height="32"/>
   <object id="520" gid="1067" x="126" y="254" width="32" height="32"/>
-  <object id="521" gid="1030" x="510" y="94" width="32" height="32">
+  <object id="521" gid="1030" x="512" y="96" width="32" height="32">
    <properties>
     <property name="destinationLevelKey" value="credits"/>
    </properties>
