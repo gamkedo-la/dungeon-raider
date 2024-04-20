@@ -2,8 +2,8 @@ import AudioKeys, { AttackMiss, SwordClang } from "../../Keys/audioKeys.js"
 
 export default class HitArea extends Phaser.GameObjects.Rectangle {
 	constructor(scene, config) {
-		const debugColor = 0xff0000
-		const debugAlpha = 0.5
+		const debugColor = 0xFFFFFF
+		const debugAlpha = 0
 		super(scene, 0, 0, config.width, config.height, debugColor, debugAlpha)
 
 		this.scene = scene
