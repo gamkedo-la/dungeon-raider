@@ -18,7 +18,6 @@ export default class MapManager {
     let rgbData = this.map.properties.find(o => o.name === 'mapTintRGB')
     if (rgbData != undefined) {
         let rgbstring = rgbData.value
-        console.log("Tinting the map this color: "+rgbstring)
         this.mapTintRGB = parseInt(rgbstring,16)
         // safeguard against invalid input data like a typo
         if (isNaN(this.mapTintRGB)) this.mapTintRGB = 0xFFFFFF
@@ -46,6 +45,7 @@ export default class MapManager {
           }
         }
       }
+
       this.layers[layerKey].animatedTiles = findAnimatedTiles(this.tileAnimations, this.layers[layerKey].layer.data)
     }
 
@@ -84,6 +84,19 @@ export default class MapManager {
     }
 
     this.tileCosts = buildTileCosts(this)
+
+    // Account for damaged and destroyed tiles
+    for (let row = 0; row < this.layers.CollisionLayer.layer.data.length; row++) {
+      for (let col = 0; col < this.layers.CollisionLayer.layer.data[row].length; col++) {
+        const tile = this.layers.CollisionLayer.layer.data[row][col]
+        if (this.gameManager.isTileDamaged(this.scene.levelKey, tile)) {
+          this.damageDestructibleWall(tile)
+        } else if (this.gameManager.isTileDestroyed(this.scene.levelKey, tile)) {
+          this.damageDestructibleWall(tile)
+          this.damageDestructibleWall(tile)
+        }
+      }
+    }
   }
 
   getPlayerSpawn (player, targetingExitId = null) {
@@ -168,9 +181,11 @@ export default class MapManager {
     if(DestructibleWalls1.includes(tile.index)) {
       const collisionLayer = this.layers.CollisionLayer
       collisionLayer.putTileAt(tile.index += 10, tile.x, tile.y)
+      this.gameManager.damageTile(this.scene.levelKey, tile)
     } else if (DestructibleWalls2.includes(tile.index)) {
       const collisionLayer = this.layers.CollisionLayer
       collisionLayer.removeTileAt(tile.x, tile.y, false, true)
+      this.gameManager.destroyTile(this.scene.levelKey, tile)
 
       const belowGroundLayer =  this.map.layers.find(layer => layer.name === TileLayerKeys.BelowGroundLayer).tilemapLayer 
       const belowGroundTile = belowGroundLayer.getTileAt(tile.x, tile.y)

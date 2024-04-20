@@ -13,6 +13,8 @@ export const PlayerCountKey = 'player-count'
 export const CharacterCountKey = 'character-count'
 export const ActiveExitKey = 'active-exit'
 export const MapChangesKey = 'map-changes'
+export const TileDamagedKey = 'tile-damaged'
+export const TileDestroyedKey = 'tile-destroyed'
 
 export const DestroyedKey = 'destroyed'
 
@@ -23,12 +25,20 @@ export default class GameManager {
     this.game = game
 
 		const mapChanges = {}
+    const damagedTiles = {}
+    const destroyedTiles = {}
     for (const key in LevelKeys) {
 			mapChanges[LevelKeys[key]] = {
 				[DestroyedKey]: []
 			}
+
+      damagedTiles[LevelKeys[key]] = []
+      destroyedTiles[LevelKeys[key]] = []
     }
+
 		this.setMapChanges(mapChanges)
+    this.setDamagedTiles(damagedTiles)
+    this.setDestroyedTiles(destroyedTiles)
   }
 
   getPlayerCount () {
@@ -325,7 +335,6 @@ export default class GameManager {
   }
 
   goToInterLevelScene () {
-    console.log('active exit', this.getActiveExit().destinationLevelKey)
     if (this.getActiveExit().destinationLevelKey === 'credits') {
       this.game.scene.start(SceneKeys.Credits)
     } else {
@@ -344,6 +353,22 @@ export default class GameManager {
 	setMapChanges(value) {
 		this.game.registry.set(MapChangesKey, value)
 	}
+
+  getDamagedTiles() {
+    return this.game.registry.get(TileDamagedKey)
+  }
+
+  setDamagedTiles(value) {
+    this.game.registry.set(TileDamagedKey, value)
+  }
+
+  getDestroyedTiles() {
+    return this.game.registry.get(TileDestroyedKey)
+  }
+
+  setDestroyedTiles(value) {
+    this.game.registry.set(TileDestroyedKey, value)
+  }
 	
 	destroyObject(levelKey, objectId) {
 		let mapChanges = this.getMapChanges()
@@ -354,6 +379,33 @@ export default class GameManager {
 	isObjectDestroyed(levelKey, objectId) {
 		return this.getMapChanges()[levelKey][DestroyedKey].includes(objectId)
 	}
+
+  damageTile (levelKey, tile) {
+    const damagedTiles = this.getDamagedTiles()
+    damagedTiles[levelKey].push({ x: tile.x, y: tile.y })
+    this.setDamagedTiles(damagedTiles)
+  }
+
+  isTileDamaged (levelKey, tile) {
+    const damagedTiles = this.getDamagedTiles()
+    if (!damagedTiles[levelKey]) return false
+
+    return this.getDamagedTiles()[levelKey].find(t => t.x === tile.x && t.y === tile.y)
+  }
+  
+  destroyTile (levelKey, tile) {
+    const damagedTiles = this.getDamagedTiles()
+    damagedTiles[levelKey] = damagedTiles[levelKey].filter(t => t.x !== tile.x || t.y !== tile.y)
+    this.setDamagedTiles(damagedTiles)
+
+    const destroyedTiles = this.getDestroyedTiles()
+    destroyedTiles[levelKey].push({ x: tile.x, y: tile.y })
+    this.setDestroyedTiles(destroyedTiles)
+  }
+
+  isTileDestroyed (levelKey, tile) {
+    return this.getDestroyedTiles()[levelKey].find(t => t.x === tile.x && t.y === tile.y)
+  }
 }
 
 function buildLevelForKey (key) {
