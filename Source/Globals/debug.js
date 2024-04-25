@@ -3,7 +3,7 @@ import InputOptionsKeys from "../Keys/inputOptionsKeys.js"
 import SceneKeys from "../Keys/sceneKeys.js"
 
 // Skip the title scene and character create scene
-export const SkipTitleScene = true
+export const SkipTitleScene = false
 export const SkipCharacterCreateScene = true
 
 // How many characters to create if skipping the character create scene

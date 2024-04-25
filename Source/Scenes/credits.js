@@ -20,7 +20,7 @@ class Credits extends Phaser.Scene {
   }
 
   preload () {
-    this.load.json(CreditsFileKey, "../../Public/Credits/credits.json")
+    this.load.json(CreditsFileKey, "../../Public/Credits/credits.json?a=5") // ?a=5 forcing refresh
   }
 
   create () {
@@ -64,9 +64,17 @@ class Credits extends Phaser.Scene {
     this.cameras.main.fadeIn(2000, 0, 0, 0)
   }
 
+  wrapText(text, maxLen = 80) {
+    const regex = new RegExp(`.{1,${maxLen}}(\\s+|$)|\\S+?(\\s+|$)`, 'g');
+    return text.match(regex).map(line => line.trim());
+  }
+
   buildCredits () {
     const colors = [UIAttributes.Player1Color, UIAttributes.Player2Color, UIAttributes.Player3Color, UIAttributes.Player4Color]
     let y = this.game.canvas.height / 2
+    this.creditsData.forEach(credit => {
+        credit.Contributions = credit.Contributions.flatMap(contribution => this.wrapText(contribution));
+    });
     this.creditsData.forEach((credit, index) => {
       this.fontLabels.push(new FontLabel(this, {
         x: this.game.canvas.width / 2,
@@ -78,6 +86,7 @@ class Credits extends Phaser.Scene {
         align: UIAttributes.CenterAlign
       }))
       y += 50
+
       credit.Contributions.forEach(contribution => {
         this.fontLabels.push(new FontLabel(this, {
           x: this.game.canvas.width / 2,

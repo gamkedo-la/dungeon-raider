@@ -2,15 +2,73 @@
   {
     "Contributor": "HTrayford",
     "Contributions": [
-      "Project Lead",
-      "Prototype Design & Development"
+      "Project lead, core gameplay, level 1 and 2 design, tilemap implementation, main world tiles, player character sprites (archer/warrior/magi/cleric & elf/human/dwarf), enemy sprites (skeleton/ogre/demon), loot functionality, UI, collision, pathfinding, camera, animation hookup, font loading, enemy behavior, destroyable walls, map exits, item placement, drawbridges, scene handling, item collection, menus, store, core attribute authoring, asset integration, optimizations, various bug fixes and internal debugging features"
     ]
   },
   {
-    "Contributor": "Somebody Else",
+    "Contributor": "Vitor M",
     "Contributions": [
-      "Some Other Contribution",
-      "Yet Another Contribution"
+      "Character injury flash, arrow loot, doors/keys hookup, attack system, bow and melee attacks, AI state machine, projectile shadows, UI update, camera zoom fix, scene switch improvement, scene changes persist, spawner destruction, UI refactor, spawn limiter"
+    ]
+  },
+  {
+    "Contributor": "Elizabeth McMahill",
+    "Contributions": [
+      "Weapon icons (magic hammer, magic warhammer, mace, longbow, shortsword, longsword, axe, battleaxe, shortbow), pause sound, level 1 design pass, play testing/feedback, level 2 & 3 design concepts, enemy differentiation concepts"
+    ]
+  },
+  {
+    "Contributor": "Stebs",
+    "Contributions": [
+      "Spawner art (ogre pit, skeleton spawner, demon portal), movement speed tuning, level 1 design, healing item placement, cooldown animation adjustment, dead enemy collision improved, bridge crossing"
+    ]
+  },
+  {
+    "Contributor": "Christer \"McFunkypants\" Kaitila",
+    "Contributions": [
+      "Voiceover announcer, elven archer sprite, map tint, sword attack animation, character spin and fade exit sequence, sounds (pickup coin and key, exit, important event, eating and drinking variations, enemy spawn/attack/die/magic, sword/arrow and additional battle sounds), player sound integration, visible character weapons, low health flash"
+    ]
+  },
+  {
+    "Contributor": "Luis Montaña",
+    "Contributions": [
+      "Loot sprites (hammer, warhammer, helmet, potion, shield, base armor, platemail, full plate armor), water animation, moveable wall"
+    ]
+  },
+  {
+    "Contributor": "Neil Urwin",
+    "Contributions": [
+      "Music (DR 01), staff weapon, attributes fix, scene fade, weapon animation error resolved"
+    ]
+  },
+  {
+    "Contributor": "speck",
+    "Contributions": [
+      "Tiles (acid, lava, broken bridge), animated bridge raise/lower"
+    ]
+  },
+  {
+    "Contributor": "Brandon Paul",
+    "Contributions": [
+      "Music (welcome, explorers)"
+    ]
+  },
+  {
+    "Contributor": "Kelly Mark (tinyzigzag)",
+    "Contributions": [
+      "Music (game over)"
+    ]
+  },
+  {
+    "Contributor": "Ian Cherabier",
+    "Contributions": [
+      "Key sprite"
+    ]
+  },
+  {
+    "Contributor": "Jonathan Peterson",
+    "Contributions": [
+      "Linux support fix"
     ]
   }
 ]
