@@ -515,6 +515,7 @@ export default class Character extends Phaser.GameObjects.Sprite {
     if (this.storeItem) {
       // Attempt to purchase the item
       this.scene.purchaseItem(this, this.storeItem)
+      this.attributes.loot.gold -= this.storeItem.price
     } else {
       this.executeAttackWith(this.attributes.primary)
     }

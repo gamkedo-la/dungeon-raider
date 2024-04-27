@@ -328,7 +328,7 @@
                  "visible":true,
                  "width":32,
                  "x":704,
-                 "y":1057.333
+                 "y":1057.33
                 }, 
                 {
                  "gid":1027,
@@ -384,7 +384,7 @@
                  "visible":true,
                  "width":32,
                  "x":704,
-                 "y":1121.333
+                 "y":1121.33
                 }, 
                 {
                  "gid":1029,
@@ -412,7 +412,7 @@
                  "visible":true,
                  "width":32,
                  "x":768,
-                 "y":1121.333
+                 "y":1121.33
                 }, 
                 {
                  "gid":1041,
@@ -1060,12 +1060,12 @@
                         {
                          "name":"arrowNormalMultipleAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"arrowNormalSingleAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"arrowSilverMultipleAllowed",
@@ -1080,7 +1080,7 @@
                         {
                          "name":"axeAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"battleAxeAllowed",
@@ -1100,7 +1100,7 @@
                         {
                          "name":"foodLargeAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"foodSmallAllowed",
@@ -1115,7 +1115,7 @@
                         {
                          "name":"hammerAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"hammerMagicAllowed",
@@ -1125,17 +1125,17 @@
                         {
                          "name":"helmetAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"keyAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"leatherArmorAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"longBowAllowed",
@@ -1150,7 +1150,7 @@
                         {
                          "name":"maceAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"plateMailAllowed",
@@ -1165,17 +1165,17 @@
                         {
                          "name":"shieldAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"shortBowAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"shortSwordAllowed",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"warHammerAllowed",
@@ -3185,12 +3185,12 @@
         {
          "name":"foodLargeCost",
          "type":"int",
-         "value":200
+         "value":30
         }, 
         {
          "name":"foodSmallCost",
          "type":"int",
-         "value":100
+         "value":10
         }, 
         {
          "name":"halfPlateMailCost",

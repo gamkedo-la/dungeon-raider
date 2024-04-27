@@ -16,8 +16,8 @@
   <property name="battleAxeCost" type="int" value="1000"/>
   <property name="chainMailCost" type="int" value="3000"/>
   <property name="flangedMaceCost" type="int" value="1000"/>
-  <property name="foodLargeCost" type="int" value="200"/>
-  <property name="foodSmallCost" type="int" value="100"/>
+  <property name="foodLargeCost" type="int" value="30"/>
+  <property name="foodSmallCost" type="int" value="10"/>
   <property name="halfPlateMailCost" type="int" value="5000"/>
   <property name="hammerCost" type="int" value="500"/>
   <property name="hammerMagicCost" type="int" value="2000"/>
@@ -752,7 +752,22 @@
   <object id="151" gid="1025" x="1440" y="1086.67" width="32" height="32"/>
   <object id="152" gid="1025" x="1440" y="1345.33" width="32" height="32"/>
   <object id="153" gid="1025" x="1185.33" y="1344" width="32" height="32"/>
-  <object id="154" gid="1054" x="1376" y="673.333" width="32" height="64"/>
+  <object id="154" gid="1054" x="1376" y="673.333" width="32" height="64">
+   <properties>
+    <property name="arrowNormalMultipleAllowed" type="bool" value="false"/>
+    <property name="arrowNormalSingleAllowed" type="bool" value="false"/>
+    <property name="axeAllowed" type="bool" value="false"/>
+    <property name="foodLargeAllowed" type="bool" value="false"/>
+    <property name="hammerAllowed" type="bool" value="false"/>
+    <property name="helmetAllowed" type="bool" value="false"/>
+    <property name="keyAllowed" type="bool" value="false"/>
+    <property name="leatherArmorAllowed" type="bool" value="false"/>
+    <property name="maceAllowed" type="bool" value="false"/>
+    <property name="shieldAllowed" type="bool" value="false"/>
+    <property name="shortBowAllowed" type="bool" value="false"/>
+    <property name="shortSwordAllowed" type="bool" value="false"/>
+   </properties>
+  </object>
   <object id="155" gid="1054" x="1312" y="705.333" width="32" height="64"/>
   <object id="156" gid="1054" x="1248" y="704" width="32" height="64"/>
   <object id="157" gid="1054" x="1184" y="768" width="32" height="64"/>
