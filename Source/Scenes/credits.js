@@ -105,10 +105,20 @@ class Credits extends Phaser.Scene {
     this.fontLabels.push(new FontLabel(this, {
       x: this.game.canvas.width / 2,
       y: y + this.game.canvas.height / 4,
-      title: 'Press Enter (Return), Primary or Secondary action button to Return to Title Screen',
+      title: 'Press Enter (Return), Primary or Secondary',
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color: UIAttributes.UIColor,
+      fontSize: UIAttributes.TitleFontSize,
+      color: UIAttributes.Player1Color,
+      align: UIAttributes.CenterAlign
+    }))
+
+    this.fontLabels.push(new FontLabel(this, {
+      x: this.game.canvas.width / 2,
+      y: y + this.game.canvas.height / 4 + 50,
+      title: 'action button to Return to Title Screen',
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.TitleFontSize,
+      color: UIAttributes.Player1Color,
       align: UIAttributes.CenterAlign
     }))
   }
@@ -153,6 +163,11 @@ class Credits extends Phaser.Scene {
     this.fontLabels.forEach(label => {
       label.setPosition(label.x, label.y - (this.game.canvas.height * (this.scrollSpeed * delta / 1000)))
     })
+
+    if (this.fontLabels.every(label => label.y < -label.height)) {
+      this.scene.start(SceneKeys.Title)
+      this.scene.stop(this.scene.key)
+    }
   }
 }
 
