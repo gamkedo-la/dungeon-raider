@@ -38,21 +38,23 @@ class GameOver extends Phaser.Scene {
     }
 
     new FontLabel(this, {
-      x: this.game.canvas.width / 2 - 200,
-      y: this.game.canvas.height / 2,
+      x: this.game.canvas.width / 2,
+      y: this.game.canvas.height / 3,
       title: 'Game Over',
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.TitleFontSize,
-      color: UIAttributes.UIColor
+      fontSize: '64px',
+      color: UIAttributes.UIColor,
+      align: UIAttributes.CenterAlign
     })
 
     new FontLabel(this, {
-      x: this.game.canvas.width / 2 - 200,
-      y: this.game.canvas.height / 2 + 100,
+      x: this.game.canvas.width / 2,
+      y: this.game.canvas.height / 2 + 150,
       title: 'Press Any Control Key (WASD or Arrows) to Continue',
       fontFamily: UIAttributes.UIFontFamily,
-      fontSize: UIAttributes.UIFontSize,
-      color: UIAttributes.UIColor
+      fontSize: UIAttributes.CharacterHeaderSize,
+      color: UIAttributes.UIColor,
+      align: UIAttributes.CenterAlign
     })
 
     this.cameras.main.fadeIn(2000, 0,0,0);
@@ -65,8 +67,7 @@ class GameOver extends Phaser.Scene {
   processInput (event) {
     for (const eventKey in event) {
       if (event[eventKey].isDown) {
-        // TODO: We need to clear all the Player & Character data so a new game can be started
-        this.scene.add(SceneKeys.Title, new Title(), true)
+        this.scene.start(SceneKeys.Title)
         this.sound.sounds.find(sound => sound.key === GameOverMusic).stop()
         this.scene.stop(this.scene.key)
       }
