@@ -24,6 +24,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.didCollideWithWall = false
     this.diedSound = null
     this.hurtSound = null
+    this.team = 'badGuys'
 
     this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.animationComplete, this)
 

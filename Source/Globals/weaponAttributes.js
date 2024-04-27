@@ -109,7 +109,7 @@ export const shortSword = new Weapon({
   visibleWeaponSprite: ImageKeys.WeaponShortSwordImage,
   damage: 30,
   speed: 200,
-	size: new Phaser.Math.Vector2(32, 48),
+	size: new Phaser.Math.Vector2(32, 32),
 	entityType: WeaponShortSwordType
 })
 

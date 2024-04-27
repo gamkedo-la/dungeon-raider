@@ -1,4 +1,5 @@
 import AudioKeys, { AttackMiss, SwordClang } from "../../Keys/audioKeys.js"
+import { isEnemy } from "../../Globals/entityTypes.js"
 
 export default class HitArea extends Phaser.GameObjects.Rectangle {
 	constructor(scene, config) {
@@ -29,8 +30,10 @@ export default class HitArea extends Phaser.GameObjects.Rectangle {
 		if (this.team !== otherEntity.team) {
 			if (otherEntity.takeDamage) otherEntity.takeDamage(this.damage)
 			this.scene.sound.play(SwordClang, { loop: AudioKeys[SwordClang].loop, volume: AudioKeys[SwordClang].volume })
-			this.timeout.remove()
-			this.destroy()
+			if (isEnemy(otherEntity)) {
+				this.timeout.remove()
+				this.destroy()
+			}
 		}
 	}
 }
