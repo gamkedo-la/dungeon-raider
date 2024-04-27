@@ -60,6 +60,8 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
   }
 
   takeDamage (damage, otherEntity) {
+    this.setTint(0xFF0000) // red but darker
+    this.scene.time.delayedCall(100, () => { this.clearTint() })
     this.health -= damage
     if (this.health <= 0) {
       this.scene.enemyKilledBy(this, otherEntity)

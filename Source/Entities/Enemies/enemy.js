@@ -157,7 +157,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (this.anims.currentAnim.key === this.animations.death.key) return
 
     this.attributes.health -= damage
-    if (this.attributes.health <= 0) {
+    this.setTint(0xFF0000) // red but darker
+    this.scene.time.delayedCall(100, () => { this.clearTint() })
+  if (this.attributes.health <= 0) {
       this.anims.play(this.animations.death, this)
       this.body.setVelocity(0,0)
       this.scene.enemyKilledBy(this, otherEntity)
