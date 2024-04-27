@@ -15,7 +15,9 @@ class Level1 extends GameLevel {
   create () {
     super.create()
     // Add any Level 1 specific stuff here, there may or may not be much since all of the levels will share most of the same functionality
-    this.sound.play(GamePlayMusic, { loop: AudioKeys[GamePlayMusic].loop, volume: AudioKeys[GamePlayMusic].volume })
+    if (!this.sound.sounds.find(sound => sound.key === GamePlayMusic).isPlaying) {
+      this.sound.play(GamePlayMusic, { loop: AudioKeys[GamePlayMusic].loop, volume: AudioKeys[GamePlayMusic].volume })
+    }
   }
 
   update (time, delta) {

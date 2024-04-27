@@ -33,7 +33,9 @@ class GameOver extends Phaser.Scene {
       this.inputManager.registerForEvent(inputEvent, this.processInput, this)
     }
 
-    this.sound.play(GameOverMusic, { loop: AudioKeys[GameOverMusic].loop, volume: AudioKeys[GameOverMusic].volume })
+    if (!this.sound.sounds.find(sound => sound.key === GameOverMusic)?.isPlaying) {
+      this.sound.play(GameOverMusic, { loop: AudioKeys[GameOverMusic].loop, volume: AudioKeys[GameOverMusic].volume })
+    }
 
     new FontLabel(this, {
       x: this.game.canvas.width / 2 - 200,
@@ -65,6 +67,7 @@ class GameOver extends Phaser.Scene {
       if (event[eventKey].isDown) {
         // TODO: We need to clear all the Player & Character data so a new game can be started
         this.scene.add(SceneKeys.Title, new Title(), true)
+        this.sound.sounds.find(sound => sound.key === GameOverMusic).stop()
         this.scene.stop(this.scene.key)
       }
     }

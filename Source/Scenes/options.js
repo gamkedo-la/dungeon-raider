@@ -209,7 +209,6 @@ class Options extends Phaser.Scene {
   }
 
   onMenuSelectOption (option) {
-    // this.alertSound.play()
     this.scene.start(SceneKeys.Title)
     this.scene.stop(SceneKeys.Options)
   }

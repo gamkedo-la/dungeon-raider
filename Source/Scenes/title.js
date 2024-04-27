@@ -53,7 +53,9 @@ class Title extends Phaser.Scene {
     this.alertSound = this.sound.add(AlertSound, { loop: AudioKeys[AlertSound].loop, volume: AudioKeys[AlertSound].volume })
     this.alertSound = this.sound.add(MenuChanged, { loop: AudioKeys[MenuChanged].loop, volume: AudioKeys[MenuChanged].volume })
 
-    this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
+    if (!this.sound.sounds.find(sound => sound.key === TitleMusic)?.isPlaying) {
+      this.sound.play(TitleMusic, { loop: AudioKeys[TitleMusic].loop, volume: AudioKeys[TitleMusic].volume })
+    }
 
     this.cameras.main.fadeIn(2000, 0,0,0);
 
@@ -77,7 +79,6 @@ class Title extends Phaser.Scene {
   }
 
   onMenuSelectOption (option) {
-    // this.alertSound.play()
 		if (option === selections.Controls) {
 			this.scene.start(SceneKeys.Options)
       this.scene.stop(SceneKeys.Title)
@@ -92,6 +93,7 @@ class Title extends Phaser.Scene {
 			} else {
 				this.scene.start(SceneKeys.CharacterCreate)
 			}
+      this.sound.sounds.find(sound => sound.key === TitleMusic).stop()
 			this.scene.stop(SceneKeys.Title)
 		}
   }
