@@ -111,7 +111,7 @@ class InterLevel extends Phaser.Scene {
       this.music.play({ loop: AudioKeys[WelcomeMusicBody].loop, volume: AudioKeys[WelcomeMusicBody].volume })
     }
 
-    this.cameras.main.fadeIn(2000, 0,0,0);
+    this.cameras.main.fadeIn(2000, 0,0,0)
 
     // TODO: Build the Inter-Level screen, including:
     // 5. An audio & visual indication of when/which Players have confirmed their readiness to continue

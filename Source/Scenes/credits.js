@@ -65,16 +65,16 @@ class Credits extends Phaser.Scene {
   }
 
   wrapText(text, maxLen = 80) {
-    const regex = new RegExp(`.{1,${maxLen}}(\\s+|$)|\\S+?(\\s+|$)`, 'g');
-    return text.match(regex).map(line => line.trim());
+    const regex = new RegExp(`.{1,${maxLen}}(\\s+|$)|\\S+?(\\s+|$)`, 'g')
+    return text.match(regex).map(line => line.trim())
   }
 
   buildCredits () {
     const colors = [UIAttributes.Player1Color, UIAttributes.Player2Color, UIAttributes.Player3Color, UIAttributes.Player4Color]
     let y = this.game.canvas.height / 2
     this.creditsData.forEach(credit => {
-        credit.Contributions = credit.Contributions.flatMap(contribution => this.wrapText(contribution));
-    });
+        credit.Contributions = credit.Contributions.flatMap(contribution => this.wrapText(contribution))
+    })
     this.creditsData.forEach((credit, index) => {
       this.fontLabels.push(new FontLabel(this, {
         x: this.game.canvas.width / 2,

@@ -72,8 +72,8 @@ export default class CollisionManager {
   // Returning false saves processing time since the collision won't be checked.
   characterMapProcess (character, tile) {
     if (Liquids.includes(tile.index)) {
-      var arrayOfNeighbors = this.mapManager.getNeighboringTiles(tile.x, tile.y);
-      for (var i = 0; i < arrayOfNeighbors.length; i++) {
+      const arrayOfNeighbors = this.mapManager.getNeighboringTiles(tile.x, tile.y)
+      for (let i = 0; i < arrayOfNeighbors.length; i++) {
         if (arrayOfNeighbors[i].index === 483) {
           return false
         }
@@ -198,10 +198,8 @@ export default class CollisionManager {
 
   characterEnemyOverlap (character, enemy) {
     
-    if (enemy.isDead || enemy.shouldBeDead)
-    {
-      return;
-    };
+    if (enemy.isDead || enemy.shouldBeDead) return
+
     enemy.x = enemy.lastPosition.x
     enemy.y = enemy.lastPosition.y
     const characterFacing = new Phaser.Math.Vector2(character.facing.x, character.facing.y)
@@ -216,10 +214,8 @@ export default class CollisionManager {
   }
 
   enemyEnemyOverlap (enemy1, enemy2) {
-    if (enemy1.isDead || enemy2.isDead || enemy1.shouldBeDead || enemy2.shouldBeDead)
-    {
-      return;
-    }
+    if (enemy1.isDead || enemy2.isDead || enemy1.shouldBeDead || enemy2.shouldBeDead) return
+
     enemy1.didCollideWith(enemy2)
     enemy2.didCollideWith(enemy1)
   }

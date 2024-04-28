@@ -57,7 +57,7 @@ class GameOver extends Phaser.Scene {
       align: UIAttributes.CenterAlign
     })
 
-    this.cameras.main.fadeIn(2000, 0,0,0);
+    this.cameras.main.fadeIn(2000, 0,0,0)
   }
 
   update (time, delta) {
