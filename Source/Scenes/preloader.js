@@ -6,19 +6,21 @@ import { CharacterSpriteSheetLoaderData, CharacterSpriteSheets } from '../Global
 import { PlayerMarkerSpriteSheetLoaderData, PlayerMarkerSpriteSheet } from '../Globals/playerMarkerSpriteSheetLoaderData.js'
 import { EnemySpriteSheetLoaderData, EnemySpriteSheets } from '../Globals/enemySpriteSheetLoaderData.js'
 import { AnimatedObjectSpriteSheetLoaderData, AnimatedObjectSpriteSheets } from '../Globals/animatedObjectSpriteSheetLoaderData.js'
-import { TileSpriteSheetLoaderData } from '../Globals/tileSpriteSheetLoaderData.js'
-import AudioKeys from '../Keys/audioKeys.js'
-import MapKeys from '../Keys/mapKeys.js'
+// import { TileSpriteSheetLoaderData } from '../Globals/tileSpriteSheetLoaderData.js'
+// import AudioKeys from '../Keys/audioKeys.js'
+// import MapKeys from '../Keys/mapKeys.js'
 import { GameManagerKey } from '../Managers/gameManager.js'
 import GameManager from '../Managers/gameManager.js'
-import CharacterAnimations from '../Keys/characterAnimationKeys.js'
-import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
-import AnimatedObjectAnimations from '../Keys/animatedObjectsAnimationKeys.js'
-import InputOptionsKeys from '../Keys/inputOptionsKeys.js'
+// import CharacterAnimations from '../Keys/characterAnimationKeys.js'
+// import EnemyAnimations from '../Keys/enemyAnimationKeys.js'
+// import AnimatedObjectAnimations from '../Keys/animatedObjectsAnimationKeys.js'
+// import InputOptionsKeys from '../Keys/inputOptionsKeys.js'
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import { CharacterClasses, Races, getCharacterAttributes } from "../Globals/characterAttributes.js"
 import Character from "../Entities/Characters/character.js"
 import Debug from "../Globals/debug.js"
+import FontLabel from "../UIElements/fontLabel.js"
+import UIAttributes from "../Globals/uiAttributes.js"
 // import AtlasKeys from '../Keys/atlasKeys.js'
 
 class Preloader extends Phaser.Scene {
@@ -39,65 +41,78 @@ class Preloader extends Phaser.Scene {
 
   preload () {
     // Load individual Images. Images are identical to Sprites, but Images cannot be animated.
-    for (const key in ImageKeys) {
-      this.load.image(ImageKeys[key], `../../Public/Images/${ImageKeys[key]}.png`)
-    }
+    // for (const key in ImageKeys) {
+    //   this.load.image(ImageKeys[key], `../../Public/Images/${ImageKeys[key]}.png`)
+    // }
+    this.load.image(ImageKeys.GoldPieceImage, `../../Public/Images/${ImageKeys.GoldPieceImage}.png`)
 
     // Load the Tilemaps. Tilemaps are JSON files that contain information about the map, including the tileset used, the layers, and the objects.
     // Our Master Tileset is a single image that contains all of the tiles we will use in our game.  It was loaded in the previous for-loop as an Image.
-    for (const key in MapKeys) {
-      this.load.tilemapTiledJSON(MapKeys[key], `../../Public/Maps/${MapKeys[key]}.json`)
-    }
-
-    // Load individual Audio files. This will include loopable background music and sound effects.
-    for (const key in AudioKeys) {
-      this.load.audio(key, `../../Public/Audio/${key}.mp3`)
-    }
-
-    // We may not need to load any Sprite Atlases for this project, but if we do, this is how we would do it:
-    // for (const key in AtlasKeys) {
-    //   this.load.atlas(AtlasKeys[key].image, `../../Public/Images/${AtlasKeys[key].image}.png`, `../../Public/SpriteSheetData/${AtlasKeys[key].data}.json`)
+    // for (const key in MapKeys) {
+    //   this.load.tilemapTiledJSON(MapKeys[key], `../../Public/Maps/${MapKeys[key]}.json`)
     // }
 
-    // Spritesheets differ from Sprite Altases in that the individual images in a Spritesheet are all the same dimensions, and are arranged in a grid.
-    // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
-    // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what CharacterSpriteSheetLoaderData is
-    this.load.spritesheet(CharacterSpriteSheetLoaderData)
-    this.load.spritesheet(PlayerMarkerSpriteSheetLoaderData)
-    this.load.spritesheet(EnemySpriteSheetLoaderData)
-    this.load.spritesheet(TileSpriteSheetLoaderData)
-    this.load.spritesheet(AnimatedObjectSpriteSheetLoaderData)
+    // // Load individual Audio files. This will include loopable background music and sound effects.
+    // for (const key in AudioKeys) {
+    //   this.load.audio(key, `../../Public/Audio/${key}.mp3`)
+    // }
+
+    // // We may not need to load any Sprite Atlases for this project, but if we do, this is how we would do it:
+    // // for (const key in AtlasKeys) {
+    // //   this.load.atlas(AtlasKeys[key].image, `../../Public/Images/${AtlasKeys[key].image}.png`, `../../Public/SpriteSheetData/${AtlasKeys[key].data}.json`)
+    // // }
+
+    // // Spritesheets differ from Sprite Altases in that the individual images in a Spritesheet are all the same dimensions, and are arranged in a grid.
+    // // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
+    // // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what CharacterSpriteSheetLoaderData is
+    // this.load.spritesheet(CharacterSpriteSheetLoaderData)
+    // this.load.spritesheet(PlayerMarkerSpriteSheetLoaderData)
+    // this.load.spritesheet(EnemySpriteSheetLoaderData)
+    // this.load.spritesheet(TileSpriteSheetLoaderData)
+    // this.load.spritesheet(AnimatedObjectSpriteSheetLoaderData)
 
     // Load the webfont script. This is needed to load custom fonts.
     this.load.script('webfont', `../../Public/Fonts/webfont_loader.js`)
   }
 
   create () {
-    this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
-      console.log('Gamepad connected:', pad)
+    new FontLabel(this, {
+      x: this.game.canvas.width / 2,
+      y: this.game.canvas.height / 2,
+      title: 'Loading...',
+      fontFamily: UIAttributes.UIFontFamily,
+      fontSize: UIAttributes.TitleFontSize,
+      color: UIAttributes.UIColor,
+      align: UIAttributes.CenterAlign
     })
-    this.gameManager = new GameManager(this.game)
-    this.game.registry.set(GameManagerKey, this.gameManager)
 
-    // Animations are Global for whole Game => load them here and use anywhere
-    buildAllAnimations(this)
-
-    if (Debug.SkipTitleScene && Debug.SkipCharacterCreateScene) {
-      loadDebugDefaults(this, this.gameManager)
-    }
-
-    // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
-    if (Debug.SkipTitleScene) {
-      if (Debug.SkipCharacterCreateScene) {
-        this.gameManager.goToLevel(SceneKeys.Level1)
-      } else {
-        this.scene.start(SceneKeys.CharacterCreate)
+    this.time.delayedCall(100, () => {
+      this.input.gamepad.on(Phaser.Input.Gamepad.Events.CONNECTED, pad => {
+        console.log('Gamepad connected:', pad)
+      })
+      this.gameManager = new GameManager(this.game)
+      this.game.registry.set(GameManagerKey, this.gameManager)
+  
+      // Animations are Global for whole Game => load them here and use anywhere
+      // buildAllAnimations(this)
+  
+      if (Debug.SkipTitleScene && Debug.SkipCharacterCreateScene) {
+        loadDebugDefaults(this, this.gameManager)
       }
-    } else {
-      this.scene.add(SceneKeys.Title, new Title(), true)
-    }
-
-    this.scene.remove(SceneKeys.Preloader)
+  
+      // TODO: 'TitleKey' is what we acutally want, 'Level1Key' is just for testing
+      if (Debug.SkipTitleScene) {
+        if (Debug.SkipCharacterCreateScene) {
+          this.gameManager.goToLevel(SceneKeys.Level1)
+        } else {
+          this.scene.start(SceneKeys.CharacterCreate)
+        }
+      } else {
+        this.scene.add(SceneKeys.Title, new Title(), true)
+      }
+  
+      this.scene.remove(SceneKeys.Preloader)
+    })
   }
 }
 
