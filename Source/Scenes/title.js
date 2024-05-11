@@ -1,7 +1,6 @@
 import SceneKeys from "../Keys/sceneKeys.js"
 import { GameManagerKey } from "../Managers/gameManager.js"
 import InputManager from '../Managers/inputManager.js'
-import InputEventKeys from '../Keys/inputEventKeys.js'
 import OptionMenu from "../UIElements/optionMenu.js"
 import { Player1Keys, Player2Keys, Player3Keys, Player4Keys } from "../Keys/playerPropertyKeys.js"
 import AudioKeys, { TitleMusic, AlertSound, MenuChanged } from "../Keys/audioKeys.js"
@@ -58,11 +57,6 @@ class Title extends Phaser.Scene {
       this.load.audio(key, `../../Public/Audio/${key}.mp3`)
     }
 
-    // We may not need to load any Sprite Atlases for this project, but if we do, this is how we would do it:
-    // for (const key in AtlasKeys) {
-    //   this.load.atlas(AtlasKeys[key].image, `../../Public/Images/${AtlasKeys[key].image}.png`, `../../Public/SpriteSheetData/${AtlasKeys[key].data}.json`)
-    // }
-
     // Spritesheets differ from Sprite Altases in that the individual images in a Spritesheet are all the same dimensions, and are arranged in a grid.
     // Sprite Atlases are usually packed with a software tool and can contain images of different dimensions arranged in any way (including rotated to maximize space usage).
     // This function accepts an array of 'SpriteSheetFileConfig' objects, which is what CharacterSpriteSheetLoaderData is
@@ -99,11 +93,6 @@ class Title extends Phaser.Scene {
     }
 
     this.cameras.main.fadeIn(2000, 0,0,0)
-
-    //TODO: Build the Menu, including:
-    // 1. Title
-    // 2. Menu Options (1 Player Game, 2 Player Game, 3 Player Game, 4 Player Game, Credits)
-    // 3. Some sort of audio & visual markers to indicate which option will be selected when Enter/Return/X is pressed
   }
 
   buildMenu () {
@@ -158,12 +147,6 @@ function buildAllCharacterAnimations (preloader) {
 }
 
 function buildCharacterAnimations (preloader, characterType) {
-  // This function builds all of the animations for a single character type
-  // const playerKeys = [Player1Keys.Player, Player2Keys.Player, Player3Keys.Player, Player4Keys.Player]
-
-  // subtract 1 to account for the "__base" frame, divide by 4 to account for the 4 nearly duplicate rows (1 for each player color)
-  // const frameCount = (preloader.textures.get(CharacterSpriteSheets[`${characterType}`]).frameTotal - 1) / 4
-
   for (const animationKey in CharacterAnimations[characterType]) {
     const animation = CharacterAnimations[characterType][animationKey]
 
